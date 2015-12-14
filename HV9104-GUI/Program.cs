@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace HV9104_GUI
 {
-    static class Program
+    static class MVCDriver
     {
         /// <summary>
         /// The main entry point for the application.
@@ -14,9 +14,10 @@ namespace HV9104_GUI
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            
+            Controller controller = new Controller();
+  
         }
     }
 }
+  
