@@ -55,11 +55,18 @@ namespace HV9104_GUI
            triggerLevel = 1000;
            triggerType = Imports.ThresholdDirection.Rising;
            
-           channels[2].Enabled = 1;
+          /* channels[2].Enabled = 1;
            channels[2].Coupling = Imports.Coupling.PS5000A_DC;
            channels[2].VoltageRange = Imports.Range.Range_20V;
-           Imports.SetChannel(handle, channels[2].ChannelName, channels[2].Enabled, channels[2].Coupling, channels[2].VoltageRange, 0);
+           Imports.SetChannel(handle, channels[2].ChannelName, channels[2].Enabled, channels[2].Coupling, channels[2].VoltageRange, 0);*/
            
+        }
+
+        public void setACChannel(Channel acChannel)
+        {
+            channels[0] = acChannel;
+            channels[0].ChannelName = Imports.Channel.ChannelA + r;
+            channels[0].setChannelBuffers(bufferSize);
         }
 
 

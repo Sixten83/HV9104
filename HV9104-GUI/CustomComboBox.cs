@@ -49,6 +49,18 @@ namespace HV9104_GUI
             toolTip = new ToolTip();
         }
 
+        public string SetSelected
+        {
+            set
+            {
+                selectedMember.Text = value;
+            }
+            get
+            {
+                return selectedMember.Text;
+            }
+        }
+
         public string TextBoxHint
         {
             get
@@ -105,11 +117,6 @@ namespace HV9104_GUI
             {
                 this.hoverImage = value;
             }
-        }
-
-        public void setSelectedMember(String member)
-        {
-            selectedMember.Text = member;
         }
 
         public void addListMembers(String member)

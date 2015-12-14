@@ -42,17 +42,17 @@ namespace HV9104_GUI
 
         public enum Range : uint
         {
-            Range_10mV,
-            Range_20mV,
-            Range_50mV,
-            Range_100mV,
-            Range_200mV,
-            Range_500mV,
-            Range_1V,
-            Range_2V,
-            Range_5V,
-            Range_10V,
-            Range_20V,
+            Range_10mV = 10,
+            Range_20mV = 20,
+            Range_50mV = 50,
+            Range_100mV = 100,
+            Range_200mV = 200,
+            Range_500mV = 500,
+            Range_1V = 1000,
+            Range_2V = 2000,
+            Range_5V = 5000,
+            Range_10V = 10000,
+            Range_20V = 20000,
             Range_MAX_RANGE
         }
 

@@ -12,6 +12,8 @@ namespace HV9104_GUI
     {
         MeasuringForm measuringForm;
         ControlForm controlForm;
+        PicoScope picoScope;
+        Channel acChannel, dcChannel, impulseChannel;
  
         public Controller()
         {
@@ -20,6 +22,14 @@ namespace HV9104_GUI
             measuringForm = new MeasuringForm();
             controlForm = new ControlForm();            
             controlForm.startMeasuringForm(measuringForm);
+            //***********************************************************************************************************
+            //***                                     PICOSCOPE AND CHANNELS SETUP                                   ****
+            //***********************************************************************************************************
+
+            picoScope = new PicoScope();
+            picoScope.openDevice();
+
+            
             this.measuringForm.triggerWindow.okButton.Click += new System.EventHandler(this.triggerMenuOkButton_Click);
             this.measuringForm.closeButton.Click += new System.EventHandler(this.formsCloseButton_Click);
             this.controlForm.closeButton.Click += new System.EventHandler(this.formsCloseButton_Click);
@@ -48,8 +58,6 @@ namespace HV9104_GUI
             this.controlForm.setupView.impulseStage1RadioButton.Click += new System.EventHandler(impulseStage1RadioButton_Click);
             this.controlForm.setupView.impulseStage2RadioButton.Click += new System.EventHandler(impulseStage2RadioButton_Click);
             this.controlForm.setupView.impulseStage3RadioButton.Click += new System.EventHandler(impulseStage3RadioButton_Click);
-
-
             //***********************************************************************************************************
             //***                                     RUN VIEW EVENT LISTENERS                                       ****
             //***********************************************************************************************************
@@ -163,7 +171,11 @@ namespace HV9104_GUI
 
         private void acEnableCheckBox_Click(object sender, EventArgs e)
         {
-
+            if (this.measuringForm.acEnableCheckBox.isChecked && picoScope.Handle == 0)
+            {
+                picoScope.openDevice();
+              
+            }
 
         }
 
