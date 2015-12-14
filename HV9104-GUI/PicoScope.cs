@@ -65,7 +65,7 @@ namespace HV9104_GUI
         public void setACChannel(Channel acChannel)
         {
             channels[0] = acChannel;
-            channels[0].ChannelName = Imports.Channel.ChannelA + r;
+           // channels[0].ChannelName = Imports.Channel.ChannelA + r;
             channels[0].setChannelBuffers(bufferSize);
         }
 
