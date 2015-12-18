@@ -536,6 +536,14 @@ namespace HV9104_GUI
                                                     short handle,
                                                     short state);
 
+       [DllImport(_DRIVER_FILENAME, EntryPoint = "ps5000aGetAnalogueOffset")]
+        public static extern uint GetAnalogueOffset(                                                            
+                                                            short handle,
+                                                            Range range,
+                                                            Coupling coupling,
+                                                            out float maximumVoltage,
+                                                            out float minimumVoltage);
+
         #endregion
     }
 }

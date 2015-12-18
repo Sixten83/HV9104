@@ -24,7 +24,11 @@ namespace HV9104_GUI
         public int                 index;
         short               adMaxValue;
         ushort[]            inputRanges = { 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000 };
-        
+        double[][]          incrementValues;
+        int                 incrementIndex;
+        float               dcOffset = 0;
+        int                 polarity = 1;
+
         public struct ScaledData
         {
             public double[] x;
@@ -37,7 +41,120 @@ namespace HV9104_GUI
             this.coupling = Imports.Coupling.PS5000A_DC;
             this.voltageRange = Imports.Range.Range_20V;
             representation = new double[5];
-            
+            setIncrementValues();
+        }
+
+        public int rangeToVolt()
+        {
+            return inputRanges[(int)voltageRange]  /1000;
+        }
+
+        public int Polarity
+        {
+            set
+            {
+                this.polarity = value;
+            }
+            get
+            {
+                return this.polarity;
+            }
+        }
+
+        public float DCOffset
+        {   
+            set
+            {
+                this.dcOffset = value;
+            }
+            get
+            {
+                return this.dcOffset;
+            }
+        }
+
+        public int IncrementIndex
+        {
+            set
+            {    
+                this.incrementIndex = value;
+            }
+        }
+
+        private void setIncrementValues()
+        {
+            incrementValues = new double[9][];
+
+            //if (e.Text.Equals("2 ms/Div"))
+                
+                int r = 0;
+                decimal increment;
+
+                incrementValues[0] = new double[1600];
+                //X values for 2 ms/Div
+                
+                for(increment = -10; increment < 10 ; increment += 0.0125m )
+                {
+                    incrementValues[0][r++] = (double)increment;
+                }
+
+               
+                incrementValues[1] = new double[1600];
+                //X values for 5 ms/Div
+                for (increment = -25, r = 0; increment < 25; increment += 0.03125m)
+                {
+                    incrementValues[1][r++] = (double)increment;
+                }
+
+                incrementValues[2] = new double[1600];
+                //X values for 10 ms/Div
+                for (increment = -50, r = 0; increment < 50; increment += 0.0625m)
+                {
+                    incrementValues[2][r++] = (double)increment;
+                }
+
+                incrementValues[3] = new double[1000];
+                //X values for 200 ns/Div
+                for (increment = -1, r = 0; increment < 1; increment += 0.002m)
+                {
+                    incrementValues[3][r++] = (double)increment;
+                }
+
+                incrementValues[4] = new double[2500];
+                //X values for 500 ns/Div
+                for (increment = -2.5m, r = 0; increment < 2.5m; increment += 0.002m)
+                {
+                    incrementValues[4][r++] = (double)increment;
+                }
+
+                incrementValues[5] = new double[5000];
+                //X values for 1 us/Div
+                for (increment = -5, r = 0; increment < 5; increment += 0.002m)
+                {
+                    incrementValues[5][r++] = (double)increment;
+                }
+
+                incrementValues[6] = new double[10000];
+                //X values for 2 us/Div
+                for (increment = -10, r = 0; increment < 10; increment += 0.002m)
+                {
+                    incrementValues[6][r++] = (double)increment;
+                }
+
+                incrementValues[7] = new double[25000];
+                //X values for 5 us/Div
+                for (increment = -25, r = 0; increment < 25; increment += 0.002m)
+                {
+                    incrementValues[7][r++] = (double)increment;
+                }
+
+                incrementValues[8] = new double[50000];
+                //X values for 10 us/Div
+                for (increment = -50, r = 0; increment < 50; increment += 0.002m)
+                {
+                    incrementValues[8][r++] = (double)increment;
+                }
+         
         }
 
         public double Average
@@ -128,90 +245,32 @@ namespace HV9104_GUI
 
         public void processMaxMinData(int samples, int startIndex)
         {
-            scaledData = new ScaledData[2];
-            scaledData[0].x = new double[samples];
+            scaledData = new ScaledData[2];            
             scaledData[0].y = new double[samples];
-            scaledData[1].x = new double[samples];
-            scaledData[1].y = new double[samples];
-
-            double maxTemp, minTemp = 0;            
-            double factor = ((double)inputRanges[(int)voltageRange] * scaleFactor) / adMaxValue;
-            max = -adMaxValue;
-            min = adMaxValue;
-            average = 0;
-            int r = startIndex;
-            for (; r < startIndex + samples; r++)
-            {
-                
-                maxTemp = minTemp = channelBuffers[0][r];
-                average += channelBuffers[0][r];
-                if (maxTemp > max)
-                    max = maxTemp;
-                if (minTemp < min)
-                    min = minTemp;
-
-
-               
-            }
-
-            average = (average * factor)/ (r - startIndex - 1);
-            average /= 1000;
-            max = (max * factor) / 1000;
-            min = (min * factor) / 1000;
+            double factor = (((double)inputRanges[(int)voltageRange] * scaleFactor) / adMaxValue) / 1000;
+            Array.Copy(channelBuffers[0], startIndex, scaledData[0].y, 0, samples);
+            average = factor * scaledData[0].y.Sum() / samples;
+            max = factor * scaledData[0].y.Max();
+            min = factor * scaledData[0].y.Min();
             rms = max / Math.Sqrt(2);
             amplitud = max - min;
             updateRepresentation();
-
         }
 
-        public ScaledData processData(int samples, int startIndex, double increment, double timeBase)
+        public ScaledData processData(int samples, int startIndex)
         {
-            double maxTemp, minTemp;
-            int maxSamples = (int)((10 * timeBase)/increment) + 1;
             scaledData = new ScaledData[2];
-            scaledData[0].x = new double[maxSamples];
-            scaledData[0].y = new double[maxSamples];
-            scaledData[1].x = new double[maxSamples];
-            scaledData[1].y = new double[maxSamples];
-            double xStart = -(timeBase * 10) / 2;
-            double xStop = (timeBase * 10) / 2;
-
-            
-
-            //double factor = ((double)inputRanges[(int)voltageRange] * scaleFactor ) / adMaxValue;
-            double factor = ((double)inputRanges[10] * scaleFactor) / adMaxValue;
-            
-            max = -(double)inputRanges[(int)voltageRange] * scaleFactor;
-            min = (double)inputRanges[(int)voltageRange] * scaleFactor;
-            average = 0;
-            int r = startIndex;
-            for (; xStart <= xStop; r++)
-            {
-               
-                scaledData[0].y[r - startIndex] = ((double)channelBuffers[0][r] * factor) / 1000;
-                
-                maxTemp =  minTemp = scaledData[0].y[r - startIndex];
-                average += scaledData[0].y[r - startIndex]; 
-                if (maxTemp > max)
-                    max = maxTemp;
-                if (minTemp < min)
-                    min = minTemp;
-                scaledData[0].x[r - startIndex] = xStart;
-                
-                xStart += increment;
-            }
-
-            scaledData[0].x[maxSamples - 1] = scaledData[0].x[maxSamples - 2];
-            scaledData[0].y[maxSamples - 1] = scaledData[0].y[maxSamples - 2];
-
-            double scaleToRange = (double)inputRanges[(int)voltageRange] / (double)inputRanges[10];
-            max = max * scaleToRange;
-            min = min * scaleToRange;
-
-            average = average * scaleToRange / (r - startIndex - 1);
-            
+            scaledData[0].x = new double[samples];
+            scaledData[0].y = new double[samples];
+           
+            double factor = (((double)inputRanges[(int)voltageRange] * scaleFactor) / adMaxValue) / 1000;            
+            Array.Copy(channelBuffers[0], startIndex, scaledData[0].y, 0, samples);
+            Array.Copy(incrementValues[incrementIndex], 0, scaledData[0].x, 0, samples);
+            average = factor * scaledData[0].y.Sum() / samples;
+            max = factor * scaledData[0].y.Max();
+            min = factor * scaledData[0].y.Min();
             rms = max / Math.Sqrt(2);
-            amplitud = max - min;
+            amplitud = max - min;          
             
             updateRepresentation();
 

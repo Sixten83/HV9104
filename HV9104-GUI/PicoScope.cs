@@ -32,8 +32,8 @@ namespace HV9104_GUI
         public bool streamStarted = false;
         private int bufferSize = 1024 * 100;//1024 * 100; /*  *100 is to make sure buffer large enough */
         uint streamingSamples = 3000;
-        uint streamingInterval = 25;
-        private Imports.ReportedTimeUnits streamingIntervalUnits = Imports.ReportedTimeUnits.MicroSeconds;
+        uint streamingInterval = 31250;
+        private Imports.ReportedTimeUnits streamingIntervalUnits = Imports.ReportedTimeUnits.NanoSeconds;
         uint blockPreTriggerSamples = 100;
         uint blockSamples = 2500;
         uint blockTimeBase = 1;
@@ -91,6 +91,7 @@ namespace HV9104_GUI
             channels[0].setChannelBuffers(bufferSize);
             channels[0].Enabled = 1;
             channels[0].setRepresentationIndex(2);
+            channels[0].IncrementIndex = 1; 
             Imports.SetChannel(handle, channels[0].ChannelName, channels[0].Enabled, channels[0].Coupling, channels[0].VoltageRange, 0);
         }
 
@@ -103,6 +104,7 @@ namespace HV9104_GUI
             channels[1].setChannelBuffers(bufferSize);
             channels[1].Enabled = 1;            
             channels[1].setRepresentationIndex(4);
+            channels[1].IncrementIndex = 1; 
             Imports.SetChannel(handle, channels[1].ChannelName, channels[1].Enabled, channels[1].Coupling, channels[1].VoltageRange, 0);
         }
 
@@ -114,6 +116,7 @@ namespace HV9104_GUI
             channels[2].ADMaxValue = getADMaxValue();
             channels[2].setChannelBuffers(bufferSize);
             channels[2].setRepresentationIndex(0);
+            channels[2].IncrementIndex = 4; 
             Imports.SetChannel(handle, channels[2].ChannelName, 0, channels[2].Coupling, channels[2].VoltageRange, 0);
         }
 
@@ -206,7 +209,7 @@ namespace HV9104_GUI
             _autoStop = false;
             _overflow = 0;
             status = Imports.RunStreaming(handle, ref streamingInterval, streamingIntervalUnits, preTrigger, streamingSamples - preTrigger, 1, streamingSamples, Imports.RatioMode.Aggregate, (uint)bufferSize);
-                Console.WriteLine("RunFastStreaming Status : {0} ", status);
+               // Console.WriteLine("RunFastStreaming Status : {0} ", status);
           if (_autoStop)
                 Imports.Stop(handle);
         }
@@ -398,7 +401,7 @@ namespace HV9104_GUI
         {
             uint status;
             channels[index].VoltageRange = voltageRange;
-            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, 0);
+            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, channels[index].DCOffset);
             Console.WriteLine("VoltageRange Status: " + (Imports.Range)voltageRange);     
         }
 
@@ -406,23 +409,34 @@ namespace HV9104_GUI
         {
             uint status;
             channels[index].Coupling = coupling;
-            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, 0);
+            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, channels[index].DCOffset);
             Console.WriteLine("Coupling Status: {0}", status); 
+        }
+
+        public void setDCoffset(int index, float offset)
+        {
+            float max, min;
+            uint status;
+            channels[index].DCOffset = offset;
+            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, channels[index].DCOffset);
+            Console.WriteLine("setDCoffset status {0}", status); 
         }
 
         public void enableChannel(int index)
         {
             uint status;
             channels[index].Enabled = 1;
-            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, 0);
+            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, channels[index].DCOffset);
             Console.WriteLine("Enable Status: {0}", status); 
+            
+
         }
 
         public void disableChannel(int index)
         {
             uint status;
             channels[index].Enabled = 0;
-            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, 0);
+            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, channels[index].DCOffset);
             Console.WriteLine("Disable Status: {0}", status); 
         }
 

@@ -20,7 +20,7 @@ namespace HV9104_GUI
         public MeasuringForm()
         {
             InitializeComponent();
-            this.Location = Screen.AllScreens[0].WorkingArea.Location;
+            this.Location = Screen.AllScreens[1].WorkingArea.Location;
 
 
             triggerWindow = new TriggerWindow();

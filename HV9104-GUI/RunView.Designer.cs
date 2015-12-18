@@ -223,7 +223,7 @@
             this.dcValueLabel.Name = "dcValueLabel";
             this.dcValueLabel.Size = new System.Drawing.Size(227, 97);
             this.dcValueLabel.TabIndex = 1;
-            this.dcValueLabel.Text = "100.2";
+            this.dcValueLabel.Text = "0";
             this.dcValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // customPanel2
@@ -279,7 +279,7 @@
             this.acValueLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.acValueLabel.Size = new System.Drawing.Size(227, 97);
             this.acValueLabel.TabIndex = 1;
-            this.acValueLabel.Text = "-6";
+            this.acValueLabel.Text = "0";
             this.acValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // customPanel7
@@ -627,11 +627,11 @@
             this.preassureLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.preassureLabel.Location = new System.Drawing.Point(19, 33);
             this.preassureLabel.Name = "preassureLabel";
-            this.preassureLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.preassureLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.preassureLabel.Size = new System.Drawing.Size(139, 97);
             this.preassureLabel.TabIndex = 1;
-            this.preassureLabel.Text = "100";
-            this.preassureLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.preassureLabel.Text = "1";
+            this.preassureLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // pressureTextBox
             // 
@@ -721,11 +721,11 @@
             this.impulseGapLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.impulseGapLabel.Location = new System.Drawing.Point(15, 33);
             this.impulseGapLabel.Name = "impulseGapLabel";
-            this.impulseGapLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.impulseGapLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.impulseGapLabel.Size = new System.Drawing.Size(139, 97);
             this.impulseGapLabel.TabIndex = 1;
-            this.impulseGapLabel.Text = "100";
-            this.impulseGapLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.impulseGapLabel.Text = "50";
+            this.impulseGapLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // customPanel13
             // 
@@ -1089,7 +1089,7 @@
             this.currentInputLabel.Name = "currentInputLabel";
             this.currentInputLabel.Size = new System.Drawing.Size(199, 97);
             this.currentInputLabel.TabIndex = 1;
-            this.currentInputLabel.Text = "30.5";
+            this.currentInputLabel.Text = "0";
             this.currentInputLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // voltageInputLabel
@@ -1100,7 +1100,7 @@
             this.voltageInputLabel.Name = "voltageInputLabel";
             this.voltageInputLabel.Size = new System.Drawing.Size(165, 97);
             this.voltageInputLabel.TabIndex = 1;
-            this.voltageInputLabel.Text = "200";
+            this.voltageInputLabel.Text = "0";
             this.voltageInputLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // RunView
