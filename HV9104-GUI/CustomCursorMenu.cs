@@ -84,7 +84,7 @@ namespace HV9104_GUI
                 {
                     Form test = this.Owner;
                     Point startPoint = test.PointToScreen(new Point());
-                    Console.WriteLine("" + startPoint);
+                    
                 }
             }
 
@@ -93,7 +93,7 @@ namespace HV9104_GUI
             moveForm = 1; 
             formX = e.X; 
             formY = e.Y;
-            Console.WriteLine("hej");
+            
         }
         private void topBorderPanel_MouseUp(object sender, MouseEventArgs e)
         { 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace HV9104_GUI
 {
@@ -14,7 +15,10 @@ namespace HV9104_GUI
         ControlForm controlForm;
         PicoScope picoScope;
         Channel acChannel, dcChannel, impulseChannel;
- 
+        Timer loopTimer, triggerTimer;
+        bool fastStream,stream;
+        bool blockCapture;
+
         public Controller()
         {
             Application.EnableVisualStyles();
@@ -22,14 +26,32 @@ namespace HV9104_GUI
             measuringForm = new MeasuringForm();
             controlForm = new ControlForm();            
             controlForm.startMeasuringForm(measuringForm);
+
             //***********************************************************************************************************
             //***                                     PICOSCOPE AND CHANNELS SETUP                                   ****
             //***********************************************************************************************************
 
-            picoScope = new PicoScope();
-            picoScope.openDevice();
-
+            picoScope = new PicoScope();            
+            uint status = picoScope.openDevice();
+            if (status != Imports.PICO_OK)
+            {
+                Console.WriteLine("Unable to open device");
+            }
+            picoScope.setACChannel(acChannel = new Channel());
+            picoScope.setDCChannel(dcChannel = new Channel());
+            picoScope.setImpulseChannel(impulseChannel = new Channel());
+            picoScope.setTriggerChannel(Imports.Channel.ChannelA);
+            picoScope.Resolution = Imports.DeviceResolution.PS5000A_DR_12BIT;
+            picoScope.setFastStreamDataBuffer();
+            fastStream = true;
+            loopTimer = new Timer();
+            loopTimer.Tick += new System.EventHandler(this.loopTimer_Tick);
+            loopTimer.Interval = 10;
+            triggerTimer = new Timer();
+            triggerTimer.Tick += new System.EventHandler(this.triggerTimer_Tick);
+            triggerTimer.Interval = 3000;
             
+            /////////////////
             this.measuringForm.triggerWindow.okButton.Click += new System.EventHandler(this.triggerMenuOkButton_Click);
             this.measuringForm.closeButton.Click += new System.EventHandler(this.formsCloseButton_Click);
             this.controlForm.closeButton.Click += new System.EventHandler(this.formsCloseButton_Click);
@@ -126,31 +148,215 @@ namespace HV9104_GUI
             this.measuringForm.impulseEnableCheckBox.Click += new System.EventHandler(impulseEnableCheckBox_Click);
             //Common Controls Listeners
             this.measuringForm.resolutionComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(resolutionComboBox_valueChange);
-            this.measuringForm.timeBaseComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseVoltageRangeComboBox_valueChange);
+            this.measuringForm.timeBaseComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(timeBaseComboBox_valueChange);
             this.measuringForm.triggerSetupButton.Click += new System.EventHandler(triggerSetupButton_Click);
-
-
-
+            
+            
+            //var stopwatch = Stopwatch.StartNew();
+               
+            loopTimer.Start();
             Application.Run(controlForm); // Måste vara sist!!!
             
+        }    
+       
+         //***********************************************************************************************************
+        //***                                    PROGRAM LOOP                                                   *****
+        //***********************************************************************************************************
+        private void loopTimer_Tick(object sender, EventArgs e)
+        {
+           
+            if(fastStream)
+            {
+                if (picoScope._autoStop)
+                {
+                    if (picoScope._overflow == 0)
+                    {
+                        acChannel.processFastStreamData();
+                        this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                        dcChannel.processFastStreamData();
+                        this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                        Console.WriteLine(dcChannel.index);
+                    }
+                    else
+                        autoSetVoltageRange();
+                    picoScope.streamStarted = false;
+                    picoScope._autoStop = false;
+                }
+                else if(!picoScope.streamStarted)
+                {
+                   picoScope.startFastStreaming();
+                }
+                else if (!picoScope._autoStop && picoScope.streamStarted)
+                {
+                    picoScope.getFastStreamValues();
+                }                
+            }    
+            if(stream)
+            {
+                if (picoScope._autoStop)
+                {
+                    int trigAt = (int)picoScope._trigAt;
+
+                        if(this.measuringForm.acEnableCheckBox.isChecked)
+                        {
+                           // Console
+                            this.measuringForm.chart.Series["acSeries"].Points.Clear();
+                           // this.measuringForm.chart.addPoints("acSeries", acChannel.processData(1600, trigAt, 20 * (double)picoScope.TimePerDivision / 3000, picoScope.TimePerDivision), 1500);
+
+                            Channel.ScaledData data = acChannel.processData(1600, trigAt, 20 * (double)picoScope.TimePerDivision / 3000, picoScope.TimePerDivision);
+                            
+                            this.measuringForm.chart.Series["acSeries"].Points.DataBindXY(data.x,data.y);
+                            this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                        }
+                        else
+                        {
+                            acChannel.processMaxMinData(1600, trigAt);
+                            this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                        }
+
+                        if (this.measuringForm.dcEnableCheckBox.isChecked)
+                        {
+                            this.measuringForm.chart.Series["dcSeries"].Points.Clear();
+                           
+                            this.measuringForm.chart.addPoints("dcSeries", dcChannel.processData(1600, trigAt, 20 * (double)picoScope.TimePerDivision / 3000, picoScope.TimePerDivision), 1500);
+                            this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                        }
+                        else
+                        {
+                            dcChannel.processMaxMinData(1600, trigAt);
+                            this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                        }
+                       
+                    picoScope.streamStarted = false;
+                    picoScope._autoStop = false;
+                }
+                else if (!picoScope.streamStarted)
+                {
+                    picoScope.startStreaming();
+                }
+                else if (!picoScope._autoStop && picoScope.streamStarted)
+                {
+                    picoScope.getStreamValues();
+                }    
+            }
+            if (blockCapture)
+            {
+                if(picoScope.getBlockValues() == 0)
+                {
+                    triggerTimer.Stop();
+                    rebootStreaming();
+                    if (this.measuringForm.impulseRadioButton.isChecked)
+                    {
+                        this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
+                        this.measuringForm.chart.addPoints("impulseSeries", impulseChannel.processData((int)picoScope.BlockSamples, 0, 0.002, picoScope.TimePerDivision), (int)picoScope.BlockSamples);
+                        this.controlForm.runView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    }
+                    else
+                    {
+                        impulseChannel.processMaxMinData((int)picoScope.BlockSamples, 0);
+                        this.controlForm.runView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    }
+                }
+            }
         }
+
+        //***********************************************************************************************************
+        //***                                    PICOSCOPE RUTINES                                              *****
+        //***********************************************************************************************************
+        private void triggerTimer_Tick(object sender, EventArgs e)
+        {
+            triggerTimer.Stop();
+            rebootStreaming();
+        }
+
+         public void rebootStreaming()
+        {
+            //Stop streaming
+            picoScope.stopStreaming();
+            blockCapture = false;
+            picoScope.enableChannel(0);
+            picoScope.enableChannel(1);
+            picoScope.disableChannel(2);
+            picoScope.setTriggerChannel(Imports.Channel.ChannelA);
+            if (this.measuringForm.acEnableCheckBox.isChecked || this.measuringForm.dcEnableCheckBox.isChecked)
+            {
+                picoScope.setStreamDataBuffers();
+                stream = true;
+            }
+            else
+            {
+                picoScope.setFastStreamDataBuffer();
+                fastStream = true;
+            }
+            picoScope.streamStarted = false;
+            picoScope._autoStop = false;
+        }
+
+        public void pauseStream()
+        {
+            //fastStream = false;
+            picoScope.stopStreaming();
+        }
+
+        public void rebootStream()
+        {
+
+            picoScope.streamStarted = false;
+            picoScope._autoStop = false;
+           // fastStream = true;
+        }
+
+        public void autoSetVoltageRange()
+        {
+            pauseStream();
+            int ch = (int)picoScope._overflow & 1;
+            if(ch > 0)
+            {
+                acChannel.VoltageRange++;
+                picoScope.setChannelVoltageRange(0, acChannel.VoltageRange);
+    
+            }
+
+            ch = (int)picoScope._overflow & 2;
+            if (ch > 0)
+            {
+                dcChannel.VoltageRange++;
+                picoScope.setChannelVoltageRange(1, dcChannel.VoltageRange);
+            }
+            rebootStream();
+            
+        }
+
         //***********************************************************************************************************
         //***                                    MEASURING FORM EVENT HANDLERS                                  *****
         //***********************************************************************************************************
 
         private void acdcRadioButton_Click(object sender, EventArgs e)
         {
+            picoScope.TimePerDivision = 5;
+            this.measuringForm.chart.setVoltsPerDiv(4);
+            this.measuringForm.chart.setTimePerDiv(5);
+            this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
             this.measuringForm.timeBaseComboBox.setCollection = new string[] {
+        "2 ms/Div",
         "5 ms/Div",
-        "10 ms/Div",
-        "20 ms/Div",
-        "50 ms/Div",
-        "100 ms/Div"};
-
+        "10 ms/Div"};
+            this.measuringForm.timeBaseComboBox.SetSelected = "5 ms/Div";
         }
 
         private void impulseRadioButton_Click(object sender, EventArgs e)
         {
+            stream = false;
+            picoScope.setFastStreamDataBuffer();
+            picoScope.TimePerDivision = 0.5;
+            this.measuringForm.chart.setVoltsPerDiv(1);
+            this.measuringForm.chart.setTimePerDiv(0.5);
+            this.measuringForm.acEnableCheckBox.isChecked = false;
+            this.measuringForm.dcEnableCheckBox.isChecked = false;
+            this.measuringForm.chart.Series["acSeries"].Points.Clear();
+            this.measuringForm.chart.Series["dcSeries"].Points.Clear();
+            fastStream = true;
+
             this.measuringForm.timeBaseComboBox.setCollection = new string[] {
         "200 ns/Div",
         "500 ns/Div",
@@ -158,45 +364,75 @@ namespace HV9104_GUI
         "2 us/Div",
         "5 us/Div",
         "10 us/Div"};
-
-        }
-
-         
-
-          private void acVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
-        {
+            this.measuringForm.timeBaseComboBox.SetSelected = "500 ns/Div";
            
+        }   
+    
+       
+        private void acVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            //double[] range = {0.2, 0.5, 1, 2, 5, 10, 20};
+            double[] range = { 0.04, 0.1, 0.2, 0.4, 1, 2, 4 };
+            pauseStream();            
+            picoScope.setChannelVoltageRange(0, (Imports.Range)e.Value + 4);
+            this.measuringForm.chart.setVoltsPerDiv(4);
+           // this.measuringForm.chart.setVoltsPerDiv(range[(int)e.Value]);
+            rebootStream();
         }
 
 
         private void acEnableCheckBox_Click(object sender, EventArgs e)
         {
-            if (this.measuringForm.acEnableCheckBox.isChecked && picoScope.Handle == 0)
+            
+            if (this.measuringForm.acEnableCheckBox.isChecked)
+            {             
+                fastStream = false;
+                if(!stream)
+                    picoScope.setStreamDataBuffers();
+                stream = true;
+            }
+            if (!this.measuringForm.acEnableCheckBox.isChecked)
             {
-                picoScope.openDevice();
-              
+                this.measuringForm.chart.Series["acSeries"].Points.Clear();
             }
 
         }
 
          private void dcVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-
+            pauseStream();
+            picoScope.setChannelVoltageRange(1, (Imports.Range)e.Value + 4);
+            rebootStream();
             
         }
 
 
         private void dcEnableCheckBox_Click(object sender, EventArgs e)
         {
+            
+            if (this.measuringForm.dcEnableCheckBox.isChecked)
+            {
 
-
+                fastStream = false;
+                if (!stream)
+                    picoScope.setStreamDataBuffers();
+                stream = true;
+            }
+            if (!this.measuringForm.dcEnableCheckBox.isChecked)
+            {
+                this.measuringForm.chart.Series["dcSeries"].Points.Clear();
+            }
         }
 
 
           
         private void impulseVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-
+            double[] range = { 0.04, 0.1, 0.2, 0.4, 1, 2, 4 };
+            pauseStream();
+            picoScope.setChannelVoltageRange(0, (Imports.Range)e.Value + 4);
+            this.measuringForm.chart.setVoltsPerDiv(range[(int)e.Value]);
+            rebootStream();
             
         }
 
@@ -208,15 +444,79 @@ namespace HV9104_GUI
 
         private void resolutionComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-
-
-            
+            pauseStream();
+            picoScope.Resolution = (Imports.DeviceResolution)e.Value;
+            rebootStream();
         }
 
         private void timeBaseComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-
-            
+            if(this.measuringForm.acdcRadioButton.isChecked)
+            {
+                this.measuringForm.chart.Series["acSeries"].Points.Clear();
+                this.measuringForm.chart.Series["dcSeries"].Points.Clear();
+                if (e.Text.Equals("2 ms/Div"))
+                {
+                    picoScope.StreamingInterval = 13;
+                    picoScope.TimePerDivision = 2;
+                    this.measuringForm.chart.setTimePerDiv(2);
+                   
+                }
+                else if(e.Text.Equals("5 ms/Div"))
+                {
+                    picoScope.StreamingInterval = 33;
+                    picoScope.TimePerDivision = 5;
+                    this.measuringForm.chart.setTimePerDiv(5);
+                }
+                else
+                {
+                    picoScope.StreamingInterval = 67;
+                    picoScope.TimePerDivision = 10;
+                    this.measuringForm.chart.setTimePerDiv(10);
+                }               
+               
+            }
+            else
+            {
+                if (e.Text.Equals("200 ns/Div"))
+                {
+                    picoScope.BlockSamples = 1000;
+                    picoScope.TimePerDivision = 0.2;
+                    this.measuringForm.chart.setTimePerDiv(0.2);
+                   
+                }
+                else if(e.Text.Equals("500 ns/Div"))
+                {
+                    picoScope.BlockSamples = 2500;
+                    picoScope.TimePerDivision = 0.5;
+                    this.measuringForm.chart.setTimePerDiv(0.5);
+                }
+                else if(e.Text.Equals("1 us/Div"))
+                {
+                    picoScope.BlockSamples = 5000;
+                    picoScope.TimePerDivision = 1;
+                    this.measuringForm.chart.setTimePerDiv(1);
+                }
+                else if(e.Text.Equals("2 us/Div"))
+                {
+                    picoScope.BlockSamples = 10000;
+                    picoScope.TimePerDivision = 2;
+                    this.measuringForm.chart.setTimePerDiv(2);
+                }
+                else if(e.Text.Equals("5 us/Div"))
+                {
+                    picoScope.BlockSamples = 25000;
+                    picoScope.TimePerDivision = 5;
+                    this.measuringForm.chart.setTimePerDiv(5);
+                }
+                else if(e.Text.Equals("10 us/Div"))
+                {
+                    picoScope.BlockSamples = 50000;
+                    picoScope.TimePerDivision = 10;
+                    this.measuringForm.chart.setTimePerDiv(10);
+                }
+            }
+             
         }
          
         private void triggerSetupButton_Click(object sender, EventArgs e)
@@ -232,20 +532,25 @@ namespace HV9104_GUI
 
          private void acOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-
+             //representation index: 0 = Vmax, 1 = Vmin, 2 = Vrms, 3 = vpk-vpk, 4 = Vavg
+             int[] selection = { 2, 0, 1, 3 };  
+             acChannel.setRepresentationIndex(selection[(int)e.Value]);
 
         }
 
           private void dcOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-
+            //representation index: 0 = Vmax, 1 = Vmin, 2 = Vrms, 3 = vpk-vpk, 4 = Vavg
+              int[] selection = {4,0,1,3};              
+              dcChannel.setRepresentationIndex(selection[(int)e.Value]);
 
         }
 
           private void impulseOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-
-
+            //representation index: 0 = Vmax, 1 = Vmin, 2 = Vrms, 3 = vpk-vpk, 4 = Vavg
+            int[] selection = { 0, 1};  
+            impulseChannel.setRepresentationIndex(selection[(int)e.Value]);
         }
 
 
@@ -339,7 +644,33 @@ namespace HV9104_GUI
          
         private void triggerButton_Click(object sender, EventArgs e)
         {
-
+            
+            //Stop streaming mode
+            stream = false;
+            fastStream = false;
+            picoScope.stopStreaming();          
+            //RunBLock mode
+            blockCapture = true;
+            //Disable Channel A,B,D Enable Channel C
+            picoScope.disableChannel(0);
+            picoScope.disableChannel(1);
+            picoScope.enableChannel(2);            
+            //Set databuffer
+            picoScope.setBlockDataBuffer();            
+            //Set trigger Channel/Level/Type
+            picoScope.setTriggerChannel(Imports.Channel.ChannelC);
+            picoScope.setTriggerLevel(1000);
+            picoScope.setTriggerType(Imports.ThresholdDirection.Rising);
+            //Setup Trigger / Chopping time
+            picoScope.setupSignalGen(100000);
+            //Start Block
+            picoScope.startBlock();
+            //Trigger Signal gen
+            picoScope.triggerSignalGen();
+            //Start watchDog
+            triggerTimer.Start();
+            
+            
 
         }
 
@@ -483,7 +814,10 @@ namespace HV9104_GUI
         //***********************************************************************************************************
         private void acCheckBox_Click(object sender, EventArgs e)
         {
-
+            if(this.controlForm.setupView.acCheckBox.isChecked)
+            {
+                fastStream = true;
+            }
 
         }
 
@@ -608,6 +942,9 @@ namespace HV9104_GUI
 
         private void formsCloseButton_Click(object sender, EventArgs e)
         {
+            loopTimer.Stop();
+            loopTimer.Dispose();
+            picoScope.closeDevice();
             this.measuringForm.Close();
             this.controlForm.Close();
         }

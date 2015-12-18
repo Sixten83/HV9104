@@ -13,7 +13,9 @@ namespace HV9104_GUI
     public class CustomChart : Chart
     {
         public ChartArea chartArea1;
-        Series series1;
+        Series acSeries;
+        Series dcSeries;
+        Series impulseSeries;
         Series xCursor1;
         Series xCursor2;
         Series yCursor1;
@@ -25,7 +27,9 @@ namespace HV9104_GUI
         {
             chartArea1 = new ChartArea();
 
-            series1 = new Series();
+            acSeries = new Series();
+            dcSeries = new Series();
+            impulseSeries = new Series();
             xCursor1 = new Series();
             xCursor2 = new Series();
             yCursor1 = new Series();
@@ -35,32 +39,45 @@ namespace HV9104_GUI
 
 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            chartArea1.AxisX.Interval = 400D;
+            chartArea1.AxisX.Interval = 5D;
             chartArea1.AxisX.LineColor = System.Drawing.Color.Transparent;
             chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
             chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea1.AxisX.MajorTickMark.Enabled = false;
-            chartArea1.AxisX.Maximum = 2000D;
-            chartArea1.AxisX.Minimum = -2000D;
+            chartArea1.AxisX.Maximum = 25D;
+            chartArea1.AxisX.Minimum = -25D;
             chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.Transparent;
             chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisY.Interval = 8000D;
+            chartArea1.AxisY.Interval = 4D;
             chartArea1.AxisY.LineColor = System.Drawing.Color.Transparent;
             chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
             chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea1.AxisY.MajorTickMark.Enabled = false;
-            chartArea1.AxisY.Maximum = 40000D;
-            chartArea1.AxisY.Minimum = -40000D;
+            chartArea1.AxisY.Maximum = 20D;
+            chartArea1.AxisY.Minimum = -20D;
             chartArea1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             chartArea1.BorderColor = System.Drawing.Color.Transparent;            
             chartArea1.Name = "ChartArea1";
-          // this.ChartAreas.Add(chartArea1);
+     //       this.ChartAreas.Add(chartArea1);
             this.Location = new System.Drawing.Point(20, 13);
             this.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.IsVisibleInLegend = false;
-            series1.Name = "Series1";
+
+            acSeries.ChartArea = "ChartArea1";
+            acSeries.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            acSeries.IsVisibleInLegend = false;
+            acSeries.Name = "acSeries";
+
+            dcSeries.ChartArea = "ChartArea1";
+            dcSeries.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            dcSeries.IsVisibleInLegend = false;
+            dcSeries.Name = "dcSeries";
+
+            impulseSeries.ChartArea = "ChartArea1";
+            impulseSeries.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            impulseSeries.IsVisibleInLegend = false;
+            impulseSeries.Name = "impulseSeries";
+
+
             xCursor1.ChartArea = "ChartArea1";
             xCursor1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             xCursor1.IsVisibleInLegend = false;
@@ -97,7 +114,9 @@ namespace HV9104_GUI
             yCursor2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             yCursor2.BorderWidth = 2;
             yCursor2.Color = System.Drawing.Color.FromArgb(118, 113, 113);
-         /*  this.Series.Add(series1);
+          /* this.Series.Add(acSeries);
+           this.Series.Add(dcSeries);
+           this.Series.Add(impulseSeries);
             this.Series.Add(xCursor1);
             this.Series.Add(xCursor2);
             this.Series.Add(yCursor1);
@@ -114,7 +133,18 @@ namespace HV9104_GUI
             
         }
 
-        public void setVoltsPerDiv(int voltsPerDiv)
+        public void addPoints(String serie, Channel.ScaledData scaledData, int points)
+        {
+
+            for (int r = 0; r < points; r++)
+            {
+                this.Series[serie].Points.AddXY(scaledData.x[r], scaledData.y[r]);
+                //Console.WriteLine(" x:" + scaledData.x[r] + " y: " + scaledData.y[r]);
+            }
+            
+        }
+
+        public void setVoltsPerDiv(double voltsPerDiv)
         {
             this.Series["yCursor1"].Points[0].YValues[0] *= voltsPerDiv / this.ChartAreas[0].AxisY.Interval;
             this.Series["yCursor1"].Points[1].YValues[0] *= voltsPerDiv / this.ChartAreas[0].AxisY.Interval;
@@ -130,7 +160,7 @@ namespace HV9104_GUI
          
         }
 
-        public void setTimePerDiv(int timePerDiv)
+        public void setTimePerDiv(double timePerDiv)
         {
             this.Series["xCursor1"].Points[0].XValue *= timePerDiv / this.ChartAreas[0].AxisX.Interval;
             this.Series["xCursor1"].Points[1].XValue *= timePerDiv / this.ChartAreas[0].AxisX.Interval;
@@ -143,7 +173,6 @@ namespace HV9104_GUI
             this.Series["yCursor1"].Points[1].XValue = this.ChartAreas[0].AxisX.Maximum;
             this.Series["yCursor2"].Points[0].XValue = this.ChartAreas[0].AxisX.Minimum;
             this.Series["yCursor2"].Points[1].XValue = this.ChartAreas[0].AxisX.Maximum;
-
         }
 
         

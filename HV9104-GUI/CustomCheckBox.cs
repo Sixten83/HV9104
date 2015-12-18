@@ -117,7 +117,7 @@ namespace HV9104_GUI
         // sets the mouse capture automatically. 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            //Checks if the Parent contains more radioButtons and deselects them.  
+              
             if (this.check)
                 this.check = false;
             else

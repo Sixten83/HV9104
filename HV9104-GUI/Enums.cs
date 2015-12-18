@@ -10,19 +10,28 @@ namespace HV9104_GUI
     {
         public enum Stage: uint
         {
-            Single_Stage,
-            Two_Stage,
-            Three_Stage
+            SINGLE_STAGE,
+            TWO_STAGE,
+            THREE_STAGE
         }
 
         public enum TimeBase : uint
         {             
-            Time_5_msDiv = 5,
+            Time_5_msDiv,
             Time_10_msDiv,
             Time_20_msDiv,
             Time_50_msDiv,
             Time_100_msDiv
-        }       
+        }
+
+        public enum CH : uint
+        {
+            AC_CHANNEL,
+            DC_CHANNEL,
+            IMPULSE_CHANNEL
+        }
+
+        
 
     }
 }

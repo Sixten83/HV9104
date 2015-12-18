@@ -239,7 +239,15 @@ namespace HV9104_GUI
         private void frm2_AdviseParent(object sender, AdviseParentEventArgs e)
         {
             selectedMember.Text = e.AdviseText;
-            reportValueChange(selectedMember.Text,0);
+            double index = 0;
+            foreach (String s in listMembers)
+            {
+                
+                if (s.Equals(selectedMember.Text))
+                    break;
+                index++;
+            }
+            reportValueChange(selectedMember.Text,index);
         }
 
         protected virtual void reportValueChange(string text, double value)

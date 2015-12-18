@@ -138,11 +138,12 @@
             this.impulseOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseOutputComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
             this.impulseOutputComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
-            this.impulseOutputComboBox.Location = new System.Drawing.Point(182, 87);
+            this.impulseOutputComboBox.Location = new System.Drawing.Point(182, 79);
             this.impulseOutputComboBox.Name = "impulseOutputComboBox";
             this.impulseOutputComboBox.setCollection = new string[] {
         "Positive",
         "Negative"};
+            this.impulseOutputComboBox.SetSelected = "Positive";
             this.impulseOutputComboBox.Size = new System.Drawing.Size(209, 67);
             this.impulseOutputComboBox.TabIndex = 3;
             this.impulseOutputComboBox.Text = "customComboBox1";
@@ -161,14 +162,14 @@
             // 
             // impulseValueLabel
             // 
-            this.impulseValueLabel.AutoSize = true;
-            this.impulseValueLabel.Font = new System.Drawing.Font("Calibri", 60F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.impulseValueLabel.Font = new System.Drawing.Font("Calibri", 54.75F, System.Drawing.FontStyle.Bold);
             this.impulseValueLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.impulseValueLabel.Location = new System.Drawing.Point(11, 68);
+            this.impulseValueLabel.Location = new System.Drawing.Point(-30, 64);
             this.impulseValueLabel.Name = "impulseValueLabel";
-            this.impulseValueLabel.Size = new System.Drawing.Size(165, 97);
+            this.impulseValueLabel.Size = new System.Drawing.Size(227, 97);
             this.impulseValueLabel.TabIndex = 1;
-            this.impulseValueLabel.Text = "140";
+            this.impulseValueLabel.Text = "0";
+            this.impulseValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // customPanel3
             // 
@@ -190,12 +191,14 @@
             this.dcOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.dcOutputComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
             this.dcOutputComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
-            this.dcOutputComboBox.Location = new System.Drawing.Point(178, 87);
+            this.dcOutputComboBox.Location = new System.Drawing.Point(188, 79);
             this.dcOutputComboBox.Name = "dcOutputComboBox";
             this.dcOutputComboBox.setCollection = new string[] {
-        "Vrms",
-        "Vpk",
+        "Vavg",
+        "Vmax",
+        "Vmin",
         "Vpk-Vpk"};
+            this.dcOutputComboBox.SetSelected = "Vavg";
             this.dcOutputComboBox.Size = new System.Drawing.Size(209, 67);
             this.dcOutputComboBox.TabIndex = 3;
             this.dcOutputComboBox.Text = "z";
@@ -214,14 +217,14 @@
             // 
             // dcValueLabel
             // 
-            this.dcValueLabel.AutoSize = true;
-            this.dcValueLabel.Font = new System.Drawing.Font("Calibri", 60F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dcValueLabel.Font = new System.Drawing.Font("Calibri", 54.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dcValueLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.dcValueLabel.Location = new System.Drawing.Point(7, 68);
+            this.dcValueLabel.Location = new System.Drawing.Point(-30, 64);
             this.dcValueLabel.Name = "dcValueLabel";
-            this.dcValueLabel.Size = new System.Drawing.Size(165, 97);
+            this.dcValueLabel.Size = new System.Drawing.Size(227, 97);
             this.dcValueLabel.TabIndex = 1;
-            this.dcValueLabel.Text = "198";
+            this.dcValueLabel.Text = "100.2";
+            this.dcValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // customPanel2
             // 
@@ -243,12 +246,14 @@
             this.acOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.acOutputComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
             this.acOutputComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
-            this.acOutputComboBox.Location = new System.Drawing.Point(185, 87);
+            this.acOutputComboBox.Location = new System.Drawing.Point(185, 79);
             this.acOutputComboBox.Name = "acOutputComboBox";
             this.acOutputComboBox.setCollection = new string[] {
         "Vrms",
-        "Vpk",
+        "Vmax",
+        "Vmin",
         "Vpk-Vpk"};
+            this.acOutputComboBox.SetSelected = "Vrms";
             this.acOutputComboBox.Size = new System.Drawing.Size(209, 67);
             this.acOutputComboBox.TabIndex = 3;
             this.acOutputComboBox.Text = "customComboBox1";
@@ -267,14 +272,15 @@
             // 
             // acValueLabel
             // 
-            this.acValueLabel.AutoSize = true;
-            this.acValueLabel.Font = new System.Drawing.Font("Calibri", 60F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.acValueLabel.Font = new System.Drawing.Font("Calibri", 54.75F, System.Drawing.FontStyle.Bold);
             this.acValueLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.acValueLabel.Location = new System.Drawing.Point(14, 68);
+            this.acValueLabel.Location = new System.Drawing.Point(-30, 64);
             this.acValueLabel.Name = "acValueLabel";
-            this.acValueLabel.Size = new System.Drawing.Size(165, 97);
+            this.acValueLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.acValueLabel.Size = new System.Drawing.Size(227, 97);
             this.acValueLabel.TabIndex = 1;
-            this.acValueLabel.Text = "140";
+            this.acValueLabel.Text = "-6";
+            this.acValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // customPanel7
             // 
@@ -346,6 +352,7 @@
             this.choppingTimeTextBox.Size = new System.Drawing.Size(169, 54);
             this.choppingTimeTextBox.TabIndex = 4;
             this.choppingTimeTextBox.TextBoxHint = "";
+            this.toolTip1.SetToolTip(this.choppingTimeTextBox, "Chopping time (ns)");
             this.choppingTimeTextBox.Value = 1F;
             // 
             // triggerButton
@@ -465,6 +472,7 @@
             this.voltageRegulationRepresentationComboBox.setCollection = new string[] {
         "Vrms",
         "Vpk"};
+            this.voltageRegulationRepresentationComboBox.SetSelected = "Vrms";
             this.voltageRegulationRepresentationComboBox.Size = new System.Drawing.Size(209, 67);
             this.voltageRegulationRepresentationComboBox.TabIndex = 3;
             this.voltageRegulationRepresentationComboBox.Text = "customComboBox1";
@@ -1077,12 +1085,11 @@
             // 
             this.currentInputLabel.Font = new System.Drawing.Font("Calibri", 60F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.currentInputLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.currentInputLabel.Location = new System.Drawing.Point(228, 57);
+            this.currentInputLabel.Location = new System.Drawing.Point(204, 57);
             this.currentInputLabel.Name = "currentInputLabel";
-            this.currentInputLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.currentInputLabel.Size = new System.Drawing.Size(175, 97);
+            this.currentInputLabel.Size = new System.Drawing.Size(199, 97);
             this.currentInputLabel.TabIndex = 1;
-            this.currentInputLabel.Text = "4.4";
+            this.currentInputLabel.Text = "30.5";
             this.currentInputLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // voltageInputLabel
@@ -1091,7 +1098,6 @@
             this.voltageInputLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.voltageInputLabel.Location = new System.Drawing.Point(18, 57);
             this.voltageInputLabel.Name = "voltageInputLabel";
-            this.voltageInputLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.voltageInputLabel.Size = new System.Drawing.Size(165, 97);
             this.voltageInputLabel.TabIndex = 1;
             this.voltageInputLabel.Text = "200";

@@ -28,45 +28,106 @@ namespace HV9104_GUI
         private int _sampleCount;
         private uint preTrigger;
         private short _trig = 0;
+        public short _overflow = 0;
         public bool streamStarted = false;
         private int bufferSize = 1024 * 100;//1024 * 100; /*  *100 is to make sure buffer large enough */
-        uint streamingSamples = 4000;
+        uint streamingSamples = 3000;
         uint streamingInterval = 25;
         private Imports.ReportedTimeUnits streamingIntervalUnits = Imports.ReportedTimeUnits.MicroSeconds;
+        uint blockPreTriggerSamples = 100;
         uint blockSamples = 2500;
         uint blockTimeBase = 1;
         short maxADValue = 32512;
+        double timePerDivision = 5;
         
        
 
         public PicoScope()
         {
-            channels = new Channel[3];
-            for (uint r = 0; r < 3; r++)
-            {
-                channels[r] = new Channel();
-                channels[r].ChannelName = Imports.Channel.ChannelA + r;
-                channels[r].setChannelBuffers(bufferSize);
-            }
-          
+           channels = new Channel[3];                     
            buffers = new short[5][];
 
            triggerChannel = Imports.Channel.ChannelA;
            triggerLevel = 1000;
            triggerType = Imports.ThresholdDirection.Rising;
            
-          /* channels[2].Enabled = 1;
-           channels[2].Coupling = Imports.Coupling.PS5000A_DC;
-           channels[2].VoltageRange = Imports.Range.Range_20V;
-           Imports.SetChannel(handle, channels[2].ChannelName, channels[2].Enabled, channels[2].Coupling, channels[2].VoltageRange, 0);*/
+           
            
         }
 
-        public void setACChannel(Channel acChannel)
+        public uint BlockSamples
         {
-            channels[0] = acChannel;
-           // channels[0].ChannelName = Imports.Channel.ChannelA + r;
+            set
+            {
+                this.blockSamples = value;
+            }
+            get
+            {
+                return this.blockSamples;
+            }
+
+        }
+
+
+        public uint StreamingInterval
+        {
+            set
+            {
+                this.streamingInterval = value;
+            }
+            get
+            {
+                return this.streamingInterval;
+            }
+
+        }
+        
+        public void setACChannel(Channel channel)
+        {
+            channels[0] = channel;
+            channels[0].ChannelName = Imports.Channel.ChannelA;
+            channels[0].Coupling = Imports.Coupling.PS5000A_AC;
+            channels[0].ADMaxValue = getADMaxValue();
             channels[0].setChannelBuffers(bufferSize);
+            channels[0].Enabled = 1;
+            channels[0].setRepresentationIndex(2);
+            Imports.SetChannel(handle, channels[0].ChannelName, channels[0].Enabled, channels[0].Coupling, channels[0].VoltageRange, 0);
+        }
+
+        public void setDCChannel(Channel channel)
+        {
+            channels[1] = channel;
+            channels[1].ChannelName = Imports.Channel.ChannelB;
+            channels[1].Coupling = Imports.Coupling.PS5000A_DC;
+            channels[1].ADMaxValue = getADMaxValue();
+            channels[1].setChannelBuffers(bufferSize);
+            channels[1].Enabled = 1;            
+            channels[1].setRepresentationIndex(4);
+            Imports.SetChannel(handle, channels[1].ChannelName, channels[1].Enabled, channels[1].Coupling, channels[1].VoltageRange, 0);
+        }
+
+        public void setImpulseChannel(Channel channel)
+        {
+            channels[2] = channel;
+            channels[2].ChannelName = Imports.Channel.ChannelC;
+            channels[2].Coupling = Imports.Coupling.PS5000A_DC;
+            channels[2].ADMaxValue = getADMaxValue();
+            channels[2].setChannelBuffers(bufferSize);
+            channels[2].setRepresentationIndex(0);
+            Imports.SetChannel(handle, channels[2].ChannelName, 0, channels[2].Coupling, channels[2].VoltageRange, 0);
+        }
+
+        public double TimePerDivision
+        {
+            set
+            {
+                this.timePerDivision = value;
+            }
+            get
+            {
+                return this.timePerDivision;
+            }
+
         }
 
 
@@ -85,7 +146,8 @@ namespace HV9104_GUI
 
         public void stopStreaming()
         {
-            Imports.Stop(handle);
+            uint status = Imports.Stop(handle);
+            Console.WriteLine("Stop Status : {0} ", status);
         }
 
         public short getADMaxValue()
@@ -142,8 +204,9 @@ namespace HV9104_GUI
             _startIndex = 0;
             _trigAt = 0;
             _autoStop = false;
+            _overflow = 0;
             status = Imports.RunStreaming(handle, ref streamingInterval, streamingIntervalUnits, preTrigger, streamingSamples - preTrigger, 1, streamingSamples, Imports.RatioMode.Aggregate, (uint)bufferSize);
-                Console.WriteLine("RunStreaming Status : {0} ", status);
+                Console.WriteLine("RunFastStreaming Status : {0} ", status);
           if (_autoStop)
                 Imports.Stop(handle);
         }
@@ -169,6 +232,9 @@ namespace HV9104_GUI
             _autoStop = autoStop != 0;
 
             _ready = true;
+            if (overflow != 0)
+                _overflow = overflow;
+           
 
             // flags to show if & where a trigger has occurred
             _trig = triggered;
@@ -210,10 +276,9 @@ namespace HV9104_GUI
              _startIndex = 0;
             _trigAt = 0;
             _autoStop = false;
-            for (int ch = 0; ch < 2; ch++)
-            {
+            
                 status = Imports.RunStreaming(handle, ref streamingInterval, streamingIntervalUnits, preTrigger, streamingSamples - preTrigger, 1, 1, Imports.RatioMode.None, (uint)bufferSize);
-            }
+            
             if (_autoStop)
                 Imports.Stop(handle);
         }
@@ -253,10 +318,10 @@ namespace HV9104_GUI
                 
             if (_sampleCount != 0 )
             {
-               
-         
-                        //Array.Copy(buffers[0], _startIndex, appBuffers[0], _startIndex, _sampleCount); //max
-                        //Array.Copy(buffers[0 + 1], _startIndex, appBuffers[0 + 1], _startIndex, _sampleCount);//min
+                for (int ch = 0; ch < 2; ch++)
+                {
+                    Array.Copy(buffers[ch], _startIndex, channels[ch].channelBuffers[0], _startIndex, _sampleCount);
+                }                               
             }
               
         }
@@ -291,7 +356,7 @@ namespace HV9104_GUI
             _callbackDelegate = BlockCallback;
           
             int timeIndisposed;
-            status = Imports.RunBlock(handle, 0, (int)blockSamples, blockTimeBase, out timeIndisposed, 0, _callbackDelegate, IntPtr.Zero);
+            status = Imports.RunBlock(handle, (int)blockPreTriggerSamples, (int)(blockSamples - blockPreTriggerSamples), blockTimeBase, out timeIndisposed, 0, _callbackDelegate, IntPtr.Zero);
             Console.WriteLine("RunBlock Status:" + status);
         }
 
@@ -309,6 +374,11 @@ namespace HV9104_GUI
                 if (status == (short)Imports.PICO_OK)
                 {
                     Array.Copy(buffers[4], 0, channels[2].channelBuffers[0], 0, blockSamples);
+                  /*  for (int r = 0; r < 500; r++)
+                    {
+                        Console.WriteLine(channels[2].channelBuffers[0][r]);
+                    }*/
+                    
                 }
             }
 
@@ -329,7 +399,7 @@ namespace HV9104_GUI
             uint status;
             channels[index].VoltageRange = voltageRange;
             status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, 0);
-            Console.WriteLine("VoltageRange Status: {0}", status);     
+            Console.WriteLine("VoltageRange Status: " + (Imports.Range)voltageRange);     
         }
 
         public void setCouplingType(int index, Imports.Coupling coupling)
@@ -364,8 +434,11 @@ namespace HV9104_GUI
                 uint status;
 
                 status = Imports.SetDeviceResolution(handle, resolution);
-                Console.WriteLine("DeviceResolution Status: {0}", status);
+                Console.WriteLine("DeviceResolution {0} Status: {1}", (Imports.DeviceResolution)resolution, status);
                 status = Imports.MaximumValue(handle, out maxADValue);
+                channels[0].ADMaxValue = maxADValue;
+                channels[1].ADMaxValue = maxADValue;
+                channels[2].ADMaxValue = maxADValue;
                 Console.WriteLine("MaximumValue Status: {0}", status);
             }
             get
@@ -382,15 +455,23 @@ namespace HV9104_GUI
             }
         }
 
-        public void startSignalGen(float frequency)
+        public void setupSignalGen(float frequency)
         {
             uint status;
-            status = Imports.SetSigGenBuiltIn(handle, 2000000, 4000000, Imports.WaveType.PS5000A_SQUARE, frequency, frequency, 0, 1, Imports.SweepType.PS5000A_UP, Imports.ExtraOperations.PS5000A_ES_OFF, 0, 0, 0, Imports.SigGenTrigSource.PS5000A_SIGGEN_NONE, 0);
+            status = Imports.SetSigGenBuiltIn(handle, 1000000, 2000000, Imports.WaveType.PS5000A_SQUARE, frequency, frequency, 0, 1, Imports.SweepType.PS5000A_UP, Imports.ExtraOperations.PS5000A_ES_OFF, 10, 0, Imports.SigGenTrigType.PS5000A_SIGGEN_RISING, Imports.SigGenTrigSource.PS5000A_SIGGEN_SOFT_TRIG, 0);
             Console.WriteLine("SetSigGenBuiltIn Status:" + status);
         
         }
 
-        public void openDevice() 
+        public void triggerSignalGen()
+        {
+            uint status = Imports.SigGenSoftwareControl(handle, 1);
+            Console.WriteLine("SigGenSoftwareControl start Status:" + status);
+            status = Imports.SigGenSoftwareControl(handle, 0);
+            Console.WriteLine("SigGenSoftwareControl start Status:" + status);
+        }
+
+        public uint openDevice() 
         {
             
             uint status = Imports.OpenUnit(out handle, null, Imports.DeviceResolution.PS5000A_DR_8BIT);
@@ -401,12 +482,9 @@ namespace HV9104_GUI
                 status = Imports.ChangePowerSource(handle, status);
                 powerSupplyConnected = false;
             }
-            
-            if (status != Imports.PICO_OK)
-            {
-                Console.WriteLine("Unable to open device");
-            }
-        
+            Imports.SetChannel(Handle, Imports.Channel.ChannelD, 0, Imports.Coupling.PS5000A_AC, Imports.Range.Range_20V, 0);
+
+            return status;
         }
 
         public void closeDevice()
