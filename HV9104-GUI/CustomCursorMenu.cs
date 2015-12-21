@@ -11,82 +11,83 @@ using System.Data;
 
 namespace HV9104_GUI
 {
-    class CustomCursorMenu : Form
+    public class CustomCursorMenu : Form
     {
-        private CustomPanel customPanel1;
-        private CustomPanel customPanel3;
-        private CustomPanel customPanel7;
-        private CustomPanel customPanel6;
-        private CustomPanel customPanel4;
-        private CustomPanel customPanel5;
-        private CustomPanel customPanel2;
-        private Label label3;
-        private Label label6;
-        private Label label5;
-        private Label label4;
-        private Label label2;
-        private Label label1;
-        private int moveForm, formX, formY;
-        private Panel topBorderPanel;
+        public CustomPanel cursorPanel;
+        public CustomPanel customPanel3;
+        public CustomPanel customPanel7;
+        public CustomPanel customPanel6;
+        public CustomPanel customPanel4;
+        public CustomPanel customPanel5;
+        public CustomPanel customPanel2;
+        public Label label6;
+        public Label label5;
+        public Label label4;
+        public Label label2;
+        public Label label1;
+        public int moveForm, formX, formY;
+        public Panel topBorderPanel;
         public CustomButton closeButton;
-        private Label hCurs1Label;
-        private Label vCurs1Label;
-        private Label vCurs2Label;
-        private Label vDiffLabel;
-        private Label hCurs2Label;
-        private Label hDiffLabel;
-            CustomPanel list;
+        public Label hCurs1Label;
+        public Label vCurs1Label;
+        public Label vCurs2Label;
+        public Label vDiffLabel;
+        public Label hCurs2Label;
+        public Label label8;
+        public Label label7;
+        public CustomRadioButton acChannelRadioButton;
+        public CustomRadioButton dcChannelRadioButton;
+        public Label label3;
+        public Label hDiffLabel;
+        public double scaleFactor = 1;
+        public double offset = 0;
 
-            public CustomCursorMenu()
-            {
-               /* AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-                AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-                ClientSize = new System.Drawing.Size(209, 287);
-                StartPosition = FormStartPosition.Manual;
-                //ControlBox = false;
-                FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-                ShowInTaskbar = false;
-                TopMost = true;
-                list = new CustomPanel();
-                list.Size = this.Size;
-                list.cornerRadius = 12;
-                list.backgroundColor = System.Drawing.Color.FromArgb(236, 236, 236);
-                list.borderColor = System.Drawing.Color.FromArgb(166,166,166);
-                this.Controls.Add(list);*/
+        public CustomCursorMenu()
+        {             
                 StartPosition = FormStartPosition.Manual;
                 InitializeComponent();
                 topBorderPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topBorderPanel_MouseDown);
                 topBorderPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.topBorderPanel_MouseUp);
                 topBorderPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.topBorderPanel_MouseMove);
-            }
+        }           
 
-           /* protected override CreateParams CreateParams
-            {
-                get
-                {
-                    const int CS_DROPSHADOW = 0x20000;
-                    CreateParams cp = base.CreateParams;
-                    cp.ClassStyle |= CS_DROPSHADOW;
-                    return cp;
-                }
-            }*/
-
-            public void updateCursorPos(double hCurs1, double hCurs2, double vCurs1, double vCurs2)
-            {
-                hCurs1Label.Text = "" + hCurs1;
-                hCurs2Label.Text = "" + hCurs2;
-                vCurs1Label.Text = "" + vCurs1;
-                vCurs2Label.Text = "" + vCurs2;
-                hDiffLabel.Text = "" + (hCurs1 - hCurs2);
-                vDiffLabel.Text = "" + (vCurs1 - vCurs2);
+        public void updateCursorPos(double hCurs1, double hCurs2, double vCurs1, double vCurs2)
+        {
+            hCurs1Label.Text = "" + hCurs1.ToString("0.0").Replace(',', '.');
+                hCurs2Label.Text = "" + hCurs2.ToString("0.0").Replace(',', '.');
+                vCurs1Label.Text = "" + (vCurs1 * scaleFactor - offset).ToString("0.0").Replace(',', '.');
+                vCurs2Label.Text = "" + (vCurs2 * scaleFactor - offset).ToString("0.0").Replace(',', '.');
+                hDiffLabel.Text = "" + (hCurs2 - hCurs1).ToString("0.0").Replace(',', '.');
+                vDiffLabel.Text = "" + ((vCurs2 - vCurs1) * scaleFactor - offset).ToString("0.0").Replace(',', '.');
+                
                 //Point startPoint = this.Owner.PointToScreen(new Point());
-                if (this.Owner != null)
-                {
+             if (this.Owner != null)
+             {
                     Form test = this.Owner;
                     Point startPoint = test.PointToScreen(new Point());
                     
-                }
-            }
+             }
+        }
+
+        public void setScaleFactor(double scaleFactor, double offset)
+        {
+            this.scaleFactor = scaleFactor;
+            this.offset = offset;
+        }
+
+        public void resizeDown()
+        {
+            this.cursorPanel.Height = 217;
+            this.cursorPanel.Invalidate();
+            this.Height = 217;
+        }
+
+        public void resizeUp()
+        {
+            this.cursorPanel.Height = 275;
+            this.cursorPanel.Invalidate();
+            this.Height = 275;
+        }
 
         private void topBorderPanel_MouseDown(object sender, MouseEventArgs e)
         { 
@@ -122,11 +123,15 @@ namespace HV9104_GUI
 
             private void InitializeComponent()
             {
-            this.customPanel1 = new HV9104_GUI.CustomPanel();
+            this.cursorPanel = new HV9104_GUI.CustomPanel();
             this.label3 = new System.Windows.Forms.Label();
+            this.dcChannelRadioButton = new HV9104_GUI.CustomRadioButton();
+            this.acChannelRadioButton = new HV9104_GUI.CustomRadioButton();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.customPanel7 = new HV9104_GUI.CustomPanel();
@@ -143,7 +148,7 @@ namespace HV9104_GUI
             this.hDiffLabel = new System.Windows.Forms.Label();
             this.topBorderPanel = new System.Windows.Forms.Panel();
             this.closeButton = new HV9104_GUI.CustomButton();
-            this.customPanel1.SuspendLayout();
+            this.cursorPanel.SuspendLayout();
             this.customPanel7.SuspendLayout();
             this.customPanel6.SuspendLayout();
             this.customPanel4.SuspendLayout();
@@ -153,30 +158,34 @@ namespace HV9104_GUI
             this.topBorderPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // customPanel1
+            // cursorPanel
             // 
-            this.customPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(165)))));
-            this.customPanel1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel1.Controls.Add(this.label3);
-            this.customPanel1.Controls.Add(this.label6);
-            this.customPanel1.Controls.Add(this.label5);
-            this.customPanel1.Controls.Add(this.label4);
-            this.customPanel1.Controls.Add(this.label2);
-            this.customPanel1.Controls.Add(this.label1);
-            this.customPanel1.Controls.Add(this.customPanel7);
-            this.customPanel1.Controls.Add(this.customPanel6);
-            this.customPanel1.Controls.Add(this.customPanel4);
-            this.customPanel1.Controls.Add(this.customPanel5);
-            this.customPanel1.Controls.Add(this.customPanel2);
-            this.customPanel1.Controls.Add(this.customPanel3);
-            this.customPanel1.Controls.Add(this.topBorderPanel);
-            this.customPanel1.CornerRadius = 20;
-            this.customPanel1.IsPopUp = false;
-            this.customPanel1.Location = new System.Drawing.Point(0, 0);
-            this.customPanel1.Name = "customPanel1";
-            this.customPanel1.Size = new System.Drawing.Size(600, 240);
-            this.customPanel1.TabIndex = 0;
+            this.cursorPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(165)))));
+            this.cursorPanel.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.cursorPanel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.cursorPanel.Controls.Add(this.label3);
+            this.cursorPanel.Controls.Add(this.dcChannelRadioButton);
+            this.cursorPanel.Controls.Add(this.acChannelRadioButton);
+            this.cursorPanel.Controls.Add(this.label6);
+            this.cursorPanel.Controls.Add(this.label5);
+            this.cursorPanel.Controls.Add(this.label4);
+            this.cursorPanel.Controls.Add(this.label8);
+            this.cursorPanel.Controls.Add(this.label7);
+            this.cursorPanel.Controls.Add(this.label2);
+            this.cursorPanel.Controls.Add(this.label1);
+            this.cursorPanel.Controls.Add(this.customPanel7);
+            this.cursorPanel.Controls.Add(this.customPanel6);
+            this.cursorPanel.Controls.Add(this.customPanel4);
+            this.cursorPanel.Controls.Add(this.customPanel5);
+            this.cursorPanel.Controls.Add(this.customPanel2);
+            this.cursorPanel.Controls.Add(this.customPanel3);
+            this.cursorPanel.Controls.Add(this.topBorderPanel);
+            this.cursorPanel.CornerRadius = 20;
+            this.cursorPanel.IsPopUp = false;
+            this.cursorPanel.Location = new System.Drawing.Point(0, 0);
+            this.cursorPanel.Name = "cursorPanel";
+            this.cursorPanel.Size = new System.Drawing.Size(515, 275);
+            this.cursorPanel.TabIndex = 0;
             // 
             // label3
             // 
@@ -184,11 +193,39 @@ namespace HV9104_GUI
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.label3.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label3.Location = new System.Drawing.Point(21, 165);
+            this.label3.Location = new System.Drawing.Point(23, 168);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(85, 23);
+            this.label3.Size = new System.Drawing.Size(20, 23);
             this.label3.TabIndex = 2;
-            this.label3.Text = "VERTICAL";
+            this.label3.Text = "Y";
+            // 
+            // dcChannelRadioButton
+            // 
+            this.dcChannelRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.dcChannelRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.dcChannelRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.dcChannelRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.dcChannelRadioButton.isChecked = false;
+            this.dcChannelRadioButton.Location = new System.Drawing.Point(407, 219);
+            this.dcChannelRadioButton.Name = "dcChannelRadioButton";
+            this.dcChannelRadioButton.Size = new System.Drawing.Size(47, 47);
+            this.dcChannelRadioButton.TabIndex = 1;
+            this.dcChannelRadioButton.Text = "customRadioButton1";
+            this.dcChannelRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
+            // 
+            // acChannelRadioButton
+            // 
+            this.acChannelRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.acChannelRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.acChannelRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.acChannelRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.acChannelRadioButton.isChecked = true;
+            this.acChannelRadioButton.Location = new System.Drawing.Point(173, 219);
+            this.acChannelRadioButton.Name = "acChannelRadioButton";
+            this.acChannelRadioButton.Size = new System.Drawing.Size(47, 47);
+            this.acChannelRadioButton.TabIndex = 1;
+            this.acChannelRadioButton.Text = "customRadioButton1";
+            this.acChannelRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
             // label6
             // 
@@ -196,7 +233,7 @@ namespace HV9104_GUI
             this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.label6.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label6.Location = new System.Drawing.Point(472, 54);
+            this.label6.Location = new System.Drawing.Point(376, 54);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(60, 23);
             this.label6.TabIndex = 2;
@@ -208,7 +245,7 @@ namespace HV9104_GUI
             this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.label5.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label5.Location = new System.Drawing.Point(308, 54);
+            this.label5.Location = new System.Drawing.Point(212, 54);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(90, 23);
             this.label5.TabIndex = 2;
@@ -220,11 +257,35 @@ namespace HV9104_GUI
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.label4.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label4.Location = new System.Drawing.Point(170, 54);
+            this.label4.Location = new System.Drawing.Point(74, 54);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(90, 23);
             this.label4.TabIndex = 2;
             this.label4.Text = "CURSOR 1";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.label8.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label8.Location = new System.Drawing.Point(257, 231);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(113, 23);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "DC CHANNEL";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.label7.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label7.Location = new System.Drawing.Point(23, 231);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(113, 23);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "AC CHANNEL";
             // 
             // label2
             // 
@@ -232,11 +293,11 @@ namespace HV9104_GUI
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.label2.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label2.Location = new System.Drawing.Point(21, 97);
+            this.label2.Location = new System.Drawing.Point(23, 96);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(114, 23);
+            this.label2.Size = new System.Drawing.Size(20, 23);
             this.label2.TabIndex = 2;
-            this.label2.Text = "HORIZONTAL";
+            this.label2.Text = "X";
             // 
             // label1
             // 
@@ -258,7 +319,7 @@ namespace HV9104_GUI
             this.customPanel7.Controls.Add(this.vCurs1Label);
             this.customPanel7.CornerRadius = 27;
             this.customPanel7.IsPopUp = false;
-            this.customPanel7.Location = new System.Drawing.Point(154, 152);
+            this.customPanel7.Location = new System.Drawing.Point(58, 152);
             this.customPanel7.Name = "customPanel7";
             this.customPanel7.Size = new System.Drawing.Size(120, 55);
             this.customPanel7.TabIndex = 1;
@@ -268,12 +329,12 @@ namespace HV9104_GUI
             this.vCurs1Label.BackColor = System.Drawing.Color.Transparent;
             this.vCurs1Label.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.vCurs1Label.ForeColor = System.Drawing.Color.White;
-            this.vCurs1Label.Location = new System.Drawing.Point(22, 3);
+            this.vCurs1Label.Location = new System.Drawing.Point(0, 0);
             this.vCurs1Label.Name = "vCurs1Label";
-            this.vCurs1Label.Size = new System.Drawing.Size(72, 50);
+            this.vCurs1Label.Size = new System.Drawing.Size(120, 55);
             this.vCurs1Label.TabIndex = 2;
             this.vCurs1Label.Text = "121";
-            this.vCurs1Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.vCurs1Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // customPanel6
             // 
@@ -283,22 +344,23 @@ namespace HV9104_GUI
             this.customPanel6.Controls.Add(this.vCurs2Label);
             this.customPanel6.CornerRadius = 27;
             this.customPanel6.IsPopUp = false;
-            this.customPanel6.Location = new System.Drawing.Point(297, 152);
+            this.customPanel6.Location = new System.Drawing.Point(201, 152);
             this.customPanel6.Name = "customPanel6";
             this.customPanel6.Size = new System.Drawing.Size(120, 55);
             this.customPanel6.TabIndex = 1;
             // 
             // vCurs2Label
             // 
+            this.vCurs2Label.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.vCurs2Label.BackColor = System.Drawing.Color.Transparent;
             this.vCurs2Label.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.vCurs2Label.ForeColor = System.Drawing.Color.White;
-            this.vCurs2Label.Location = new System.Drawing.Point(19, 3);
+            this.vCurs2Label.Location = new System.Drawing.Point(0, 0);
             this.vCurs2Label.Name = "vCurs2Label";
-            this.vCurs2Label.Size = new System.Drawing.Size(72, 50);
+            this.vCurs2Label.Size = new System.Drawing.Size(120, 55);
             this.vCurs2Label.TabIndex = 2;
-            this.vCurs2Label.Text = "121";
-            this.vCurs2Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.vCurs2Label.Text = "88.8";
+            this.vCurs2Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // customPanel4
             // 
@@ -308,7 +370,7 @@ namespace HV9104_GUI
             this.customPanel4.Controls.Add(this.hCurs1Label);
             this.customPanel4.CornerRadius = 27;
             this.customPanel4.IsPopUp = false;
-            this.customPanel4.Location = new System.Drawing.Point(154, 80);
+            this.customPanel4.Location = new System.Drawing.Point(58, 80);
             this.customPanel4.Name = "customPanel4";
             this.customPanel4.Size = new System.Drawing.Size(120, 55);
             this.customPanel4.TabIndex = 1;
@@ -318,12 +380,12 @@ namespace HV9104_GUI
             this.hCurs1Label.BackColor = System.Drawing.Color.Transparent;
             this.hCurs1Label.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hCurs1Label.ForeColor = System.Drawing.Color.White;
-            this.hCurs1Label.Location = new System.Drawing.Point(22, 3);
+            this.hCurs1Label.Location = new System.Drawing.Point(0, 0);
             this.hCurs1Label.Name = "hCurs1Label";
-            this.hCurs1Label.Size = new System.Drawing.Size(72, 50);
+            this.hCurs1Label.Size = new System.Drawing.Size(120, 55);
             this.hCurs1Label.TabIndex = 2;
             this.hCurs1Label.Text = "121";
-            this.hCurs1Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.hCurs1Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // customPanel5
             // 
@@ -333,7 +395,7 @@ namespace HV9104_GUI
             this.customPanel5.Controls.Add(this.vDiffLabel);
             this.customPanel5.CornerRadius = 27;
             this.customPanel5.IsPopUp = false;
-            this.customPanel5.Location = new System.Drawing.Point(442, 152);
+            this.customPanel5.Location = new System.Drawing.Point(346, 152);
             this.customPanel5.Name = "customPanel5";
             this.customPanel5.Size = new System.Drawing.Size(120, 55);
             this.customPanel5.TabIndex = 1;
@@ -343,12 +405,12 @@ namespace HV9104_GUI
             this.vDiffLabel.BackColor = System.Drawing.Color.Transparent;
             this.vDiffLabel.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.vDiffLabel.ForeColor = System.Drawing.Color.White;
-            this.vDiffLabel.Location = new System.Drawing.Point(27, 3);
+            this.vDiffLabel.Location = new System.Drawing.Point(0, 0);
             this.vDiffLabel.Name = "vDiffLabel";
-            this.vDiffLabel.Size = new System.Drawing.Size(72, 50);
+            this.vDiffLabel.Size = new System.Drawing.Size(120, 55);
             this.vDiffLabel.TabIndex = 2;
             this.vDiffLabel.Text = "121";
-            this.vDiffLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.vDiffLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // customPanel2
             // 
@@ -358,7 +420,7 @@ namespace HV9104_GUI
             this.customPanel2.Controls.Add(this.hCurs2Label);
             this.customPanel2.CornerRadius = 27;
             this.customPanel2.IsPopUp = false;
-            this.customPanel2.Location = new System.Drawing.Point(297, 80);
+            this.customPanel2.Location = new System.Drawing.Point(201, 80);
             this.customPanel2.Name = "customPanel2";
             this.customPanel2.Size = new System.Drawing.Size(120, 55);
             this.customPanel2.TabIndex = 1;
@@ -368,12 +430,12 @@ namespace HV9104_GUI
             this.hCurs2Label.BackColor = System.Drawing.Color.Transparent;
             this.hCurs2Label.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hCurs2Label.ForeColor = System.Drawing.Color.White;
-            this.hCurs2Label.Location = new System.Drawing.Point(19, 3);
+            this.hCurs2Label.Location = new System.Drawing.Point(0, 0);
             this.hCurs2Label.Name = "hCurs2Label";
-            this.hCurs2Label.Size = new System.Drawing.Size(72, 50);
+            this.hCurs2Label.Size = new System.Drawing.Size(120, 55);
             this.hCurs2Label.TabIndex = 2;
             this.hCurs2Label.Text = "121";
-            this.hCurs2Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.hCurs2Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // customPanel3
             // 
@@ -383,7 +445,7 @@ namespace HV9104_GUI
             this.customPanel3.Controls.Add(this.hDiffLabel);
             this.customPanel3.CornerRadius = 27;
             this.customPanel3.IsPopUp = false;
-            this.customPanel3.Location = new System.Drawing.Point(442, 80);
+            this.customPanel3.Location = new System.Drawing.Point(346, 80);
             this.customPanel3.Name = "customPanel3";
             this.customPanel3.Size = new System.Drawing.Size(120, 55);
             this.customPanel3.TabIndex = 1;
@@ -393,12 +455,12 @@ namespace HV9104_GUI
             this.hDiffLabel.BackColor = System.Drawing.Color.Transparent;
             this.hDiffLabel.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hDiffLabel.ForeColor = System.Drawing.Color.White;
-            this.hDiffLabel.Location = new System.Drawing.Point(27, 3);
+            this.hDiffLabel.Location = new System.Drawing.Point(0, 0);
             this.hDiffLabel.Name = "hDiffLabel";
-            this.hDiffLabel.Size = new System.Drawing.Size(72, 50);
+            this.hDiffLabel.Size = new System.Drawing.Size(120, 55);
             this.hDiffLabel.TabIndex = 2;
-            this.hDiffLabel.Text = "121";
-            this.hDiffLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.hDiffLabel.Text = "-200.5";
+            this.hDiffLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // topBorderPanel
             // 
@@ -406,7 +468,7 @@ namespace HV9104_GUI
             this.topBorderPanel.Controls.Add(this.closeButton);
             this.topBorderPanel.Location = new System.Drawing.Point(15, 3);
             this.topBorderPanel.Name = "topBorderPanel";
-            this.topBorderPanel.Size = new System.Drawing.Size(570, 40);
+            this.topBorderPanel.Size = new System.Drawing.Size(485, 40);
             this.topBorderPanel.TabIndex = 3;
             // 
             // closeButton
@@ -414,7 +476,7 @@ namespace HV9104_GUI
             this.closeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.closeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.closeButton;
             this.closeButton.HoverImage = global::HV9104_GUI.Properties.Resources.closeButtonHover;
-            this.closeButton.Location = new System.Drawing.Point(556, 9);
+            this.closeButton.Location = new System.Drawing.Point(460, 9);
             this.closeButton.Name = "closeButton";
             this.closeButton.PressedImage = global::HV9104_GUI.Properties.Resources.closeButtonPressed;
             this.closeButton.Size = new System.Drawing.Size(15, 15);
@@ -423,15 +485,15 @@ namespace HV9104_GUI
             // CustomCursorMenu
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(165)))));
-            this.ClientSize = new System.Drawing.Size(600, 240);
+            this.ClientSize = new System.Drawing.Size(515, 275);
             this.ControlBox = false;
-            this.Controls.Add(this.customPanel1);
+            this.Controls.Add(this.cursorPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CustomCursorMenu";
             this.ShowInTaskbar = false;
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(165)))));
-            this.customPanel1.ResumeLayout(false);
-            this.customPanel1.PerformLayout();
+            this.cursorPanel.ResumeLayout(false);
+            this.cursorPanel.PerformLayout();
             this.customPanel7.ResumeLayout(false);
             this.customPanel7.PerformLayout();
             this.customPanel6.ResumeLayout(false);

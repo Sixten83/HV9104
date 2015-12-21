@@ -21,7 +21,7 @@ namespace HV9104_GUI
         Series yCursor1;
         Series yCursor2;
         bool x1InPos, x2InPos, y1InPos, y2InPos, pressed, cursorMenuDisplayed;
-        CustomCursorMenu cursorMenu;
+        public CustomCursorMenu cursorMenu;
 
         public CustomChart()
         {
@@ -34,7 +34,11 @@ namespace HV9104_GUI
             xCursor2 = new Series();
             yCursor1 = new Series();
             yCursor2 = new Series();
-
+            cursorMenu = new CustomCursorMenu();
+            
+            
+            
+            cursorMenu.closeButton.Click += new System.EventHandler(this.cursorMenuCloseButton_Click);
             
 
 
@@ -186,23 +190,20 @@ namespace HV9104_GUI
             if (pressed && !cursorMenuDisplayed)
             {
                 Point startPoint = this.PointToScreen(new Point());
-                if (cursorMenu == null)
-                {
-                    cursorMenu = new CustomCursorMenu();
-                    cursorMenu.Location = new Point(startPoint.X + this.Width - cursorMenu.Width, startPoint.Y + this.Height - cursorMenu.Height);
-                    cursorMenu.updateCursorPos(this.Series["xCursor1"].Points[0].XValue, this.Series["xCursor2"].Points[0].XValue, this.Series["yCursor1"].Points[0].YValues[0], this.Series["yCursor2"].Points[0].YValues[0]);
-                    cursorMenu.Owner = FindForm();
-                    cursorMenu.closeButton.Click += new System.EventHandler(this.cursorMenuCloseButton_Click);
-                }
+                cursorMenu.Owner = FindForm();
                 cursorMenu.Location = new Point(startPoint.X + this.Width - cursorMenu.Width, startPoint.Y + this.Height - cursorMenu.Height);
-                cursorMenu.updateCursorPos(this.Series["xCursor1"].Points[0].XValue, this.Series["xCursor2"].Points[0].XValue, this.Series["yCursor1"].Points[0].YValues[0], this.Series["yCursor2"].Points[0].YValues[0]);
-                  
+                cursorMenu.updateCursorPos(this.Series["xCursor1"].Points[0].XValue, this.Series["xCursor2"].Points[0].XValue, this.Series["yCursor1"].Points[0].YValues[0], this.Series["yCursor2"].Points[0].YValues[0]);                 
                 cursorMenu.Show();
                 cursorMenuDisplayed = true;
            
 
             }
            
+        }
+
+        public void updateCursorMenu()
+        {
+            cursorMenu.updateCursorPos(this.Series["xCursor1"].Points[0].XValue, this.Series["xCursor2"].Points[0].XValue, this.Series["yCursor1"].Points[0].YValues[0], this.Series["yCursor2"].Points[0].YValues[0]);                                
         }
 
         private void cursorMenuCloseButton_Click(object sender, EventArgs e)

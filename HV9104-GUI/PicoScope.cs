@@ -116,7 +116,8 @@ namespace HV9104_GUI
             channels[2].ADMaxValue = getADMaxValue();
             channels[2].setChannelBuffers(bufferSize);
             channels[2].setRepresentationIndex(0);
-            channels[2].IncrementIndex = 4; 
+            channels[2].IncrementIndex = 4;
+            channels[2].DCOffset = -16;
             Imports.SetChannel(handle, channels[2].ChannelName, 0, channels[2].Coupling, channels[2].VoltageRange, 0);
         }
 

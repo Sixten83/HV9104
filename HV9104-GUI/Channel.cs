@@ -18,7 +18,7 @@ namespace HV9104_GUI
         short               enabled;
         public short[][]    channelBuffers;
         public ScaledData[] scaledData;        
-        double              scaleFactor = 1;
+        double              dividerRatio = 1;
         double              rms, max, min,amplitud,average;
         double[]            representation;
         public int                 index;
@@ -85,7 +85,7 @@ namespace HV9104_GUI
         {
             incrementValues = new double[9][];
 
-            //if (e.Text.Equals("2 ms/Div"))
+            //if (e.Text.Equals("2 ms/Div"))0,0001
                 
                 int r = 0;
                 decimal increment;
@@ -205,6 +205,11 @@ namespace HV9104_GUI
             }
         }
 
+        public double getScaleFactor()
+        {
+            return (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;
+        }
+
         public void setChannelBuffers(int bufferSize)
         {
             channelBuffers = new short[2][];
@@ -225,7 +230,7 @@ namespace HV9104_GUI
 
         public void processFastStreamData()
         {
-            double factor = ((double)inputRanges[(int)voltageRange] * scaleFactor) / adMaxValue;
+            double factor = (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;
 
             scaledData = new ScaledData[2];
             scaledData[0].y = new double[1];
@@ -234,8 +239,8 @@ namespace HV9104_GUI
 
             scaledData[0].y[0] = (short)(channelBuffers[0][0] * factor);
             scaledData[1].y[0] = (short)(channelBuffers[1][0] * factor);
-            max = (double)scaledData[0].y[0] / 1000;
-            min = (double)scaledData[1].y[0] / 1000;
+            max = (double)scaledData[0].y[0] - 1 * dcOffset;
+            min = (double)scaledData[1].y[0] - 1 * dcOffset;
             rms = max / Math.Sqrt(2);
             amplitud = max - min;
             average = (max + min) / 2;
@@ -247,7 +252,7 @@ namespace HV9104_GUI
         {
             scaledData = new ScaledData[2];            
             scaledData[0].y = new double[samples];
-            double factor = (((double)inputRanges[(int)voltageRange] * scaleFactor) / adMaxValue) / 1000;
+            double factor = (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;
             Array.Copy(channelBuffers[0], startIndex, scaledData[0].y, 0, samples);
             average = factor * scaledData[0].y.Sum() / samples;
             max = factor * scaledData[0].y.Max() - 1 * dcOffset;
@@ -257,18 +262,20 @@ namespace HV9104_GUI
             updateRepresentation();
         }
 
+        
+
         public ScaledData processData(int samples, int startIndex)
         {
             scaledData = new ScaledData[2];
             scaledData[0].x = new double[samples];
             scaledData[0].y = new double[samples];
-           
-            double factor = (((double)inputRanges[(int)voltageRange] * scaleFactor) / adMaxValue) / 1000;            
+
+            double factor = (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;            
             Array.Copy(channelBuffers[0], startIndex, scaledData[0].y, 0, samples);
             Array.Copy(incrementValues[incrementIndex], 0, scaledData[0].x, 0, samples);
             average = factor * scaledData[0].y.Sum() / samples;
-            max = factor * scaledData[0].y.Max() -1 * dcOffset;
-            min = factor * scaledData[0].y.Min() -1 * dcOffset;
+            max = factor * scaledData[0].y.Max() - 1 * dcOffset;
+            min = factor * scaledData[0].y.Min() - 1 * dcOffset;
             rms = max / Math.Sqrt(2);
             amplitud = max - min;          
             
@@ -287,15 +294,15 @@ namespace HV9104_GUI
         }
 
 
-        public double ScaleFactor
+        public double DividerRatio
         {
             set
             {
-                this.scaleFactor = value;
+                this.dividerRatio = value;
             }
             get
             {
-                return this.scaleFactor;
+                return this.dividerRatio;
             }
         }
 

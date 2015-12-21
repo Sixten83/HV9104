@@ -92,7 +92,6 @@
             this.measuringGapTextBox = new HV9104_GUI.CustomTextBox();
             this.customPanel5 = new HV9104_GUI.CustomPanel();
             this.dcVoltageRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.acOutputRadioButton = new HV9104_GUI.CustomRadioButton();
             this.inputVoltageRadioButton = new HV9104_GUI.CustomRadioButton();
             this.label9 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -104,6 +103,7 @@
             this.currentInputLabel = new System.Windows.Forms.Label();
             this.voltageInputLabel = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.acOutputRadioButton = new HV9104_GUI.CustomRadioButton();
             this.customPanel4.SuspendLayout();
             this.customPanel3.SuspendLayout();
             this.customPanel2.SuspendLayout();
@@ -973,20 +973,6 @@
             this.dcVoltageRadioButton.Text = "customRadioButton1";
             this.dcVoltageRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
-            // acOutputRadioButton
-            // 
-            this.acOutputRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.acOutputRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.acOutputRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.acOutputRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.acOutputRadioButton.isChecked = false;
-            this.acOutputRadioButton.Location = new System.Drawing.Point(232, 122);
-            this.acOutputRadioButton.Name = "acOutputRadioButton";
-            this.acOutputRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.acOutputRadioButton.TabIndex = 1;
-            this.acOutputRadioButton.Text = "customRadioButton1";
-            this.acOutputRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            // 
             // inputVoltageRadioButton
             // 
             this.inputVoltageRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
@@ -1103,6 +1089,20 @@
             this.voltageInputLabel.Text = "0";
             this.voltageInputLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // acOutputRadioButton
+            // 
+            this.acOutputRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.acOutputRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.acOutputRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.acOutputRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.acOutputRadioButton.isChecked = false;
+            this.acOutputRadioButton.Location = new System.Drawing.Point(232, 122);
+            this.acOutputRadioButton.Name = "acOutputRadioButton";
+            this.acOutputRadioButton.Size = new System.Drawing.Size(47, 47);
+            this.acOutputRadioButton.TabIndex = 1;
+            this.acOutputRadioButton.Text = "customRadioButton1";
+            this.acOutputRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
+            // 
             // RunView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1185,7 +1185,6 @@
         public CustomComboBox voltageRegulationRepresentationComboBox;
         public CustomPanel customPanel13;
         public CustomRadioButton dcVoltageRadioButton;
-        public CustomRadioButton acOutputRadioButton;
         public CustomRadioButton inputVoltageRadioButton;
         public System.Windows.Forms.Label label9;
         public System.Windows.Forms.Label label7;
@@ -1227,5 +1226,6 @@
         public CustomCheckBox parkCheckBox;
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label label2;
+        public CustomRadioButton acOutputRadioButton;
     }
 }

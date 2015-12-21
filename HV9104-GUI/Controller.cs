@@ -50,6 +50,7 @@ namespace HV9104_GUI
             triggerTimer = new Timer();
             triggerTimer.Tick += new System.EventHandler(this.triggerTimer_Tick);
             triggerTimer.Interval = 3000;
+            this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
             
             /////////////////
             this.measuringForm.triggerWindow.okButton.Click += new System.EventHandler(this.triggerMenuOkButton_Click);
@@ -132,7 +133,7 @@ namespace HV9104_GUI
             this.controlForm.runView.increasePressureButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increasePressureButton_Up);
 
             //***********************************************************************************************************
-            //***                                  MEASURING FORM EVENT HANDLERS                                    *****
+            //***                                  MEASURING FORM EVENT LISTENERS                                   *****
             //***********************************************************************************************************
             //Input Listeners
             this.measuringForm.acdcRadioButton.Click += new System.EventHandler(acdcRadioButton_Click);
@@ -150,10 +151,13 @@ namespace HV9104_GUI
             this.measuringForm.resolutionComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(resolutionComboBox_valueChange);
             this.measuringForm.timeBaseComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(timeBaseComboBox_valueChange);
             this.measuringForm.triggerSetupButton.Click += new System.EventHandler(triggerSetupButton_Click);
-            
-            
-            //var stopwatch = Stopwatch.StartNew();
-               
+
+            //***********************************************************************************************************
+            //***                                  CURSOR MENU EVENT LISTENERS                                      *****
+            //***********************************************************************************************************
+            this.measuringForm.chart.cursorMenu.acChannelRadioButton.Click += new System.EventHandler(this.acChannelRadioButton_Click);
+            this.measuringForm.chart.cursorMenu.dcChannelRadioButton.Click += new System.EventHandler(this.dcChannelRadioButton_Click);
+ 
             loopTimer.Start();
             Application.Run(controlForm); // Måste vara sist!!!
             
@@ -339,6 +343,11 @@ namespace HV9104_GUI
             acChannel.IncrementIndex = 1;
             dcChannel.IncrementIndex = 1;  
             this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
+            this.measuringForm.chart.cursorMenu.acChannelRadioButton.isChecked = true;
+            this.measuringForm.chart.cursorMenu.dcChannelRadioButton.isChecked = false;
+            this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
+            this.measuringForm.chart.cursorMenu.resizeUp();
+            this.measuringForm.chart.updateCursorMenu();
             this.measuringForm.timeBaseComboBox.setCollection = new string[] {
         "2 ms/Div",
         "5 ms/Div",
@@ -359,7 +368,9 @@ namespace HV9104_GUI
             this.measuringForm.chart.Series["acSeries"].Points.Clear();
             this.measuringForm.chart.Series["dcSeries"].Points.Clear();
             fastStream = true;
-
+            this.measuringForm.chart.cursorMenu.setScaleFactor(impulseChannel.getScaleFactor(), impulseChannel.DCOffset);
+            this.measuringForm.chart.cursorMenu.resizeDown();
+            this.measuringForm.chart.updateCursorMenu();
             this.measuringForm.timeBaseComboBox.setCollection = new string[] {
         "200 ns/Div",
         "500 ns/Div",
@@ -374,13 +385,15 @@ namespace HV9104_GUI
        
         private void acVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            //double[] range = {0.2, 0.5, 1, 2, 5, 10, 20};
-            double[] range = { 0.04, 0.1, 0.2, 0.4, 1, 2, 4 };
             pauseStream();            
             picoScope.setChannelVoltageRange(0, (Imports.Range)e.Value + 4);
-            //this.measuringForm.chart.setVoltsPerDiv(6502.4);
-           // this.measuringForm.chart.setVoltsPerDiv(range[(int)e.Value]);
             rebootStream();
+
+            if (this.measuringForm.chart.cursorMenu.acChannelRadioButton.isChecked)
+            {
+                this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
+                this.measuringForm.chart.updateCursorMenu();
+            }
         }
 
 
@@ -406,6 +419,12 @@ namespace HV9104_GUI
             pauseStream();
             picoScope.setChannelVoltageRange(1, (Imports.Range)e.Value + 4);
             rebootStream();
+
+            if (this.measuringForm.chart.cursorMenu.dcChannelRadioButton.isChecked)
+            {
+                this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);
+                this.measuringForm.chart.updateCursorMenu();
+            }
             
         }
 
@@ -431,11 +450,12 @@ namespace HV9104_GUI
           
         private void impulseVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            double[] range = { 0.04, 0.1, 0.2, 0.4, 1, 2, 4 };
+            
             pauseStream();
-            picoScope.setChannelVoltageRange(2, (Imports.Range)e.Value + 4);
-            //this.measuringForm.chart.setVoltsPerDiv(range[(int)e.Value]);
+            picoScope.setChannelVoltageRange(2, (Imports.Range)e.Value + 4);            
             rebootStream();
+            this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);
+            this.measuringForm.chart.updateCursorMenu();
             
         }
 
@@ -531,7 +551,7 @@ namespace HV9104_GUI
                     this.measuringForm.chart.setTimePerDiv(10);
                 }
             }
-             
+            this.measuringForm.chart.updateCursorMenu();
         }
          
         private void triggerSetupButton_Click(object sender, EventArgs e)
@@ -673,8 +693,7 @@ namespace HV9104_GUI
             picoScope.disableChannel(0);
             picoScope.disableChannel(1);
             picoScope.enableChannel(2);
-            picoScope.setDCoffset(2, -1 * impulseChannel.Polarity * impulseChannel.rangeToVolt() * 0.8f);
-           
+            picoScope.setDCoffset(2, -1 * impulseChannel.Polarity * impulseChannel.rangeToVolt() * 0.8f);              
             //Set databuffer
             picoScope.setBlockDataBuffer();            
             //Set trigger Channel/Level/Type
@@ -955,6 +974,18 @@ namespace HV9104_GUI
         {
             disableForControls();
             this.controlForm.modeLabel.Text = "Impulse Disruptive Discharge Voltage Test";
+        }
+
+        private void acChannelRadioButton_Click(object sender, EventArgs e)
+        {
+            this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
+            this.measuringForm.chart.updateCursorMenu();
+        }
+
+        private void dcChannelRadioButton_Click(object sender, EventArgs e)
+        {
+            this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);
+            this.measuringForm.chart.updateCursorMenu();
         }
 
         //User want's to save the trigger setup information

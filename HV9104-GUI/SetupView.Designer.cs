@@ -347,7 +347,7 @@
             this.dcDivder2TextBox.Size = new System.Drawing.Size(170, 54);
             this.dcDivder2TextBox.TabIndex = 5;
             this.dcDivder2TextBox.TextBoxHint = "";
-            this.dcDivder2TextBox.Value = 980F;
+            this.dcDivder2TextBox.Value = 280.22F;
             this.dcDivder2TextBox.Visible = false;
             // 
             // dcDivder3TextBox
@@ -389,9 +389,9 @@
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.label6.Location = new System.Drawing.Point(21, 15);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(213, 18);
+            this.label6.Size = new System.Drawing.Size(227, 18);
             this.label6.TabIndex = 2;
-            this.label6.Text = "DC VOLTAGE DIVIDER (Ω)";
+            this.label6.Text = "DC VOLTAGE DIVIDER (MΩ)";
             // 
             // acDividerPanel
             // 
