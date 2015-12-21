@@ -13,6 +13,7 @@ namespace HV9104_GUI
         public AdviseParentEventArgs(string adviseText)
         {
             this.adviseText = adviseText;
+            //Hej
         }
 
         public string AdviseText
