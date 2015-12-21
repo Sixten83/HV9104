@@ -237,8 +237,8 @@ namespace HV9104_GUI
             scaledData[1].y = new double[1];
 
 
-            scaledData[0].y[0] = (short)(channelBuffers[0][0] * factor);
-            scaledData[1].y[0] = (short)(channelBuffers[1][0] * factor);
+            scaledData[0].y[0] = (double)(channelBuffers[0][0] * factor);
+            scaledData[1].y[0] = (double)(channelBuffers[1][0] * factor);
             max = (double)scaledData[0].y[0] - 1 * dcOffset;
             min = (double)scaledData[1].y[0] - 1 * dcOffset;
             rms = max / Math.Sqrt(2);

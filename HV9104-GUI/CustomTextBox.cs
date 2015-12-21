@@ -15,7 +15,9 @@ namespace HV9104_GUI
         ToolTip toolTip;
         public event EventHandler<ValueChangeEventArgs> valueChangeHandler;
         bool valueOk;
-        
+        int decimals = 2;
+        string decimalString = "0.00";
+         
 
         public CustomTextBox()
         {
@@ -51,6 +53,22 @@ namespace HV9104_GUI
             }
         }
 
+        public int Decimals
+        {
+            get
+            {
+                return this.decimals;
+            }
+            set
+            {
+                this.decimals = value;
+                decimalString = "0.";
+                for(int r = 0 ;r <decimals; r++)
+                {
+                    decimalString = decimalString + "0";
+                }
+            }
+        }
 
         public int Max
         {
@@ -87,7 +105,7 @@ namespace HV9104_GUI
             set
             {
                 this.value = value;
-                inputBox.Text = "" + this.value;
+                inputBox.Text = "" + this.value.ToString(decimalString).Replace(',', '.'); 
             }
         }
 

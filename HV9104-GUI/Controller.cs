@@ -18,6 +18,14 @@ namespace HV9104_GUI
         Timer loopTimer, triggerTimer;
         bool fastStream,stream;
         bool blockCapture;
+        //Voltage Dividers
+        decimal[] acHighDividerValues = { 101.27M, 106.7M };
+        decimal acLowDividerValue = 2934000;
+        decimal[] dcHighDividerValues = { 280.49M, 280.21M, 280.79M };
+        decimal dcLowDividerValue = 0.027997M;
+        decimal[] impulseHighDividerValues = { 1.302M, 1.2714M, 1.2638M };
+        decimal[] impulseLowDividerValues = { 519.498M, 513.963M, 512.21M };
+        decimal impulseAttenuatorRatio = 25.1448M; 
 
         public Controller()
         {
@@ -40,6 +48,9 @@ namespace HV9104_GUI
             picoScope.setACChannel(acChannel = new Channel());
             picoScope.setDCChannel(dcChannel = new Channel());
             picoScope.setImpulseChannel(impulseChannel = new Channel());
+            acChannel.DividerRatio = (double)((acHighDividerValues[0] + acLowDividerValue) / acHighDividerValues[0]) / 1000;
+            dcChannel.DividerRatio = (double)((dcHighDividerValues[0] + dcLowDividerValue) / dcLowDividerValue) / 1000;
+            impulseChannel.DividerRatio = (double)(impulseAttenuatorRatio * (impulseHighDividerValues[0] + impulseLowDividerValues[0]) / impulseLowDividerValues[0]) / 1000;
             picoScope.setTriggerChannel(Imports.Channel.ChannelA);
             picoScope.Resolution = Imports.DeviceResolution.PS5000A_DR_12BIT;
             picoScope.setFastStreamDataBuffer();
@@ -200,13 +211,16 @@ namespace HV9104_GUI
                 if (picoScope._autoStop)
                 {
                     int trigAt = (int)picoScope._trigAt;
-
+                    this.measuringForm.chart.Series.SuspendUpdates();
                         if(this.measuringForm.acEnableCheckBox.isChecked)
                         {
                            // Console
                             this.measuringForm.chart.Series["acSeries"].Points.Clear();
-                            Channel.ScaledData data = acChannel.processData(1600, trigAt);                            
+                            Channel.ScaledData data = acChannel.processData(1000, trigAt);
+                           
                             this.measuringForm.chart.Series["acSeries"].Points.DataBindXY(data.x,data.y);
+                           
+                            
                             this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                         }
                         else
@@ -218,7 +232,7 @@ namespace HV9104_GUI
                         if (this.measuringForm.dcEnableCheckBox.isChecked)
                         {
                             this.measuringForm.chart.Series["dcSeries"].Points.Clear();
-                            Channel.ScaledData data = dcChannel.processData(1600, trigAt);
+                            Channel.ScaledData data = dcChannel.processData(1000, trigAt);
                             this.measuringForm.chart.Series["dcSeries"].Points.DataBindXY(data.x, data.y);
                             this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                         }
@@ -227,6 +241,8 @@ namespace HV9104_GUI
                             dcChannel.processMaxMinData(1600, trigAt);
                             this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                         }
+                        this.measuringForm.chart.Series.ResumeUpdates();
+                        this.measuringForm.chart.Series.Invalidate();
                        
                     picoScope.streamStarted = false;
                     picoScope._autoStop = false;
@@ -919,7 +935,7 @@ namespace HV9104_GUI
 
         private void impulseStage2RadioButton_Click(object sender, EventArgs e)
         {
-
+            
 
         }
         private void impulseStage3RadioButton_Click(object sender, EventArgs e)
