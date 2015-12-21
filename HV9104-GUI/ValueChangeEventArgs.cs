@@ -15,6 +15,7 @@ namespace HV9104_GUI
         {
             this.text = text;
             this.value = value;
+
         }
 
         public string Text
