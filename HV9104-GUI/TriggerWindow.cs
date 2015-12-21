@@ -73,7 +73,6 @@ namespace HV9104_GUI
                
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.customPanel1 = new HV9104_GUI.CustomPanel();
             this.increaseButton = new HV9104_GUI.CustomButton();
             this.decreaseButton = new HV9104_GUI.CustomButton();
@@ -112,6 +111,7 @@ namespace HV9104_GUI
             // 
             this.increaseButton.BackColor = System.Drawing.Color.White;
             this.increaseButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.upButton;
+            this.increaseButton.ForeColor = System.Drawing.Color.White;
             this.increaseButton.HoverImage = global::HV9104_GUI.Properties.Resources.upButtonHover;
             this.increaseButton.Location = new System.Drawing.Point(364, 171);
             this.increaseButton.Name = "increaseButton";
@@ -123,6 +123,7 @@ namespace HV9104_GUI
             // 
             this.decreaseButton.BackColor = System.Drawing.Color.White;
             this.decreaseButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.downButton;
+            this.decreaseButton.ForeColor = System.Drawing.Color.White;
             this.decreaseButton.HoverImage = global::HV9104_GUI.Properties.Resources.downButtonHover;
             this.decreaseButton.Location = new System.Drawing.Point(75, 171);
             this.decreaseButton.Name = "decreaseButton";
@@ -136,6 +137,7 @@ namespace HV9104_GUI
             this.triggerLevelTextBox.BackgroundColor = System.Drawing.Color.White;
             this.triggerLevelTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
             this.triggerLevelTextBox.CornerRadius = 27;
+            this.triggerLevelTextBox.Decimals = 2;
             this.triggerLevelTextBox.IsPopUp = false;
             this.triggerLevelTextBox.Location = new System.Drawing.Point(165, 175);
             this.triggerLevelTextBox.Max = 230;
@@ -143,6 +145,7 @@ namespace HV9104_GUI
             this.triggerLevelTextBox.Name = "triggerLevelTextBox";
             this.triggerLevelTextBox.Size = new System.Drawing.Size(169, 54);
             this.triggerLevelTextBox.TabIndex = 9;
+            this.triggerLevelTextBox.TextBoxHint = "";
             this.triggerLevelTextBox.Value = 200F;
             // 
             // cancelButton
@@ -150,7 +153,7 @@ namespace HV9104_GUI
             this.cancelButton.BackColor = System.Drawing.Color.White;
             this.cancelButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.cancelButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.cancelButton.ForeColor = System.Drawing.Color.White;
             this.cancelButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
             this.cancelButton.Location = new System.Drawing.Point(244, 250);
             this.cancelButton.Name = "cancelButton";
@@ -165,7 +168,7 @@ namespace HV9104_GUI
             this.okButton.BackColor = System.Drawing.Color.White;
             this.okButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.okButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.okButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.okButton.ForeColor = System.Drawing.Color.White;
             this.okButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
             this.okButton.Location = new System.Drawing.Point(65, 250);
             this.okButton.Name = "okButton";
@@ -185,9 +188,11 @@ namespace HV9104_GUI
         "Vrms",
         "Vpk",
         "Vpk-Vpk"};
+            this.customComboBox2.SetSelected = "Vrms";
             this.customComboBox2.Size = new System.Drawing.Size(209, 67);
             this.customComboBox2.TabIndex = 8;
             this.customComboBox2.Text = "customComboBox1";
+            this.customComboBox2.TextBoxHint = "";
             // 
             // customComboBox1
             // 
@@ -200,9 +205,11 @@ namespace HV9104_GUI
         "Vrms",
         "Vpk",
         "Vpk-Vpk"};
+            this.customComboBox1.SetSelected = "Vrms";
             this.customComboBox1.Size = new System.Drawing.Size(209, 67);
             this.customComboBox1.TabIndex = 8;
             this.customComboBox1.Text = "customComboBox1";
+            this.customComboBox1.TextBoxHint = "";
             // 
             // titleLabel
             // 
@@ -219,6 +226,7 @@ namespace HV9104_GUI
             // 
             this.closeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.closeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.closeButton;
+            this.closeButton.ForeColor = System.Drawing.Color.White;
             this.closeButton.HoverImage = global::HV9104_GUI.Properties.Resources.closeButtonHover;
             this.closeButton.Location = new System.Drawing.Point(456, 25);
             this.closeButton.Name = "closeButton";

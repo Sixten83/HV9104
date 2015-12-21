@@ -92,6 +92,7 @@
             this.measuringGapTextBox = new HV9104_GUI.CustomTextBox();
             this.customPanel5 = new HV9104_GUI.CustomPanel();
             this.dcVoltageRadioButton = new HV9104_GUI.CustomRadioButton();
+            this.acOutputRadioButton = new HV9104_GUI.CustomRadioButton();
             this.inputVoltageRadioButton = new HV9104_GUI.CustomRadioButton();
             this.label9 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -103,7 +104,6 @@
             this.currentInputLabel = new System.Windows.Forms.Label();
             this.voltageInputLabel = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.acOutputRadioButton = new HV9104_GUI.CustomRadioButton();
             this.customPanel4.SuspendLayout();
             this.customPanel3.SuspendLayout();
             this.customPanel2.SuspendLayout();
@@ -320,6 +320,7 @@
             // 
             this.increaseChoppingTimeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.increaseChoppingTimeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.upButton;
+            this.increaseChoppingTimeButton.ForeColor = System.Drawing.Color.White;
             this.increaseChoppingTimeButton.HoverImage = global::HV9104_GUI.Properties.Resources.upButtonHover;
             this.increaseChoppingTimeButton.Location = new System.Drawing.Point(319, 161);
             this.increaseChoppingTimeButton.Name = "increaseChoppingTimeButton";
@@ -331,6 +332,7 @@
             // 
             this.decreaseChoppingTimeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.decreaseChoppingTimeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.downButton;
+            this.decreaseChoppingTimeButton.ForeColor = System.Drawing.Color.White;
             this.decreaseChoppingTimeButton.HoverImage = global::HV9104_GUI.Properties.Resources.downButtonHover;
             this.decreaseChoppingTimeButton.Location = new System.Drawing.Point(39, 161);
             this.decreaseChoppingTimeButton.Name = "decreaseChoppingTimeButton";
@@ -344,6 +346,7 @@
             this.choppingTimeTextBox.BackgroundColor = System.Drawing.Color.White;
             this.choppingTimeTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
             this.choppingTimeTextBox.CornerRadius = 27;
+            this.choppingTimeTextBox.Decimals = 2;
             this.choppingTimeTextBox.IsPopUp = false;
             this.choppingTimeTextBox.Location = new System.Drawing.Point(124, 168);
             this.choppingTimeTextBox.Max = 100;
@@ -360,7 +363,7 @@
             this.triggerButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.triggerButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.triggerButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.triggerButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.triggerButton.ForeColor = System.Drawing.Color.White;
             this.triggerButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
             this.triggerButton.Location = new System.Drawing.Point(18, 71);
             this.triggerButton.Name = "triggerButton";
@@ -414,6 +417,7 @@
             // 
             this.increaseRegulatedVoltageButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.increaseRegulatedVoltageButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.upButton;
+            this.increaseRegulatedVoltageButton.ForeColor = System.Drawing.Color.White;
             this.increaseRegulatedVoltageButton.HoverImage = global::HV9104_GUI.Properties.Resources.upButtonHover;
             this.increaseRegulatedVoltageButton.Location = new System.Drawing.Point(311, 64);
             this.increaseRegulatedVoltageButton.Name = "increaseRegulatedVoltageButton";
@@ -425,6 +429,7 @@
             // 
             this.decreaseRegulatedVoltageButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.decreaseRegulatedVoltageButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.downButton;
+            this.decreaseRegulatedVoltageButton.ForeColor = System.Drawing.Color.White;
             this.decreaseRegulatedVoltageButton.HoverImage = global::HV9104_GUI.Properties.Resources.downButtonHover;
             this.decreaseRegulatedVoltageButton.Location = new System.Drawing.Point(31, 64);
             this.decreaseRegulatedVoltageButton.Name = "decreaseRegulatedVoltageButton";
@@ -438,6 +443,7 @@
             this.regulatedVoltageTextBox.BackgroundColor = System.Drawing.Color.White;
             this.regulatedVoltageTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
             this.regulatedVoltageTextBox.CornerRadius = 27;
+            this.regulatedVoltageTextBox.Decimals = 2;
             this.regulatedVoltageTextBox.IsPopUp = false;
             this.regulatedVoltageTextBox.Location = new System.Drawing.Point(116, 71);
             this.regulatedVoltageTextBox.Max = 230;
@@ -453,7 +459,7 @@
             this.incrementButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.incrementButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.incrementButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.incrementButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.incrementButton.ForeColor = System.Drawing.Color.White;
             this.incrementButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
             this.incrementButton.Location = new System.Drawing.Point(14, 174);
             this.incrementButton.Name = "incrementButton";
@@ -592,6 +598,7 @@
             // 
             this.increasePressureButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.increasePressureButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.upButton;
+            this.increasePressureButton.ForeColor = System.Drawing.Color.White;
             this.increasePressureButton.HoverImage = global::HV9104_GUI.Properties.Resources.upButtonHover;
             this.increasePressureButton.Location = new System.Drawing.Point(413, 56);
             this.increasePressureButton.Name = "increasePressureButton";
@@ -614,6 +621,7 @@
             // 
             this.decreasePressureButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.decreasePressureButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.downButton;
+            this.decreasePressureButton.ForeColor = System.Drawing.Color.White;
             this.decreasePressureButton.HoverImage = global::HV9104_GUI.Properties.Resources.downButtonHover;
             this.decreasePressureButton.Location = new System.Drawing.Point(164, 56);
             this.decreasePressureButton.Name = "decreasePressureButton";
@@ -639,6 +647,7 @@
             this.pressureTextBox.BackgroundColor = System.Drawing.Color.White;
             this.pressureTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
             this.pressureTextBox.CornerRadius = 27;
+            this.pressureTextBox.Decimals = 2;
             this.pressureTextBox.IsPopUp = false;
             this.pressureTextBox.Location = new System.Drawing.Point(231, 63);
             this.pressureTextBox.Max = 6;
@@ -670,6 +679,7 @@
             // 
             this.increaseImpulseGapButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.increaseImpulseGapButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.upButton;
+            this.increaseImpulseGapButton.ForeColor = System.Drawing.Color.White;
             this.increaseImpulseGapButton.HoverImage = global::HV9104_GUI.Properties.Resources.upButtonHover;
             this.increaseImpulseGapButton.Location = new System.Drawing.Point(409, 56);
             this.increaseImpulseGapButton.Name = "increaseImpulseGapButton";
@@ -692,6 +702,7 @@
             // 
             this.decreaseImpulseGapButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.decreaseImpulseGapButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.downButton;
+            this.decreaseImpulseGapButton.ForeColor = System.Drawing.Color.White;
             this.decreaseImpulseGapButton.HoverImage = global::HV9104_GUI.Properties.Resources.downButtonHover;
             this.decreaseImpulseGapButton.Location = new System.Drawing.Point(160, 56);
             this.decreaseImpulseGapButton.Name = "decreaseImpulseGapButton";
@@ -705,6 +716,7 @@
             this.impulseGapTextBox.BackgroundColor = System.Drawing.Color.White;
             this.impulseGapTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
             this.impulseGapTextBox.CornerRadius = 27;
+            this.impulseGapTextBox.Decimals = 2;
             this.impulseGapTextBox.IsPopUp = false;
             this.impulseGapTextBox.Location = new System.Drawing.Point(227, 63);
             this.impulseGapTextBox.Max = 100;
@@ -883,6 +895,7 @@
             // 
             this.increaseMeasuringGapButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.increaseMeasuringGapButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.upButton;
+            this.increaseMeasuringGapButton.ForeColor = System.Drawing.Color.White;
             this.increaseMeasuringGapButton.HoverImage = global::HV9104_GUI.Properties.Resources.upButtonHover;
             this.increaseMeasuringGapButton.Location = new System.Drawing.Point(399, 56);
             this.increaseMeasuringGapButton.Name = "increaseMeasuringGapButton";
@@ -905,6 +918,7 @@
             // 
             this.decreaseMeasuringGapButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.decreaseMeasuringGapButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.downButton;
+            this.decreaseMeasuringGapButton.ForeColor = System.Drawing.Color.White;
             this.decreaseMeasuringGapButton.HoverImage = global::HV9104_GUI.Properties.Resources.downButtonHover;
             this.decreaseMeasuringGapButton.Location = new System.Drawing.Point(150, 56);
             this.decreaseMeasuringGapButton.Name = "decreaseMeasuringGapButton";
@@ -930,6 +944,7 @@
             this.measuringGapTextBox.BackgroundColor = System.Drawing.Color.White;
             this.measuringGapTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
             this.measuringGapTextBox.CornerRadius = 27;
+            this.measuringGapTextBox.Decimals = 2;
             this.measuringGapTextBox.IsPopUp = false;
             this.measuringGapTextBox.Location = new System.Drawing.Point(217, 63);
             this.measuringGapTextBox.Max = 100;
@@ -972,6 +987,20 @@
             this.dcVoltageRadioButton.TabIndex = 1;
             this.dcVoltageRadioButton.Text = "customRadioButton1";
             this.dcVoltageRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
+            // 
+            // acOutputRadioButton
+            // 
+            this.acOutputRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.acOutputRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.acOutputRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.acOutputRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.acOutputRadioButton.isChecked = false;
+            this.acOutputRadioButton.Location = new System.Drawing.Point(232, 122);
+            this.acOutputRadioButton.Name = "acOutputRadioButton";
+            this.acOutputRadioButton.Size = new System.Drawing.Size(47, 47);
+            this.acOutputRadioButton.TabIndex = 1;
+            this.acOutputRadioButton.Text = "customRadioButton1";
+            this.acOutputRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
             // inputVoltageRadioButton
             // 
@@ -1088,20 +1117,6 @@
             this.voltageInputLabel.TabIndex = 1;
             this.voltageInputLabel.Text = "0";
             this.voltageInputLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // acOutputRadioButton
-            // 
-            this.acOutputRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.acOutputRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.acOutputRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.acOutputRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.acOutputRadioButton.isChecked = false;
-            this.acOutputRadioButton.Location = new System.Drawing.Point(232, 122);
-            this.acOutputRadioButton.Name = "acOutputRadioButton";
-            this.acOutputRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.acOutputRadioButton.TabIndex = 1;
-            this.acOutputRadioButton.Text = "customRadioButton1";
-            this.acOutputRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
             // RunView
             // 
