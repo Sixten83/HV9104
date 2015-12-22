@@ -129,6 +129,7 @@ namespace HV9104_GUI
             this.triggerLevelTextBox.BackgroundColor = System.Drawing.Color.White;
             this.triggerLevelTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
             this.triggerLevelTextBox.CornerRadius = 27;
+            this.triggerLevelTextBox.Decimals = 2;
             this.triggerLevelTextBox.IsPopUp = false;
             this.triggerLevelTextBox.Location = new System.Drawing.Point(165, 101);
             this.triggerLevelTextBox.Max = 230;
@@ -144,7 +145,7 @@ namespace HV9104_GUI
             this.cancelButton.BackColor = System.Drawing.Color.White;
             this.cancelButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.cancelButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.cancelButton.ForeColor = System.Drawing.Color.White;
             this.cancelButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
             this.cancelButton.Location = new System.Drawing.Point(244, 176);
             this.cancelButton.Name = "cancelButton";
@@ -159,7 +160,7 @@ namespace HV9104_GUI
             this.okButton.BackColor = System.Drawing.Color.White;
             this.okButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.okButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.okButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.okButton.ForeColor = System.Drawing.Color.White;
             this.okButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
             this.okButton.Location = new System.Drawing.Point(65, 176);
             this.okButton.Name = "okButton";

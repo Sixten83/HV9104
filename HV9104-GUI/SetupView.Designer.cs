@@ -269,7 +269,7 @@
             this.impulseDivderDefaultButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseDivderDefaultButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.impulseDivderDefaultButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.impulseDivderDefaultButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.impulseDivderDefaultButton.ForeColor = System.Drawing.Color.White;
             this.impulseDivderDefaultButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
             this.impulseDivderDefaultButton.Location = new System.Drawing.Point(9, 243);
             this.impulseDivderDefaultButton.Margin = new System.Windows.Forms.Padding(9, 3, 9, 3);
@@ -379,7 +379,7 @@
             this.dcDivderDefaultButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.dcDivderDefaultButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.dcDivderDefaultButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dcDivderDefaultButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dcDivderDefaultButton.ForeColor = System.Drawing.Color.White;
             this.dcDivderDefaultButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
             this.dcDivderDefaultButton.Location = new System.Drawing.Point(9, 183);
             this.dcDivderDefaultButton.Margin = new System.Windows.Forms.Padding(9, 3, 9, 3);
@@ -453,7 +453,7 @@
             this.acDivderDefaultButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.acDivderDefaultButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.acDivderDefaultButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.acDivderDefaultButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.acDivderDefaultButton.ForeColor = System.Drawing.Color.White;
             this.acDivderDefaultButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
             this.acDivderDefaultButton.Location = new System.Drawing.Point(9, 63);
             this.acDivderDefaultButton.Name = "acDivderDefaultButton";

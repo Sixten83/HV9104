@@ -21,7 +21,7 @@ namespace HV9104_GUI
             //this.BackColor = System.Drawing.Color.Transparent;
             this.Size = new System.Drawing.Size(400, 100);
             this.BackColor = System.Drawing.Color.FromArgb(236, 236, 236);
-            
+            this.ForeColor = Color.White;
           
            
         }
