@@ -27,7 +27,7 @@ namespace HV9104_GUI
         decimal[] impulseHighDividerValues = { 1.302M, 1.2714M, 1.2638M };
         decimal[] impulseLowDividerValues = { 519.498M, 513.963M, 512.21M };
         decimal impulseAttenuatorRatio = 25.1448M; 
-        
+
         public Controller()
         {
             Application.EnableVisualStyles();
