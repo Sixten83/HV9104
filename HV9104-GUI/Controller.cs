@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using Excel = Microsoft.Office.Interop.Excel; 
 
 namespace HV9104_GUI
 {
@@ -26,7 +27,7 @@ namespace HV9104_GUI
         decimal[] impulseHighDividerValues = { 1.302M, 1.2714M, 1.2638M };
         decimal[] impulseLowDividerValues = { 519.498M, 513.963M, 512.21M };
         decimal impulseAttenuatorRatio = 25.1448M; 
-
+        
         public Controller()
         {
             Application.EnableVisualStyles();
@@ -179,7 +180,7 @@ namespace HV9104_GUI
         //***********************************************************************************************************
         private void loopTimer_Tick(object sender, EventArgs e)
         {
-           
+                      
             if(fastStream)
             {
                 if (picoScope._autoStop)
@@ -216,7 +217,7 @@ namespace HV9104_GUI
                         {
                            // Console
                             this.measuringForm.chart.Series["acSeries"].Points.Clear();
-                            Channel.ScaledData data = acChannel.processData(1000, trigAt);
+                            Channel.ScaledData data = acChannel.processData(1600, trigAt,400);
                            
                             this.measuringForm.chart.Series["acSeries"].Points.DataBindXY(data.x,data.y);
                            
@@ -232,7 +233,7 @@ namespace HV9104_GUI
                         if (this.measuringForm.dcEnableCheckBox.isChecked)
                         {
                             this.measuringForm.chart.Series["dcSeries"].Points.Clear();
-                            Channel.ScaledData data = dcChannel.processData(1000, trigAt);
+                            Channel.ScaledData data = dcChannel.processData(1600, trigAt, 400);
                             this.measuringForm.chart.Series["dcSeries"].Points.DataBindXY(data.x, data.y);
                             this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                         }
@@ -262,10 +263,11 @@ namespace HV9104_GUI
                 {
                     triggerTimer.Stop();
                     rebootStreaming();
+                    
                     if (this.measuringForm.impulseRadioButton.isChecked)
                     {
                         this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
-                        Channel.ScaledData data = impulseChannel.processData((int)picoScope.BlockSamples, 0);
+                        Channel.ScaledData data = impulseChannel.processData((int)picoScope.BlockSamples, 0,2500);
                         this.measuringForm.chart.Series["impulseSeries"].Points.DataBindXY(data.x, data.y);
                         this.controlForm.runView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                     }
@@ -284,7 +286,7 @@ namespace HV9104_GUI
         private void triggerTimer_Tick(object sender, EventArgs e)
         {
             triggerTimer.Stop();
-            rebootStreaming();
+            //rebootStreaming();
         }
 
          public void rebootStreaming()
@@ -477,8 +479,7 @@ namespace HV9104_GUI
 
         private void impulseEnableCheckBox_Click(object sender, EventArgs e)
         {
-
-
+            
         }
 
         private void resolutionComboBox_valueChange(object sender, ValueChangeEventArgs e)

@@ -31,7 +31,7 @@ namespace HV9104_GUI
         public short _overflow = 0;
         public bool streamStarted = false;
         private int bufferSize = 1024 * 100;//1024 * 100; /*  *100 is to make sure buffer large enough */
-        uint streamingSamples = 3000;
+        uint streamingSamples = 10000;
         uint streamingInterval = 31250;
         private Imports.ReportedTimeUnits streamingIntervalUnits = Imports.ReportedTimeUnits.NanoSeconds;
         uint blockPreTriggerSamples = 100;
@@ -337,8 +337,9 @@ namespace HV9104_GUI
             uint status;
 
             buffers[4] = new short[bufferSize];
+            short[] bufferstest = new short[bufferSize];
             status = Imports.SetDataBuffer(handle, Imports.Channel.ChannelC, buffers[4], bufferSize, 0, Imports.RatioMode.None);
-          
+            
             Console.WriteLine("BlockDataBuffers Status : {0} ", status);
 
         }
@@ -374,14 +375,11 @@ namespace HV9104_GUI
 
             if (_readyBlock)
             {
-                status = Imports.GetValues(handle, 0, ref blockSamples, 1, Imports.DownSamplingMode.None, 0, out overflow);
+                status = Imports.GetValues(handle, 0, ref blockSamples, 0, Imports.DownSamplingMode.None, 0, out overflow);
+                Console.WriteLine("GetValues status:" + status);
                 if (status == (short)Imports.PICO_OK)
                 {
-                    Array.Copy(buffers[4], 0, channels[2].channelBuffers[0], 0, blockSamples);
-                  /*  for (int r = 0; r < 500; r++)
-                    {
-                        Console.WriteLine(channels[2].channelBuffers[0][r]);
-                    }*/
+                    Array.Copy(buffers[4], 0, channels[2].channelBuffers[0], 0, blockSamples);                  
                     
                 }
             }

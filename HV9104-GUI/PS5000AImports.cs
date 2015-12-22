@@ -98,7 +98,9 @@ namespace HV9104_GUI
         public enum DownSamplingMode : uint
         {
             None,
-            Aggregate
+            Aggregate,
+            Average,
+            Decimate
         }
 
         public enum PulseWidthType : uint

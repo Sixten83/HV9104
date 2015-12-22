@@ -97,7 +97,7 @@ namespace HV9104_GUI
                 {
                     incrementValues[0][r++] = (double)increment;
                 }
-
+                
                
                 incrementValues[1] = new double[1600];
                 //X values for 5 ms/Div
@@ -105,7 +105,7 @@ namespace HV9104_GUI
                 {
                     incrementValues[1][r++] = (double)increment;
                 }
-
+                
                 incrementValues[2] = new double[1600];
                 //X values for 10 ms/Div
                 for (increment = -50, r = 0; increment < 50; increment += 0.0625m)
@@ -264,15 +264,36 @@ namespace HV9104_GUI
 
         
 
-        public ScaledData processData(int samples, int startIndex)
+        public ScaledData processData(int samples, int startIndex, int downSampelCount)
         {
-            scaledData = new ScaledData[2];
-            scaledData[0].x = new double[samples];
-            scaledData[0].y = new double[samples];
 
-            double factor = (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;            
-            Array.Copy(channelBuffers[0], startIndex, scaledData[0].y, 0, samples);
-            Array.Copy(incrementValues[incrementIndex], 0, scaledData[0].x, 0, samples);
+            scaledData = new ScaledData[2];
+            
+            
+            double factor = (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;
+            if (downSampelCount == 0 || samples < downSampelCount)
+            {
+                scaledData[0].y = new double[samples];
+                scaledData[0].x = new double[samples];
+                Array.Copy(channelBuffers[0], startIndex, scaledData[0].y, 0, samples);
+                Array.Copy(incrementValues[incrementIndex], 0, scaledData[0].x, 0, samples);
+            }
+            else
+            {
+                int downSampleRatio = (samples) / downSampelCount;
+                scaledData[0].y = new double[downSampelCount];
+                scaledData[0].x = new double[downSampelCount];
+                int i = 0;
+                int r = startIndex;
+                for (; r < startIndex + samples; r += downSampleRatio)
+                {                                      
+                    Array.Copy(channelBuffers[0], r, scaledData[0].y, i, 1);
+                    Array.Copy(incrementValues[incrementIndex], r - startIndex, scaledData[0].x, i, 1);
+                    i++;
+                }
+                Console.WriteLine("Last value" + scaledData[0].x[downSampelCount - 1]);
+                //Console.WriteLine("r-startIndex {0} r:{1} actSamples: {2} desiredSamples: {3} ", startIndex, r, i, samples);    
+            }
             average = factor * scaledData[0].y.Sum() / samples;
             max = factor * scaledData[0].y.Max() - 1 * dcOffset;
             min = factor * scaledData[0].y.Min() - 1 * dcOffset;
