@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlForm));
             this.titleBarPanel = new System.Windows.Forms.Panel();
+            this.messageLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.minimizeButton = new HV9104_GUI.CustomButton();
             this.maximizeButton = new HV9104_GUI.CustomButton();
@@ -55,6 +56,7 @@
             // titleBarPanel
             // 
             this.titleBarPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.titleBarPanel.Controls.Add(this.messageLabel);
             this.titleBarPanel.Controls.Add(this.pictureBox1);
             this.titleBarPanel.Controls.Add(this.minimizeButton);
             this.titleBarPanel.Controls.Add(this.maximizeButton);
@@ -74,6 +76,15 @@
             this.titleBarPanel.Size = new System.Drawing.Size(1918, 100);
             this.titleBarPanel.TabIndex = 12;
             // 
+            // messageLabel
+            // 
+            this.messageLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.messageLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.messageLabel.Location = new System.Drawing.Point(317, 46);
+            this.messageLabel.Name = "messageLabel";
+            this.messageLabel.Size = new System.Drawing.Size(501, 49);
+            this.messageLabel.TabIndex = 6;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::HV9104_GUI.Properties.Resources.tercoLogo;
@@ -87,6 +98,7 @@
             // 
             this.minimizeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.minimizeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.minimizeButton;
+            this.minimizeButton.ForeColor = System.Drawing.Color.White;
             this.minimizeButton.HoverImage = global::HV9104_GUI.Properties.Resources.minimizeButtonHover;
             this.minimizeButton.Location = new System.Drawing.Point(1843, 10);
             this.minimizeButton.Name = "minimizeButton";
@@ -99,6 +111,7 @@
             // 
             this.maximizeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.maximizeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.maximizeButton;
+            this.maximizeButton.ForeColor = System.Drawing.Color.White;
             this.maximizeButton.HoverImage = global::HV9104_GUI.Properties.Resources.maximizeButtonHover;
             this.maximizeButton.Location = new System.Drawing.Point(1869, 10);
             this.maximizeButton.Name = "maximizeButton";
@@ -112,6 +125,7 @@
             // 
             this.restoreDownButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.restoreDownButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.restoreDownButton;
+            this.restoreDownButton.ForeColor = System.Drawing.Color.White;
             this.restoreDownButton.HoverImage = global::HV9104_GUI.Properties.Resources.restoreDownButtonHover;
             this.restoreDownButton.Location = new System.Drawing.Point(1869, 10);
             this.restoreDownButton.Name = "restoreDownButton";
@@ -124,6 +138,7 @@
             // 
             this.closeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.closeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.closeButton;
+            this.closeButton.ForeColor = System.Drawing.Color.White;
             this.closeButton.HoverImage = global::HV9104_GUI.Properties.Resources.closeButtonHover;
             this.closeButton.Location = new System.Drawing.Point(1895, 10);
             this.closeButton.Name = "closeButton";
@@ -293,6 +308,6 @@
         public CustomButton maximizeButton;
         public System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Label modeLabel;
-
+        public System.Windows.Forms.Label messageLabel;
     }
 }

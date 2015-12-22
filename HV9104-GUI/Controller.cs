@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
-using Excel = Microsoft.Office.Interop.Excel; 
+//using Excel = Microsoft.Office.Interop.Excel; 
 
 namespace HV9104_GUI
 {
@@ -46,6 +46,8 @@ namespace HV9104_GUI
             {
                 Console.WriteLine("Unable to open device");
             }
+            else
+                this.controlForm.messageLabel.Text = "Mesauring device opend succesfully";
             picoScope.setACChannel(acChannel = new Channel());
             picoScope.setDCChannel(dcChannel = new Channel());
             picoScope.setImpulseChannel(impulseChannel = new Channel());

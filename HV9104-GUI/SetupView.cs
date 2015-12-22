@@ -35,13 +35,14 @@ namespace HV9104_GUI
 
         private void dcStage3RadioButton_Click(object sender, EventArgs e)
         {
-            
+            this.dcDivder2TextBox.Visible = true;
             this.dcDivder3TextBox.Visible = true;
             this.dcDividerPanel.Invalidate();
         }
 
         private void impulseStage1RadioButton_Click(object sender, EventArgs e)
         {
+            this.impulseDivder1TextBox.Visible = true;
             this.impulseDivder2TextBox.Visible = false;
             this.impulseDivder3TextBox.Visible = false;
             this.impulseDividerPanel.Invalidate();
@@ -49,6 +50,7 @@ namespace HV9104_GUI
 
         private void impulseStage2RadioButton_Click(object sender, EventArgs e)
         {
+            this.impulseDivder1TextBox.Visible = true;
             this.impulseDivder2TextBox.Visible = true;
             this.impulseDivder3TextBox.Visible = false;
             this.impulseDividerPanel.Invalidate();
@@ -56,6 +58,8 @@ namespace HV9104_GUI
 
         private void impulseStage3RadioButton_Click(object sender, EventArgs e)
         {
+            this.impulseDivder1TextBox.Visible = true;
+            this.impulseDivder2TextBox.Visible = true;
             this.impulseDivder3TextBox.Visible = true;
             this.impulseDividerPanel.Invalidate();
         }
