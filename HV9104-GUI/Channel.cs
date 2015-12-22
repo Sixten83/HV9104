@@ -278,6 +278,7 @@ namespace HV9104_GUI
                 scaledData[0].x = new double[samples];
                 Array.Copy(channelBuffers[0], startIndex, scaledData[0].y, 0, samples);
                 Array.Copy(incrementValues[incrementIndex], 0, scaledData[0].x, 0, samples);
+                average = factor * scaledData[0].y.Sum() / samples;
             }
             else
             {
@@ -292,9 +293,9 @@ namespace HV9104_GUI
                     Array.Copy(incrementValues[incrementIndex], r - startIndex, scaledData[0].x, i, 1);
                     i++;
                 }
-                                
+                average = factor * scaledData[0].y.Sum() / downSampelCount;
             }
-            average = factor * scaledData[0].y.Sum() / samples;
+            
             max = factor * scaledData[0].y.Max() - 1 * dcOffset;
             min = factor * scaledData[0].y.Min() - 1 * dcOffset;
             rms = max / Math.Sqrt(2);

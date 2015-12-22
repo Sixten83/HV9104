@@ -124,6 +124,7 @@
             // 
             this.minimizeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.minimizeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.minimizeButton;
+            this.minimizeButton.ForeColor = System.Drawing.Color.White;
             this.minimizeButton.HoverImage = global::HV9104_GUI.Properties.Resources.minimizeButtonHover;
             this.minimizeButton.Location = new System.Drawing.Point(1843, 10);
             this.minimizeButton.Name = "minimizeButton";
@@ -137,6 +138,7 @@
             // 
             this.maximizeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.maximizeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.maximizeButton;
+            this.maximizeButton.ForeColor = System.Drawing.Color.White;
             this.maximizeButton.HoverImage = global::HV9104_GUI.Properties.Resources.maximizeButtonHover;
             this.maximizeButton.Location = new System.Drawing.Point(1869, 10);
             this.maximizeButton.Name = "maximizeButton";
@@ -151,6 +153,7 @@
             // 
             this.restoreDownButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.restoreDownButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.restoreDownButton;
+            this.restoreDownButton.ForeColor = System.Drawing.Color.White;
             this.restoreDownButton.HoverImage = global::HV9104_GUI.Properties.Resources.restoreDownButtonHover;
             this.restoreDownButton.Location = new System.Drawing.Point(1869, 10);
             this.restoreDownButton.Name = "restoreDownButton";
@@ -164,6 +167,7 @@
             // 
             this.closeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.closeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.closeButton;
+            this.closeButton.ForeColor = System.Drawing.Color.White;
             this.closeButton.HoverImage = global::HV9104_GUI.Properties.Resources.closeButtonHover;
             this.closeButton.Location = new System.Drawing.Point(1895, 10);
             this.closeButton.Name = "closeButton";
@@ -544,13 +548,11 @@
             this.chart.ChartAreas.Add(chartArea1);
             this.chart.Location = new System.Drawing.Point(20, 20);
             this.chart.Name = "chart";
-            series1.BorderWidth = 2;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Color = System.Drawing.Color.Blue;
+            series1.Color = System.Drawing.Color.Gold;
             series1.IsVisibleInLegend = false;
             series1.Name = "acSeries";
-            series2.BorderWidth = 2;
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series2.Color = System.Drawing.Color.Red;
@@ -558,6 +560,7 @@
             series2.Name = "dcSeries";
             series3.ChartArea = "ChartArea1";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.Color = System.Drawing.Color.RoyalBlue;
             series3.IsVisibleInLegend = false;
             series3.Name = "impulseSeries";
             series4.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;

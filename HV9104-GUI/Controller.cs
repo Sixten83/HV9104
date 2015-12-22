@@ -47,7 +47,7 @@ namespace HV9104_GUI
                 Console.WriteLine("Unable to open device");
             }
             else
-                this.controlForm.messageLabel.Text = "Mesauring device opend succesfully";
+                this.controlForm.messageLabel.Text = "Measuring device opened successfully";
             picoScope.setACChannel(acChannel = new Channel());
             picoScope.setDCChannel(dcChannel = new Channel());
             picoScope.setImpulseChannel(impulseChannel = new Channel());
