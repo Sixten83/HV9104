@@ -51,7 +51,8 @@ namespace HV9104_GUI
             picoScope.setImpulseChannel(impulseChannel = new Channel());
             acChannel.DividerRatio = (double)((acHighDividerValues[0] + acLowDividerValue) / acHighDividerValues[0]) / 1000;
             dcChannel.DividerRatio = (double)((dcHighDividerValues[0] + dcLowDividerValue) / dcLowDividerValue) / 1000;
-            impulseChannel.DividerRatio = (double)(impulseAttenuatorRatio * (impulseHighDividerValues[0] + impulseLowDividerValues[0]) / impulseLowDividerValues[0]) / 1000;
+            impulseChannel.DividerRatio = (double)(impulseAttenuatorRatio * (impulseHighDividerValues[0] + impulseLowDividerValues[0]) / impulseHighDividerValues[0]) / 1000;
+            Console.WriteLine("impulseChannel.DividerRatio" + (int)impulseChannel.DividerRatio);
             picoScope.setTriggerChannel(Imports.Channel.ChannelA);
             picoScope.Resolution = Imports.DeviceResolution.PS5000A_DR_12BIT;
             picoScope.setFastStreamDataBuffer();
@@ -891,19 +892,23 @@ namespace HV9104_GUI
 
         private void acStage1RadioButton_Click(object sender, EventArgs e)
         {
-
+            this.controlForm.setupView.impulseLowDivderTextBox.Value = (float)acHighDividerValues[0];
+            acChannel.DividerRatio = (double)((acHighDividerValues[0] + acLowDividerValue) / acHighDividerValues[0]) / 1000;
+            
 
         }
 
         private void acStage2RadioButton_Click(object sender, EventArgs e)
         {
-
-
+            this.controlForm.setupView.impulseLowDivderTextBox.Value = (float)acHighDividerValues[1];
+            acChannel.DividerRatio = (double)((acHighDividerValues[1] + acLowDividerValue) / acHighDividerValues[1]) / 1000;
+           
         }
         private void acStage3RadioButton_Click(object sender, EventArgs e)
         {
-
-
+            this.controlForm.setupView.impulseLowDivderTextBox.Value = (float)acHighDividerValues[1];
+            acChannel.DividerRatio = (double)((acHighDividerValues[1] + acLowDividerValue) / acHighDividerValues[1]) / 1000;
+            
         }
 
         private void dcCheckBox_Click(object sender, EventArgs e)
@@ -915,43 +920,47 @@ namespace HV9104_GUI
         private void dcStage1RadioButton_Click(object sender, EventArgs e)
         {
 
+            dcChannel.DividerRatio = (double)((dcHighDividerValues[0] + dcLowDividerValue) / dcLowDividerValue) / 1000;
+           
 
         }
 
         private void dcStage2RadioButton_Click(object sender, EventArgs e)
         {
-
+            dcChannel.DividerRatio = (double)((dcHighDividerValues[0] + dcHighDividerValues[1] + dcLowDividerValue) / dcLowDividerValue) / 1000;
 
         }
 
         private void dcStage3RadioButton_Click(object sender, EventArgs e)
         {
 
-
+            dcChannel.DividerRatio = (double)((dcHighDividerValues.Sum() + dcLowDividerValue) / dcLowDividerValue) / 1000;
         }
 
 
         private void impulseCheckBox_Click(object sender, EventArgs e)
         {
-
-
+            
         }
 
         private void impulseStage1RadioButton_Click(object sender, EventArgs e)
         {
 
-
+            this.controlForm.setupView.impulseLowDivderTextBox.Value = (float)impulseLowDividerValues[0];
+            impulseChannel.DividerRatio = (double)(impulseAttenuatorRatio * (impulseHighDividerValues[0] + impulseLowDividerValues[0]) / impulseHighDividerValues[0]) / 1000;
         }
 
         private void impulseStage2RadioButton_Click(object sender, EventArgs e)
         {
-            
-
+            decimal highDivider = 1 / (1 / impulseHighDividerValues[0] + 1 / impulseHighDividerValues[1]);
+            this.controlForm.setupView.impulseLowDivderTextBox.Value = (float)impulseLowDividerValues[1];
+            impulseChannel.DividerRatio = (double)(impulseAttenuatorRatio * (highDivider + impulseLowDividerValues[1]) / highDivider) / 1000;
         }
         private void impulseStage3RadioButton_Click(object sender, EventArgs e)
         {
-
-            
+            decimal highDivider = 1 / (1 / impulseHighDividerValues[0] + 1 / impulseHighDividerValues[1] + 1 / impulseHighDividerValues[2]);
+            this.controlForm.setupView.impulseLowDivderTextBox.Value = (float)impulseLowDividerValues[2];
+            impulseChannel.DividerRatio = (double)(impulseAttenuatorRatio * (highDivider + impulseLowDividerValues[2]) / highDivider) / 1000;
         }
 
 

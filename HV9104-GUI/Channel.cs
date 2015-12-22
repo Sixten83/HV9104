@@ -65,7 +65,8 @@ namespace HV9104_GUI
         {   
             set
             {
-                this.dcOffset = value;
+                this.dcOffset = value * (float)dividerRatio;
+                 
             }
             get
             {
@@ -291,8 +292,7 @@ namespace HV9104_GUI
                     Array.Copy(incrementValues[incrementIndex], r - startIndex, scaledData[0].x, i, 1);
                     i++;
                 }
-                Console.WriteLine("Last value" + scaledData[0].x[downSampelCount - 1]);
-                //Console.WriteLine("r-startIndex {0} r:{1} actSamples: {2} desiredSamples: {3} ", startIndex, r, i, samples);    
+                                
             }
             average = factor * scaledData[0].y.Sum() / samples;
             max = factor * scaledData[0].y.Max() - 1 * dcOffset;

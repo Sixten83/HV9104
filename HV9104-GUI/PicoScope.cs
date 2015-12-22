@@ -417,7 +417,7 @@ namespace HV9104_GUI
             float max, min;
             uint status;
             channels[index].DCOffset = offset;
-            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, channels[index].DCOffset);
+            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, offset);
             Console.WriteLine("setDCoffset status {0}", status); 
         }
 
