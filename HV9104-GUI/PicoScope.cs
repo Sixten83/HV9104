@@ -49,11 +49,13 @@ namespace HV9104_GUI
 
            triggerChannel = Imports.Channel.ChannelA;
            triggerLevel = 1000;
-           triggerType = Imports.ThresholdDirection.Rising;
-           
-           
-           
+           triggerType = Imports.ThresholdDirection.Rising;         
+                      
         }
+
+        //***********************************************************************************************************
+        //***                                     SETERS/GETERS FOR CLASS MEMBERS                                ****
+        //***********************************************************************************************************
 
         public uint BlockSamples
         {
@@ -68,7 +70,6 @@ namespace HV9104_GUI
 
         }
 
-
         public uint StreamingInterval
         {
             set
@@ -81,7 +82,51 @@ namespace HV9104_GUI
             }
 
         }
-        
+
+        //Returns the unic idintifier of the scope
+        public short Handle
+        {
+            get
+            {
+                return handle;
+            }
+        }
+
+        public double TimePerDivision
+        {
+            set
+            {
+                this.timePerDivision = value;
+            }
+            get
+            {
+                return this.timePerDivision;
+            }
+
+        }
+
+
+        public uint PreTrigger
+        {
+            set
+            {
+                this.preTrigger = value;
+            }
+            get
+            {
+                return this.preTrigger;
+            }
+
+        }        
+
+        public short getADMaxValue()
+        {
+            return maxADValue;
+        }
+
+        //***********************************************************************************************************
+        //***                                     CHANNEL INITIATION                                             ****
+        //***********************************************************************************************************
         public void setACChannel(Channel channel)
         {
             channels[0] = channel;
@@ -119,46 +164,11 @@ namespace HV9104_GUI
             channels[2].IncrementIndex = 4;
             channels[2].DCOffset = -16;
             Imports.SetChannel(handle, channels[2].ChannelName, 0, channels[2].Coupling, channels[2].VoltageRange, 0);
-        }
+        }       
 
-        public double TimePerDivision
-        {
-            set
-            {
-                this.timePerDivision = value;
-            }
-            get
-            {
-                return this.timePerDivision;
-            }
-
-        }
-
-
-        public uint PreTrigger
-        {
-            set
-            {
-                this.preTrigger = value;
-            }
-            get
-            {
-                return this.preTrigger;
-            }
-            
-        }
-
-        public void stopStreaming()
-        {
-            uint status = Imports.Stop(handle);
-            Console.WriteLine("Stop Status : {0} ", status);
-        }
-
-        public short getADMaxValue()
-        {
-            return maxADValue;
-             
-        }
+        //***********************************************************************************************************
+        //***                                     TRIGGER SETUP                                                  ****
+        //***********************************************************************************************************
 
         public void setTriggerChannel(Imports.Channel triggerChannel)
         {
@@ -184,6 +194,10 @@ namespace HV9104_GUI
             Console.WriteLine("TriggerType Status : {0} ", status);
         }
 
+
+        //***********************************************************************************************************
+        //***                                     FASTSTREAMING CAPTURING                                        ****
+        //***********************************************************************************************************
 
         public void setFastStreamDataBuffer()
         {
@@ -257,6 +271,17 @@ namespace HV9104_GUI
 
         }
 
+        //Call this function to stop data collection (same call regardless if streamingMode, fastStreamingMode or blockCaptureMode is running)
+        public void stopStreaming()
+        {
+            uint status = Imports.Stop(handle);
+            Console.WriteLine("Stop Status : {0} ", status);
+        }
+
+        //***********************************************************************************************************
+        //***                                     STREAMING                                                      ****
+        //***********************************************************************************************************
+
         
         public void setStreamDataBuffers()
         {
@@ -329,9 +354,13 @@ namespace HV9104_GUI
             }
               
         }
+
+        //***********************************************************************************************************
+        //***                                     BLOCK CAPTURING                                                ****
+        //***********************************************************************************************************
        
 
-        //Data buffer setup for captureing Lightning Impulse 
+        //Data buffer setup for capturing Lightning Impulse 
         public void setBlockDataBuffer()
         {
             uint status;
@@ -344,6 +373,7 @@ namespace HV9104_GUI
 
         }
 
+        //Set the timebase and start capturing data for Lightning Impulse 
         public void startBlock()
         {
             int timeInterval =0;
@@ -385,9 +415,7 @@ namespace HV9104_GUI
             }
 
             return status;
-        }
-
-        
+        }        
 
         private void BlockCallback(short handle, short status, IntPtr pVoid)
         {
@@ -396,6 +424,9 @@ namespace HV9104_GUI
                 _readyBlock = true;
         }
 
+        //***********************************************************************************************************
+        //***                                     CHANNELS SETUP                                                 ****
+        //***********************************************************************************************************
         public void setChannelVoltageRange(int index, Imports.Range voltageRange)
         {
             uint status;
@@ -439,6 +470,10 @@ namespace HV9104_GUI
             Console.WriteLine("Disable Status: {0}", status); 
         }
 
+        //***********************************************************************************************************
+        //***                           RESOLUTION & MAXIMUM ANALOG TO DIGITAL VALUE SETUP                       ****
+        //***********************************************************************************************************
+
         public Imports.DeviceResolution Resolution
         {
             set
@@ -458,24 +493,22 @@ namespace HV9104_GUI
             {
                 return this.resolution;
             }
-        }
+        }        
 
-        public short Handle
-        {
-            get
-            {
-                return handle;
-            }
-        }
+        //***********************************************************************************************************
+        //***                                     SIGNAL GENERATOR                                               ****
+        //***********************************************************************************************************
 
+        //Setup for signalgenerator outputs a 2 V puls with variable frequency ("uint shots" controls how many cycles should be sent)
         public void setupSignalGen(float frequency)
         {
             uint status;
-            status = Imports.SetSigGenBuiltIn(handle, 1000000, 2000000, Imports.WaveType.PS5000A_SQUARE, frequency, frequency, 0, 1, Imports.SweepType.PS5000A_UP, Imports.ExtraOperations.PS5000A_ES_OFF, 10, 0, Imports.SigGenTrigType.PS5000A_SIGGEN_RISING, Imports.SigGenTrigSource.PS5000A_SIGGEN_SOFT_TRIG, 0);
+            status = Imports.SetSigGenBuiltIn(handle, 1000000, 2000000, Imports.WaveType.PS5000A_SQUARE, frequency, frequency, 0, 1, Imports.SweepType.PS5000A_UP, Imports.ExtraOperations.PS5000A_ES_OFF, 100, 0, Imports.SigGenTrigType.PS5000A_SIGGEN_RISING, Imports.SigGenTrigSource.PS5000A_SIGGEN_SOFT_TRIG, 0);
             Console.WriteLine("SetSigGenBuiltIn Status:" + status);
         
         }
 
+        //Call this function to trigger the Signalgenerator
         public void triggerSignalGen()
         {
             uint status = Imports.SigGenSoftwareControl(handle, 1);
@@ -483,6 +516,10 @@ namespace HV9104_GUI
             status = Imports.SigGenSoftwareControl(handle, 0);
             Console.WriteLine("SigGenSoftwareControl start Status:" + status);
         }
+
+        //***********************************************************************************************************
+        //***                                     POWER SETUP                                                    ****
+        //***********************************************************************************************************
 
         public uint openDevice() 
         {

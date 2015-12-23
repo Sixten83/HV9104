@@ -304,8 +304,9 @@ namespace HV9104_GUI
             rebootStreaming();
         }
 
+
          public void rebootStreaming()
-        {
+         {
             //Stop streaming
             picoScope.stopStreaming();
             blockCaptureMode = false;
