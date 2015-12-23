@@ -727,12 +727,7 @@ namespace HV9104_GUI
             //Set databuffer
             picoScope.setBlockDataBuffer();            
             //Set trigger Channel/Level/Type
-            picoScope.setTriggerChannel(Imports.Channel.ChannelC);
-            short level = (short)(-1 * impulseChannel.Polarity * picoScope.getADMaxValue() * 4 / 5 + 1000);
-            Console.WriteLine("Level status {0}", level); 
-            picoScope.setTriggerLevel(level);
-            //picoScope.setTriggerLevel(1000);
-            picoScope.setTriggerType(Imports.ThresholdDirection.Rising);
+            picoScope.setTriggerChannel(Imports.Channel.ChannelC);            
             //Setup Trigger / Chopping time
             picoScope.setupSignalGen(100000);
             //Start Block
@@ -1019,7 +1014,7 @@ namespace HV9104_GUI
             this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
             this.measuringForm.chart.updateCursorMenu();
         }
-
+         
         private void dcChannelRadioButton_Click(object sender, EventArgs e)
         {
             this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HV9104_GUI
 {
-    class CustomControls
+    interface CustomControls
     {
     }
 }

@@ -149,7 +149,9 @@
     <Compile Include="RunView.Designer.cs">
       <DependentUpon>RunView.cs</DependentUpon>
     </Compile>
-    <Compile Include="ValueChangeEventArgs.cs" />
+    <Compile Include="ValueChangeEventArgs.cs">
+      <DependentUpon>CustomControls.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ControlForm.resx">
       <DependentUpon>ControlForm.cs</DependentUpon>
     </EmbeddedResource>

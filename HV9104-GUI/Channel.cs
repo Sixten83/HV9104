@@ -12,23 +12,25 @@ namespace HV9104_GUI
 
     public class Channel
     {
-        Imports.Channel     channel;
-        Imports.Coupling    coupling;
-        Imports.Range       voltageRange;
-        short               enabled;
-        public short[][]    channelBuffers;
-        public ScaledData[] scaledData;        
-        double              dividerRatio = 1;
-        double              rms, max, min,amplitud,average;
-        double[]            representation;
-        public int                 index;
-        short               adMaxValue;
-        ushort[]            inputRanges = { 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000 };
-        double[][]          incrementValues;
-        int                 incrementIndex;
-        float               dcOffset = 0;
-        int                 polarity = 1;
-
+        Imports.Channel             channel;
+        Imports.Coupling            coupling;
+        Imports.Range               voltageRange;        
+        Imports.ThresholdDirection  triggerType;
+        short                       triggerLevel;
+        short                       enabled;
+        public short[][]            channelBuffers;
+        public ScaledData[]         scaledData;        
+        double                      dividerRatio = 1;
+        double                      rms, max, min,amplitud,average;
+        double[]                    representation;
+        public int                  index;
+        short                       adMaxValue;
+        ushort[]                    inputRanges = { 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000 };
+        double[][]                  incrementValues;
+        int                         incrementIndex;
+        float                       dcOffset = 0;
+        int                         polarity = 1;        
+        
         public struct ScaledData
         {
             public double[] x;
@@ -44,9 +46,33 @@ namespace HV9104_GUI
             setIncrementValues();
         }
 
+        public Imports.ThresholdDirection TriggerType
+        {
+            set
+            {
+                this.triggerType = value;
+            }
+            get
+            {
+                return this.triggerType;
+            }
+        }
+
         public int rangeToVolt()
         {
             return inputRanges[(int)voltageRange]  /1000;
+        }
+
+        public short TriggerLevel
+        {
+            set
+            {
+                this.triggerLevel = value;
+            }
+            get
+            {
+                return this.triggerLevel;
+            }
         }
 
         public int Polarity
@@ -79,6 +105,54 @@ namespace HV9104_GUI
             set
             {    
                 this.incrementIndex = value;
+            }
+        }
+
+        public double Average
+        {
+            get
+            {
+                return this.average;
+            }
+        }
+
+        public double RMS
+        {
+            get
+            {
+                return this.rms;
+            }
+        }
+
+        public double Max
+        {
+            get
+            {
+                return this.max;
+            }
+        }
+
+        public double Min
+        {
+            get
+            {
+                return this.min;
+            }
+        }
+
+        public double Amplitude
+        {
+            get
+            {
+                return this.amplitud;
+            }
+        }
+
+        public short ADMaxValue
+        {
+            set
+            {
+                this.adMaxValue = value;
             }
         }
 
@@ -156,55 +230,7 @@ namespace HV9104_GUI
                     incrementValues[8][r++] = (double)increment;
                 }
          
-        }
-
-        public double Average
-        {
-            get
-            {
-                return this.average;
-            }
-        }
-
-        public double RMS
-        {
-            get
-            {
-                return this.rms;
-            }
-        }
-
-        public double Max
-        {
-            get
-            {
-                return this.max;
-            }
-        }
-
-        public double Min
-        {
-            get
-            {
-                return this.min;
-            }
-        }
-
-        public double Amplitude
-        {
-            get
-            {
-                return this.amplitud;
-            }
-        }
-
-        public short ADMaxValue
-        {
-            set
-            {
-                this.adMaxValue = value;
-            }
-        }
+        }       
 
         public double getScaleFactor()
         {
@@ -261,9 +287,7 @@ namespace HV9104_GUI
             rms = max / Math.Sqrt(2);
             amplitud = max - min;
             updateRepresentation();
-        }
-
-        
+        }       
 
         public ScaledData processData(int samples, int startIndex, int downSampelCount)
         {

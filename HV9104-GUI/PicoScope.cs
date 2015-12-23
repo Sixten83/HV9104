@@ -132,11 +132,13 @@ namespace HV9104_GUI
             channels[0] = channel;
             channels[0].ChannelName = Imports.Channel.ChannelA;
             channels[0].Coupling = Imports.Coupling.PS5000A_AC;
-            channels[0].ADMaxValue = getADMaxValue();
+            channels[0].ADMaxValue = maxADValue;
             channels[0].setChannelBuffers(bufferSize);
             channels[0].Enabled = 1;
             channels[0].setRepresentationIndex(2);
-            channels[0].IncrementIndex = 1; 
+            channels[0].IncrementIndex = 1;
+            channels[0].TriggerType = Imports.ThresholdDirection.Rising;
+            channels[0].TriggerLevel = 1000;        
             Imports.SetChannel(handle, channels[0].ChannelName, channels[0].Enabled, channels[0].Coupling, channels[0].VoltageRange, 0);
         }
 
@@ -145,11 +147,13 @@ namespace HV9104_GUI
             channels[1] = channel;
             channels[1].ChannelName = Imports.Channel.ChannelB;
             channels[1].Coupling = Imports.Coupling.PS5000A_DC;
-            channels[1].ADMaxValue = getADMaxValue();
+            channels[1].ADMaxValue = maxADValue;
             channels[1].setChannelBuffers(bufferSize);
             channels[1].Enabled = 1;            
             channels[1].setRepresentationIndex(4);
-            channels[1].IncrementIndex = 1; 
+            channels[1].IncrementIndex = 1;
+            channels[1].TriggerType = Imports.ThresholdDirection.Above;
+            channels[1].TriggerLevel = 1000;        
             Imports.SetChannel(handle, channels[1].ChannelName, channels[1].Enabled, channels[1].Coupling, channels[1].VoltageRange, 0);
         }
 
@@ -158,11 +162,13 @@ namespace HV9104_GUI
             channels[2] = channel;
             channels[2].ChannelName = Imports.Channel.ChannelC;
             channels[2].Coupling = Imports.Coupling.PS5000A_DC;
-            channels[2].ADMaxValue = getADMaxValue();
+            channels[2].ADMaxValue = maxADValue;
             channels[2].setChannelBuffers(bufferSize);
             channels[2].setRepresentationIndex(0);
             channels[2].IncrementIndex = 4;
             channels[2].DCOffset = -16;
+            channels[2].TriggerType = Imports.ThresholdDirection.Rising;
+            channels[2].TriggerLevel = (short)(-1 * channels[2].Polarity * maxADValue * 4 / 5 + 1000);  
             Imports.SetChannel(handle, channels[2].ChannelName, 0, channels[2].Coupling, channels[2].VoltageRange, 0);
         }       
 
@@ -170,28 +176,43 @@ namespace HV9104_GUI
         //***                                     TRIGGER SETUP                                                  ****
         //***********************************************************************************************************
 
-        public void setTriggerChannel(Imports.Channel triggerChannel)
+        public void setTriggerChannel(Imports.Channel channelName)
         {
             uint status;
-            this.triggerChannel = triggerChannel;
-            status = Imports.SetSimpleTrigger(handle, 1, this.triggerChannel, this.triggerLevel, this.triggerType, 0, 0);
+            Channel channel = findChannel(channelName);
+            this.triggerChannel = channel.ChannelName;
+            status = Imports.SetSimpleTrigger(handle, 1, channel.ChannelName, channel.TriggerLevel, channel.TriggerType, 0, 0);
             Console.WriteLine("TriggerChannel Status : {0} ", status);
         }
 
         public void setTriggerLevel(short triggerLevel)
         {
             uint status;
-            this.triggerLevel = triggerLevel;
-            status = Imports.SetSimpleTrigger(handle, 1, this.triggerChannel, this.triggerLevel, this.triggerType, 0, 0);
+            Channel channel = findChannel(triggerChannel);
+            channel.TriggerLevel = triggerLevel;
+            status = Imports.SetSimpleTrigger(handle, 1, channel.ChannelName, channel.TriggerLevel, channel.TriggerType, 0, 0);
             Console.WriteLine("TriggerLevel Status : {0} ", status);
         }
 
         public void setTriggerType(Imports.ThresholdDirection triggerType)
         {
             uint status;
-            this.triggerType = triggerType;
-            status = Imports.SetSimpleTrigger(handle, 1, this.triggerChannel, this.triggerLevel, this.triggerType, 0, 0);
+            Channel channel = findChannel(triggerChannel);
+            channel.TriggerType = triggerType;
+            status = Imports.SetSimpleTrigger(handle, 1, channel.ChannelName, channel.TriggerLevel, channel.TriggerType, 0, 0);
             Console.WriteLine("TriggerType Status : {0} ", status);
+        }
+
+        private Channel findChannel(Imports.Channel channelName)
+        {
+            Channel channel = new Channel();
+            foreach(Channel c in channels)
+            {
+                if (c.ChannelName == channelName)
+                    channel = c;
+            }
+
+            return channel;
         }
 
 
@@ -427,46 +448,46 @@ namespace HV9104_GUI
         //***********************************************************************************************************
         //***                                     CHANNELS SETUP                                                 ****
         //***********************************************************************************************************
-        public void setChannelVoltageRange(int index, Imports.Range voltageRange)
+        public void setChannelVoltageRange(int channelIndex, Imports.Range voltageRange)
         {
             uint status;
-            channels[index].VoltageRange = voltageRange;
-            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, channels[index].DCOffset);
+            channels[channelIndex].VoltageRange = voltageRange;
+            status = Imports.SetChannel(handle, channels[channelIndex].ChannelName, channels[channelIndex].Enabled, channels[channelIndex].Coupling, channels[channelIndex].VoltageRange, channels[channelIndex].DCOffset);
             Console.WriteLine("VoltageRange Status: " + (Imports.Range)voltageRange);     
         }
 
-        public void setCouplingType(int index, Imports.Coupling coupling)
+        public void setCouplingType(int channelIndex, Imports.Coupling coupling)
         {
             uint status;
-            channels[index].Coupling = coupling;
-            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, channels[index].DCOffset);
+            channels[channelIndex].Coupling = coupling;
+            status = Imports.SetChannel(handle, channels[channelIndex].ChannelName, channels[channelIndex].Enabled, channels[channelIndex].Coupling, channels[channelIndex].VoltageRange, channels[channelIndex].DCOffset);
             Console.WriteLine("Coupling Status: {0}", status); 
         }
 
-        public void setDCoffset(int index, float offset)
+        public void setDCoffset(int channelIndex, float offset)
         {
             float max, min;
             uint status;
-            channels[index].DCOffset = offset;
-            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, offset);
+            channels[channelIndex].DCOffset = offset;
+            status = Imports.SetChannel(handle, channels[channelIndex].ChannelName, channels[channelIndex].Enabled, channels[channelIndex].Coupling, channels[channelIndex].VoltageRange, offset);
             Console.WriteLine("setDCoffset status {0}", status); 
         }
 
-        public void enableChannel(int index)
+        public void enableChannel(int channelIndex)
         {
             uint status;
-            channels[index].Enabled = 1;
-            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, channels[index].DCOffset);
+            channels[channelIndex].Enabled = 1;
+            status = Imports.SetChannel(handle, channels[channelIndex].ChannelName, channels[channelIndex].Enabled, channels[channelIndex].Coupling, channels[channelIndex].VoltageRange, channels[channelIndex].DCOffset);
             Console.WriteLine("Enable Status: {0}", status); 
             
 
         }
 
-        public void disableChannel(int index)
+        public void disableChannel(int channelIndex)
         {
             uint status;
-            channels[index].Enabled = 0;
-            status = Imports.SetChannel(handle, channels[index].ChannelName, channels[index].Enabled, channels[index].Coupling, channels[index].VoltageRange, channels[index].DCOffset);
+            channels[channelIndex].Enabled = 0;
+            status = Imports.SetChannel(handle, channels[channelIndex].ChannelName, channels[channelIndex].Enabled, channels[channelIndex].Coupling, channels[channelIndex].VoltageRange, channels[channelIndex].DCOffset);
             Console.WriteLine("Disable Status: {0}", status); 
         }
 
