@@ -729,7 +729,7 @@ namespace HV9104_GUI
             //Set trigger Channel/Level/Type
             picoScope.setTriggerChannel(Imports.Channel.ChannelC);            
             //Setup Trigger / Chopping time
-            picoScope.setupSignalGen(100000);
+            picoScope.setupSignalGen(11000);
             //Start Block
             picoScope.startBlock();
             //Trigger Signal gen
