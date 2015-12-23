@@ -429,9 +429,10 @@
             this.triggerSetupButton.Location = new System.Drawing.Point(66, 227);
             this.triggerSetupButton.Name = "triggerSetupButton";
             this.triggerSetupButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.triggerSetupButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.triggerSetupButton.Size = new System.Drawing.Size(158, 57);
             this.triggerSetupButton.TabIndex = 17;
-            this.triggerSetupButton.Text = "TRIGGERING";
+            this.triggerSetupButton.Text = "SETUP";
             this.toolTip1.SetToolTip(this.triggerSetupButton, "Configure triggering setup");
             this.triggerSetupButton.Click += new System.EventHandler(this.triggerSetupButton_Click);
             // 

@@ -890,7 +890,7 @@ namespace HV9104_GUI
 
         private void acStage1RadioButton_Click(object sender, EventArgs e)
         {
-            this.controlForm.setupView.impulseLowDivderTextBox.Value = (float)acHighDividerValues[0];
+            this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[0];
             acChannel.DividerRatio = (double)((acHighDividerValues[0] + acLowDividerValue) / acHighDividerValues[0]) / 1000;
             
 
@@ -898,13 +898,13 @@ namespace HV9104_GUI
 
         private void acStage2RadioButton_Click(object sender, EventArgs e)
         {
-            this.controlForm.setupView.impulseLowDivderTextBox.Value = (float)acHighDividerValues[1];
+            this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[1];
             acChannel.DividerRatio = (double)((acHighDividerValues[1] + acLowDividerValue) / acHighDividerValues[1]) / 1000;
            
         }
         private void acStage3RadioButton_Click(object sender, EventArgs e)
         {
-            this.controlForm.setupView.impulseLowDivderTextBox.Value = (float)acHighDividerValues[1];
+            this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[1];
             acChannel.DividerRatio = (double)((acHighDividerValues[1] + acLowDividerValue) / acHighDividerValues[1]) / 1000;
             
         }
