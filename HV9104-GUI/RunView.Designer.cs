@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.customPanel4 = new HV9104_GUI.CustomPanel();
             this.impulseOutputComboBox = new HV9104_GUI.CustomComboBox();
             this.impulseTitleLabel = new System.Windows.Forms.Label();
@@ -103,7 +104,6 @@
             this.inputTitleLabel = new System.Windows.Forms.Label();
             this.currentInputLabel = new System.Windows.Forms.Label();
             this.voltageInputLabel = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.customPanel4.SuspendLayout();
             this.customPanel3.SuspendLayout();
             this.customPanel2.SuspendLayout();
@@ -1137,6 +1137,7 @@
             this.Controls.Add(this.customPanel1);
             this.Name = "RunView";
             this.Size = new System.Drawing.Size(1875, 800);
+            this.Load += new System.EventHandler(this.RunView_Load);
             this.customPanel4.ResumeLayout(false);
             this.customPanel4.PerformLayout();
             this.customPanel3.ResumeLayout(false);

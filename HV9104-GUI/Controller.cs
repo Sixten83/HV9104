@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 //using Excel = Microsoft.Office.Interop.Excel; 
+using System.Timers;
+
+using Timer = System.Timers.Timer;
+using System.IO.Ports;
+using System.IO;
+using System.Threading;
+
 
 namespace HV9104_GUI
 {
@@ -16,7 +23,7 @@ namespace HV9104_GUI
         ControlForm controlForm;
         PicoScope picoScope;
         Channel acChannel, dcChannel, impulseChannel;
-        Timer loopTimer, triggerTimer;
+        System.Timers.Timer loopTimer, triggerTimer;
         bool fastStreamMode,streamMode;
         bool blockCaptureMode;
         //Voltage Dividers
@@ -26,21 +33,165 @@ namespace HV9104_GUI
         decimal dcLowDividerValue = 0.027997M;
         decimal[] impulseHighDividerValues = { 1.302M, 1.2714M, 1.2638M };
         decimal[] impulseLowDividerValues = { 519.498M, 513.963M, 512.21M };
-        decimal impulseAttenuatorRatio = 25.1448M; 
-        
+        decimal impulseAttenuatorRatio = 25.1448M;
+
+        // Class objects
+        public RunView activeForm;
+        public SerialPort serialPort1;
+        public Updater guiUpdater;
+
+        public NA9739Device PIO1;
+        public PD1161Device HV9126;
+        public PD1161Device HV9133;
+        public PD1161Device activeMotor;
+
+        // Communication flags
+        public bool serialPortConnected = false;
+        public bool PIO1Connected = false;
+        public bool HV9126Connected = false;
+        public bool HV9133Connected = false;
+
+        // Run control variables 
+        public Thread t;
+        public bool quit = false;
+        public bool clearToSend = false;
+        public int commandPending = 0;
+
+
         public Controller()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // Create one form for control and one for presentation and start them
             measuringForm = new MeasuringForm();
             controlForm = new ControlForm();            
             controlForm.startMeasuringForm(measuringForm);
 
-            //***********************************************************************************************************
-            //***                                     PICOSCOPE AND CHANNELS SETUP                                   ****
-            //***********************************************************************************************************
+            // Set up the primary measuring device
+            SetupPicoscope();
 
-            picoScope = new PicoScope();            
+            // Connect some local event handlers to give access to the form controls
+            ConnectEventHandlers();
+
+            // Find a suitable COM port and connect to it. Then add a Handler to catch any replies. 
+            AutoConnect();
+            
+            // Helper class to update the UI from another thread (avoid cross-threading exception)
+            guiUpdater = new Updater(controlForm.runView);
+            
+            // Initialize all devices and test communication
+            InitializeDevices();
+            
+            // If all devices are initialized have communication, start own loop for PLC, stepper motors and aux equipment.
+            t = new Thread(CyclicRead);
+            t.Start();
+           
+            // Get and present initial status info from PLC and motors
+            
+
+            // Start timed loop for Picoscope routines
+            loopTimer.Start();
+
+            // Obligatory application command 
+            Application.Run(controlForm); // Måste vara sist!!!
+            
+        }    
+       
+         //***********************************************************************************************************
+        //***                                    PROGRAM LOOPS                                                   *****
+        //***********************************************************************************************************
+        private void loopTimer_Tick(object sender, EventArgs e)
+        {
+
+            if (fastStreamMode)
+                fastStream();   
+            
+            if(streamMode)            
+                stream();
+            
+            if (blockCaptureMode)
+                blockCapure();
+                
+        }
+        
+        // Main loop for Modbus based equipment - runs on own thread
+        private void CyclicRead()
+        {
+
+            // Untill told to stop..
+            while (!quit)
+            {
+                // Try this instead. Maybe call 2 times in a row?
+                if (commandPending == 0)
+                {
+                    // Do regular tasks
+                    PIO1.ReadFromDevice();
+                    Thread.Sleep(2);
+                    activeMotor.checkCTSFlag();
+                    Thread.Sleep(2);
+                    PIO1.UpdateDevice();
+                    Thread.Sleep(2);
+                    activeMotor.getActualPosition();
+                    Thread.Sleep(2);
+                }
+                else if (commandPending == 1)
+                {
+                    // Do on-demand task
+                    activeMotor.DecreaseGap();
+                    Thread.Sleep(2);
+                    commandPending = 0;
+                }
+                else if (commandPending == 2)
+                {
+                    // Do on-demand task
+                    activeMotor.IncreaseGap();
+                    Thread.Sleep(2);
+                    commandPending = 0;
+                }
+                else if (commandPending == 3)
+                {
+                    // Do on-demand task
+                    activeMotor.StopMotor();
+                    Thread.Sleep(2);
+                    commandPending = 0;
+                }
+                else if (commandPending == 4)
+                {
+                    // Do on-demand task
+                    activeMotor.StartInit();
+                    Thread.Sleep(2);
+                    commandPending = 0;
+                }
+                else if (commandPending == 5)
+                {
+                    // Do on-demand task
+                    int targetPos = Convert.ToInt16(this.controlForm.runView.impulseGapTextBox.Value);
+                    activeMotor.MoveToPosition(targetPos);
+                    Thread.Sleep(2);
+                    commandPending = 0;
+                }
+                
+                // Present the latest info
+                try
+                {
+                    UpdateGUI();
+                }
+                catch
+                {
+                    //MessageBox.Show("Page Missing", "Page Error");
+                }
+            }
+        }
+
+
+
+        //***********************************************************************************************************
+        //***                                     PICOSCOPE AND CHANNELS SETUP                                   ****
+        //***********************************************************************************************************
+        public void SetupPicoscope()
+        {
+            picoScope = new PicoScope();
             uint status = picoScope.openDevice();
             if (status != Imports.PICO_OK)
             {
@@ -59,146 +210,16 @@ namespace HV9104_GUI
             picoScope.Resolution = Imports.DeviceResolution.PS5000A_DR_12BIT;
             picoScope.setFastStreamDataBuffer();
             fastStreamMode = true;
-            loopTimer = new Timer();
-            loopTimer.Tick += new System.EventHandler(this.loopTimer_Tick);
-            loopTimer.Interval = 10;
-            triggerTimer = new Timer();
-            triggerTimer.Tick += new System.EventHandler(this.triggerTimer_Tick);
-            triggerTimer.Interval = 3000;
+            loopTimer = new Timer(10);
+            loopTimer.Elapsed += new ElapsedEventHandler(this.loopTimer_Tick);
+   
+            triggerTimer = new Timer(3000);
+            triggerTimer.Elapsed += new ElapsedEventHandler(this.triggerTimer_Tick);
+
             this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
-            
-            /////////////////
-            this.measuringForm.triggerWindow.okButton.Click += new System.EventHandler(this.triggerMenuOkButton_Click);
-            this.measuringForm.closeButton.Click += new System.EventHandler(this.formsCloseButton_Click);
-            this.controlForm.closeButton.Click += new System.EventHandler(this.formsCloseButton_Click);
-
-            //***********************************************************************************************************
-            //***                                     SETUP VIEW EVENT LISTENERS                                     ****
-            //***********************************************************************************************************
-            //Mode selection listeners
-            this.controlForm.setupView.manualModeRadioButton.Click += new System.EventHandler(manualModeRadiobutton_Click);
-            this.controlForm.setupView.acWithstandRadioButton.Click += new System.EventHandler(acWithstandRadioButton_Click);
-            this.controlForm.setupView.acDisruptiveRadioButton.Click += new System.EventHandler(acDisruptiveRadioButton_Click);
-            this.controlForm.setupView.dcWithstandRadioButton.Click += new System.EventHandler(dcWithstandRadioButton_Click);
-            this.controlForm.setupView.dcDisruptiveRadioButton.Click += new System.EventHandler(dcDisruptiveRadioButton_Click);
-            this.controlForm.setupView.impulseWithstandRadioButton.Click += new System.EventHandler(impulseWithstandRadioButton_Click);
-            this.controlForm.setupView.impulseDisruptiveRadioButton.Click += new System.EventHandler(impulseDisruptiveRadioButton_Click);
-            //Stage setup listeners
-            this.controlForm.setupView.acCheckBox.Click += new System.EventHandler(acCheckBox_Click);
-            this.controlForm.setupView.acStage1RadioButton.Click += new System.EventHandler(acStage1RadioButton_Click);
-            this.controlForm.setupView.acStage2RadioButton.Click += new System.EventHandler(acStage2RadioButton_Click);
-            this.controlForm.setupView.acStage3RadioButton.Click += new System.EventHandler(acStage3RadioButton_Click);
-            this.controlForm.setupView.dcCheckBox.Click += new System.EventHandler(dcCheckBox_Click);
-            this.controlForm.setupView.dcStage1RadioButton.Click += new System.EventHandler(dcStage1RadioButton_Click);
-            this.controlForm.setupView.dcStage2RadioButton.Click += new System.EventHandler(dcStage2RadioButton_Click);
-            this.controlForm.setupView.dcStage3RadioButton.Click += new System.EventHandler(dcStage3RadioButton_Click);
-            this.controlForm.setupView.impulseCheckBox.Click += new System.EventHandler(impulseCheckBox_Click);
-            this.controlForm.setupView.impulseStage1RadioButton.Click += new System.EventHandler(impulseStage1RadioButton_Click);
-            this.controlForm.setupView.impulseStage2RadioButton.Click += new System.EventHandler(impulseStage2RadioButton_Click);
-            this.controlForm.setupView.impulseStage3RadioButton.Click += new System.EventHandler(impulseStage3RadioButton_Click);
-            //***********************************************************************************************************
-            //***                                     RUN VIEW EVENT LISTENERS                                       ****
-            //***********************************************************************************************************
-            //Output Representation Listeners
-            this.controlForm.runView.acOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(acOutputComboBox_valueChange);
-            this.controlForm.runView.dcOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(dcOutputComboBox_valueChange);
-            this.controlForm.runView.impulseOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseOutputComboBox_valueChange);         
-            //POWER Listeners
-            this.controlForm.runView.onOffButton.Click += new System.EventHandler(onOffButton_Click);
-            this.controlForm.runView.pauseButton.Click += new System.EventHandler(pauseButton_Click);
-            this.controlForm.runView.parkCheckBox.Click += new System.EventHandler(parkCheckBox_Click);
-            this.controlForm.runView.overrideCheckBox.Click += new System.EventHandler(overrideCheckBox_Click);
-            //Regulated Voltage Type Listeners            
-            this.controlForm.runView.inputVoltageRadioButton.Click += new System.EventHandler(inputVoltageRadioButton_Click);
-            this.controlForm.runView.acOutputRadioButton.Click += new System.EventHandler(acVoltageRadioButton_Click);
-            this.controlForm.runView.dcVoltageRadioButton.Click += new System.EventHandler(dcVoltageRadioButton_Click);
-            //Set Voltage Listeners            
-            this.controlForm.runView.decreaseRegulatedVoltageButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseRegulatedVoltageButton_Down);
-            this.controlForm.runView.decreaseRegulatedVoltageButton.MouseUp+= new System.Windows.Forms.MouseEventHandler(decreaseRegulatedVoltageButton_Up);
-            this.controlForm.runView.regulatedVoltageTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(regulatedVoltageTextBox_valueChange);
-            this.controlForm.runView.increaseRegulatedVoltageButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Down);
-            this.controlForm.runView.increaseRegulatedVoltageButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Up);
-            this.controlForm.runView.incrementButton.Click += new System.EventHandler(incrementButton_Click);
-            this.controlForm.runView.voltageRegulationRepresentationComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(voltageRegulationRepresentationComboBox_valueChange);
-            //Impuse Trigger Control Listeners            
-            this.controlForm.runView.triggerButton.Click += new System.EventHandler(triggerButton_Click);
-            this.controlForm.runView.choppingCheckBox.Click += new System.EventHandler(choppingCheckBox_Click);
-            this.controlForm.runView.decreaseChoppingTimeButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseChoppingTimeButton_Down);
-            this.controlForm.runView.decreaseChoppingTimeButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseChoppingTimeButton_Up);
-            this.controlForm.runView.choppingTimeTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(choppingTimeTextBox_valueChange);
-            this.controlForm.runView.increaseChoppingTimeButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Down);
-            this.controlForm.runView.increaseChoppingTimeButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseChoppingTimeButton_Up);
-            //Measuring Sphere Gap Listeners
-            this.controlForm.runView.decreaseMeasuringGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseMeasureeGap_Down);
-            this.controlForm.runView.decreaseMeasuringGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseMeasureGap_Up);
-            this.controlForm.runView.measuringGapTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(measureGapTextBox_valueChange);
-            this.controlForm.runView.increaseMeasuringGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseMeasureGapButton_Down);
-            this.controlForm.runView.increaseMeasuringGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseMeasureGapButton_Up);
-            //Impulse Sphere Gap Listeners
-            this.controlForm.runView.decreaseImpulseGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseImpulseGap_Down);
-            this.controlForm.runView.decreaseImpulseGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseImpulseGap_Up);
-            this.controlForm.runView.impulseGapTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseGapTextBox_valueChange);
-            this.controlForm.runView.increaseImpulseGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Down);
-            this.controlForm.runView.increaseImpulseGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Up);
-            //Pressure Control Listeners
-            this.controlForm.runView.decreasePressureButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreasePressureButton_Down);
-            this.controlForm.runView.decreasePressureButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreasePressureButton_Up);
-            this.controlForm.runView.pressureTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(pressureTextBox_valueChange);
-            this.controlForm.runView.increasePressureButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increasePressureButton_Down);
-            this.controlForm.runView.increasePressureButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increasePressureButton_Up);
-
-            //***********************************************************************************************************
-            //***                                  MEASURING FORM EVENT LISTENERS                                   *****
-            //***********************************************************************************************************
-            //Input Listeners
-            this.measuringForm.acdcRadioButton.Click += new System.EventHandler(acdcRadioButton_Click);
-            this.measuringForm.impulseRadioButton.Click += new System.EventHandler(impulseRadioButton_Click);
-            //AC Channel Listeners
-            this.measuringForm.acVoltageRangeComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(acVoltageRangeComboBox_valueChange);
-            this.measuringForm.acEnableCheckBox.Click += new System.EventHandler(acEnableCheckBox_Click);
-            //DC Channel Listeners
-            this.measuringForm.dcVoltageRangeComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(dcVoltageRangeComboBox_valueChange);
-            this.measuringForm.dcEnableCheckBox.Click += new System.EventHandler(dcEnableCheckBox_Click);
-            //Impulse Channel Listeners
-            this.measuringForm.impulseVoltageRangeComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseVoltageRangeComboBox_valueChange);
-            this.measuringForm.impulseEnableCheckBox.Click += new System.EventHandler(impulseEnableCheckBox_Click);
-            //Common Controls Listeners
-            this.measuringForm.resolutionComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(resolutionComboBox_valueChange);
-            this.measuringForm.timeBaseComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(timeBaseComboBox_valueChange);
-            this.measuringForm.triggerSetupButton.Click += new System.EventHandler(triggerSetupButton_Click);
-
-            //***********************************************************************************************************
-            //***                                  CURSOR MENU EVENT LISTENERS                                      *****
-            //***********************************************************************************************************
-            this.measuringForm.chart.cursorMenu.acChannelRadioButton.Click += new System.EventHandler(this.acChannelRadioButton_Click);
-            this.measuringForm.chart.cursorMenu.dcChannelRadioButton.Click += new System.EventHandler(this.dcChannelRadioButton_Click);
- 
-            loopTimer.Start();
-            Application.Run(controlForm); // Måste vara sist!!!
-            
-        }    
-       
-         //***********************************************************************************************************
-        //***                                    PROGRAM LOOP                                                   *****
-        //***********************************************************************************************************
-        private void loopTimer_Tick(object sender, EventArgs e)
-        {
-
-            if (fastStreamMode)
-                fastStream();   
-            
-            if(streamMode)            
-                stream();
-            
-            if (blockCaptureMode)
-                blockCapure();
-                
-            
         }
 
-        //***********************************************************************************************************
-        //***                                    PICOSCOPE RUTINES                                              *****
-        //***********************************************************************************************************
+
         public void fastStream()
         {
             if (picoScope._autoStop)
@@ -206,10 +227,11 @@ namespace HV9104_GUI
                 if (picoScope._overflow == 0)
                 {
                     acChannel.processFastStreamData();
-                    this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    //this.controlForm.runView.acValueLabel.Text = ;
+                    guiUpdater.transferACVoltageOutputLabel("" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
                     dcChannel.processFastStreamData();
-                    this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
-
+                    //this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    guiUpdater.transferDCVoltageOutputLabel("" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
                 }
                 else
                     autoSetVoltageRange();
@@ -239,14 +261,14 @@ namespace HV9104_GUI
                     Channel.ScaledData data = acChannel.processData(1600, trigAt, 400);
 
                     this.measuringForm.chart.Series["acSeries"].Points.DataBindXY(data.x, data.y);
-
-
-                    this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    //this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    guiUpdater.transferACVoltageOutputLabel("" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
                 }
                 else
                 {
                     acChannel.processMaxMinData(1600, trigAt);
-                    this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    //this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    guiUpdater.transferACVoltageOutputLabel("" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
                 }
 
                 if (this.measuringForm.dcEnableCheckBox.isChecked)
@@ -254,12 +276,14 @@ namespace HV9104_GUI
                     this.measuringForm.chart.Series["dcSeries"].Points.Clear();
                     Channel.ScaledData data = dcChannel.processData(1600, trigAt, 400);
                     this.measuringForm.chart.Series["dcSeries"].Points.DataBindXY(data.x, data.y);
-                    this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    //this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    guiUpdater.transferDCVoltageOutputLabel("" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
                 }
                 else
                 {
                     dcChannel.processMaxMinData(1600, trigAt);
-                    this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    //this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    guiUpdater.transferDCVoltageOutputLabel("" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
                 }
                 this.measuringForm.chart.Series.ResumeUpdates();
                 this.measuringForm.chart.Series.Invalidate();
@@ -288,12 +312,15 @@ namespace HV9104_GUI
                     this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
                     Channel.ScaledData data = impulseChannel.processData((int)picoScope.BlockSamples, 0, 2500);
                     this.measuringForm.chart.Series["impulseSeries"].Points.DataBindXY(data.x, data.y);
-                    this.controlForm.runView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    //this.controlForm.runView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    guiUpdater.transferImpulseVoltageOutputLabel("" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
+                 
                 }
                 else
                 {
                     impulseChannel.processMaxMinData((int)picoScope.BlockSamples, 0);
-                    this.controlForm.runView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    //this.controlForm.runView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    guiUpdater.transferImpulseVoltageOutputLabel("" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
                 }
             }
         }
@@ -363,9 +390,124 @@ namespace HV9104_GUI
         }
 
         //***********************************************************************************************************
+        //***                                     EVENT HANDLER CONNECTIONS                                      ****
+        //***********************************************************************************************************
+        public void ConnectEventHandlers()
+        {
+            /////////////////
+            this.measuringForm.triggerWindow.okButton.Click += new System.EventHandler(this.triggerMenuOkButton_Click);
+            this.measuringForm.closeButton.Click += new System.EventHandler(this.formsCloseButton_Click);
+            this.controlForm.closeButton.Click += new System.EventHandler(this.formsCloseButton_Click);
+
+            //***********************************************************************************************************
+            //***                                     SETUP VIEW EVENT LISTENERS                                     ****
+            //***********************************************************************************************************
+            //Mode selection listeners
+            this.controlForm.setupView.manualModeRadioButton.Click += new System.EventHandler(manualModeRadiobutton_Click);
+            this.controlForm.setupView.acWithstandRadioButton.Click += new System.EventHandler(acWithstandRadioButton_Click);
+            this.controlForm.setupView.acDisruptiveRadioButton.Click += new System.EventHandler(acDisruptiveRadioButton_Click);
+            this.controlForm.setupView.dcWithstandRadioButton.Click += new System.EventHandler(dcWithstandRadioButton_Click);
+            this.controlForm.setupView.dcDisruptiveRadioButton.Click += new System.EventHandler(dcDisruptiveRadioButton_Click);
+            this.controlForm.setupView.impulseWithstandRadioButton.Click += new System.EventHandler(impulseWithstandRadioButton_Click);
+            this.controlForm.setupView.impulseDisruptiveRadioButton.Click += new System.EventHandler(impulseDisruptiveRadioButton_Click);
+            //Stage setup listeners
+            this.controlForm.setupView.acCheckBox.Click += new System.EventHandler(acCheckBox_Click);
+            this.controlForm.setupView.acStage1RadioButton.Click += new System.EventHandler(acStage1RadioButton_Click);
+            this.controlForm.setupView.acStage2RadioButton.Click += new System.EventHandler(acStage2RadioButton_Click);
+            this.controlForm.setupView.acStage3RadioButton.Click += new System.EventHandler(acStage3RadioButton_Click);
+            this.controlForm.setupView.dcCheckBox.Click += new System.EventHandler(dcCheckBox_Click);
+            this.controlForm.setupView.dcStage1RadioButton.Click += new System.EventHandler(dcStage1RadioButton_Click);
+            this.controlForm.setupView.dcStage2RadioButton.Click += new System.EventHandler(dcStage2RadioButton_Click);
+            this.controlForm.setupView.dcStage3RadioButton.Click += new System.EventHandler(dcStage3RadioButton_Click);
+            this.controlForm.setupView.impulseCheckBox.Click += new System.EventHandler(impulseCheckBox_Click);
+            this.controlForm.setupView.impulseStage1RadioButton.Click += new System.EventHandler(impulseStage1RadioButton_Click);
+            this.controlForm.setupView.impulseStage2RadioButton.Click += new System.EventHandler(impulseStage2RadioButton_Click);
+            this.controlForm.setupView.impulseStage3RadioButton.Click += new System.EventHandler(impulseStage3RadioButton_Click);
+            //***********************************************************************************************************
+            //***                                     RUN VIEW EVENT LISTENERS                                       ****
+            //***********************************************************************************************************
+            //Output Representation Listeners
+            this.controlForm.runView.acOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(acOutputComboBox_valueChange);
+            this.controlForm.runView.dcOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(dcOutputComboBox_valueChange);
+            this.controlForm.runView.impulseOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseOutputComboBox_valueChange);
+            //POWER Listeners
+            this.controlForm.runView.onOffButton.Click += new System.EventHandler(onOffButton_Click);
+            this.controlForm.runView.pauseButton.Click += new System.EventHandler(pauseButton_Click);
+            this.controlForm.runView.parkCheckBox.Click += new System.EventHandler(parkCheckBox_Click);
+            this.controlForm.runView.overrideCheckBox.Click += new System.EventHandler(overrideCheckBox_Click);
+            //Regulated Voltage Type Listeners            
+            this.controlForm.runView.inputVoltageRadioButton.Click += new System.EventHandler(inputVoltageRadioButton_Click);
+            this.controlForm.runView.acOutputRadioButton.Click += new System.EventHandler(acVoltageRadioButton_Click);
+            this.controlForm.runView.dcVoltageRadioButton.Click += new System.EventHandler(dcVoltageRadioButton_Click);
+            //Set Voltage Listeners            
+            this.controlForm.runView.decreaseRegulatedVoltageButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseRegulatedVoltageButton_Down);
+            this.controlForm.runView.decreaseRegulatedVoltageButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseRegulatedVoltageButton_Up);
+            this.controlForm.runView.regulatedVoltageTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(regulatedVoltageTextBox_valueChange);
+            this.controlForm.runView.increaseRegulatedVoltageButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Down);
+            this.controlForm.runView.increaseRegulatedVoltageButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Up);
+            this.controlForm.runView.incrementButton.Click += new System.EventHandler(incrementButton_Click);
+            this.controlForm.runView.voltageRegulationRepresentationComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(voltageRegulationRepresentationComboBox_valueChange);
+            //Impuse Trigger Control Listeners            
+            this.controlForm.runView.triggerButton.Click += new System.EventHandler(triggerButton_Click);
+            this.controlForm.runView.choppingCheckBox.Click += new System.EventHandler(choppingCheckBox_Click);
+            this.controlForm.runView.decreaseChoppingTimeButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseChoppingTimeButton_Down);
+            this.controlForm.runView.decreaseChoppingTimeButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseChoppingTimeButton_Up);
+            this.controlForm.runView.choppingTimeTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(choppingTimeTextBox_valueChange);
+            this.controlForm.runView.increaseChoppingTimeButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Down);
+            this.controlForm.runView.increaseChoppingTimeButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseChoppingTimeButton_Up);
+            //Measuring Sphere Gap Listeners
+            this.controlForm.runView.decreaseMeasuringGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseMeasureeGap_Down);
+            this.controlForm.runView.decreaseMeasuringGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseMeasureGap_Up);
+            this.controlForm.runView.measuringGapTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(measureGapTextBox_valueChange);
+            this.controlForm.runView.increaseMeasuringGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseMeasureGapButton_Down);
+            this.controlForm.runView.increaseMeasuringGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseMeasureGapButton_Up);
+            //Impulse Sphere Gap Listeners
+            this.controlForm.runView.decreaseImpulseGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseImpulseGap_Down);
+            this.controlForm.runView.decreaseImpulseGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseImpulseGap_Up);
+            this.controlForm.runView.impulseGapTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseGapTextBox_valueChange);
+            this.controlForm.runView.increaseImpulseGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Down);
+            this.controlForm.runView.increaseImpulseGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Up);
+            //Pressure Control Listeners
+            this.controlForm.runView.decreasePressureButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreasePressureButton_Down);
+            this.controlForm.runView.decreasePressureButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreasePressureButton_Up);
+            this.controlForm.runView.pressureTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(pressureTextBox_valueChange);
+            this.controlForm.runView.increasePressureButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increasePressureButton_Down);
+            this.controlForm.runView.increasePressureButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increasePressureButton_Up);
+
+            //***********************************************************************************************************
+            //***                                  MEASURING FORM EVENT LISTENERS                                   *****
+            //***********************************************************************************************************
+            //Input Listeners
+            this.measuringForm.acdcRadioButton.Click += new System.EventHandler(acdcRadioButton_Click);
+            this.measuringForm.impulseRadioButton.Click += new System.EventHandler(impulseRadioButton_Click);
+            //AC Channel Listeners
+            this.measuringForm.acVoltageRangeComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(acVoltageRangeComboBox_valueChange);
+            this.measuringForm.acEnableCheckBox.Click += new System.EventHandler(acEnableCheckBox_Click);
+            //DC Channel Listeners
+            this.measuringForm.dcVoltageRangeComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(dcVoltageRangeComboBox_valueChange);
+            this.measuringForm.dcEnableCheckBox.Click += new System.EventHandler(dcEnableCheckBox_Click);
+            //Impulse Channel Listeners
+            this.measuringForm.impulseVoltageRangeComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseVoltageRangeComboBox_valueChange);
+            this.measuringForm.impulseEnableCheckBox.Click += new System.EventHandler(impulseEnableCheckBox_Click);
+            //Common Controls Listeners
+            this.measuringForm.resolutionComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(resolutionComboBox_valueChange);
+            this.measuringForm.timeBaseComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(timeBaseComboBox_valueChange);
+            this.measuringForm.triggerSetupButton.Click += new System.EventHandler(triggerSetupButton_Click);
+
+            //***********************************************************************************************************
+            //***                                  CURSOR MENU EVENT LISTENERS                                      *****
+            //***********************************************************************************************************
+            this.measuringForm.chart.cursorMenu.acChannelRadioButton.Click += new System.EventHandler(this.acChannelRadioButton_Click);
+            this.measuringForm.chart.cursorMenu.dcChannelRadioButton.Click += new System.EventHandler(this.dcChannelRadioButton_Click);
+
+        }
+
+
+
+
+        //***********************************************************************************************************
         //***                                    MEASURING FORM EVENT HANDLERS                                  *****
         //***********************************************************************************************************
-
         private void acdcRadioButton_Click(object sender, EventArgs e)
         {
             picoScope.TimePerDivision = 5;
@@ -621,8 +763,20 @@ namespace HV9104_GUI
         }
 
 
+        // Voltage ON/OFF Switch
         private void onOffButton_Click(object sender, EventArgs e)
         {
+
+            if(this.controlForm.runView.onOffButton.isChecked)
+            {
+                ClosePrimaryRequest();
+                CloseSecondaryRequest(this.controlForm.runView.overrideCheckBox.isChecked);
+            }
+            else
+            {
+                OpenSecondaryRequest();
+                OpenPrimaryRequest();
+            }
             
 
         }
@@ -666,32 +820,135 @@ namespace HV9104_GUI
         private void decreaseRegulatedVoltageButton_Down(object sender, MouseEventArgs e)
         {
 
+            DecreaseVoltageRequest(650);
 
         }
 
         private void decreaseRegulatedVoltageButton_Up(object sender, MouseEventArgs e)
         {
 
+            PIO1.StopTransformerMotor();
 
         }
-
-
 
         private void regulatedVoltageTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
 
+            // RunTo voltage value
+            GoToVoltage(controlForm.runView.regulatedVoltageTextBox.Value);
 
+        }
+
+        // Automated voltage set routine
+        private void GoToVoltage(float value)
+        {
+            Thread regUThread = new Thread(RegulateVoltage);
+            regUThread.Start();
+
+        
+        }
+
+        private void RegulateVoltage()
+        {
+            // Set some tolerances (we aren't perfect)
+            float targetVoltage = controlForm.runView.regulatedVoltageTextBox.Value;
+            double toleranceHi = 0.16;
+            double toleranceLo = -0.16;
+            
+            // Variable to hold our selectable measured voltage value           
+            double uActual = 0;
+
+            // Pd Variables - if needed?
+            float P = 0;
+            float k = 0;
+            float d = 0;
+            double error = 10;
+            double previousError = 0;
+            double integral = 0;
+            int intCnt = 0;
+            int styr = 30;
+
+            while (((error <= toleranceLo) || (error >= toleranceHi)) && (controlForm.runView.onOffButton.isChecked))
+            {
+
+                // Get the value to regulate agianst
+                if (controlForm.runView.inputVoltageRadioButton.isChecked)
+                {
+                    //uActual = (float)PIO1.regulatedVoltageValue;
+                    uActual = Convert.ToDouble(controlForm.runView.voltageInputLabel.Text);
+                }
+                else if (controlForm.runView.acOutputRadioButton.isChecked)
+                {
+                    //uActual = Convert.ToDouble(controlForm.runView.acValueLabel.Text);
+                    uActual = picoScope.channels[0].Average;
+                }
+                else if (controlForm.runView.dcVoltageRadioButton.isChecked)
+                {
+                    uActual = Convert.ToDouble(controlForm.runView.dcValueLabel.Text);
+                }
+                else
+                {
+                    // Shut down, something is wrong
+                }
+
+                error =  uActual - targetVoltage;
+
+
+                if(error == previousError)
+                {
+                    integral += 0.25;
+                }
+                else
+                {
+                    if(integral >= 0.1)
+                    {
+                        integral -= 0.1;
+                    }
+                }
+
+                // Call the appropriate instruction
+                if (error < toleranceHi)
+                {
+                    styr = (int)((error * -4) + 60 + integral);
+
+                    // Voltage low, increase
+                    IncreaseVoltageRequest(styr);
+
+                }
+                else if (error > toleranceLo)
+                {
+                    styr = (int)((error * 4) + 60 + integral);
+
+                    // Voltage high, decrease
+                    DecreaseVoltageRequest(styr);
+
+                }
+                else
+                {
+                    // In bounds. We should only make it here once
+                    StopTransformerMotorRequest();
+
+                }
+                Thread.Sleep(50);
+                previousError = error;
+            }
+
+            // In bounds. We should only make it here once
+            StopTransformerMotorRequest();
+            string what = "";
         }
 
         private void increaseRegulatedVoltageButton_Down(object sender, MouseEventArgs e)
         {
 
+            IncreaseVoltageRequest(650);
 
         }
 
         private void increaseRegulatedVoltageButton_Up(object sender, MouseEventArgs e)
         {
 
+            PIO1.StopTransformerMotor();
 
         }
 
@@ -789,6 +1046,7 @@ namespace HV9104_GUI
         private void decreaseMeasureGap_Up(object sender, MouseEventArgs e)
         {
 
+            StopMotorRequest();
 
         }
 
@@ -809,6 +1067,7 @@ namespace HV9104_GUI
         private void increaseMeasureGapButton_Up(object sender, MouseEventArgs e)
         {
 
+            StopMotorRequest();
 
         }
 
@@ -816,12 +1075,14 @@ namespace HV9104_GUI
         private void decreaseImpulseGap_Down(object sender, MouseEventArgs e)
         {
 
+            DecreaseGapRequest();
 
         }
 
         private void decreaseImpulseGap_Up(object sender, MouseEventArgs e)
         {
 
+            StopMotorRequest();
 
         }
 
@@ -830,48 +1091,56 @@ namespace HV9104_GUI
         private void impulseGapTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
 
+            RunToPosRequest(this.controlForm.runView.impulseGapTextBox.Text);
 
         }
 
         private void increaseImpulseGapButton_Down(object sender, MouseEventArgs e)
         {
 
+            IncreaseGapRequest();
 
         }
 
         private void increaseImpulseGapButton_Up(object sender, MouseEventArgs e)
         {
 
+            StopMotorRequest();
 
         }
 
         private void decreasePressureButton_Down(object sender, MouseEventArgs e)
         {
 
+            DecreasePressureRequest();
 
         }
 
         private void decreasePressureButton_Up(object sender, MouseEventArgs e)
         {
 
+            StopPressureRequest();
 
         }
 
         private void pressureTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
 
+            SetPressureRequest(controlForm.runView.pressureTextBox.Value);
 
         }
 
         private void increasePressureButton_Down(object sender, MouseEventArgs e)
         {
 
+            IncreasePressureRequest();
 
         }
 
         private void increasePressureButton_Up(object sender, MouseEventArgs e)
         {
 
+            StopPressureRequest();
 
         }
 
@@ -1034,6 +1303,301 @@ namespace HV9104_GUI
             picoScope.closeDevice();
             this.measuringForm.Close();
             this.controlForm.Close();
+        }
+
+
+        // Set up the new devices. Should maybe return bool to notify of init problems
+        public void InitializeDevices()
+        {
+            // Create new device objects
+            PIO1 = new NA9739Device(serialPort1);
+            HV9126 = new PD1161Device(3, serialPort1);
+            HV9133 = new PD1161Device(4, serialPort1);
+            activeMotor = HV9126;
+
+            if (!activeMotor.initComplete)
+            {
+                InitMotorRequest();
+            }
+
+
+            //// Check communication - see who is connected 
+            //FindDevices();
+        }
+
+        // Who is connected?
+        //public void FindDevices()
+        //{
+        //    if (PIO1.CheckConnection()){ PIO1Connected = true; }
+        //    if (HV9133.checkCTSFlag()) { HV9133Connected = true; }
+        //    if (HV9126.checkCTSFlag()) { HV9126Connected = true; }
+
+        //    // Select a Sphere Gap
+        //    if (HV9126Connected)
+        //    {
+        //        activeMotor = HV9126;
+        //    }
+        //    else
+        //    {
+        //        if (HV9133Connected)
+        //        {
+        //            activeMotor = HV9133;
+        //        }
+        //        else
+        //        {
+        //            // No one is connected
+        //            activeMotor = null;
+        //        }
+        //    }
+        //}
+
+        
+
+
+               
+
+        // Add all updated variables to this...
+        public void UpdateGUI()
+        {
+            double voltVal = 0;
+
+            // Voltage and Current
+            guiUpdater.transferVoltageInputLabel(PIO1.regulatedVoltageValue.ToString("0.0"));
+            guiUpdater.transferCurrentInputLabel(PIO1.regulatedCurrentValue.ToString("0.00"));
+
+
+            // Status flags
+            //guiUpdater.transferTextBox6(PIO1.getPressure());
+            //guiUpdater.transferLabel36(PIO1.fault.ToString());
+            //guiUpdater.transferLabel37(PIO1.earthingEngaged.ToString());
+            //guiUpdater.transferLabel38(PIO1.dischargeRodParked.ToString());
+            //guiUpdater.transferLabel39(PIO1.emergStpKeySwClosed.ToString());
+            //guiUpdater.transferLabel40(PIO1.dorrSwitchClosed.ToString());
+            //guiUpdater.transferLabel41(PIO1.K1Closed.ToString());
+            //guiUpdater.transferLabel42(PIO1.K2Closed.ToString());
+            //guiUpdater.transferLabel43(PIO1.minUPos.ToString());
+            //guiUpdater.transferCTSFlag(activeMotor.initComplete.ToString());
+
+            // Ratio-calculated High Voltage value
+            //voltVal = (((double)PIO1.regulatedVoltageValue * 45) / 100);
+            //guiUpdater.transferLabel47(voltVal.ToString("00.00"));
+
+            //if ((voltVal >= 5) && (PIO1.K2Closed))
+            //{
+            //    activeForm.pictureBox1.Visible = true;
+            //}
+            //else
+            //{
+            //    activeForm.pictureBox1.Visible = false;
+            //}
+
+            // Motor status
+            //activeForm.label53.Visible = activeMotor.initComplete;
+            guiUpdater.transferImpulseGapLabel(activeMotor.actualPosition.ToString());
+
+        }
+
+        // Voltage connection control
+        public void ClosePrimaryRequest()
+        {
+            PIO1.closePrimary();
+        }
+
+        // Voltage connection control
+        public void CloseSecondaryRequest(bool overRideIn)
+        {
+            PIO1.overrideUMin = overRideIn;
+            PIO1.closeSecondary();
+        }
+
+        // Voltage connection control
+        public void OpenPrimaryRequest()
+        {
+            PIO1.openPrimary();
+        }
+
+        // Voltage connection control
+        public void OpenSecondaryRequest()
+        {
+            PIO1.openSecondary();
+        }
+
+        // Voltage level control
+        public void IncreaseVoltageRequest(int speedValIn)
+        {
+            PIO1.increaseVoltage(speedValIn);
+        }
+
+        // Voltage level control
+        public void DecreaseVoltageRequest(int speedValIn)
+        {
+            PIO1.decreaseVoltage(speedValIn);
+        }
+
+        // Voltage level control
+        public void StopTransformerMotorRequest()
+        {
+            PIO1.StopTransformerMotor();
+        }
+
+        public void ChangeActiveMotorRequest(int selectedMotorIn)
+        {
+            if (selectedMotorIn == 0)
+            {
+                activeMotor = HV9126;
+            }
+            else
+            {
+                activeMotor = HV9133;
+            }
+        }
+
+        //
+        public void DecreaseGapRequest()
+        {
+            //activeMotor.DecreaseGap();
+            commandPending = 1;
+        }
+
+        public void IncreaseGapRequest()
+        {
+            //activeMotor.IncreaseGap();
+            commandPending = 2;
+        }
+
+        // 
+        public void StopMotorRequest()
+        {
+            //activeMotor.StopMotor();
+            commandPending = 3;
+        }
+
+        // Active stepper motor initialization
+        public void InitMotorRequest()
+        {
+            //activeMotor.StartInit();
+            commandPending = 4;
+
+        }
+
+        public void RunToPosRequest(string posIn)
+        {
+            if (activeMotor.initComplete != true)
+            {
+                return;
+            }
+
+            commandPending = 5;
+
+        }
+
+        //
+        public void IncreasePressureRequest()
+        {
+            PIO1.startCompressor = true; // should be done in devices own increase pressure routine
+            PIO1.UpdateDevice();
+        }
+
+        //
+        public void DecreasePressureRequest()
+        {
+            PIO1.startVacuumPump = true; // should be done in devices own decrease pressure routine
+            PIO1.UpdateDevice();
+        }
+
+        //
+        public void SetPressureRequest(double presValIn)
+        {
+            double presVal = presValIn / 10;
+            PIO1.ChangePressure(presVal);
+        }
+
+        public void StopPressureRequest()
+        {
+            PIO1.stopVacPressure();
+        }
+
+        public string GetPressureRequest()
+        {
+            string retrievedPress = PIO1.getPressure();
+            return retrievedPress;
+        }
+
+
+
+        // Serial port communications
+        public bool AutoConnect()
+        {
+            // Communication variables
+            int Baud = 38400;
+            Parity Parity = System.IO.Ports.Parity.None;
+            int DataBits = 8;
+            StopBits StopBits = System.IO.Ports.StopBits.One;
+
+            // Search active comports for adapter
+            string portName = getAdapterPort();
+            if (portName == "Not Found")
+            {
+                return false;
+            }
+
+            // Create a new serial port instance
+            serialPort1 = new SerialPort(portName);
+        
+            // Assign communication variables to the port
+            serialPort1.PortName = portName;
+            serialPort1.BaudRate = Baud;
+            serialPort1.Parity = Parity;
+            serialPort1.DataBits = DataBits;
+            serialPort1.StopBits = StopBits;
+
+            //  Set the read/write timeouts
+            serialPort1.ReadTimeout = 1000;
+            serialPort1.WriteTimeout = 1000;
+            //serialPort1.ReceivedBytesThreshold = 9;
+
+            // Test the connection
+            try
+            {
+                serialPort1.Close();
+                serialPort1.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(("Com port " + (portName + " could not be opened.")), "Name Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //return 0;
+            }
+
+            if (serialPort1.IsOpen)
+            {
+                serialPortConnected = true;
+
+                //// Present the active ComPort
+                // guiUpdater.transferTextBoxActiveComPort(portName);
+                // "Modbus live on COM19"
+            }
+
+            return serialPortConnected;
+        }
+
+        // Look through COM ports for a connected device
+        public string getAdapterPort()
+        {
+            try
+            {
+                List<string> tList = new List<string>();
+                foreach (string s in SerialPort.GetPortNames())
+                {
+                    tList.Add(s);
+                }
+
+                return tList[0];
+            }
+            catch
+            {
+                return "Not Found";
+
+            }
         }
     }
 }

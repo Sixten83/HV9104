@@ -97,6 +97,8 @@
     <Compile Include="IncrementWindow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="NA9739Device.cs" />
+    <Compile Include="PD1161Device.cs" />
     <Compile Include="SetupView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -149,6 +151,7 @@
     <Compile Include="RunView.Designer.cs">
       <DependentUpon>RunView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Updater.cs" />
     <Compile Include="ValueChangeEventArgs.cs">
       <DependentUpon>CustomControls.cs</DependentUpon>
     </Compile>

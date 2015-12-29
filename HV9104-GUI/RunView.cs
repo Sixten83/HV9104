@@ -12,9 +12,17 @@ namespace HV9104_GUI
 {
     public partial class RunView : UserControl
     {
+
         public RunView()
         {
             InitializeComponent();
         }
+
+        private void RunView_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
