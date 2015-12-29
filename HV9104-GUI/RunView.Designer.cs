@@ -29,7 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RunView));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.choppingCheckBox = new HV9104_GUI.CustomCheckBox();
+            this.choppingTimeTextBox = new HV9104_GUI.CustomTextBox();
+            this.triggerButton = new HV9104_GUI.CustomButton();
+            this.earthingIsolatedRadioButton = new HV9104_GUI.CustomRadioButton();
+            this.earthingGroundedRadioButton = new HV9104_GUI.CustomRadioButton();
+            this.parkCheckBox = new HV9104_GUI.CustomCheckBox();
+            this.overrideCheckBox = new HV9104_GUI.CustomCheckBox();
+            this.onOffButton = new HV9104_GUI.CustomCheckBox();
             this.customPanel4 = new HV9104_GUI.CustomPanel();
             this.impulseOutputComboBox = new HV9104_GUI.CustomComboBox();
             this.impulseTitleLabel = new System.Windows.Forms.Label();
@@ -43,11 +52,8 @@
             this.acTitleLabel = new System.Windows.Forms.Label();
             this.acValueLabel = new System.Windows.Forms.Label();
             this.customPanel7 = new HV9104_GUI.CustomPanel();
-            this.choppingCheckBox = new HV9104_GUI.CustomCheckBox();
             this.increaseChoppingTimeButton = new HV9104_GUI.CustomButton();
             this.decreaseChoppingTimeButton = new HV9104_GUI.CustomButton();
-            this.choppingTimeTextBox = new HV9104_GUI.CustomTextBox();
-            this.triggerButton = new HV9104_GUI.CustomButton();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.customPanel6 = new HV9104_GUI.CustomPanel();
@@ -58,8 +64,6 @@
             this.voltageRegulationRepresentationComboBox = new HV9104_GUI.CustomComboBox();
             this.setVoltageTitle = new System.Windows.Forms.Label();
             this.customPanel8 = new HV9104_GUI.CustomPanel();
-            this.earthingIsolatedRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.earthingGroundedRadioButton = new HV9104_GUI.CustomRadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -77,11 +81,8 @@
             this.impulseGapLabel = new System.Windows.Forms.Label();
             this.customPanel13 = new HV9104_GUI.CustomPanel();
             this.label2 = new System.Windows.Forms.Label();
-            this.parkCheckBox = new HV9104_GUI.CustomCheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pauseButton = new HV9104_GUI.CustomCheckBox();
-            this.overrideCheckBox = new HV9104_GUI.CustomCheckBox();
-            this.onOffButton = new HV9104_GUI.CustomCheckBox();
             this.label14 = new System.Windows.Forms.Label();
             this.overrideLabel = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -104,6 +105,7 @@
             this.inputTitleLabel = new System.Windows.Forms.Label();
             this.currentInputLabel = new System.Windows.Forms.Label();
             this.voltageInputLabel = new System.Windows.Forms.Label();
+            this.customTrackBar1 = new HV9104_GUI.CustomTrackBar();
             this.customPanel4.SuspendLayout();
             this.customPanel3.SuspendLayout();
             this.customPanel2.SuspendLayout();
@@ -117,6 +119,131 @@
             this.customPanel5.SuspendLayout();
             this.customPanel1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // choppingCheckBox
+            // 
+            this.choppingCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.choppingCheckBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.checkBox;
+            this.choppingCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
+            this.choppingCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
+            this.choppingCheckBox.isChecked = false;
+            this.choppingCheckBox.Location = new System.Drawing.Point(343, 76);
+            this.choppingCheckBox.Name = "choppingCheckBox";
+            this.choppingCheckBox.Size = new System.Drawing.Size(48, 43);
+            this.choppingCheckBox.TabIndex = 3;
+            this.choppingCheckBox.Text = "customCheckBox1";
+            this.toolTip1.SetToolTip(this.choppingCheckBox, "Enables chopping of the lightning impulse");
+            this.choppingCheckBox.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxHover;
+            // 
+            // choppingTimeTextBox
+            // 
+            this.choppingTimeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.choppingTimeTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.choppingTimeTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.choppingTimeTextBox.CornerRadius = 27;
+            this.choppingTimeTextBox.Decimals = 2;
+            this.choppingTimeTextBox.IsPopUp = false;
+            this.choppingTimeTextBox.Location = new System.Drawing.Point(124, 168);
+            this.choppingTimeTextBox.Max = 100;
+            this.choppingTimeTextBox.Min = 0;
+            this.choppingTimeTextBox.Name = "choppingTimeTextBox";
+            this.choppingTimeTextBox.Size = new System.Drawing.Size(169, 54);
+            this.choppingTimeTextBox.TabIndex = 4;
+            this.choppingTimeTextBox.TextBoxHint = "";
+            this.toolTip1.SetToolTip(this.choppingTimeTextBox, "Chopping time (ns)");
+            this.choppingTimeTextBox.Value = 1F;
+            // 
+            // triggerButton
+            // 
+            this.triggerButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.triggerButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.triggerButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.triggerButton.ForeColor = System.Drawing.Color.White;
+            this.triggerButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.triggerButton.Location = new System.Drawing.Point(18, 71);
+            this.triggerButton.Name = "triggerButton";
+            this.triggerButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.triggerButton.Size = new System.Drawing.Size(158, 57);
+            this.triggerButton.TabIndex = 1;
+            this.triggerButton.Text = "TRIGGER";
+            this.toolTip1.SetToolTip(this.triggerButton, "Triggers the HV9132 electronic trigger sphere");
+            // 
+            // earthingIsolatedRadioButton
+            // 
+            this.earthingIsolatedRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.earthingIsolatedRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.earthingIsolatedRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.earthingIsolatedRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.earthingIsolatedRadioButton.Enabled = false;
+            this.earthingIsolatedRadioButton.isChecked = false;
+            this.earthingIsolatedRadioButton.Location = new System.Drawing.Point(400, 45);
+            this.earthingIsolatedRadioButton.Name = "earthingIsolatedRadioButton";
+            this.earthingIsolatedRadioButton.Size = new System.Drawing.Size(47, 47);
+            this.earthingIsolatedRadioButton.TabIndex = 1;
+            this.earthingIsolatedRadioButton.Text = "customRadioButton1";
+            this.toolTip1.SetToolTip(this.earthingIsolatedRadioButton, "Shows the automatic earthing switch position");
+            this.earthingIsolatedRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
+            // 
+            // earthingGroundedRadioButton
+            // 
+            this.earthingGroundedRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.earthingGroundedRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.earthingGroundedRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.earthingGroundedRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.earthingGroundedRadioButton.Enabled = false;
+            this.earthingGroundedRadioButton.isChecked = true;
+            this.earthingGroundedRadioButton.Location = new System.Drawing.Point(158, 45);
+            this.earthingGroundedRadioButton.Name = "earthingGroundedRadioButton";
+            this.earthingGroundedRadioButton.Size = new System.Drawing.Size(47, 47);
+            this.earthingGroundedRadioButton.TabIndex = 1;
+            this.earthingGroundedRadioButton.Text = "customRadioButton1";
+            this.toolTip1.SetToolTip(this.earthingGroundedRadioButton, "Shows the automatic earthing switch position");
+            this.earthingGroundedRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
+            // 
+            // parkCheckBox
+            // 
+            this.parkCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.parkCheckBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.checkBox;
+            this.parkCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
+            this.parkCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
+            this.parkCheckBox.isChecked = false;
+            this.parkCheckBox.Location = new System.Drawing.Point(429, 41);
+            this.parkCheckBox.Name = "parkCheckBox";
+            this.parkCheckBox.Size = new System.Drawing.Size(48, 43);
+            this.parkCheckBox.TabIndex = 5;
+            this.parkCheckBox.Text = "customCheckBox2";
+            this.toolTip1.SetToolTip(this.parkCheckBox, "Takes The AutoTranformer To Its Zero position");
+            this.parkCheckBox.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxHover;
+            // 
+            // overrideCheckBox
+            // 
+            this.overrideCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.overrideCheckBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.checkBox;
+            this.overrideCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
+            this.overrideCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
+            this.overrideCheckBox.isChecked = false;
+            this.overrideCheckBox.Location = new System.Drawing.Point(429, 102);
+            this.overrideCheckBox.Name = "overrideCheckBox";
+            this.overrideCheckBox.Size = new System.Drawing.Size(48, 43);
+            this.overrideCheckBox.TabIndex = 3;
+            this.overrideCheckBox.Text = "customCheckBox1";
+            this.toolTip1.SetToolTip(this.overrideCheckBox, "Overrides the voltage zero position condition");
+            this.overrideCheckBox.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxHover;
+            // 
+            // onOffButton
+            // 
+            this.onOffButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.onOffButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
+            this.onOffButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
+            this.onOffButton.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
+            this.onOffButton.isChecked = false;
+            this.onOffButton.Location = new System.Drawing.Point(130, 30);
+            this.onOffButton.Name = "onOffButton";
+            this.onOffButton.Size = new System.Drawing.Size(138, 56);
+            this.onOffButton.TabIndex = 3;
+            this.onOffButton.Text = "customCheckBox2";
+            this.toolTip1.SetToolTip(this.onOffButton, "Energizes the high voltage transformer");
+            this.onOffButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
             // 
             // customPanel4
             // 
@@ -301,21 +428,6 @@
             this.customPanel7.Size = new System.Drawing.Size(406, 274);
             this.customPanel7.TabIndex = 0;
             // 
-            // choppingCheckBox
-            // 
-            this.choppingCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.choppingCheckBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.checkBox;
-            this.choppingCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
-            this.choppingCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
-            this.choppingCheckBox.isChecked = false;
-            this.choppingCheckBox.Location = new System.Drawing.Point(343, 76);
-            this.choppingCheckBox.Name = "choppingCheckBox";
-            this.choppingCheckBox.Size = new System.Drawing.Size(48, 43);
-            this.choppingCheckBox.TabIndex = 3;
-            this.choppingCheckBox.Text = "customCheckBox1";
-            this.toolTip1.SetToolTip(this.choppingCheckBox, "Enables chopping of the lightning impulse");
-            this.choppingCheckBox.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxHover;
-            // 
             // increaseChoppingTimeButton
             // 
             this.increaseChoppingTimeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
@@ -339,39 +451,6 @@
             this.decreaseChoppingTimeButton.PressedImage = global::HV9104_GUI.Properties.Resources.downButtonPressed;
             this.decreaseChoppingTimeButton.Size = new System.Drawing.Size(61, 61);
             this.decreaseChoppingTimeButton.TabIndex = 5;
-            // 
-            // choppingTimeTextBox
-            // 
-            this.choppingTimeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.choppingTimeTextBox.BackgroundColor = System.Drawing.Color.White;
-            this.choppingTimeTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.choppingTimeTextBox.CornerRadius = 27;
-            this.choppingTimeTextBox.Decimals = 2;
-            this.choppingTimeTextBox.IsPopUp = false;
-            this.choppingTimeTextBox.Location = new System.Drawing.Point(124, 168);
-            this.choppingTimeTextBox.Max = 100;
-            this.choppingTimeTextBox.Min = 0;
-            this.choppingTimeTextBox.Name = "choppingTimeTextBox";
-            this.choppingTimeTextBox.Size = new System.Drawing.Size(169, 54);
-            this.choppingTimeTextBox.TabIndex = 4;
-            this.choppingTimeTextBox.TextBoxHint = "";
-            this.toolTip1.SetToolTip(this.choppingTimeTextBox, "Chopping time (ns)");
-            this.choppingTimeTextBox.Value = 1F;
-            // 
-            // triggerButton
-            // 
-            this.triggerButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.triggerButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.triggerButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.triggerButton.ForeColor = System.Drawing.Color.White;
-            this.triggerButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.triggerButton.Location = new System.Drawing.Point(18, 71);
-            this.triggerButton.Name = "triggerButton";
-            this.triggerButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.triggerButton.Size = new System.Drawing.Size(158, 57);
-            this.triggerButton.TabIndex = 1;
-            this.triggerButton.Text = "TRIGGER";
-            this.toolTip1.SetToolTip(this.triggerButton, "Triggers the HV9132 electronic trigger sphere");
             // 
             // label12
             // 
@@ -511,38 +590,6 @@
             this.customPanel8.Name = "customPanel8";
             this.customPanel8.Size = new System.Drawing.Size(498, 101);
             this.customPanel8.TabIndex = 0;
-            // 
-            // earthingIsolatedRadioButton
-            // 
-            this.earthingIsolatedRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.earthingIsolatedRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.earthingIsolatedRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.earthingIsolatedRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.earthingIsolatedRadioButton.Enabled = false;
-            this.earthingIsolatedRadioButton.isChecked = false;
-            this.earthingIsolatedRadioButton.Location = new System.Drawing.Point(400, 45);
-            this.earthingIsolatedRadioButton.Name = "earthingIsolatedRadioButton";
-            this.earthingIsolatedRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.earthingIsolatedRadioButton.TabIndex = 1;
-            this.earthingIsolatedRadioButton.Text = "customRadioButton1";
-            this.toolTip1.SetToolTip(this.earthingIsolatedRadioButton, "Shows the automatic earthing switch position");
-            this.earthingIsolatedRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            // 
-            // earthingGroundedRadioButton
-            // 
-            this.earthingGroundedRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.earthingGroundedRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.earthingGroundedRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.earthingGroundedRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.earthingGroundedRadioButton.Enabled = false;
-            this.earthingGroundedRadioButton.isChecked = true;
-            this.earthingGroundedRadioButton.Location = new System.Drawing.Point(158, 45);
-            this.earthingGroundedRadioButton.Name = "earthingGroundedRadioButton";
-            this.earthingGroundedRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.earthingGroundedRadioButton.TabIndex = 1;
-            this.earthingGroundedRadioButton.Text = "customRadioButton1";
-            this.toolTip1.SetToolTip(this.earthingGroundedRadioButton, "Shows the automatic earthing switch position");
-            this.earthingGroundedRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
             // label4
             // 
@@ -771,21 +818,6 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "PAUSE";
             // 
-            // parkCheckBox
-            // 
-            this.parkCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.parkCheckBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.checkBox;
-            this.parkCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
-            this.parkCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
-            this.parkCheckBox.isChecked = false;
-            this.parkCheckBox.Location = new System.Drawing.Point(429, 41);
-            this.parkCheckBox.Name = "parkCheckBox";
-            this.parkCheckBox.Size = new System.Drawing.Size(48, 43);
-            this.parkCheckBox.TabIndex = 5;
-            this.parkCheckBox.Text = "customCheckBox2";
-            this.toolTip1.SetToolTip(this.parkCheckBox, "Takes The AutoTranformer To Its Zero position");
-            this.parkCheckBox.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxHover;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -810,36 +842,6 @@
             this.pauseButton.TabIndex = 1;
             this.pauseButton.Text = "pauseButton";
             this.pauseButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.pauseButtonHover;
-            // 
-            // overrideCheckBox
-            // 
-            this.overrideCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.overrideCheckBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.checkBox;
-            this.overrideCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
-            this.overrideCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
-            this.overrideCheckBox.isChecked = false;
-            this.overrideCheckBox.Location = new System.Drawing.Point(429, 102);
-            this.overrideCheckBox.Name = "overrideCheckBox";
-            this.overrideCheckBox.Size = new System.Drawing.Size(48, 43);
-            this.overrideCheckBox.TabIndex = 3;
-            this.overrideCheckBox.Text = "customCheckBox1";
-            this.toolTip1.SetToolTip(this.overrideCheckBox, "Overrides the voltage zero position condition");
-            this.overrideCheckBox.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxHover;
-            // 
-            // onOffButton
-            // 
-            this.onOffButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.onOffButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
-            this.onOffButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
-            this.onOffButton.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
-            this.onOffButton.isChecked = false;
-            this.onOffButton.Location = new System.Drawing.Point(130, 30);
-            this.onOffButton.Name = "onOffButton";
-            this.onOffButton.Size = new System.Drawing.Size(138, 56);
-            this.onOffButton.TabIndex = 3;
-            this.onOffButton.Text = "customCheckBox2";
-            this.toolTip1.SetToolTip(this.onOffButton, "Energizes the high voltage transformer");
-            this.onOffButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
             // 
             // label14
             // 
@@ -1118,11 +1120,27 @@
             this.voltageInputLabel.Text = "0";
             this.voltageInputLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // customTrackBar1
+            // 
+            this.customTrackBar1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("customTrackBar1.BackgroundImage")));
+            this.customTrackBar1.HoverImage = ((System.Drawing.Image)(resources.GetObject("customTrackBar1.HoverImage")));
+            this.customTrackBar1.HPressedImage = ((System.Drawing.Image)(resources.GetObject("customTrackBar1.HPressedImage")));
+            this.customTrackBar1.Layout = HV9104_GUI.CustomTrackBar.Orientation.HORIZONTAL;
+            this.customTrackBar1.Location = new System.Drawing.Point(72, 16);
+            this.customTrackBar1.Max = 10D;
+            this.customTrackBar1.MaximumSize = new System.Drawing.Size(800, 60);
+            this.customTrackBar1.Min = 0D;
+            this.customTrackBar1.MinimumSize = new System.Drawing.Size(200, 60);
+            this.customTrackBar1.Name = "customTrackBar1";
+            this.customTrackBar1.Size = new System.Drawing.Size(400, 60);
+            this.customTrackBar1.TabIndex = 1;
+            // 
             // RunView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.customTrackBar1);
             this.Controls.Add(this.customPanel4);
             this.Controls.Add(this.customPanel3);
             this.Controls.Add(this.customPanel2);
@@ -1243,5 +1261,6 @@
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label label2;
         public CustomRadioButton acOutputRadioButton;
+        private CustomTrackBar customTrackBar1;
     }
 }
