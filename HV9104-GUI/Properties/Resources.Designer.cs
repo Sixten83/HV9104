@@ -1433,9 +1433,9 @@ namespace HV9104_GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap slider {
+        internal static System.Drawing.Bitmap slider1 {
             get {
-                object obj = ResourceManager.GetObject("slider", resourceCulture);
+                object obj = ResourceManager.GetObject("slider1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

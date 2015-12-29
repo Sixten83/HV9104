@@ -178,7 +178,10 @@
   <data name="restoreDownButtonPressed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Resources\restoreDownButtonPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="2321" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="SliderPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Resources\SliderPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="23212" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Resources\2321.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="radioButtonCheckedHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -193,8 +196,8 @@
   <data name="radioButtonHover2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Resources\radioButtonHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="playSelectedIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Resources\playSelectedIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="sliderHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Resources\sliderHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pauseButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Resources\pauseButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -273,9 +276,6 @@
   </data>
   <data name="downButtonHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Resources\downButtonHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="23212" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Resources\2321.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="closeButtonHover2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Resources\closeButtonHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -360,6 +360,9 @@
   </data>
   <data name="minimizeButtonHover1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Resources\minimizeButtonHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="playSelectedIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Resources\playSelectedIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Picture32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Resources\Picture3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -544,6 +547,9 @@
   <data name="radioButtonCheckedHover1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Resources\radioButtonCheckedHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="2321" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Resources\2321.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="buttonHover1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Resources\buttonHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -568,13 +574,7 @@
   <data name="upButtonPressed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Resources\upButtonPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="slider" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Resources\slider.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sliderHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Resources\sliderHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SliderPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Resources\SliderPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="slider1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Resources\slider1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

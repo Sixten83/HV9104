@@ -45,7 +45,7 @@ namespace HV9104_GUI
             backgroundImage = new Image[2];
             pressedImage = new Image[2];
             hoverImage = new Image[2];
-            backgroundImage[0] = global::HV9104_GUI.Properties.Resources.slider;
+            backgroundImage[0] = global::HV9104_GUI.Properties.Resources.slider1;
             this.backgroundImage[1] = CopyAndRotateImage(backgroundImage[0]);
             hoverImage[0] = global::HV9104_GUI.Properties.Resources.sliderHover;
             this.hoverImage[1] = CopyAndRotateImage(hoverImage[0]);

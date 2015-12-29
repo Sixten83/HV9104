@@ -96,7 +96,6 @@
     <Compile Include="CustomTrackBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Enums.cs" />
     <Compile Include="IncrementWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -385,6 +384,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\slider1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
