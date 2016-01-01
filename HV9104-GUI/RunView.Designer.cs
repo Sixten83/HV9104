@@ -99,6 +99,11 @@
             this.inputTitleLabel = new System.Windows.Forms.Label();
             this.currentInputLabel = new System.Windows.Forms.Label();
             this.voltageInputLabel = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.customPanel4.SuspendLayout();
             this.customPanel3.SuspendLayout();
             this.customPanel2.SuspendLayout();
@@ -132,6 +137,7 @@
             this.customPanel4.BackColor = System.Drawing.Color.Transparent;
             this.customPanel4.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel4.Controls.Add(this.label20);
             this.customPanel4.Controls.Add(this.impulseOutputComboBox);
             this.customPanel4.Controls.Add(this.impulseTitleLabel);
             this.customPanel4.Controls.Add(this.impulseValueLabel);
@@ -147,7 +153,7 @@
             this.impulseOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseOutputComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
             this.impulseOutputComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
-            this.impulseOutputComboBox.Location = new System.Drawing.Point(182, 79);
+            this.impulseOutputComboBox.Location = new System.Drawing.Point(124, 121);
             this.impulseOutputComboBox.Name = "impulseOutputComboBox";
             this.impulseOutputComboBox.setCollection = new string[] {
         "Positive",
@@ -165,19 +171,19 @@
             this.impulseTitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.impulseTitleLabel.Location = new System.Drawing.Point(35, 14);
             this.impulseTitleLabel.Name = "impulseTitleLabel";
-            this.impulseTitleLabel.Size = new System.Drawing.Size(237, 18);
+            this.impulseTitleLabel.Size = new System.Drawing.Size(201, 18);
             this.impulseTitleLabel.TabIndex = 2;
-            this.impulseTitleLabel.Text = "IMPULSE PEAK OUTPUT (kV)";
+            this.impulseTitleLabel.Text = "IMPULSE PEAK OUTPUT";
             // 
             // impulseValueLabel
             // 
             this.impulseValueLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.impulseValueLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.impulseValueLabel.Location = new System.Drawing.Point(-30, 64);
+            this.impulseValueLabel.Location = new System.Drawing.Point(54, 42);
             this.impulseValueLabel.Name = "impulseValueLabel";
-            this.impulseValueLabel.Size = new System.Drawing.Size(227, 97);
+            this.impulseValueLabel.Size = new System.Drawing.Size(227, 79);
             this.impulseValueLabel.TabIndex = 1;
-            this.impulseValueLabel.Text = "0";
+            this.impulseValueLabel.Text = "000.0";
             this.impulseValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // customPanel3
@@ -185,6 +191,7 @@
             this.customPanel3.BackColor = System.Drawing.Color.Transparent;
             this.customPanel3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel3.Controls.Add(this.label17);
             this.customPanel3.Controls.Add(this.dcOutputComboBox);
             this.customPanel3.Controls.Add(this.dcTitleLabel);
             this.customPanel3.Controls.Add(this.dcValueLabel);
@@ -200,7 +207,7 @@
             this.dcOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.dcOutputComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
             this.dcOutputComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
-            this.dcOutputComboBox.Location = new System.Drawing.Point(188, 79);
+            this.dcOutputComboBox.Location = new System.Drawing.Point(102, 121);
             this.dcOutputComboBox.Name = "dcOutputComboBox";
             this.dcOutputComboBox.setCollection = new string[] {
         "Vavg",
@@ -220,19 +227,19 @@
             this.dcTitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.dcTitleLabel.Location = new System.Drawing.Point(29, 14);
             this.dcTitleLabel.Name = "dcTitleLabel";
-            this.dcTitleLabel.Size = new System.Drawing.Size(151, 18);
+            this.dcTitleLabel.Size = new System.Drawing.Size(105, 18);
             this.dcTitleLabel.TabIndex = 2;
-            this.dcTitleLabel.Text = "VDC OUTPUT (kV)";
+            this.dcTitleLabel.Text = "DC OUTPUT";
             // 
             // dcValueLabel
             // 
             this.dcValueLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dcValueLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.dcValueLabel.Location = new System.Drawing.Point(-30, 64);
+            this.dcValueLabel.Location = new System.Drawing.Point(72, 41);
             this.dcValueLabel.Name = "dcValueLabel";
-            this.dcValueLabel.Size = new System.Drawing.Size(227, 97);
+            this.dcValueLabel.Size = new System.Drawing.Size(183, 81);
             this.dcValueLabel.TabIndex = 1;
-            this.dcValueLabel.Text = "0";
+            this.dcValueLabel.Text = "000.0";
             this.dcValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // customPanel2
@@ -240,6 +247,7 @@
             this.customPanel2.BackColor = System.Drawing.Color.Transparent;
             this.customPanel2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel2.Controls.Add(this.label16);
             this.customPanel2.Controls.Add(this.acOutputComboBox);
             this.customPanel2.Controls.Add(this.acTitleLabel);
             this.customPanel2.Controls.Add(this.acValueLabel);
@@ -255,7 +263,7 @@
             this.acOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.acOutputComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
             this.acOutputComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
-            this.acOutputComboBox.Location = new System.Drawing.Point(185, 79);
+            this.acOutputComboBox.Location = new System.Drawing.Point(106, 121);
             this.acOutputComboBox.Name = "acOutputComboBox";
             this.acOutputComboBox.setCollection = new string[] {
         "Vrms",
@@ -283,12 +291,12 @@
             // 
             this.acValueLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.acValueLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.acValueLabel.Location = new System.Drawing.Point(-30, 64);
+            this.acValueLabel.Location = new System.Drawing.Point(84, 43);
             this.acValueLabel.Name = "acValueLabel";
             this.acValueLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.acValueLabel.Size = new System.Drawing.Size(227, 97);
+            this.acValueLabel.Size = new System.Drawing.Size(184, 75);
             this.acValueLabel.TabIndex = 1;
-            this.acValueLabel.Text = "0";
+            this.acValueLabel.Text = "000.0";
             this.acValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // customPanel7
@@ -994,6 +1002,8 @@
             this.customPanel1.BackColor = System.Drawing.Color.Transparent;
             this.customPanel1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel1.Controls.Add(this.label11);
+            this.customPanel1.Controls.Add(this.label3);
             this.customPanel1.Controls.Add(this.panel1);
             this.customPanel1.Controls.Add(this.inputTitleLabel);
             this.customPanel1.Controls.Add(this.currentInputLabel);
@@ -1009,7 +1019,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.panel1.Location = new System.Drawing.Point(204, 54);
+            this.panel1.Location = new System.Drawing.Point(227, 37);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(2, 100);
             this.panel1.TabIndex = 3;
@@ -1027,25 +1037,80 @@
             // 
             // currentInputLabel
             // 
-            this.currentInputLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.currentInputLabel.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.currentInputLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.currentInputLabel.Location = new System.Drawing.Point(204, 57);
+            this.currentInputLabel.Location = new System.Drawing.Point(251, 56);
             this.currentInputLabel.Name = "currentInputLabel";
-            this.currentInputLabel.Size = new System.Drawing.Size(199, 97);
+            this.currentInputLabel.Size = new System.Drawing.Size(145, 58);
             this.currentInputLabel.TabIndex = 1;
-            this.currentInputLabel.Text = "0";
+            this.currentInputLabel.Text = "00.00";
             this.currentInputLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // voltageInputLabel
             // 
-            this.voltageInputLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.voltageInputLabel.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.voltageInputLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.voltageInputLabel.Location = new System.Drawing.Point(18, 57);
             this.voltageInputLabel.Name = "voltageInputLabel";
-            this.voltageInputLabel.Size = new System.Drawing.Size(165, 97);
+            this.voltageInputLabel.Size = new System.Drawing.Size(160, 57);
             this.voltageInputLabel.TabIndex = 1;
-            this.voltageInputLabel.Text = "0";
+            this.voltageInputLabel.Text = "000.0";
             this.voltageInputLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Calibri", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label3.Location = new System.Drawing.Point(167, 67);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(42, 45);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "V";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Calibri", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label11.Location = new System.Drawing.Point(387, 67);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(42, 45);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "A";
+            // 
+            // label16
+            // 
+            this.label16.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label16.Location = new System.Drawing.Point(263, 56);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(77, 58);
+            this.label16.TabIndex = 4;
+            this.label16.Text = "kV";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label17
+            // 
+            this.label17.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label17.Location = new System.Drawing.Point(248, 57);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(77, 58);
+            this.label17.TabIndex = 5;
+            this.label17.Text = "kV";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label20
+            // 
+            this.label20.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label20.Location = new System.Drawing.Point(273, 56);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(77, 58);
+            this.label20.TabIndex = 6;
+            this.label20.Text = "kV";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // RunView
             // 
@@ -1165,5 +1230,10 @@
         public System.Windows.Forms.Label label2;
         public CustomRadioButton acOutputRadioButton;
         private CustomTrackBar customTrackBar1;
+        public System.Windows.Forms.Label label20;
+        public System.Windows.Forms.Label label16;
+        public System.Windows.Forms.Label label11;
+        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.Label label17;
     }
 }
