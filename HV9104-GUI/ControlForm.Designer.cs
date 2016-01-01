@@ -48,6 +48,7 @@
             this.controlFormTabController = new HV9104_GUI.CustomTabControl();
             this.customTab22 = new HV9104_GUI.CustomTab();
             this.customTab21 = new HV9104_GUI.CustomTab();
+            this.customTab1 = new HV9104_GUI.CustomTab();
             this.titleBarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.controlFormTabController.SuspendLayout();
@@ -233,6 +234,7 @@
             // controlFormTabController
             // 
             this.controlFormTabController.BackColor = System.Drawing.Color.White;
+            this.controlFormTabController.Controls.Add(this.customTab1);
             this.controlFormTabController.Controls.Add(this.customTab22);
             this.controlFormTabController.Controls.Add(this.customTab21);
             this.controlFormTabController.Location = new System.Drawing.Point(1, 100);
@@ -265,6 +267,19 @@
             this.customTab21.TabIndex = 0;
             this.customTab21.Text = "Setup";
             this.customTab21.UnselectedIcon = global::HV9104_GUI.Properties.Resources.setupIcon;
+            // 
+            // customTab1
+            // 
+            this.customTab1.BackColor = System.Drawing.Color.White;
+            this.customTab1.BackgroundImage = global::HV9104_GUI.Properties.Resources.tabBorder;
+            this.customTab1.isSelected = false;
+            this.customTab1.Location = new System.Drawing.Point(800, 35);
+            this.customTab1.Name = "customTab1";
+            this.customTab1.SelectedIcon = null;
+            this.customTab1.Size = new System.Drawing.Size(400, 100);
+            this.customTab1.TabIndex = 3;
+            this.customTab1.Text = "customTab1";
+            this.customTab1.UnselectedIcon = null;
             // 
             // ControlForm
             // 
@@ -309,5 +324,6 @@
         public System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Label modeLabel;
         public System.Windows.Forms.Label messageLabel;
+        private CustomTab customTab1;
     }
 }
