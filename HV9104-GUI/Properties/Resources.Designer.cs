@@ -513,6 +513,26 @@ namespace HV9104_GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Hazard_Sign_HIGH_VOLTAGE {
+            get {
+                object obj = ResourceManager.GetObject("Hazard_Sign_HIGH_VOLTAGE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap High_Voltage {
+            get {
+                object obj = ResourceManager.GetObject("High Voltage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap label1 {
             get {
                 object obj = ResourceManager.GetObject("label1", resourceCulture);

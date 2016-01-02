@@ -383,10 +383,13 @@
     <None Include="bin\Debug\Resources\SliderPressed.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <None Include="Resources\Hazard_Sign_HIGH_VOLTAGE.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\Resources\slider1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\High Voltage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

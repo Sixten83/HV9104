@@ -432,7 +432,7 @@ namespace HV9104_GUI
             this.controlForm.runView.impulseOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseOutputComboBox_valueChange);
             //POWER Listeners
             this.controlForm.runView.onOffButton.Click += new System.EventHandler(onOffButton_Click);
-            this.controlForm.runView.pauseButton.Click += new System.EventHandler(pauseButton_Click);
+            //this.controlForm.runView.pauseButton.Click += new System.EventHandler(pauseButton_Click);
             this.controlForm.runView.parkCheckBox.Click += new System.EventHandler(parkCheckBox_Click);
             this.controlForm.runView.overrideCheckBox.Click += new System.EventHandler(overrideCheckBox_Click);
             //Regulated Voltage Type Listeners            
