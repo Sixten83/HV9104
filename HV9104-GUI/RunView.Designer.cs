@@ -118,6 +118,20 @@
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.statusLabelUmin = new System.Windows.Forms.Label();
+            this.statusLabelEarthingengaged = new System.Windows.Forms.Label();
+            this.statusLabelDischargeRodParked = new System.Windows.Forms.Label();
+            this.statuslabelEmStopKeySwClosed = new System.Windows.Forms.Label();
+            this.statusLabelDoorClosed = new System.Windows.Forms.Label();
+            this.ststuaLabelK1F2Closed = new System.Windows.Forms.Label();
+            this.statusLabelK2F1Closed = new System.Windows.Forms.Label();
             this.customPanel4.SuspendLayout();
             this.customPanel3.SuspendLayout();
             this.customPanel2.SuspendLayout();
@@ -1198,6 +1212,20 @@
             this.customPanel10.BackColor = System.Drawing.Color.Transparent;
             this.customPanel10.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel10.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel10.Controls.Add(this.statusLabelK2F1Closed);
+            this.customPanel10.Controls.Add(this.ststuaLabelK1F2Closed);
+            this.customPanel10.Controls.Add(this.statusLabelDoorClosed);
+            this.customPanel10.Controls.Add(this.statuslabelEmStopKeySwClosed);
+            this.customPanel10.Controls.Add(this.statusLabelDischargeRodParked);
+            this.customPanel10.Controls.Add(this.statusLabelEarthingengaged);
+            this.customPanel10.Controls.Add(this.statusLabelUmin);
+            this.customPanel10.Controls.Add(this.label34);
+            this.customPanel10.Controls.Add(this.label33);
+            this.customPanel10.Controls.Add(this.label32);
+            this.customPanel10.Controls.Add(this.label31);
+            this.customPanel10.Controls.Add(this.label30);
+            this.customPanel10.Controls.Add(this.label29);
+            this.customPanel10.Controls.Add(this.label28);
             this.customPanel10.Controls.Add(this.label21);
             this.customPanel10.CornerRadius = 30;
             this.customPanel10.IsPopUp = false;
@@ -1316,6 +1344,160 @@
             this.label27.Size = new System.Drawing.Size(154, 19);
             this.label27.TabIndex = 9;
             this.label27.Text = "CHOPPING DELAY (μs)";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label28.Location = new System.Drawing.Point(35, 139);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(247, 19);
+            this.label28.TabIndex = 4;
+            this.label28.Text = "Emergency Stop + Key Switch closed:";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label29.Location = new System.Drawing.Point(35, 87);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(127, 19);
+            this.label29.TabIndex = 5;
+            this.label29.Text = "Earthing engaged:";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label30.Location = new System.Drawing.Point(35, 113);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(154, 19);
+            this.label30.TabIndex = 6;
+            this.label30.Text = "Discharge Rod parked:";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label31.Location = new System.Drawing.Point(35, 165);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(107, 19);
+            this.label31.TabIndex = 7;
+            this.label31.Text = "Door(s) closed:";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label32.Location = new System.Drawing.Point(35, 191);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(235, 19);
+            this.label32.TabIndex = 8;
+            this.label32.Text = "Input Contactor + O/C Prot  closed:";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label33.Location = new System.Drawing.Point(35, 217);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(280, 19);
+            this.label33.TabIndex = 9;
+            this.label33.Text = "Output Contactor + Overload Prot  closed:";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label34.Location = new System.Drawing.Point(35, 61);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(189, 19);
+            this.label34.TabIndex = 10;
+            this.label34.Text = "Voltage transformer parked:";
+            // 
+            // statusLabelUmin
+            // 
+            this.statusLabelUmin.AutoSize = true;
+            this.statusLabelUmin.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabelUmin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.statusLabelUmin.Location = new System.Drawing.Point(351, 61);
+            this.statusLabelUmin.Name = "statusLabelUmin";
+            this.statusLabelUmin.Size = new System.Drawing.Size(41, 19);
+            this.statusLabelUmin.TabIndex = 11;
+            this.statusLabelUmin.Text = "false";
+            // 
+            // statusLabelEarthingengaged
+            // 
+            this.statusLabelEarthingengaged.AutoSize = true;
+            this.statusLabelEarthingengaged.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabelEarthingengaged.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.statusLabelEarthingengaged.Location = new System.Drawing.Point(351, 87);
+            this.statusLabelEarthingengaged.Name = "statusLabelEarthingengaged";
+            this.statusLabelEarthingengaged.Size = new System.Drawing.Size(41, 19);
+            this.statusLabelEarthingengaged.TabIndex = 12;
+            this.statusLabelEarthingengaged.Text = "false";
+            // 
+            // statusLabelDischargeRodParked
+            // 
+            this.statusLabelDischargeRodParked.AutoSize = true;
+            this.statusLabelDischargeRodParked.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabelDischargeRodParked.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.statusLabelDischargeRodParked.Location = new System.Drawing.Point(351, 113);
+            this.statusLabelDischargeRodParked.Name = "statusLabelDischargeRodParked";
+            this.statusLabelDischargeRodParked.Size = new System.Drawing.Size(41, 19);
+            this.statusLabelDischargeRodParked.TabIndex = 13;
+            this.statusLabelDischargeRodParked.Text = "false";
+            // 
+            // statuslabelEmStopKeySwClosed
+            // 
+            this.statuslabelEmStopKeySwClosed.AutoSize = true;
+            this.statuslabelEmStopKeySwClosed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statuslabelEmStopKeySwClosed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.statuslabelEmStopKeySwClosed.Location = new System.Drawing.Point(351, 139);
+            this.statuslabelEmStopKeySwClosed.Name = "statuslabelEmStopKeySwClosed";
+            this.statuslabelEmStopKeySwClosed.Size = new System.Drawing.Size(41, 19);
+            this.statuslabelEmStopKeySwClosed.TabIndex = 14;
+            this.statuslabelEmStopKeySwClosed.Text = "false";
+            // 
+            // statusLabelDoorClosed
+            // 
+            this.statusLabelDoorClosed.AutoSize = true;
+            this.statusLabelDoorClosed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabelDoorClosed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.statusLabelDoorClosed.Location = new System.Drawing.Point(351, 165);
+            this.statusLabelDoorClosed.Name = "statusLabelDoorClosed";
+            this.statusLabelDoorClosed.Size = new System.Drawing.Size(41, 19);
+            this.statusLabelDoorClosed.TabIndex = 15;
+            this.statusLabelDoorClosed.Text = "false";
+            // 
+            // ststuaLabelK1F2Closed
+            // 
+            this.ststuaLabelK1F2Closed.AutoSize = true;
+            this.ststuaLabelK1F2Closed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ststuaLabelK1F2Closed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.ststuaLabelK1F2Closed.Location = new System.Drawing.Point(351, 191);
+            this.ststuaLabelK1F2Closed.Name = "ststuaLabelK1F2Closed";
+            this.ststuaLabelK1F2Closed.Size = new System.Drawing.Size(41, 19);
+            this.ststuaLabelK1F2Closed.TabIndex = 16;
+            this.ststuaLabelK1F2Closed.Text = "false";
+            // 
+            // statusLabelK2F1Closed
+            // 
+            this.statusLabelK2F1Closed.AutoSize = true;
+            this.statusLabelK2F1Closed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabelK2F1Closed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.statusLabelK2F1Closed.Location = new System.Drawing.Point(351, 217);
+            this.statusLabelK2F1Closed.Name = "statusLabelK2F1Closed";
+            this.statusLabelK2F1Closed.Size = new System.Drawing.Size(41, 19);
+            this.statusLabelK2F1Closed.TabIndex = 17;
+            this.statusLabelK2F1Closed.Text = "false";
             // 
             // RunView
             // 
@@ -1459,5 +1641,19 @@
         public System.Windows.Forms.Label label25;
         public System.Windows.Forms.Label label27;
         public System.Windows.Forms.Label label26;
+        public System.Windows.Forms.Label statusLabelK2F1Closed;
+        public System.Windows.Forms.Label ststuaLabelK1F2Closed;
+        public System.Windows.Forms.Label statusLabelDoorClosed;
+        public System.Windows.Forms.Label statuslabelEmStopKeySwClosed;
+        public System.Windows.Forms.Label statusLabelDischargeRodParked;
+        public System.Windows.Forms.Label statusLabelEarthingengaged;
+        public System.Windows.Forms.Label statusLabelUmin;
+        public System.Windows.Forms.Label label34;
+        public System.Windows.Forms.Label label33;
+        public System.Windows.Forms.Label label32;
+        public System.Windows.Forms.Label label31;
+        public System.Windows.Forms.Label label30;
+        public System.Windows.Forms.Label label29;
+        public System.Windows.Forms.Label label28;
     }
 }
