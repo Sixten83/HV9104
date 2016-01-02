@@ -39,9 +39,7 @@
             this.overrideCheckBox = new HV9104_GUI.CustomCheckBox();
             this.onOffButton = new HV9104_GUI.CustomCheckBox();
             this.customButton1 = new HV9104_GUI.CustomButton();
-            this.customButton2 = new HV9104_GUI.CustomButton();
-            this.customButton3 = new HV9104_GUI.CustomButton();
-            this.customTrackBar1 = new HV9104_GUI.CustomTrackBar();
+            this.trafSpeedTrackBar = new HV9104_GUI.CustomTrackBar();
             this.customPanel4 = new HV9104_GUI.CustomPanel();
             this.label20 = new System.Windows.Forms.Label();
             this.impulseOutputComboBox = new HV9104_GUI.CustomComboBox();
@@ -63,7 +61,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.customPanel6 = new HV9104_GUI.CustomPanel();
-            this.customTextBox1 = new HV9104_GUI.CustomTextBox();
+            this.trafSpeedTextBox = new HV9104_GUI.CustomTextBox();
             this.increaseRegulatedVoltageButton = new HV9104_GUI.CustomButton();
             this.decreaseRegulatedVoltageButton = new HV9104_GUI.CustomButton();
             this.setVoltageTitle = new System.Windows.Forms.Label();
@@ -110,10 +108,16 @@
             this.voltageInputLabel = new System.Windows.Forms.Label();
             this.customPanel9 = new HV9104_GUI.CustomPanel();
             this.label22 = new System.Windows.Forms.Label();
-            this.compressorOutputLabel = new System.Windows.Forms.Label();
-            this.vacuumOutputLabel = new System.Windows.Forms.Label();
             this.customPanel10 = new HV9104_GUI.CustomPanel();
             this.customButton4 = new HV9104_GUI.CustomButton();
+            this.label21 = new System.Windows.Forms.Label();
+            this.customCheckBox1 = new HV9104_GUI.CustomCheckBox();
+            this.customCheckBox2 = new HV9104_GUI.CustomCheckBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.customPanel4.SuspendLayout();
             this.customPanel3.SuspendLayout();
             this.customPanel2.SuspendLayout();
@@ -126,6 +130,7 @@
             this.customPanel5.SuspendLayout();
             this.customPanel1.SuspendLayout();
             this.customPanel9.SuspendLayout();
+            this.customPanel10.SuspendLayout();
             this.SuspendLayout();
             // 
             // choppingCheckBox
@@ -135,7 +140,7 @@
             this.choppingCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
             this.choppingCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
             this.choppingCheckBox.isChecked = false;
-            this.choppingCheckBox.Location = new System.Drawing.Point(357, 83);
+            this.choppingCheckBox.Location = new System.Drawing.Point(357, 74);
             this.choppingCheckBox.Name = "choppingCheckBox";
             this.choppingCheckBox.Size = new System.Drawing.Size(48, 43);
             this.choppingCheckBox.TabIndex = 3;
@@ -168,7 +173,7 @@
             this.triggerButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.triggerButton.ForeColor = System.Drawing.Color.White;
             this.triggerButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.triggerButton.Location = new System.Drawing.Point(39, 76);
+            this.triggerButton.Location = new System.Drawing.Point(39, 67);
             this.triggerButton.Name = "triggerButton";
             this.triggerButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
             this.triggerButton.Size = new System.Drawing.Size(158, 57);
@@ -268,50 +273,20 @@
             this.customButton1.Text = "INITIALIZE";
             this.toolTip1.SetToolTip(this.customButton1, "Triggers the HV9132 electronic trigger sphere");
             // 
-            // customButton2
+            // trafSpeedTrackBar
             // 
-            this.customButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customButton2.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.customButton2.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customButton2.ForeColor = System.Drawing.Color.White;
-            this.customButton2.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.customButton2.Location = new System.Drawing.Point(34, 82);
-            this.customButton2.Name = "customButton2";
-            this.customButton2.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.customButton2.Size = new System.Drawing.Size(158, 57);
-            this.customButton2.TabIndex = 7;
-            this.customButton2.Text = "COMPRESSOR";
-            this.toolTip1.SetToolTip(this.customButton2, "Triggers the HV9132 electronic trigger sphere");
-            // 
-            // customButton3
-            // 
-            this.customButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customButton3.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.customButton3.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customButton3.ForeColor = System.Drawing.Color.White;
-            this.customButton3.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.customButton3.Location = new System.Drawing.Point(249, 82);
-            this.customButton3.Name = "customButton3";
-            this.customButton3.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.customButton3.Size = new System.Drawing.Size(158, 57);
-            this.customButton3.TabIndex = 8;
-            this.customButton3.Text = "START VACUUM";
-            this.toolTip1.SetToolTip(this.customButton3, "Triggers the HV9132 electronic trigger sphere");
-            // 
-            // customTrackBar1
-            // 
-            this.customTrackBar1.BackgroundImage = global::HV9104_GUI.Properties.Resources.slider1;
-            this.customTrackBar1.HoverImage = global::HV9104_GUI.Properties.Resources.sliderHover;
-            this.customTrackBar1.HPressedImage = global::HV9104_GUI.Properties.Resources.SliderPressed;
-            this.customTrackBar1.Layout = HV9104_GUI.CustomTrackBar.Orientation.HORIZONTAL;
-            this.customTrackBar1.Location = new System.Drawing.Point(38, 73);
-            this.customTrackBar1.Max = 10D;
-            this.customTrackBar1.MaximumSize = new System.Drawing.Size(800, 60);
-            this.customTrackBar1.Min = 0D;
-            this.customTrackBar1.MinimumSize = new System.Drawing.Size(200, 60);
-            this.customTrackBar1.Name = "customTrackBar1";
-            this.customTrackBar1.Size = new System.Drawing.Size(369, 60);
-            this.customTrackBar1.TabIndex = 1;
+            this.trafSpeedTrackBar.BackgroundImage = global::HV9104_GUI.Properties.Resources.slider1;
+            this.trafSpeedTrackBar.HoverImage = global::HV9104_GUI.Properties.Resources.sliderHover;
+            this.trafSpeedTrackBar.HPressedImage = global::HV9104_GUI.Properties.Resources.SliderPressed;
+            this.trafSpeedTrackBar.Layout = HV9104_GUI.CustomTrackBar.Orientation.HORIZONTAL;
+            this.trafSpeedTrackBar.Location = new System.Drawing.Point(37, 73);
+            this.trafSpeedTrackBar.Max = 10D;
+            this.trafSpeedTrackBar.MaximumSize = new System.Drawing.Size(800, 60);
+            this.trafSpeedTrackBar.Min = 0D;
+            this.trafSpeedTrackBar.MinimumSize = new System.Drawing.Size(200, 60);
+            this.trafSpeedTrackBar.Name = "trafSpeedTrackBar";
+            this.trafSpeedTrackBar.Size = new System.Drawing.Size(369, 60);
+            this.trafSpeedTrackBar.TabIndex = 1;
             // 
             // customPanel4
             // 
@@ -518,6 +493,7 @@
             this.customPanel7.BackColor = System.Drawing.Color.Transparent;
             this.customPanel7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel7.Controls.Add(this.label27);
             this.customPanel7.Controls.Add(this.choppingCheckBox);
             this.customPanel7.Controls.Add(this.increaseChoppingTimeButton);
             this.customPanel7.Controls.Add(this.decreaseChoppingTimeButton);
@@ -572,7 +548,7 @@
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label13.Location = new System.Drawing.Point(218, 88);
+            this.label13.Location = new System.Drawing.Point(218, 79);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(133, 33);
             this.label13.TabIndex = 2;
@@ -583,8 +559,9 @@
             this.customPanel6.BackColor = System.Drawing.Color.Transparent;
             this.customPanel6.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel6.Controls.Add(this.customTrackBar1);
-            this.customPanel6.Controls.Add(this.customTextBox1);
+            this.customPanel6.Controls.Add(this.label25);
+            this.customPanel6.Controls.Add(this.trafSpeedTrackBar);
+            this.customPanel6.Controls.Add(this.trafSpeedTextBox);
             this.customPanel6.Controls.Add(this.increaseRegulatedVoltageButton);
             this.customPanel6.Controls.Add(this.decreaseRegulatedVoltageButton);
             this.customPanel6.Controls.Add(this.setVoltageTitle);
@@ -595,22 +572,22 @@
             this.customPanel6.Size = new System.Drawing.Size(444, 236);
             this.customPanel6.TabIndex = 0;
             // 
-            // customTextBox1
+            // trafSpeedTextBox
             // 
-            this.customTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customTextBox1.BackgroundColor = System.Drawing.Color.White;
-            this.customTextBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.customTextBox1.CornerRadius = 27;
-            this.customTextBox1.Decimals = 2;
-            this.customTextBox1.IsPopUp = false;
-            this.customTextBox1.Location = new System.Drawing.Point(136, 161);
-            this.customTextBox1.Max = 230;
-            this.customTextBox1.Min = 0;
-            this.customTextBox1.Name = "customTextBox1";
-            this.customTextBox1.Size = new System.Drawing.Size(170, 54);
-            this.customTextBox1.TabIndex = 6;
-            this.customTextBox1.TextBoxHint = "";
-            this.customTextBox1.Value = 5.3F;
+            this.trafSpeedTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.trafSpeedTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.trafSpeedTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.trafSpeedTextBox.CornerRadius = 27;
+            this.trafSpeedTextBox.Decimals = 2;
+            this.trafSpeedTextBox.IsPopUp = false;
+            this.trafSpeedTextBox.Location = new System.Drawing.Point(136, 161);
+            this.trafSpeedTextBox.Max = 90;
+            this.trafSpeedTextBox.Min = 10;
+            this.trafSpeedTextBox.Name = "trafSpeedTextBox";
+            this.trafSpeedTextBox.Size = new System.Drawing.Size(170, 54);
+            this.trafSpeedTextBox.TabIndex = 6;
+            this.trafSpeedTextBox.TextBoxHint = "";
+            this.trafSpeedTextBox.Value = 60F;
             // 
             // increaseRegulatedVoltageButton
             // 
@@ -655,7 +632,7 @@
             this.regulatedVoltageTextBox.CornerRadius = 27;
             this.regulatedVoltageTextBox.Decimals = 2;
             this.regulatedVoltageTextBox.IsPopUp = false;
-            this.regulatedVoltageTextBox.Location = new System.Drawing.Point(136, 379);
+            this.regulatedVoltageTextBox.Location = new System.Drawing.Point(136, 388);
             this.regulatedVoltageTextBox.Max = 230;
             this.regulatedVoltageTextBox.Min = 0;
             this.regulatedVoltageTextBox.Name = "regulatedVoltageTextBox";
@@ -685,10 +662,10 @@
             this.customPanel8.BackColor = System.Drawing.Color.Transparent;
             this.customPanel8.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel8.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel8.Controls.Add(this.vacuumOutputLabel);
-            this.customPanel8.Controls.Add(this.compressorOutputLabel);
-            this.customPanel8.Controls.Add(this.customButton3);
-            this.customPanel8.Controls.Add(this.customButton2);
+            this.customPanel8.Controls.Add(this.label24);
+            this.customPanel8.Controls.Add(this.label23);
+            this.customPanel8.Controls.Add(this.customCheckBox2);
+            this.customPanel8.Controls.Add(this.customCheckBox1);
             this.customPanel8.Controls.Add(this.label10);
             this.customPanel8.CornerRadius = 30;
             this.customPanel8.IsPopUp = false;
@@ -999,6 +976,7 @@
             this.customPanel5.BackColor = System.Drawing.Color.Transparent;
             this.customPanel5.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel5.Controls.Add(this.label26);
             this.customPanel5.Controls.Add(this.customButton4);
             this.customPanel5.Controls.Add(this.dcVoltageRadioButton);
             this.customPanel5.Controls.Add(this.acOutputRadioButton);
@@ -1215,33 +1193,12 @@
             this.label22.TabIndex = 8;
             this.label22.Text = "SPHERE GAP SELECTION";
             // 
-            // compressorOutputLabel
-            // 
-            this.compressorOutputLabel.AutoSize = true;
-            this.compressorOutputLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.compressorOutputLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.compressorOutputLabel.Location = new System.Drawing.Point(69, 51);
-            this.compressorOutputLabel.Name = "compressorOutputLabel";
-            this.compressorOutputLabel.Size = new System.Drawing.Size(88, 19);
-            this.compressorOutputLabel.TabIndex = 9;
-            this.compressorOutputLabel.Text = "POWER OFF";
-            // 
-            // vacuumOutputLabel
-            // 
-            this.vacuumOutputLabel.AutoSize = true;
-            this.vacuumOutputLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.vacuumOutputLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.vacuumOutputLabel.Location = new System.Drawing.Point(284, 51);
-            this.vacuumOutputLabel.Name = "vacuumOutputLabel";
-            this.vacuumOutputLabel.Size = new System.Drawing.Size(88, 19);
-            this.vacuumOutputLabel.TabIndex = 10;
-            this.vacuumOutputLabel.Text = "POWER OFF";
-            // 
             // customPanel10
             // 
             this.customPanel10.BackColor = System.Drawing.Color.Transparent;
             this.customPanel10.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel10.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel10.Controls.Add(this.label21);
             this.customPanel10.CornerRadius = 30;
             this.customPanel10.IsPopUp = false;
             this.customPanel10.Location = new System.Drawing.Point(1431, 486);
@@ -1263,6 +1220,102 @@
             this.customButton4.TabIndex = 9;
             this.customButton4.Text = "ABORT";
             this.toolTip1.SetToolTip(this.customButton4, "Triggers the HV9132 electronic trigger sphere");
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label21.Location = new System.Drawing.Point(20, 11);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(229, 18);
+            this.label21.TabIndex = 3;
+            this.label21.Text = "CONTROL CIRCUIT STATUS";
+            // 
+            // customCheckBox1
+            // 
+            this.customCheckBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customCheckBox1.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
+            this.customCheckBox1.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
+            this.customCheckBox1.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
+            this.customCheckBox1.isChecked = false;
+            this.customCheckBox1.Location = new System.Drawing.Point(57, 82);
+            this.customCheckBox1.Name = "customCheckBox1";
+            this.customCheckBox1.Size = new System.Drawing.Size(138, 56);
+            this.customCheckBox1.TabIndex = 4;
+            this.customCheckBox1.Text = "customCheckBox2";
+            this.toolTip1.SetToolTip(this.customCheckBox1, "Energizes the high voltage transformer");
+            this.customCheckBox1.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
+            // 
+            // customCheckBox2
+            // 
+            this.customCheckBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customCheckBox2.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
+            this.customCheckBox2.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
+            this.customCheckBox2.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
+            this.customCheckBox2.isChecked = false;
+            this.customCheckBox2.Location = new System.Drawing.Point(250, 82);
+            this.customCheckBox2.Name = "customCheckBox2";
+            this.customCheckBox2.Size = new System.Drawing.Size(138, 56);
+            this.customCheckBox2.TabIndex = 5;
+            this.customCheckBox2.Text = "customCheckBox2";
+            this.toolTip1.SetToolTip(this.customCheckBox2, "Energizes the high voltage transformer");
+            this.customCheckBox2.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label23.Location = new System.Drawing.Point(52, 50);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(151, 29);
+            this.label23.TabIndex = 6;
+            this.label23.Text = "COMPRESSOR";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label24.Location = new System.Drawing.Point(268, 49);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(104, 29);
+            this.label24.TabIndex = 7;
+            this.label24.Text = "VACUUM";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label25.Location = new System.Drawing.Point(149, 139);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(144, 19);
+            this.label25.TabIndex = 8;
+            this.label25.Text = "SPEED CONTROL (%)";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label26.Location = new System.Drawing.Point(158, 366);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(124, 19);
+            this.label26.TabIndex = 10;
+            this.label26.Text = "TARGET VOLTAGE";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label27.Location = new System.Drawing.Point(150, 136);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(154, 19);
+            this.label27.TabIndex = 9;
+            this.label27.Text = "CHOPPING DELAY (μs)";
             // 
             // RunView
             // 
@@ -1309,6 +1362,8 @@
             this.customPanel1.PerformLayout();
             this.customPanel9.ResumeLayout(false);
             this.customPanel9.PerformLayout();
+            this.customPanel10.ResumeLayout(false);
+            this.customPanel10.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1383,22 +1438,26 @@
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label label2;
         public CustomRadioButton acOutputRadioButton;
-        private CustomTrackBar customTrackBar1;
+        private CustomTrackBar trafSpeedTrackBar;
         public System.Windows.Forms.Label label20;
         public System.Windows.Forms.Label label16;
         public System.Windows.Forms.Label label11;
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.Label label17;
-        private CustomTextBox customTextBox1;
+        private CustomTextBox trafSpeedTextBox;
         public System.Windows.Forms.Label activeMotorInitializedLabel;
         public CustomButton customButton1;
-        public CustomButton customButton2;
-        public CustomButton customButton3;
-        public System.Windows.Forms.Label vacuumOutputLabel;
-        public System.Windows.Forms.Label compressorOutputLabel;
         private CustomPanel customPanel9;
         public System.Windows.Forms.Label label22;
         public CustomButton customButton4;
         private CustomPanel customPanel10;
+        public System.Windows.Forms.Label label24;
+        public System.Windows.Forms.Label label23;
+        public CustomCheckBox customCheckBox2;
+        public CustomCheckBox customCheckBox1;
+        public System.Windows.Forms.Label label21;
+        public System.Windows.Forms.Label label25;
+        public System.Windows.Forms.Label label27;
+        public System.Windows.Forms.Label label26;
     }
 }
