@@ -461,7 +461,7 @@ namespace HV9104_GUI
             this.controlForm.runView.trafSpeedTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(trafSpeedTextBox_valueChange);
             //this.controlForm.runView.increaseMeasuringGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseMeasureGapButton_Down);
             //this.controlForm.runView.increaseMeasuringGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseMeasureGapButton_Up);
-            //Impulse Sphere Gap Listeners
+            //Sphere Gap Listeners
             this.controlForm.runView.decreaseImpulseGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseImpulseGap_Down);
             this.controlForm.runView.decreaseImpulseGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseImpulseGap_Up);
             this.controlForm.runView.impulseGapTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseGapTextBox_valueChange);
@@ -469,6 +469,7 @@ namespace HV9104_GUI
             this.controlForm.runView.increaseImpulseGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Up);
             this.controlForm.runView.impulseSelectedRadioButton.Click += new System.EventHandler(impulseSelectedRadioButton_Click);
             this.controlForm.runView.measuringSelectedRadioButton.Click += new System.EventHandler(measuringSelectedRadioButton_Click);
+            this.controlForm.runView.motorInitButton.Click += new System.EventHandler(motorInitButtonButton_Click);
             //Pressure Control Listeners
             this.controlForm.runView.decreasePressureButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreasePressureButton_Down);
             this.controlForm.runView.decreasePressureButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreasePressureButton_Up);
@@ -505,6 +506,8 @@ namespace HV9104_GUI
             this.measuringForm.chart.cursorMenu.dcChannelRadioButton.Click += new System.EventHandler(this.dcChannelRadioButton_Click);
 
         }
+
+
 
 
         //***********************************************************************************************************
@@ -1058,6 +1061,11 @@ namespace HV9104_GUI
 
         }
 
+        // Sphere Gap 
+        private void motorInitButtonButton_Click(object sender, EventArgs e)
+        {
+            InitMotorRequest();
+        }
 
         private void decreaseMeasureeGap_Down(object sender, MouseEventArgs e)
         {
@@ -1415,18 +1423,29 @@ namespace HV9104_GUI
             guiUpdater.transferVoltageInputLabel(PIO1.regulatedVoltageValue.ToString("0.0"));
             guiUpdater.transferCurrentInputLabel(PIO1.regulatedCurrentValue.ToString("0.00"));
 
+            //guiUpdater.pressureLabel(PIO1.getPressure());
 
             // Status flags
-            //guiUpdater.transferTextBox6(PIO1.getPressure());
-            //guiUpdater.transferLabel36(PIO1.fault.ToString());
-            //guiUpdater.transferLabel37(PIO1.earthingEngaged.ToString());
-            //guiUpdater.transferLabel38(PIO1.dischargeRodParked.ToString());
-            //guiUpdater.transferLabel39(PIO1.emergStpKeySwClosed.ToString());
-            //guiUpdater.transferLabel40(PIO1.dorrSwitchClosed.ToString());
-            //guiUpdater.transferLabel41(PIO1.K1Closed.ToString());
-            //guiUpdater.transferLabel42(PIO1.K2Closed.ToString());
+            guiUpdater.transferLabel36(PIO1.fault.ToString());
+            guiUpdater.transferLabel37(PIO1.earthingEngaged.ToString());
+            guiUpdater.transferLabel38(PIO1.dischargeRodParked.ToString());
+            guiUpdater.transferLabel39(PIO1.emergStpKeySwClosed.ToString());
+            guiUpdater.transferLabel40(PIO1.dorrSwitchClosed.ToString());
+            guiUpdater.transferLabel41(PIO1.K1Closed.ToString());
+            guiUpdater.transferLabel42(PIO1.K2Closed.ToString());
             guiUpdater.transferstatusLabelUmin(PIO1.minUPos.ToString());
-            guiUpdater.transferInitVisible(activeMotor.initComplete);
+
+
+            if (activeMotor.initComplete)
+            {
+                guiUpdater.transferInitVisible("  INITIALIZED ");
+            }
+            else
+            {
+                guiUpdater.transferInitVisible("NOT INITIALIZED");
+            }
+
+            
 
             // Ratio-calculated High Voltage value
             //voltVal = (((double)PIO1.regulatedVoltageValue * 45) / 100);

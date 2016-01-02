@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.choppingTimeTextBox = new HV9104_GUI.CustomTextBox();
-            this.customButton1 = new HV9104_GUI.CustomButton();
+            this.motorInitButton = new HV9104_GUI.CustomButton();
             this.impulseSelectedRadioButton = new HV9104_GUI.CustomRadioButton();
             this.measuringSelectedRadioButton = new HV9104_GUI.CustomRadioButton();
             this.choppingCheckBox = new HV9104_GUI.CustomCheckBox();
@@ -119,7 +119,7 @@
             this.label22 = new System.Windows.Forms.Label();
             this.customPanel10 = new HV9104_GUI.CustomPanel();
             this.statusLabelK2F1Closed = new System.Windows.Forms.Label();
-            this.ststuaLabelK1F2Closed = new System.Windows.Forms.Label();
+            this.statusLabelK1F2Closed = new System.Windows.Forms.Label();
             this.statusLabelDoorClosed = new System.Windows.Forms.Label();
             this.statuslabelEmStopKeySwClosed = new System.Windows.Forms.Label();
             this.statusLabelDischargeRodParked = new System.Windows.Forms.Label();
@@ -180,20 +180,20 @@
             this.toolTip1.SetToolTip(this.choppingTimeTextBox, "Chopping time (ns)");
             this.choppingTimeTextBox.Value = 1F;
             // 
-            // customButton1
+            // motorInitButton
             // 
-            this.customButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customButton1.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.customButton1.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customButton1.ForeColor = System.Drawing.Color.White;
-            this.customButton1.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.customButton1.Location = new System.Drawing.Point(254, 82);
-            this.customButton1.Name = "customButton1";
-            this.customButton1.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.customButton1.Size = new System.Drawing.Size(158, 57);
-            this.customButton1.TabIndex = 6;
-            this.customButton1.Text = "INITIALIZE";
-            this.toolTip1.SetToolTip(this.customButton1, "Triggers the HV9132 electronic trigger sphere");
+            this.motorInitButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.motorInitButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.motorInitButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.motorInitButton.ForeColor = System.Drawing.Color.White;
+            this.motorInitButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.motorInitButton.Location = new System.Drawing.Point(254, 82);
+            this.motorInitButton.Name = "motorInitButton";
+            this.motorInitButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.motorInitButton.Size = new System.Drawing.Size(158, 57);
+            this.motorInitButton.TabIndex = 6;
+            this.motorInitButton.Text = "INITIALIZE";
+            this.toolTip1.SetToolTip(this.motorInitButton, "Triggers the HV9132 electronic trigger sphere");
             // 
             // impulseSelectedRadioButton
             // 
@@ -370,7 +370,7 @@
             this.customPanel4.Controls.Add(this.impulseValueLabel);
             this.customPanel4.CornerRadius = 40;
             this.customPanel4.IsPopUp = false;
-            this.customPanel4.Location = new System.Drawing.Point(1431, 35);
+            this.customPanel4.Location = new System.Drawing.Point(1423, 35);
             this.customPanel4.Name = "customPanel4";
             this.customPanel4.Size = new System.Drawing.Size(444, 200);
             this.customPanel4.TabIndex = 0;
@@ -435,7 +435,7 @@
             this.customPanel3.Controls.Add(this.dcValueLabel);
             this.customPanel3.CornerRadius = 40;
             this.customPanel3.IsPopUp = false;
-            this.customPanel3.Location = new System.Drawing.Point(967, 35);
+            this.customPanel3.Location = new System.Drawing.Point(959, 35);
             this.customPanel3.Name = "customPanel3";
             this.customPanel3.Size = new System.Drawing.Size(444, 200);
             this.customPanel3.TabIndex = 0;
@@ -502,7 +502,7 @@
             this.customPanel2.Controls.Add(this.acValueLabel);
             this.customPanel2.CornerRadius = 40;
             this.customPanel2.IsPopUp = false;
-            this.customPanel2.Location = new System.Drawing.Point(503, 35);
+            this.customPanel2.Location = new System.Drawing.Point(495, 35);
             this.customPanel2.Name = "customPanel2";
             this.customPanel2.Size = new System.Drawing.Size(444, 200);
             this.customPanel2.TabIndex = 0;
@@ -574,7 +574,7 @@
             this.customPanel7.Controls.Add(this.label13);
             this.customPanel7.CornerRadius = 30;
             this.customPanel7.IsPopUp = false;
-            this.customPanel7.Location = new System.Drawing.Point(1431, 251);
+            this.customPanel7.Location = new System.Drawing.Point(1423, 251);
             this.customPanel7.Name = "customPanel7";
             this.customPanel7.Size = new System.Drawing.Size(444, 236);
             this.customPanel7.TabIndex = 0;
@@ -649,7 +649,7 @@
             this.customPanel6.Controls.Add(this.setVoltageTitle);
             this.customPanel6.CornerRadius = 30;
             this.customPanel6.IsPopUp = false;
-            this.customPanel6.Location = new System.Drawing.Point(503, 251);
+            this.customPanel6.Location = new System.Drawing.Point(495, 251);
             this.customPanel6.Name = "customPanel6";
             this.customPanel6.Size = new System.Drawing.Size(444, 236);
             this.customPanel6.TabIndex = 0;
@@ -762,7 +762,7 @@
             this.customPanel8.Controls.Add(this.label10);
             this.customPanel8.CornerRadius = 30;
             this.customPanel8.IsPopUp = false;
-            this.customPanel8.Location = new System.Drawing.Point(503, 499);
+            this.customPanel8.Location = new System.Drawing.Point(495, 499);
             this.customPanel8.Name = "customPanel8";
             this.customPanel8.Size = new System.Drawing.Size(444, 154);
             this.customPanel8.TabIndex = 0;
@@ -834,7 +834,7 @@
             this.customPanel12.Controls.Add(this.pressureTextBox);
             this.customPanel12.CornerRadius = 30;
             this.customPanel12.IsPopUp = false;
-            this.customPanel12.Location = new System.Drawing.Point(503, 666);
+            this.customPanel12.Location = new System.Drawing.Point(495, 666);
             this.customPanel12.Name = "customPanel12";
             this.customPanel12.Size = new System.Drawing.Size(445, 127);
             this.customPanel12.TabIndex = 0;
@@ -915,7 +915,7 @@
             this.customPanel11.Controls.Add(this.impulseGapLabel);
             this.customPanel11.CornerRadius = 30;
             this.customPanel11.IsPopUp = false;
-            this.customPanel11.Location = new System.Drawing.Point(38, 666);
+            this.customPanel11.Location = new System.Drawing.Point(30, 666);
             this.customPanel11.Name = "customPanel11";
             this.customPanel11.Size = new System.Drawing.Size(445, 127);
             this.customPanel11.TabIndex = 0;
@@ -995,6 +995,7 @@
             this.statusLabelActiveMotorInitialized.Size = new System.Drawing.Size(118, 19);
             this.statusLabelActiveMotorInitialized.TabIndex = 7;
             this.statusLabelActiveMotorInitialized.Text = "NOT INITIALIZED";
+            this.statusLabelActiveMotorInitialized.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // customPanel13
             // 
@@ -1012,7 +1013,7 @@
             this.customPanel13.Controls.Add(this.label15);
             this.customPanel13.CornerRadius = 30;
             this.customPanel13.IsPopUp = false;
-            this.customPanel13.Location = new System.Drawing.Point(38, 251);
+            this.customPanel13.Location = new System.Drawing.Point(30, 251);
             this.customPanel13.Name = "customPanel13";
             this.customPanel13.Size = new System.Drawing.Size(445, 236);
             this.customPanel13.TabIndex = 0;
@@ -1091,7 +1092,7 @@
             this.customPanel5.Controls.Add(this.label8);
             this.customPanel5.CornerRadius = 30;
             this.customPanel5.IsPopUp = false;
-            this.customPanel5.Location = new System.Drawing.Point(967, 251);
+            this.customPanel5.Location = new System.Drawing.Point(959, 251);
             this.customPanel5.Name = "customPanel5";
             this.customPanel5.Size = new System.Drawing.Size(444, 402);
             this.customPanel5.TabIndex = 0;
@@ -1234,7 +1235,7 @@
             this.customPanel1.Controls.Add(this.voltageInputLabel);
             this.customPanel1.CornerRadius = 40;
             this.customPanel1.IsPopUp = false;
-            this.customPanel1.Location = new System.Drawing.Point(38, 35);
+            this.customPanel1.Location = new System.Drawing.Point(30, 35);
             this.customPanel1.Name = "customPanel1";
             this.customPanel1.Size = new System.Drawing.Size(445, 200);
             this.customPanel1.TabIndex = 0;
@@ -1310,14 +1311,14 @@
             this.customPanel9.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
             this.customPanel9.Controls.Add(this.label22);
             this.customPanel9.Controls.Add(this.statusLabelActiveMotorInitialized);
-            this.customPanel9.Controls.Add(this.customButton1);
+            this.customPanel9.Controls.Add(this.motorInitButton);
             this.customPanel9.Controls.Add(this.impulseSelectedRadioButton);
             this.customPanel9.Controls.Add(this.label5);
             this.customPanel9.Controls.Add(this.label4);
             this.customPanel9.Controls.Add(this.measuringSelectedRadioButton);
             this.customPanel9.CornerRadius = 30;
             this.customPanel9.IsPopUp = false;
-            this.customPanel9.Location = new System.Drawing.Point(39, 499);
+            this.customPanel9.Location = new System.Drawing.Point(31, 499);
             this.customPanel9.Name = "customPanel9";
             this.customPanel9.Size = new System.Drawing.Size(444, 154);
             this.customPanel9.TabIndex = 1;
@@ -1339,7 +1340,7 @@
             this.customPanel10.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel10.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
             this.customPanel10.Controls.Add(this.statusLabelK2F1Closed);
-            this.customPanel10.Controls.Add(this.ststuaLabelK1F2Closed);
+            this.customPanel10.Controls.Add(this.statusLabelK1F2Closed);
             this.customPanel10.Controls.Add(this.statusLabelDoorClosed);
             this.customPanel10.Controls.Add(this.statuslabelEmStopKeySwClosed);
             this.customPanel10.Controls.Add(this.statusLabelDischargeRodParked);
@@ -1355,7 +1356,7 @@
             this.customPanel10.Controls.Add(this.label21);
             this.customPanel10.CornerRadius = 30;
             this.customPanel10.IsPopUp = false;
-            this.customPanel10.Location = new System.Drawing.Point(1431, 499);
+            this.customPanel10.Location = new System.Drawing.Point(1423, 499);
             this.customPanel10.Name = "customPanel10";
             this.customPanel10.Size = new System.Drawing.Size(444, 294);
             this.customPanel10.TabIndex = 2;
@@ -1371,16 +1372,16 @@
             this.statusLabelK2F1Closed.TabIndex = 17;
             this.statusLabelK2F1Closed.Text = "false";
             // 
-            // ststuaLabelK1F2Closed
+            // statusLabelK1F2Closed
             // 
-            this.ststuaLabelK1F2Closed.AutoSize = true;
-            this.ststuaLabelK1F2Closed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ststuaLabelK1F2Closed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.ststuaLabelK1F2Closed.Location = new System.Drawing.Point(351, 191);
-            this.ststuaLabelK1F2Closed.Name = "ststuaLabelK1F2Closed";
-            this.ststuaLabelK1F2Closed.Size = new System.Drawing.Size(41, 19);
-            this.ststuaLabelK1F2Closed.TabIndex = 16;
-            this.ststuaLabelK1F2Closed.Text = "false";
+            this.statusLabelK1F2Closed.AutoSize = true;
+            this.statusLabelK1F2Closed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabelK1F2Closed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.statusLabelK1F2Closed.Location = new System.Drawing.Point(351, 191);
+            this.statusLabelK1F2Closed.Name = "statusLabelK1F2Closed";
+            this.statusLabelK1F2Closed.Size = new System.Drawing.Size(41, 19);
+            this.statusLabelK1F2Closed.TabIndex = 16;
+            this.statusLabelK1F2Closed.Text = "false";
             // 
             // statusLabelDoorClosed
             // 
@@ -1539,7 +1540,7 @@
             this.customPanel14.Controls.Add(this.label35);
             this.customPanel14.CornerRadius = 30;
             this.customPanel14.IsPopUp = false;
-            this.customPanel14.Location = new System.Drawing.Point(967, 666);
+            this.customPanel14.Location = new System.Drawing.Point(959, 666);
             this.customPanel14.Name = "customPanel14";
             this.customPanel14.Size = new System.Drawing.Size(259, 126);
             this.customPanel14.TabIndex = 3;
@@ -1630,7 +1631,7 @@
             this.customPanel15.Controls.Add(this.label39);
             this.customPanel15.CornerRadius = 30;
             this.customPanel15.IsPopUp = false;
-            this.customPanel15.Location = new System.Drawing.Point(1240, 666);
+            this.customPanel15.Location = new System.Drawing.Point(1232, 666);
             this.customPanel15.Name = "customPanel15";
             this.customPanel15.Size = new System.Drawing.Size(171, 126);
             this.customPanel15.TabIndex = 4;
@@ -1791,7 +1792,7 @@
         public System.Windows.Forms.Label label17;
         public CustomTextBox trafSpeedTextBox;
         public System.Windows.Forms.Label statusLabelActiveMotorInitialized;
-        public CustomButton customButton1;
+        public CustomButton motorInitButton;
         private CustomPanel customPanel9;
         public System.Windows.Forms.Label label22;
         public CustomButton customButton4;
@@ -1805,7 +1806,7 @@
         public System.Windows.Forms.Label label27;
         public System.Windows.Forms.Label label26;
         public System.Windows.Forms.Label statusLabelK2F1Closed;
-        public System.Windows.Forms.Label ststuaLabelK1F2Closed;
+        public System.Windows.Forms.Label statusLabelK1F2Closed;
         public System.Windows.Forms.Label statusLabelDoorClosed;
         public System.Windows.Forms.Label statuslabelEmStopKeySwClosed;
         public System.Windows.Forms.Label statusLabelDischargeRodParked;

@@ -132,44 +132,44 @@ namespace HV9104_GUI
         //    else this.activeForm.label47.Text = text47;
         //}
 
-        //// Fault
-        //public void transferLabel36(string text36)
-        //{
-        //    if (activeForm.label36.InvokeRequired)
-        //    {
-        //        activeForm.label36.Invoke((MethodInvoker)delegate ()
-        //        {
-        //            transferLabel36(text36);
-        //        });
-        //    }
-        //    else this.activeForm.label36.Text = text36;
-        //}
+        // Fault
+        public void transferLabel36(string text36)
+        {
+            if (activeForm.label36.InvokeRequired)
+            {
+                activeForm.label36.Invoke((MethodInvoker)delegate ()
+                {
+                    transferLabel36(text36);
+                });
+            }
+            else this.activeForm.label36.Text = text36;
+        }
 
-        //// Earthing switch
-        //public void transferLabel37(string text37)
-        //{
-        //    if (activeForm.label37.InvokeRequired)
-        //    {
-        //        activeForm.label37.Invoke((MethodInvoker)delegate ()
-        //        {
-        //            transferLabel37(text37);
-        //        });
-        //    }
-        //    else this.activeForm.label37.Text = text37;
-        //}
+        // Earthing switch
+        public void transferLabel37(string text37)
+        {
+            if (activeForm.statusLabelEarthingengaged.InvokeRequired)
+            {
+                activeForm.statusLabelEarthingengaged.Invoke((MethodInvoker)delegate ()
+                {
+                    transferLabel37(text37);
+                });
+            }
+            else this.activeForm.statusLabelEarthingengaged.Text = text37;
+        }
 
-        //// Discharge rod
-        //public void transferLabel38(string text38)
-        //{
-        //    if (activeForm.label38.InvokeRequired)
-        //    {
-        //        activeForm.label38.Invoke((MethodInvoker)delegate ()
-        //        {
-        //            transferLabel38(text38);
-        //        });
-        //    }
-        //    else this.activeForm.label38.Text = text38;
-        //}
+        // Discharge rod
+        public void transferLabel38(string text38)
+        {
+            if (activeForm.statusLabelDischargeRodParked.InvokeRequired)
+            {
+                activeForm.statusLabelDischargeRodParked.Invoke((MethodInvoker)delegate ()
+                {
+                    transferLabel38(text38);
+                });
+            }
+            else this.activeForm.statusLabelDischargeRodParked.Text = text38;
+        }
 
         // CTS Flag
         //public void transferCTSFlag(string textCTSFlag)
@@ -185,7 +185,7 @@ namespace HV9104_GUI
         //}
 
         // Motor Initialized status label
-        public void transferInitVisible(bool inStatusLabelActiveMotorInitialized)
+        public void transferInitVisible(string inStatusLabelActiveMotorInitialized)
         {
             if (activeForm.statusLabelActiveMotorInitialized.InvokeRequired)
             {
@@ -194,61 +194,61 @@ namespace HV9104_GUI
                     transferInitVisible(inStatusLabelActiveMotorInitialized);
                 });
             }
-            else this.activeForm.statusLabelActiveMotorInitialized.Visible = inStatusLabelActiveMotorInitialized;
+            else this.activeForm.statusLabelActiveMotorInitialized.Text = inStatusLabelActiveMotorInitialized;
         }
 
 
-        //// Em Stop + Key switch
-        //public void transferLabel39(string text39)
-        //{
-        //    if (activeForm.label39.InvokeRequired)
-        //    {
-        //        activeForm.label39.Invoke((MethodInvoker)delegate ()
-        //        {
-        //            transferLabel39(text39);
-        //        });
-        //    }
-        //    else this.activeForm.label39.Text = text39;
-        //}
+        // Em Stop + Key switch
+        public void transferLabel39(string text39)
+        {
+            if (activeForm.statuslabelEmStopKeySwClosed.InvokeRequired)
+            {
+                activeForm.statuslabelEmStopKeySwClosed.Invoke((MethodInvoker)delegate ()
+                {
+                    transferLabel39(text39);
+                });
+            }
+            else this.activeForm.statuslabelEmStopKeySwClosed.Text = text39;
+        }
 
-        //// Door switch(es)
-        //public void transferLabel40(string text40)
-        //{
-        //    if (activeForm.label40.InvokeRequired)
-        //    {
-        //        activeForm.label40.Invoke((MethodInvoker)delegate ()
-        //        {
-        //            transferLabel40(text40);
-        //        });
-        //    }
-        //    else this.activeForm.label40.Text = text40;
-        //}
+        // Door switch(es)
+        public void transferLabel40(string text40)
+        {
+            if (activeForm.statusLabelDoorClosed.InvokeRequired)
+            {
+                activeForm.statusLabelDoorClosed.Invoke((MethodInvoker)delegate ()
+                {
+                    transferLabel40(text40);
+                });
+            }
+            else this.activeForm.statusLabelDoorClosed.Text = text40;
+        }
 
-        //// F2 + K1
-        //public void transferLabel41(string text41)
-        //{
-        //    if (activeForm.label41.InvokeRequired)
-        //    {
-        //        activeForm.label41.Invoke((MethodInvoker)delegate ()
-        //        {
-        //            transferLabel41(text41);
-        //        });
-        //    }
-        //    else this.activeForm.label41.Text = text41;
-        //}
+        // F2 + K1
+        public void transferLabel41(string text41)
+        {
+            if (activeForm.statusLabelK2F1Closed.InvokeRequired)
+            {
+                activeForm.statusLabelK2F1Closed.Invoke((MethodInvoker)delegate ()
+                {
+                    transferLabel41(text41);
+                });
+            }
+            else this.activeForm.statusLabelK2F1Closed.Text = text41;
+        }
 
-        //// F1 + K2
-        //public void transferLabel42(string text42)
-        //{
-        //    if (activeForm.label42.InvokeRequired)
-        //    {
-        //        activeForm.label42.Invoke((MethodInvoker)delegate ()
-        //        {
-        //            transferLabel42(text42);
-        //        });
-        //    }
-        //    else this.activeForm.label42.Text = text42;
-        //}
+        // F1 + K2
+        public void transferLabel42(string text42)
+        {
+            if (activeForm.statusLabelK1F2Closed.InvokeRequired)
+            {
+                activeForm.statusLabelK1F2Closed.Invoke((MethodInvoker)delegate ()
+                {
+                    transferLabel42(text42);
+                });
+            }
+            else this.activeForm.statusLabelK1F2Closed.Text = text42;
+        }
 
         // Voltage parked
         public void transferstatusLabelUmin(string text43)
