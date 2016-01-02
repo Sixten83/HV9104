@@ -131,7 +131,7 @@
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
-            this.customCheckBox3 = new HV9104_GUI.CustomCheckBox();
+            this.onOffSecButton = new HV9104_GUI.CustomCheckBox();
             this.customPanel4.SuspendLayout();
             this.customPanel3.SuspendLayout();
             this.customPanel2.SuspendLayout();
@@ -234,7 +234,7 @@
             this.parkCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
             this.parkCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
             this.parkCheckBox.isChecked = false;
-            this.parkCheckBox.Location = new System.Drawing.Point(138, 64);
+            this.parkCheckBox.Location = new System.Drawing.Point(134, 64);
             this.parkCheckBox.Name = "parkCheckBox";
             this.parkCheckBox.Size = new System.Drawing.Size(48, 43);
             this.parkCheckBox.TabIndex = 5;
@@ -758,22 +758,22 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label24.Location = new System.Drawing.Point(268, 49);
+            this.label24.Location = new System.Drawing.Point(274, 53);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(104, 29);
+            this.label24.Size = new System.Drawing.Size(90, 26);
             this.label24.TabIndex = 7;
             this.label24.Text = "VACUUM";
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label23.Location = new System.Drawing.Point(52, 50);
+            this.label23.Location = new System.Drawing.Point(60, 53);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(151, 29);
+            this.label23.Size = new System.Drawing.Size(132, 26);
             this.label23.TabIndex = 6;
             this.label23.Text = "COMPRESSOR";
             // 
@@ -989,7 +989,7 @@
             this.customPanel13.BackColor = System.Drawing.Color.Transparent;
             this.customPanel13.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel13.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel13.Controls.Add(this.customCheckBox3);
+            this.customPanel13.Controls.Add(this.onOffSecButton);
             this.customPanel13.Controls.Add(this.label2);
             this.customPanel13.Controls.Add(this.parkCheckBox);
             this.customPanel13.Controls.Add(this.label1);
@@ -1008,22 +1008,22 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label2.Location = new System.Drawing.Point(250, 131);
+            this.label2.Location = new System.Drawing.Point(260, 131);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(146, 29);
+            this.label2.Size = new System.Drawing.Size(127, 26);
             this.label2.TabIndex = 6;
             this.label2.Text = "REG. OUTPUT";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label1.Location = new System.Drawing.Point(45, 69);
+            this.label1.Location = new System.Drawing.Point(48, 71);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 33);
+            this.label1.Size = new System.Drawing.Size(62, 29);
             this.label1.TabIndex = 4;
             this.label1.Text = "PARK";
             // 
@@ -1043,7 +1043,7 @@
             this.overrideLabel.AutoSize = true;
             this.overrideLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.overrideLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.overrideLabel.Location = new System.Drawing.Point(208, 71);
+            this.overrideLabel.Location = new System.Drawing.Point(206, 71);
             this.overrideLabel.Name = "overrideLabel";
             this.overrideLabel.Size = new System.Drawing.Size(114, 29);
             this.overrideLabel.TabIndex = 2;
@@ -1052,11 +1052,11 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label15.Location = new System.Drawing.Point(44, 131);
+            this.label15.Location = new System.Drawing.Point(53, 131);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(147, 29);
+            this.label15.Size = new System.Drawing.Size(129, 26);
             this.label15.TabIndex = 2;
             this.label15.Text = "MAINS INPUT";
             // 
@@ -1485,20 +1485,20 @@
             this.label21.TabIndex = 3;
             this.label21.Text = "CONTROL CIRCUIT STATUS";
             // 
-            // customCheckBox3
+            // onOffSecButton
             // 
-            this.customCheckBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customCheckBox3.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
-            this.customCheckBox3.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
-            this.customCheckBox3.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
-            this.customCheckBox3.isChecked = false;
-            this.customCheckBox3.Location = new System.Drawing.Point(254, 161);
-            this.customCheckBox3.Name = "customCheckBox3";
-            this.customCheckBox3.Size = new System.Drawing.Size(138, 56);
-            this.customCheckBox3.TabIndex = 7;
-            this.customCheckBox3.Text = "customCheckBox2";
-            this.toolTip1.SetToolTip(this.customCheckBox3, "Energizes the high voltage transformer");
-            this.customCheckBox3.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
+            this.onOffSecButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.onOffSecButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
+            this.onOffSecButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
+            this.onOffSecButton.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
+            this.onOffSecButton.isChecked = false;
+            this.onOffSecButton.Location = new System.Drawing.Point(254, 161);
+            this.onOffSecButton.Name = "onOffSecButton";
+            this.onOffSecButton.Size = new System.Drawing.Size(138, 56);
+            this.onOffSecButton.TabIndex = 7;
+            this.onOffSecButton.Text = "customCheckBox2";
+            this.toolTip1.SetToolTip(this.onOffSecButton, "Energizes the high voltage transformer");
+            this.onOffSecButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
             // 
             // RunView
             // 
@@ -1655,6 +1655,6 @@
         public System.Windows.Forms.Label label30;
         public System.Windows.Forms.Label label29;
         public System.Windows.Forms.Label label28;
-        public CustomCheckBox customCheckBox3;
+        public CustomCheckBox onOffSecButton;
     }
 }
