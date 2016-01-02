@@ -236,18 +236,18 @@ namespace HV9104_GUI
         //    else this.activeForm.label42.Text = text42;
         //}
 
-        //// Voltage parked
-        //public void transferLabel43(string text43)
-        //{
-        //    if (activeForm.label43.InvokeRequired)
-        //    {
-        //        activeForm.label43.Invoke((MethodInvoker)delegate ()
-        //        {
-        //            transferLabel43(text43);
-        //        });
-        //    }
-        //    else this.activeForm.label43.Text = text43;
-        //}
+        // Voltage parked
+        public void transferstatusLabelUmin(string text43)
+        {
+            if (activeForm.statusLabelUmin.InvokeRequired)
+            {
+                activeForm.statusLabelUmin.Invoke((MethodInvoker)delegate ()
+                {
+                    transferstatusLabelUmin(text43);
+                });
+            }
+            else this.activeForm.statusLabelUmin.Text = text43;
+        }
 
         // High Voltage symbol
         //public void transferHVPic(bool HVPicIn)

@@ -358,8 +358,8 @@ namespace HV9104_GUI
                 K1Closed = bits1[6];                    // R
                 K2Closed = bits1[7];                    // R
 
-                minUPos = bits2[0];                     // R
-                maxUPos = bits2[1];                     // R
+                maxUPos = bits2[0];                     // R
+                minUPos = bits2[1];                     // R
                 //unused = bits2[2];                    // R
                 //unused = bits2[3];                    // R
                 //unused = bits2[4];                    // R

@@ -432,7 +432,7 @@ namespace HV9104_GUI
             this.controlForm.runView.impulseOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseOutputComboBox_valueChange);
             //POWER Listeners
             this.controlForm.runView.onOffButton.Click += new System.EventHandler(onOffButton_Click);
-            //this.controlForm.runView.pauseButton.Click += new System.EventHandler(pauseButton_Click);
+            this.controlForm.runView.onOffSecButton.Click += new System.EventHandler(onOffSecButton_Click);
             this.controlForm.runView.parkCheckBox.Click += new System.EventHandler(parkCheckBox_Click);
             this.controlForm.runView.overrideCheckBox.Click += new System.EventHandler(overrideCheckBox_Click);
             //Regulated Voltage Type Listeners            
@@ -770,14 +770,33 @@ namespace HV9104_GUI
             if(this.controlForm.runView.onOffButton.isChecked)
             {
                 ClosePrimaryRequest();
+            }
+            else
+            {
+                OpenSecondaryRequest();
+                this.controlForm.runView.onOffSecButton.isChecked = false;
+                this.controlForm.runView.onOffSecButton.Invalidate();
+                OpenPrimaryRequest();
+            }
+            
+
+        }
+
+        // Voltage ON/OFF Switch
+        private void onOffSecButton_Click(object sender, EventArgs e)
+        {
+
+            if (this.controlForm.runView.onOffSecButton.isChecked)
+            {
+                //ClosePrimaryRequest();
                 CloseSecondaryRequest(this.controlForm.runView.overrideCheckBox.isChecked);
             }
             else
             {
                 OpenSecondaryRequest();
-                OpenPrimaryRequest();
+                //OpenPrimaryRequest();
             }
-            
+
 
         }
 
@@ -1375,7 +1394,7 @@ namespace HV9104_GUI
             //guiUpdater.transferLabel40(PIO1.dorrSwitchClosed.ToString());
             //guiUpdater.transferLabel41(PIO1.K1Closed.ToString());
             //guiUpdater.transferLabel42(PIO1.K2Closed.ToString());
-            //guiUpdater.transferLabel43(PIO1.minUPos.ToString());
+            guiUpdater.transferstatusLabelUmin(PIO1.minUPos.ToString());
             //guiUpdater.transferCTSFlag(activeMotor.initComplete.ToString());
 
             // Ratio-calculated High Voltage value
@@ -1407,7 +1426,17 @@ namespace HV9104_GUI
         public void CloseSecondaryRequest(bool overRideIn)
         {
             PIO1.overrideUMin = overRideIn;
-            PIO1.closeSecondary();
+            if ((PIO1.minUPos) || (PIO1.overrideUMin))
+            {
+                PIO1.closeSecondary();
+            }
+            else
+            {
+                // Add additional notification here
+                this.controlForm.runView.onOffSecButton.isChecked = false;
+                this.controlForm.runView.onOffSecButton.Invalidate();
+            }
+
         }
 
         // Voltage connection control
