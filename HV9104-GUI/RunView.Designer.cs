@@ -38,6 +38,9 @@
             this.parkCheckBox = new HV9104_GUI.CustomCheckBox();
             this.overrideCheckBox = new HV9104_GUI.CustomCheckBox();
             this.onOffButton = new HV9104_GUI.CustomCheckBox();
+            this.customButton1 = new HV9104_GUI.CustomButton();
+            this.customButton2 = new HV9104_GUI.CustomButton();
+            this.customButton3 = new HV9104_GUI.CustomButton();
             this.customTrackBar1 = new HV9104_GUI.CustomTrackBar();
             this.customPanel4 = new HV9104_GUI.CustomPanel();
             this.label20 = new System.Windows.Forms.Label();
@@ -60,15 +63,16 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.customPanel6 = new HV9104_GUI.CustomPanel();
+            this.customTextBox1 = new HV9104_GUI.CustomTextBox();
             this.increaseRegulatedVoltageButton = new HV9104_GUI.CustomButton();
             this.decreaseRegulatedVoltageButton = new HV9104_GUI.CustomButton();
+            this.setVoltageTitle = new System.Windows.Forms.Label();
             this.regulatedVoltageTextBox = new HV9104_GUI.CustomTextBox();
             this.voltageRegulationRepresentationComboBox = new HV9104_GUI.CustomComboBox();
-            this.setVoltageTitle = new System.Windows.Forms.Label();
             this.customPanel8 = new HV9104_GUI.CustomPanel();
+            this.label10 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.customPanel12 = new HV9104_GUI.CustomPanel();
             this.increasePressureButton = new HV9104_GUI.CustomButton();
             this.label19 = new System.Windows.Forms.Label();
@@ -76,6 +80,7 @@
             this.preassureLabel = new System.Windows.Forms.Label();
             this.pressureTextBox = new HV9104_GUI.CustomTextBox();
             this.customPanel11 = new HV9104_GUI.CustomPanel();
+            this.activeMotorInitializedLabel = new System.Windows.Forms.Label();
             this.increaseImpulseGapButton = new HV9104_GUI.CustomButton();
             this.label18 = new System.Windows.Forms.Label();
             this.decreaseImpulseGapButton = new HV9104_GUI.CustomButton();
@@ -103,11 +108,12 @@
             this.inputTitleLabel = new System.Windows.Forms.Label();
             this.currentInputLabel = new System.Windows.Forms.Label();
             this.voltageInputLabel = new System.Windows.Forms.Label();
-            this.customTextBox1 = new HV9104_GUI.CustomTextBox();
-            this.customButton1 = new HV9104_GUI.CustomButton();
-            this.label21 = new System.Windows.Forms.Label();
-            this.customButton2 = new HV9104_GUI.CustomButton();
-            this.customButton3 = new HV9104_GUI.CustomButton();
+            this.customPanel9 = new HV9104_GUI.CustomPanel();
+            this.label22 = new System.Windows.Forms.Label();
+            this.compressorOutputLabel = new System.Windows.Forms.Label();
+            this.vacuumOutputLabel = new System.Windows.Forms.Label();
+            this.customPanel10 = new HV9104_GUI.CustomPanel();
+            this.customButton4 = new HV9104_GUI.CustomButton();
             this.customPanel4.SuspendLayout();
             this.customPanel3.SuspendLayout();
             this.customPanel2.SuspendLayout();
@@ -119,6 +125,7 @@
             this.customPanel13.SuspendLayout();
             this.customPanel5.SuspendLayout();
             this.customPanel1.SuspendLayout();
+            this.customPanel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // choppingCheckBox
@@ -177,7 +184,7 @@
             this.earthingIsolatedRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
             this.earthingIsolatedRadioButton.Enabled = false;
             this.earthingIsolatedRadioButton.isChecked = false;
-            this.earthingIsolatedRadioButton.Location = new System.Drawing.Point(165, 133);
+            this.earthingIsolatedRadioButton.Location = new System.Drawing.Point(163, 95);
             this.earthingIsolatedRadioButton.Name = "earthingIsolatedRadioButton";
             this.earthingIsolatedRadioButton.Size = new System.Drawing.Size(47, 47);
             this.earthingIsolatedRadioButton.TabIndex = 1;
@@ -193,7 +200,7 @@
             this.earthingGroundedRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
             this.earthingGroundedRadioButton.Enabled = false;
             this.earthingGroundedRadioButton.isChecked = true;
-            this.earthingGroundedRadioButton.Location = new System.Drawing.Point(165, 80);
+            this.earthingGroundedRadioButton.Location = new System.Drawing.Point(163, 42);
             this.earthingGroundedRadioButton.Name = "earthingGroundedRadioButton";
             this.earthingGroundedRadioButton.Size = new System.Drawing.Size(47, 47);
             this.earthingGroundedRadioButton.TabIndex = 1;
@@ -208,7 +215,7 @@
             this.parkCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
             this.parkCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
             this.parkCheckBox.isChecked = false;
-            this.parkCheckBox.Location = new System.Drawing.Point(370, 97);
+            this.parkCheckBox.Location = new System.Drawing.Point(370, 83);
             this.parkCheckBox.Name = "parkCheckBox";
             this.parkCheckBox.Size = new System.Drawing.Size(48, 43);
             this.parkCheckBox.TabIndex = 5;
@@ -238,7 +245,7 @@
             this.onOffButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
             this.onOffButton.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
             this.onOffButton.isChecked = false;
-            this.onOffButton.Location = new System.Drawing.Point(106, 90);
+            this.onOffButton.Location = new System.Drawing.Point(106, 76);
             this.onOffButton.Name = "onOffButton";
             this.onOffButton.Size = new System.Drawing.Size(138, 56);
             this.onOffButton.TabIndex = 3;
@@ -246,13 +253,58 @@
             this.toolTip1.SetToolTip(this.onOffButton, "Energizes the high voltage transformer");
             this.onOffButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
             // 
+            // customButton1
+            // 
+            this.customButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customButton1.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.customButton1.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customButton1.ForeColor = System.Drawing.Color.White;
+            this.customButton1.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.customButton1.Location = new System.Drawing.Point(254, 82);
+            this.customButton1.Name = "customButton1";
+            this.customButton1.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.customButton1.Size = new System.Drawing.Size(158, 57);
+            this.customButton1.TabIndex = 6;
+            this.customButton1.Text = "INITIALIZE";
+            this.toolTip1.SetToolTip(this.customButton1, "Triggers the HV9132 electronic trigger sphere");
+            // 
+            // customButton2
+            // 
+            this.customButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customButton2.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.customButton2.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customButton2.ForeColor = System.Drawing.Color.White;
+            this.customButton2.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.customButton2.Location = new System.Drawing.Point(34, 82);
+            this.customButton2.Name = "customButton2";
+            this.customButton2.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.customButton2.Size = new System.Drawing.Size(158, 57);
+            this.customButton2.TabIndex = 7;
+            this.customButton2.Text = "COMPRESSOR";
+            this.toolTip1.SetToolTip(this.customButton2, "Triggers the HV9132 electronic trigger sphere");
+            // 
+            // customButton3
+            // 
+            this.customButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customButton3.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.customButton3.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customButton3.ForeColor = System.Drawing.Color.White;
+            this.customButton3.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.customButton3.Location = new System.Drawing.Point(249, 82);
+            this.customButton3.Name = "customButton3";
+            this.customButton3.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.customButton3.Size = new System.Drawing.Size(158, 57);
+            this.customButton3.TabIndex = 8;
+            this.customButton3.Text = "START VACUUM";
+            this.toolTip1.SetToolTip(this.customButton3, "Triggers the HV9132 electronic trigger sphere");
+            // 
             // customTrackBar1
             // 
             this.customTrackBar1.BackgroundImage = global::HV9104_GUI.Properties.Resources.slider1;
             this.customTrackBar1.HoverImage = global::HV9104_GUI.Properties.Resources.sliderHover;
             this.customTrackBar1.HPressedImage = global::HV9104_GUI.Properties.Resources.SliderPressed;
             this.customTrackBar1.Layout = HV9104_GUI.CustomTrackBar.Orientation.HORIZONTAL;
-            this.customTrackBar1.Location = new System.Drawing.Point(38, 54);
+            this.customTrackBar1.Location = new System.Drawing.Point(38, 73);
             this.customTrackBar1.Max = 10D;
             this.customTrackBar1.MaximumSize = new System.Drawing.Size(800, 60);
             this.customTrackBar1.Min = 0D;
@@ -281,7 +333,7 @@
             // 
             this.label20.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label20.Location = new System.Drawing.Point(273, 56);
+            this.label20.Location = new System.Drawing.Point(264, 56);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(77, 58);
             this.label20.TabIndex = 6;
@@ -293,7 +345,7 @@
             this.impulseOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseOutputComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
             this.impulseOutputComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
-            this.impulseOutputComboBox.Location = new System.Drawing.Point(124, 121);
+            this.impulseOutputComboBox.Location = new System.Drawing.Point(118, 121);
             this.impulseOutputComboBox.Name = "impulseOutputComboBox";
             this.impulseOutputComboBox.setCollection = new string[] {
         "Positive",
@@ -309,7 +361,7 @@
             this.impulseTitleLabel.AutoSize = true;
             this.impulseTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.impulseTitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.impulseTitleLabel.Location = new System.Drawing.Point(35, 14);
+            this.impulseTitleLabel.Location = new System.Drawing.Point(20, 14);
             this.impulseTitleLabel.Name = "impulseTitleLabel";
             this.impulseTitleLabel.Size = new System.Drawing.Size(201, 18);
             this.impulseTitleLabel.TabIndex = 2;
@@ -319,7 +371,7 @@
             // 
             this.impulseValueLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.impulseValueLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.impulseValueLabel.Location = new System.Drawing.Point(54, 42);
+            this.impulseValueLabel.Location = new System.Drawing.Point(45, 42);
             this.impulseValueLabel.Name = "impulseValueLabel";
             this.impulseValueLabel.Size = new System.Drawing.Size(227, 79);
             this.impulseValueLabel.TabIndex = 1;
@@ -346,7 +398,7 @@
             // 
             this.label17.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label17.Location = new System.Drawing.Point(248, 57);
+            this.label17.Location = new System.Drawing.Point(260, 56);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(77, 58);
             this.label17.TabIndex = 5;
@@ -358,7 +410,7 @@
             this.dcOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.dcOutputComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
             this.dcOutputComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
-            this.dcOutputComboBox.Location = new System.Drawing.Point(102, 121);
+            this.dcOutputComboBox.Location = new System.Drawing.Point(116, 118);
             this.dcOutputComboBox.Name = "dcOutputComboBox";
             this.dcOutputComboBox.setCollection = new string[] {
         "Vavg",
@@ -376,7 +428,7 @@
             this.dcTitleLabel.AutoSize = true;
             this.dcTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dcTitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.dcTitleLabel.Location = new System.Drawing.Point(29, 14);
+            this.dcTitleLabel.Location = new System.Drawing.Point(17, 14);
             this.dcTitleLabel.Name = "dcTitleLabel";
             this.dcTitleLabel.Size = new System.Drawing.Size(105, 18);
             this.dcTitleLabel.TabIndex = 2;
@@ -386,7 +438,7 @@
             // 
             this.dcValueLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dcValueLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.dcValueLabel.Location = new System.Drawing.Point(72, 41);
+            this.dcValueLabel.Location = new System.Drawing.Point(84, 40);
             this.dcValueLabel.Name = "dcValueLabel";
             this.dcValueLabel.Size = new System.Drawing.Size(183, 81);
             this.dcValueLabel.TabIndex = 1;
@@ -425,7 +477,7 @@
             this.acOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.acOutputComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
             this.acOutputComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
-            this.acOutputComboBox.Location = new System.Drawing.Point(106, 121);
+            this.acOutputComboBox.Location = new System.Drawing.Point(118, 121);
             this.acOutputComboBox.Name = "acOutputComboBox";
             this.acOutputComboBox.setCollection = new string[] {
         "Vrms",
@@ -443,7 +495,7 @@
             this.acTitleLabel.AutoSize = true;
             this.acTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.acTitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.acTitleLabel.Location = new System.Drawing.Point(35, 14);
+            this.acTitleLabel.Location = new System.Drawing.Point(16, 14);
             this.acTitleLabel.Name = "acTitleLabel";
             this.acTitleLabel.Size = new System.Drawing.Size(103, 18);
             this.acTitleLabel.TabIndex = 2;
@@ -473,9 +525,9 @@
             this.customPanel7.Controls.Add(this.triggerButton);
             this.customPanel7.Controls.Add(this.label12);
             this.customPanel7.Controls.Add(this.label13);
-            this.customPanel7.CornerRadius = 40;
+            this.customPanel7.CornerRadius = 30;
             this.customPanel7.IsPopUp = false;
-            this.customPanel7.Location = new System.Drawing.Point(1431, 233);
+            this.customPanel7.Location = new System.Drawing.Point(1431, 238);
             this.customPanel7.Name = "customPanel7";
             this.customPanel7.Size = new System.Drawing.Size(444, 236);
             this.customPanel7.TabIndex = 0;
@@ -509,7 +561,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label12.Location = new System.Drawing.Point(35, 13);
+            this.label12.Location = new System.Drawing.Point(20, 13);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(246, 18);
             this.label12.TabIndex = 2;
@@ -536,12 +588,29 @@
             this.customPanel6.Controls.Add(this.increaseRegulatedVoltageButton);
             this.customPanel6.Controls.Add(this.decreaseRegulatedVoltageButton);
             this.customPanel6.Controls.Add(this.setVoltageTitle);
-            this.customPanel6.CornerRadius = 40;
+            this.customPanel6.CornerRadius = 30;
             this.customPanel6.IsPopUp = false;
-            this.customPanel6.Location = new System.Drawing.Point(503, 233);
+            this.customPanel6.Location = new System.Drawing.Point(503, 238);
             this.customPanel6.Name = "customPanel6";
             this.customPanel6.Size = new System.Drawing.Size(444, 236);
             this.customPanel6.TabIndex = 0;
+            // 
+            // customTextBox1
+            // 
+            this.customTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customTextBox1.BackgroundColor = System.Drawing.Color.White;
+            this.customTextBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.customTextBox1.CornerRadius = 27;
+            this.customTextBox1.Decimals = 2;
+            this.customTextBox1.IsPopUp = false;
+            this.customTextBox1.Location = new System.Drawing.Point(136, 161);
+            this.customTextBox1.Max = 230;
+            this.customTextBox1.Min = 0;
+            this.customTextBox1.Name = "customTextBox1";
+            this.customTextBox1.Size = new System.Drawing.Size(170, 54);
+            this.customTextBox1.TabIndex = 6;
+            this.customTextBox1.TextBoxHint = "";
+            this.customTextBox1.Value = 5.3F;
             // 
             // increaseRegulatedVoltageButton
             // 
@@ -549,7 +618,7 @@
             this.increaseRegulatedVoltageButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.upButton;
             this.increaseRegulatedVoltageButton.ForeColor = System.Drawing.Color.White;
             this.increaseRegulatedVoltageButton.HoverImage = global::HV9104_GUI.Properties.Resources.upButtonHover;
-            this.increaseRegulatedVoltageButton.Location = new System.Drawing.Point(327, 151);
+            this.increaseRegulatedVoltageButton.Location = new System.Drawing.Point(327, 158);
             this.increaseRegulatedVoltageButton.Name = "increaseRegulatedVoltageButton";
             this.increaseRegulatedVoltageButton.PressedImage = global::HV9104_GUI.Properties.Resources.upButtonPressed;
             this.increaseRegulatedVoltageButton.Size = new System.Drawing.Size(61, 61);
@@ -561,11 +630,22 @@
             this.decreaseRegulatedVoltageButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.downButton;
             this.decreaseRegulatedVoltageButton.ForeColor = System.Drawing.Color.White;
             this.decreaseRegulatedVoltageButton.HoverImage = global::HV9104_GUI.Properties.Resources.downButtonHover;
-            this.decreaseRegulatedVoltageButton.Location = new System.Drawing.Point(57, 151);
+            this.decreaseRegulatedVoltageButton.Location = new System.Drawing.Point(57, 158);
             this.decreaseRegulatedVoltageButton.Name = "decreaseRegulatedVoltageButton";
             this.decreaseRegulatedVoltageButton.PressedImage = global::HV9104_GUI.Properties.Resources.downButtonPressed;
             this.decreaseRegulatedVoltageButton.Size = new System.Drawing.Size(61, 61);
             this.decreaseRegulatedVoltageButton.TabIndex = 5;
+            // 
+            // setVoltageTitle
+            // 
+            this.setVoltageTitle.AutoSize = true;
+            this.setVoltageTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setVoltageTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.setVoltageTitle.Location = new System.Drawing.Point(16, 13);
+            this.setVoltageTitle.Name = "setVoltageTitle";
+            this.setVoltageTitle.Size = new System.Drawing.Size(224, 18);
+            this.setVoltageTitle.TabIndex = 2;
+            this.setVoltageTitle.Text = "VOLTAGE INPUT CONTROL\r\n";
             // 
             // regulatedVoltageTextBox
             // 
@@ -575,7 +655,7 @@
             this.regulatedVoltageTextBox.CornerRadius = 27;
             this.regulatedVoltageTextBox.Decimals = 2;
             this.regulatedVoltageTextBox.IsPopUp = false;
-            this.regulatedVoltageTextBox.Location = new System.Drawing.Point(19, 227);
+            this.regulatedVoltageTextBox.Location = new System.Drawing.Point(136, 379);
             this.regulatedVoltageTextBox.Max = 230;
             this.regulatedVoltageTextBox.Min = 0;
             this.regulatedVoltageTextBox.Name = "regulatedVoltageTextBox";
@@ -589,7 +669,7 @@
             this.voltageRegulationRepresentationComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.voltageRegulationRepresentationComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
             this.voltageRegulationRepresentationComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
-            this.voltageRegulationRepresentationComboBox.Location = new System.Drawing.Point(223, 220);
+            this.voltageRegulationRepresentationComboBox.Location = new System.Drawing.Point(116, 279);
             this.voltageRegulationRepresentationComboBox.Name = "voltageRegulationRepresentationComboBox";
             this.voltageRegulationRepresentationComboBox.setCollection = new string[] {
         "Vrms",
@@ -600,36 +680,40 @@
             this.voltageRegulationRepresentationComboBox.Text = "customComboBox1";
             this.voltageRegulationRepresentationComboBox.TextBoxHint = "";
             // 
-            // setVoltageTitle
-            // 
-            this.setVoltageTitle.AutoSize = true;
-            this.setVoltageTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.setVoltageTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.setVoltageTitle.Location = new System.Drawing.Point(31, 13);
-            this.setVoltageTitle.Name = "setVoltageTitle";
-            this.setVoltageTitle.Size = new System.Drawing.Size(207, 18);
-            this.setVoltageTitle.TabIndex = 2;
-            this.setVoltageTitle.Text = "SET VOLTAGE INPUT (V) ";
-            // 
             // customPanel8
             // 
             this.customPanel8.BackColor = System.Drawing.Color.Transparent;
             this.customPanel8.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel8.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel8.Controls.Add(this.vacuumOutputLabel);
+            this.customPanel8.Controls.Add(this.compressorOutputLabel);
+            this.customPanel8.Controls.Add(this.customButton3);
+            this.customPanel8.Controls.Add(this.customButton2);
             this.customPanel8.Controls.Add(this.label10);
             this.customPanel8.CornerRadius = 30;
             this.customPanel8.IsPopUp = false;
-            this.customPanel8.Location = new System.Drawing.Point(503, 492);
+            this.customPanel8.Location = new System.Drawing.Point(503, 486);
             this.customPanel8.Name = "customPanel8";
-            this.customPanel8.Size = new System.Drawing.Size(444, 118);
+            this.customPanel8.Size = new System.Drawing.Size(444, 154);
             this.customPanel8.TabIndex = 0;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label10.Location = new System.Drawing.Point(16, 11);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(314, 18);
+            this.label10.TabIndex = 2;
+            this.label10.Text = "MANUAL 230V AUX OUTPUT CONTROL";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label4.Location = new System.Drawing.Point(23, 142);
+            this.label4.Location = new System.Drawing.Point(21, 104);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(136, 29);
             this.label4.TabIndex = 2;
@@ -640,22 +724,11 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label5.Location = new System.Drawing.Point(28, 89);
+            this.label5.Location = new System.Drawing.Point(26, 51);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 29);
             this.label5.TabIndex = 2;
             this.label5.Text = "IMPULSE";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label10.Location = new System.Drawing.Point(16, 13);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(213, 18);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "SPHERE GAP SELECTION";
             // 
             // customPanel12
             // 
@@ -669,9 +742,9 @@
             this.customPanel12.Controls.Add(this.pressureTextBox);
             this.customPanel12.CornerRadius = 30;
             this.customPanel12.IsPopUp = false;
-            this.customPanel12.Location = new System.Drawing.Point(503, 641);
+            this.customPanel12.Location = new System.Drawing.Point(503, 658);
             this.customPanel12.Name = "customPanel12";
-            this.customPanel12.Size = new System.Drawing.Size(444, 146);
+            this.customPanel12.Size = new System.Drawing.Size(445, 127);
             this.customPanel12.TabIndex = 0;
             // 
             // increasePressureButton
@@ -680,7 +753,7 @@
             this.increasePressureButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.upButton;
             this.increasePressureButton.ForeColor = System.Drawing.Color.White;
             this.increasePressureButton.HoverImage = global::HV9104_GUI.Properties.Resources.upButtonHover;
-            this.increasePressureButton.Location = new System.Drawing.Point(353, 66);
+            this.increasePressureButton.Location = new System.Drawing.Point(350, 48);
             this.increasePressureButton.Name = "increasePressureButton";
             this.increasePressureButton.PressedImage = global::HV9104_GUI.Properties.Resources.upButtonPressed;
             this.increasePressureButton.Size = new System.Drawing.Size(61, 61);
@@ -691,7 +764,7 @@
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label19.Location = new System.Drawing.Point(25, 15);
+            this.label19.Location = new System.Drawing.Point(16, 13);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(226, 18);
             this.label19.TabIndex = 2;
@@ -703,7 +776,7 @@
             this.decreasePressureButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.downButton;
             this.decreasePressureButton.ForeColor = System.Drawing.Color.White;
             this.decreasePressureButton.HoverImage = global::HV9104_GUI.Properties.Resources.downButtonHover;
-            this.decreasePressureButton.Location = new System.Drawing.Point(100, 65);
+            this.decreasePressureButton.Location = new System.Drawing.Point(97, 47);
             this.decreasePressureButton.Name = "decreasePressureButton";
             this.decreasePressureButton.PressedImage = global::HV9104_GUI.Properties.Resources.downButtonPressed;
             this.decreasePressureButton.Size = new System.Drawing.Size(61, 61);
@@ -713,7 +786,7 @@
             // 
             this.preassureLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.preassureLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.preassureLabel.Location = new System.Drawing.Point(-4, 48);
+            this.preassureLabel.Location = new System.Drawing.Point(-7, 30);
             this.preassureLabel.Name = "preassureLabel";
             this.preassureLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.preassureLabel.Size = new System.Drawing.Size(102, 97);
@@ -729,7 +802,7 @@
             this.pressureTextBox.CornerRadius = 27;
             this.pressureTextBox.Decimals = 2;
             this.pressureTextBox.IsPopUp = false;
-            this.pressureTextBox.Location = new System.Drawing.Point(171, 69);
+            this.pressureTextBox.Location = new System.Drawing.Point(168, 51);
             this.pressureTextBox.Max = 6;
             this.pressureTextBox.Min = -1;
             this.pressureTextBox.Name = "pressureTextBox";
@@ -743,24 +816,29 @@
             this.customPanel11.BackColor = System.Drawing.Color.Transparent;
             this.customPanel11.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel11.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel11.Controls.Add(this.label21);
-            this.customPanel11.Controls.Add(this.customButton1);
             this.customPanel11.Controls.Add(this.increaseImpulseGapButton);
             this.customPanel11.Controls.Add(this.label18);
             this.customPanel11.Controls.Add(this.decreaseImpulseGapButton);
-            this.customPanel11.Controls.Add(this.earthingIsolatedRadioButton);
             this.customPanel11.Controls.Add(this.impulseGapTextBox);
-            this.customPanel11.Controls.Add(this.label4);
-            this.customPanel11.Controls.Add(this.label5);
             this.customPanel11.Controls.Add(this.impulseGapLabel);
-            this.customPanel11.Controls.Add(this.earthingGroundedRadioButton);
             this.customPanel11.CornerRadius = 30;
             this.customPanel11.IsPopUp = false;
-            this.customPanel11.Location = new System.Drawing.Point(38, 492);
+            this.customPanel11.Location = new System.Drawing.Point(38, 658);
             this.customPanel11.Name = "customPanel11";
-            this.customPanel11.Size = new System.Drawing.Size(445, 295);
+            this.customPanel11.Size = new System.Drawing.Size(445, 127);
             this.customPanel11.TabIndex = 0;
             this.customPanel11.Paint += new System.Windows.Forms.PaintEventHandler(this.customPanel11_Paint);
+            // 
+            // activeMotorInitializedLabel
+            // 
+            this.activeMotorInitializedLabel.AutoSize = true;
+            this.activeMotorInitializedLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.activeMotorInitializedLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.activeMotorInitializedLabel.Location = new System.Drawing.Point(274, 51);
+            this.activeMotorInitializedLabel.Name = "activeMotorInitializedLabel";
+            this.activeMotorInitializedLabel.Size = new System.Drawing.Size(118, 19);
+            this.activeMotorInitializedLabel.TabIndex = 7;
+            this.activeMotorInitializedLabel.Text = "NOT INITIALIZED";
             // 
             // increaseImpulseGapButton
             // 
@@ -768,7 +846,7 @@
             this.increaseImpulseGapButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.upButton;
             this.increaseImpulseGapButton.ForeColor = System.Drawing.Color.White;
             this.increaseImpulseGapButton.HoverImage = global::HV9104_GUI.Properties.Resources.upButtonHover;
-            this.increaseImpulseGapButton.Location = new System.Drawing.Point(357, 214);
+            this.increaseImpulseGapButton.Location = new System.Drawing.Point(357, 47);
             this.increaseImpulseGapButton.Name = "increaseImpulseGapButton";
             this.increaseImpulseGapButton.PressedImage = global::HV9104_GUI.Properties.Resources.upButtonPressed;
             this.increaseImpulseGapButton.Size = new System.Drawing.Size(61, 61);
@@ -779,7 +857,7 @@
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label18.Location = new System.Drawing.Point(14, 16);
+            this.label18.Location = new System.Drawing.Point(14, 13);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(246, 18);
             this.label18.TabIndex = 2;
@@ -791,7 +869,7 @@
             this.decreaseImpulseGapButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.downButton;
             this.decreaseImpulseGapButton.ForeColor = System.Drawing.Color.White;
             this.decreaseImpulseGapButton.HoverImage = global::HV9104_GUI.Properties.Resources.downButtonHover;
-            this.decreaseImpulseGapButton.Location = new System.Drawing.Point(106, 214);
+            this.decreaseImpulseGapButton.Location = new System.Drawing.Point(105, 47);
             this.decreaseImpulseGapButton.Name = "decreaseImpulseGapButton";
             this.decreaseImpulseGapButton.PressedImage = global::HV9104_GUI.Properties.Resources.downButtonPressed;
             this.decreaseImpulseGapButton.Size = new System.Drawing.Size(61, 61);
@@ -805,7 +883,7 @@
             this.impulseGapTextBox.CornerRadius = 27;
             this.impulseGapTextBox.Decimals = 2;
             this.impulseGapTextBox.IsPopUp = false;
-            this.impulseGapTextBox.Location = new System.Drawing.Point(175, 217);
+            this.impulseGapTextBox.Location = new System.Drawing.Point(174, 50);
             this.impulseGapTextBox.Max = 100;
             this.impulseGapTextBox.Min = 0;
             this.impulseGapTextBox.Name = "impulseGapTextBox";
@@ -818,7 +896,7 @@
             // 
             this.impulseGapLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.impulseGapLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.impulseGapLabel.Location = new System.Drawing.Point(10, 196);
+            this.impulseGapLabel.Location = new System.Drawing.Point(9, 29);
             this.impulseGapLabel.Name = "impulseGapLabel";
             this.impulseGapLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.impulseGapLabel.Size = new System.Drawing.Size(99, 97);
@@ -842,9 +920,9 @@
             this.customPanel13.Controls.Add(this.label15);
             this.customPanel13.CornerRadius = 30;
             this.customPanel13.IsPopUp = false;
-            this.customPanel13.Location = new System.Drawing.Point(38, 233);
+            this.customPanel13.Location = new System.Drawing.Point(38, 238);
             this.customPanel13.Name = "customPanel13";
-            this.customPanel13.Size = new System.Drawing.Size(445, 242);
+            this.customPanel13.Size = new System.Drawing.Size(445, 236);
             this.customPanel13.TabIndex = 0;
             // 
             // label2
@@ -863,7 +941,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label1.Location = new System.Drawing.Point(249, 102);
+            this.label1.Location = new System.Drawing.Point(249, 88);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 33);
             this.label1.TabIndex = 4;
@@ -910,7 +988,7 @@
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label15.Location = new System.Drawing.Point(27, 104);
+            this.label15.Location = new System.Drawing.Point(27, 90);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(73, 29);
             this.label15.TabIndex = 2;
@@ -921,6 +999,7 @@
             this.customPanel5.BackColor = System.Drawing.Color.Transparent;
             this.customPanel5.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel5.Controls.Add(this.customButton4);
             this.customPanel5.Controls.Add(this.dcVoltageRadioButton);
             this.customPanel5.Controls.Add(this.acOutputRadioButton);
             this.customPanel5.Controls.Add(this.regulatedVoltageTextBox);
@@ -930,11 +1009,11 @@
             this.customPanel5.Controls.Add(this.label6);
             this.customPanel5.Controls.Add(this.label7);
             this.customPanel5.Controls.Add(this.label8);
-            this.customPanel5.CornerRadius = 40;
+            this.customPanel5.CornerRadius = 30;
             this.customPanel5.IsPopUp = false;
-            this.customPanel5.Location = new System.Drawing.Point(967, 233);
+            this.customPanel5.Location = new System.Drawing.Point(967, 238);
             this.customPanel5.Name = "customPanel5";
-            this.customPanel5.Size = new System.Drawing.Size(444, 312);
+            this.customPanel5.Size = new System.Drawing.Size(444, 547);
             this.customPanel5.TabIndex = 0;
             this.customPanel5.Paint += new System.Windows.Forms.PaintEventHandler(this.customPanel5_Paint);
             // 
@@ -945,7 +1024,7 @@
             this.dcVoltageRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
             this.dcVoltageRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
             this.dcVoltageRadioButton.isChecked = false;
-            this.dcVoltageRadioButton.Location = new System.Drawing.Point(204, 156);
+            this.dcVoltageRadioButton.Location = new System.Drawing.Point(330, 189);
             this.dcVoltageRadioButton.Name = "dcVoltageRadioButton";
             this.dcVoltageRadioButton.Size = new System.Drawing.Size(47, 47);
             this.dcVoltageRadioButton.TabIndex = 1;
@@ -959,7 +1038,7 @@
             this.acOutputRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
             this.acOutputRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
             this.acOutputRadioButton.isChecked = false;
-            this.acOutputRadioButton.Location = new System.Drawing.Point(204, 103);
+            this.acOutputRadioButton.Location = new System.Drawing.Point(330, 129);
             this.acOutputRadioButton.Name = "acOutputRadioButton";
             this.acOutputRadioButton.Size = new System.Drawing.Size(47, 47);
             this.acOutputRadioButton.TabIndex = 1;
@@ -973,7 +1052,7 @@
             this.inputVoltageRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
             this.inputVoltageRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
             this.inputVoltageRadioButton.isChecked = true;
-            this.inputVoltageRadioButton.Location = new System.Drawing.Point(204, 50);
+            this.inputVoltageRadioButton.Location = new System.Drawing.Point(330, 69);
             this.inputVoltageRadioButton.Name = "inputVoltageRadioButton";
             this.inputVoltageRadioButton.Size = new System.Drawing.Size(47, 47);
             this.inputVoltageRadioButton.TabIndex = 1;
@@ -985,7 +1064,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label9.Location = new System.Drawing.Point(14, 162);
+            this.label9.Location = new System.Drawing.Point(51, 198);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(186, 29);
             this.label9.TabIndex = 2;
@@ -996,18 +1075,18 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label6.Location = new System.Drawing.Point(31, 13);
+            this.label6.Location = new System.Drawing.Point(17, 13);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(241, 18);
+            this.label6.Size = new System.Drawing.Size(275, 18);
             this.label6.TabIndex = 2;
-            this.label6.Text = "REGULATED VOLTAGE TYPE ";
+            this.label6.Text = "REGULATED VOLTAGE CONTROL";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label7.Location = new System.Drawing.Point(14, 57);
+            this.label7.Location = new System.Drawing.Point(51, 78);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(152, 29);
             this.label7.TabIndex = 2;
@@ -1018,7 +1097,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label8.Location = new System.Drawing.Point(14, 110);
+            this.label8.Location = new System.Drawing.Point(51, 138);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(184, 29);
             this.label8.TabIndex = 2;
@@ -1078,7 +1157,7 @@
             this.inputTitleLabel.AutoSize = true;
             this.inputTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.inputTitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.inputTitleLabel.Location = new System.Drawing.Point(30, 14);
+            this.inputTitleLabel.Location = new System.Drawing.Point(14, 14);
             this.inputTitleLabel.Name = "inputTitleLabel";
             this.inputTitleLabel.Size = new System.Drawing.Size(84, 18);
             this.inputTitleLabel.TabIndex = 2;
@@ -1106,87 +1185,93 @@
             this.voltageInputLabel.Text = "000.0";
             this.voltageInputLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // customTextBox1
+            // customPanel9
             // 
-            this.customTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customTextBox1.BackgroundColor = System.Drawing.Color.White;
-            this.customTextBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.customTextBox1.CornerRadius = 27;
-            this.customTextBox1.Decimals = 2;
-            this.customTextBox1.IsPopUp = false;
-            this.customTextBox1.Location = new System.Drawing.Point(136, 154);
-            this.customTextBox1.Max = 230;
-            this.customTextBox1.Min = 0;
-            this.customTextBox1.Name = "customTextBox1";
-            this.customTextBox1.Size = new System.Drawing.Size(170, 54);
-            this.customTextBox1.TabIndex = 6;
-            this.customTextBox1.TextBoxHint = "";
-            this.customTextBox1.Value = 5.3F;
+            this.customPanel9.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel9.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel9.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel9.Controls.Add(this.label22);
+            this.customPanel9.Controls.Add(this.activeMotorInitializedLabel);
+            this.customPanel9.Controls.Add(this.customButton1);
+            this.customPanel9.Controls.Add(this.earthingGroundedRadioButton);
+            this.customPanel9.Controls.Add(this.label5);
+            this.customPanel9.Controls.Add(this.label4);
+            this.customPanel9.Controls.Add(this.earthingIsolatedRadioButton);
+            this.customPanel9.CornerRadius = 30;
+            this.customPanel9.IsPopUp = false;
+            this.customPanel9.Location = new System.Drawing.Point(39, 486);
+            this.customPanel9.Name = "customPanel9";
+            this.customPanel9.Size = new System.Drawing.Size(444, 154);
+            this.customPanel9.TabIndex = 1;
             // 
-            // customButton1
+            // label22
             // 
-            this.customButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customButton1.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.customButton1.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customButton1.ForeColor = System.Drawing.Color.White;
-            this.customButton1.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.customButton1.Location = new System.Drawing.Point(260, 75);
-            this.customButton1.Name = "customButton1";
-            this.customButton1.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.customButton1.Size = new System.Drawing.Size(158, 57);
-            this.customButton1.TabIndex = 6;
-            this.customButton1.Text = "INITIALIZE";
-            this.toolTip1.SetToolTip(this.customButton1, "Triggers the HV9132 electronic trigger sphere");
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label22.Location = new System.Drawing.Point(20, 11);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(213, 18);
+            this.label22.TabIndex = 8;
+            this.label22.Text = "SPHERE GAP SELECTION";
             // 
-            // label21
+            // compressorOutputLabel
             // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label21.Location = new System.Drawing.Point(284, 143);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(110, 26);
-            this.label21.TabIndex = 7;
-            this.label21.Text = "INITIALIZED";
+            this.compressorOutputLabel.AutoSize = true;
+            this.compressorOutputLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.compressorOutputLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.compressorOutputLabel.Location = new System.Drawing.Point(69, 51);
+            this.compressorOutputLabel.Name = "compressorOutputLabel";
+            this.compressorOutputLabel.Size = new System.Drawing.Size(88, 19);
+            this.compressorOutputLabel.TabIndex = 9;
+            this.compressorOutputLabel.Text = "POWER OFF";
             // 
-            // customButton2
+            // vacuumOutputLabel
             // 
-            this.customButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customButton2.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.customButton2.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customButton2.ForeColor = System.Drawing.Color.White;
-            this.customButton2.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.customButton2.Location = new System.Drawing.Point(1153, 670);
-            this.customButton2.Name = "customButton2";
-            this.customButton2.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.customButton2.Size = new System.Drawing.Size(158, 57);
-            this.customButton2.TabIndex = 7;
-            this.customButton2.Text = "COMPRESSOR";
-            this.toolTip1.SetToolTip(this.customButton2, "Triggers the HV9132 electronic trigger sphere");
+            this.vacuumOutputLabel.AutoSize = true;
+            this.vacuumOutputLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.vacuumOutputLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.vacuumOutputLabel.Location = new System.Drawing.Point(284, 51);
+            this.vacuumOutputLabel.Name = "vacuumOutputLabel";
+            this.vacuumOutputLabel.Size = new System.Drawing.Size(88, 19);
+            this.vacuumOutputLabel.TabIndex = 10;
+            this.vacuumOutputLabel.Text = "POWER OFF";
             // 
-            // customButton3
+            // customPanel10
             // 
-            this.customButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customButton3.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.customButton3.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customButton3.ForeColor = System.Drawing.Color.White;
-            this.customButton3.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.customButton3.Location = new System.Drawing.Point(1153, 581);
-            this.customButton3.Name = "customButton3";
-            this.customButton3.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.customButton3.Size = new System.Drawing.Size(158, 57);
-            this.customButton3.TabIndex = 8;
-            this.customButton3.Text = "START VACUUM";
-            this.toolTip1.SetToolTip(this.customButton3, "Triggers the HV9132 electronic trigger sphere");
+            this.customPanel10.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel10.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel10.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel10.CornerRadius = 30;
+            this.customPanel10.IsPopUp = false;
+            this.customPanel10.Location = new System.Drawing.Point(1431, 486);
+            this.customPanel10.Name = "customPanel10";
+            this.customPanel10.Size = new System.Drawing.Size(444, 299);
+            this.customPanel10.TabIndex = 2;
+            // 
+            // customButton4
+            // 
+            this.customButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customButton4.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.customButton4.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customButton4.ForeColor = System.Drawing.Color.White;
+            this.customButton4.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.customButton4.Location = new System.Drawing.Point(141, 466);
+            this.customButton4.Name = "customButton4";
+            this.customButton4.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.customButton4.Size = new System.Drawing.Size(158, 57);
+            this.customButton4.TabIndex = 9;
+            this.customButton4.Text = "ABORT";
+            this.toolTip1.SetToolTip(this.customButton4, "Triggers the HV9132 electronic trigger sphere");
             // 
             // RunView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.customButton3);
+            this.Controls.Add(this.customPanel10);
+            this.Controls.Add(this.customPanel9);
             this.Controls.Add(this.customPanel7);
-            this.Controls.Add(this.customButton2);
             this.Controls.Add(this.customPanel6);
             this.Controls.Add(this.customPanel4);
             this.Controls.Add(this.customPanel3);
@@ -1222,6 +1307,8 @@
             this.customPanel5.PerformLayout();
             this.customPanel1.ResumeLayout(false);
             this.customPanel1.PerformLayout();
+            this.customPanel9.ResumeLayout(false);
+            this.customPanel9.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1303,9 +1390,15 @@
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.Label label17;
         private CustomTextBox customTextBox1;
-        public System.Windows.Forms.Label label21;
+        public System.Windows.Forms.Label activeMotorInitializedLabel;
         public CustomButton customButton1;
         public CustomButton customButton2;
         public CustomButton customButton3;
+        public System.Windows.Forms.Label vacuumOutputLabel;
+        public System.Windows.Forms.Label compressorOutputLabel;
+        private CustomPanel customPanel9;
+        public System.Windows.Forms.Label label22;
+        public CustomButton customButton4;
+        private CustomPanel customPanel10;
     }
 }
