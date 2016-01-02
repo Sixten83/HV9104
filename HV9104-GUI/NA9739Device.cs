@@ -229,7 +229,7 @@ namespace HV9104_GUI
             try
             {
                 comport.Write(writeBuf, 0, writeBuf.Length);
-                System.Threading.Thread.Sleep(17);
+                System.Threading.Thread.Sleep(30);
                 startMe = DateTime.Now;
 
             }
@@ -285,7 +285,7 @@ namespace HV9104_GUI
                 // Write to device
                 comport.Write(queryBuf, 0, queryBuf.Length);
                 startMe = DateTime.Now;
-                System.Threading.Thread.Sleep(16);
+                System.Threading.Thread.Sleep(30);  //16
             }
             catch (Exception ex)
             {

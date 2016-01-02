@@ -36,8 +36,8 @@
             this.measuringSelectedRadioButton = new HV9104_GUI.CustomRadioButton();
             this.choppingCheckBox = new HV9104_GUI.CustomCheckBox();
             this.triggerButton = new HV9104_GUI.CustomButton();
-            this.customCheckBox2 = new HV9104_GUI.CustomCheckBox();
-            this.customCheckBox1 = new HV9104_GUI.CustomCheckBox();
+            this.vacuumPowerCheckBox = new HV9104_GUI.CustomCheckBox();
+            this.compressorPowerCheckBox = new HV9104_GUI.CustomCheckBox();
             this.customButton4 = new HV9104_GUI.CustomButton();
             this.onOffSecButton = new HV9104_GUI.CustomCheckBox();
             this.parkCheckBox = new HV9104_GUI.CustomCheckBox();
@@ -201,14 +201,13 @@
             this.impulseSelectedRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
             this.impulseSelectedRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
             this.impulseSelectedRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.impulseSelectedRadioButton.Enabled = false;
             this.impulseSelectedRadioButton.isChecked = true;
             this.impulseSelectedRadioButton.Location = new System.Drawing.Point(163, 42);
             this.impulseSelectedRadioButton.Name = "impulseSelectedRadioButton";
             this.impulseSelectedRadioButton.Size = new System.Drawing.Size(47, 47);
             this.impulseSelectedRadioButton.TabIndex = 1;
             this.impulseSelectedRadioButton.Text = "customRadioButton1";
-            this.toolTip1.SetToolTip(this.impulseSelectedRadioButton, "Shows the automatic earthing switch position");
+            this.toolTip1.SetToolTip(this.impulseSelectedRadioButton, "Selects control of the HV9125 Impulse Sphere");
             this.impulseSelectedRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
             // measuringSelectedRadioButton
@@ -217,14 +216,13 @@
             this.measuringSelectedRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
             this.measuringSelectedRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
             this.measuringSelectedRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.measuringSelectedRadioButton.Enabled = false;
             this.measuringSelectedRadioButton.isChecked = false;
             this.measuringSelectedRadioButton.Location = new System.Drawing.Point(163, 95);
             this.measuringSelectedRadioButton.Name = "measuringSelectedRadioButton";
             this.measuringSelectedRadioButton.Size = new System.Drawing.Size(47, 47);
             this.measuringSelectedRadioButton.TabIndex = 1;
             this.measuringSelectedRadioButton.Text = "customRadioButton1";
-            this.toolTip1.SetToolTip(this.measuringSelectedRadioButton, "Shows the automatic earthing switch position");
+            this.toolTip1.SetToolTip(this.measuringSelectedRadioButton, "Selects control of the HV9133 Measuring Sphere");
             this.measuringSelectedRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
             // choppingCheckBox
@@ -238,7 +236,6 @@
             this.choppingCheckBox.Name = "choppingCheckBox";
             this.choppingCheckBox.Size = new System.Drawing.Size(48, 43);
             this.choppingCheckBox.TabIndex = 3;
-            this.choppingCheckBox.Text = "customCheckBox1";
             this.toolTip1.SetToolTip(this.choppingCheckBox, "Enables chopping of the lightning impulse");
             this.choppingCheckBox.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxHover;
             // 
@@ -257,35 +254,35 @@
             this.triggerButton.Text = "TRIGGER";
             this.toolTip1.SetToolTip(this.triggerButton, "Triggers the HV9132 electronic trigger sphere");
             // 
-            // customCheckBox2
+            // vacuumPowerCheckBox
             // 
-            this.customCheckBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customCheckBox2.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
-            this.customCheckBox2.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
-            this.customCheckBox2.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
-            this.customCheckBox2.isChecked = false;
-            this.customCheckBox2.Location = new System.Drawing.Point(250, 82);
-            this.customCheckBox2.Name = "customCheckBox2";
-            this.customCheckBox2.Size = new System.Drawing.Size(138, 56);
-            this.customCheckBox2.TabIndex = 5;
-            this.customCheckBox2.Text = "customCheckBox2";
-            this.toolTip1.SetToolTip(this.customCheckBox2, "Energizes the high voltage transformer");
-            this.customCheckBox2.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
+            this.vacuumPowerCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.vacuumPowerCheckBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
+            this.vacuumPowerCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
+            this.vacuumPowerCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
+            this.vacuumPowerCheckBox.isChecked = false;
+            this.vacuumPowerCheckBox.Location = new System.Drawing.Point(250, 82);
+            this.vacuumPowerCheckBox.Name = "vacuumPowerCheckBox";
+            this.vacuumPowerCheckBox.Size = new System.Drawing.Size(138, 56);
+            this.vacuumPowerCheckBox.TabIndex = 5;
+            this.vacuumPowerCheckBox.Text = "customCheckBox2";
+            this.toolTip1.SetToolTip(this.vacuumPowerCheckBox, "Energizes the auxilliary 230VAC vacuum pump power outlet");
+            this.vacuumPowerCheckBox.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
             // 
-            // customCheckBox1
+            // compressorPowerCheckBox
             // 
-            this.customCheckBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customCheckBox1.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
-            this.customCheckBox1.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
-            this.customCheckBox1.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
-            this.customCheckBox1.isChecked = false;
-            this.customCheckBox1.Location = new System.Drawing.Point(57, 82);
-            this.customCheckBox1.Name = "customCheckBox1";
-            this.customCheckBox1.Size = new System.Drawing.Size(138, 56);
-            this.customCheckBox1.TabIndex = 4;
-            this.customCheckBox1.Text = "customCheckBox2";
-            this.toolTip1.SetToolTip(this.customCheckBox1, "Energizes the high voltage transformer");
-            this.customCheckBox1.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
+            this.compressorPowerCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.compressorPowerCheckBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
+            this.compressorPowerCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
+            this.compressorPowerCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
+            this.compressorPowerCheckBox.isChecked = false;
+            this.compressorPowerCheckBox.Location = new System.Drawing.Point(57, 82);
+            this.compressorPowerCheckBox.Name = "compressorPowerCheckBox";
+            this.compressorPowerCheckBox.Size = new System.Drawing.Size(138, 56);
+            this.compressorPowerCheckBox.TabIndex = 4;
+            this.compressorPowerCheckBox.Text = "customCheckBox1";
+            this.toolTip1.SetToolTip(this.compressorPowerCheckBox, "Energizes the auxilliary 230VAC compressor power outlet");
+            this.compressorPowerCheckBox.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
             // 
             // customButton4
             // 
@@ -760,8 +757,8 @@
             this.customPanel8.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
             this.customPanel8.Controls.Add(this.label24);
             this.customPanel8.Controls.Add(this.label23);
-            this.customPanel8.Controls.Add(this.customCheckBox2);
-            this.customPanel8.Controls.Add(this.customCheckBox1);
+            this.customPanel8.Controls.Add(this.vacuumPowerCheckBox);
+            this.customPanel8.Controls.Add(this.compressorPowerCheckBox);
             this.customPanel8.Controls.Add(this.label10);
             this.customPanel8.CornerRadius = 30;
             this.customPanel8.IsPopUp = false;
@@ -1801,8 +1798,8 @@
         private CustomPanel customPanel10;
         public System.Windows.Forms.Label label24;
         public System.Windows.Forms.Label label23;
-        public CustomCheckBox customCheckBox2;
-        public CustomCheckBox customCheckBox1;
+        public CustomCheckBox vacuumPowerCheckBox;
+        public CustomCheckBox compressorPowerCheckBox;
         public System.Windows.Forms.Label label21;
         public System.Windows.Forms.Label label25;
         public System.Windows.Forms.Label label27;

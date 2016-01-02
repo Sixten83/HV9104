@@ -127,40 +127,40 @@ namespace HV9104_GUI
                 {
                     // Do regular tasks
                     PIO1.ReadFromDevice();
-                    Thread.Sleep(2);
+                    Thread.Sleep(30);
                     activeMotor.checkCTSFlag();
-                    Thread.Sleep(2);
+                    Thread.Sleep(20);
                     PIO1.UpdateDevice();
-                    Thread.Sleep(2);
+                    Thread.Sleep(20);
                     activeMotor.getActualPosition();
-                    Thread.Sleep(2);
+                    Thread.Sleep(20);
                 }
                 else if (commandPending == 1)
                 {
                     // Do on-demand task
                     activeMotor.DecreaseGap();
-                    Thread.Sleep(2);
+                    Thread.Sleep(20);
                     commandPending = 0;
                 }
                 else if (commandPending == 2)
                 {
                     // Do on-demand task
                     activeMotor.IncreaseGap();
-                    Thread.Sleep(2);
+                    Thread.Sleep(20);
                     commandPending = 0;
                 }
                 else if (commandPending == 3)
                 {
                     // Do on-demand task
                     activeMotor.StopMotor();
-                    Thread.Sleep(2);
+                    Thread.Sleep(20);
                     commandPending = 0;
                 }
                 else if (commandPending == 4)
                 {
                     // Do on-demand task
                     activeMotor.StartInit();
-                    Thread.Sleep(2);
+                    Thread.Sleep(20);
                     commandPending = 0;
                 }
                 else if (commandPending == 5)
@@ -168,7 +168,7 @@ namespace HV9104_GUI
                     // Do on-demand task
                     int targetPos = Convert.ToInt16(this.controlForm.runView.impulseGapTextBox.Value);
                     activeMotor.MoveToPosition(targetPos);
-                    Thread.Sleep(2);
+                    Thread.Sleep(20);
                     commandPending = 0;
                 }
                 
@@ -475,6 +475,8 @@ namespace HV9104_GUI
             this.controlForm.runView.pressureTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(pressureTextBox_valueChange);
             this.controlForm.runView.increasePressureButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increasePressureButton_Down);
             this.controlForm.runView.increasePressureButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increasePressureButton_Up);
+            this.controlForm.runView.compressorPowerCheckBox.Click += new System.EventHandler(compressorPowerCheckBox_Click);
+            this.controlForm.runView.vacuumPowerCheckBox.Click += new System.EventHandler(vacuumPowerCheckBox_Click);
 
             //***********************************************************************************************************
             //***                                  MEASURING FORM EVENT LISTENERS                                   *****
@@ -503,7 +505,6 @@ namespace HV9104_GUI
             this.measuringForm.chart.cursorMenu.dcChannelRadioButton.Click += new System.EventHandler(this.dcChannelRadioButton_Click);
 
         }
-
 
 
         //***********************************************************************************************************
@@ -1107,8 +1108,6 @@ namespace HV9104_GUI
 
         }
 
-
-
         private void impulseGapTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
 
@@ -1133,13 +1132,17 @@ namespace HV9104_GUI
         // HV9133 Measuring Sphere Gap selected
         private void measuringSelectedRadioButton_Click(object sender, EventArgs e)
         {
+  
             activeMotor = HV9133;
+
         }
 
         // HV9125 Impulse Sphere Gap selected
         private void impulseSelectedRadioButton_Click(object sender, EventArgs e)
         {
+
             activeMotor = HV9126;
+
         }
 
         private void decreasePressureButton_Down(object sender, MouseEventArgs e)
@@ -1176,6 +1179,20 @@ namespace HV9104_GUI
             StopPressureRequest();
 
         }
+
+        // Manual control of the compressor power outlet
+        private void vacuumPowerCheckBox_Click(object sender, EventArgs e)
+        {
+            EnergizeCompressorOutputRequest();
+        }
+
+        // Manual control of the vacuum pump power outlet
+        private void compressorPowerCheckBox_Click(object sender, EventArgs e)
+        {
+            EnergizeVacuumPumpOutputRequest();
+        }
+
+
 
 
         //***********************************************************************************************************
@@ -1538,14 +1555,14 @@ namespace HV9104_GUI
         public void IncreasePressureRequest()
         {
             PIO1.startCompressor = true; // should be done in devices own increase pressure routine
-            PIO1.UpdateDevice();
+
         }
 
         //
         public void DecreasePressureRequest()
         {
             PIO1.startVacuumPump = true; // should be done in devices own decrease pressure routine
-            PIO1.UpdateDevice();
+
         }
 
         //
@@ -1566,7 +1583,33 @@ namespace HV9104_GUI
             return retrievedPress;
         }
 
+        // Manually control the 230V outputs
+        private void EnergizeCompressorOutputRequest()
+        {
 
+            if (controlForm.runView.compressorPowerCheckBox.isChecked)
+            {
+                PIO1.startCompressor = true;
+            }
+            else
+            {
+                PIO1.startCompressor = false;
+            }
+               
+        }
+
+        // Manually control the 230V outputs
+        private void EnergizeVacuumPumpOutputRequest()
+        {
+            if (controlForm.runView.vacuumPowerCheckBox.isChecked)
+            {
+                PIO1.startVacuumPump = true;
+            }
+            else
+            {
+                PIO1.startVacuumPump = false;
+            }
+        }
 
         // Serial port communications
         public bool AutoConnect()

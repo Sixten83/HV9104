@@ -171,7 +171,7 @@ namespace HV9104_GUI
                 // Write to device
                 comport.Write(xmtBuf, 0, xmtBuf.Length);
                 startMe = DateTime.Now;
-                System.Threading.Thread.Sleep(8);
+                System.Threading.Thread.Sleep(30);  //8
             }
             catch (Exception ex)
             {
