@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO.Ports;
 using System.Timers;
+using System.ComponentModel;
 
 namespace HV9104_GUI
 {
@@ -51,6 +52,8 @@ namespace HV9104_GUI
         public bool earthingEngaged = false;
         public bool earthingDisengaged = false;
 
+   
+
         // Flags Have corresponding Bool variable in PIO) - mostly Read access
         public bool fault = false;                  // W
         public bool clearFault = false;             // W
@@ -81,6 +84,7 @@ namespace HV9104_GUI
 
         // Timer to reset flags (pulse trigger in PLC)
         System.Timers.Timer T1 = new System.Timers.Timer(700);
+        System.Timers.Timer T2 = new System.Timers.Timer(200);
 
         // Constructor initiates address and serial port
         public NA9739Device(System.IO.Ports.SerialPort comportIn)
@@ -94,8 +98,15 @@ namespace HV9104_GUI
             T1.AutoReset = true;
             T1.Enabled = true;
 
+            // timer to stop transformer motor after Park
+            T2.Elapsed += OnT2TimedEvent;
+            T2.AutoReset = true;
+            T2.Enabled = true;
+
             // Test communication
         }
+
+       
 
         // Write routine
         public void UpdateDevice()
@@ -627,6 +638,26 @@ namespace HV9104_GUI
             WriteToDevice();
         }
 
+        // Automatically run the voltage down to 0.
+        internal void ParkTransformer()
+        {
+            // Call the method to reduce the voltage
+            decreaseVoltage(500);
+
+            // Start a timer to poll uMinPos, where we call StopTransformerMotor() 
+            T2.Start();
+        }
+
+        // Timed event to reset transformer motor
+        private void OnT2TimedEvent(object sender, ElapsedEventArgs e)
+        {
+            if (minUPos)
+            {
+                StopTransformerMotor();
+                T2.Stop();
+            }
+        }
+
         // Open K1
         internal void openPrimary()
         {
@@ -774,6 +805,7 @@ namespace HV9104_GUI
         {
             throw new Exception("The method or operation is not implemented.");
         }
+
     }
 
 }

@@ -171,7 +171,7 @@ namespace HV9104_GUI
         //    else this.activeForm.label38.Text = text38;
         //}
 
-        //// CTS Flag
+        // CTS Flag
         //public void transferCTSFlag(string textCTSFlag)
         //{
         //    if (activeForm.CTSFlag.InvokeRequired)
@@ -183,6 +183,20 @@ namespace HV9104_GUI
         //    }
         //    else this.activeForm.CTSFlag.Text = textCTSFlag;
         //}
+
+        // Motor Initialized status label
+        public void transferInitVisible(bool inStatusLabelActiveMotorInitialized)
+        {
+            if (activeForm.statusLabelActiveMotorInitialized.InvokeRequired)
+            {
+                activeForm.statusLabelActiveMotorInitialized.Invoke((MethodInvoker)delegate ()
+                {
+                    transferInitVisible(inStatusLabelActiveMotorInitialized);
+                });
+            }
+            else this.activeForm.statusLabelActiveMotorInitialized.Visible = inStatusLabelActiveMotorInitialized;
+        }
+
 
         //// Em Stop + Key switch
         //public void transferLabel39(string text39)

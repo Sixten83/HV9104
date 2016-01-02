@@ -456,9 +456,9 @@ namespace HV9104_GUI
             this.controlForm.runView.increaseChoppingTimeButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Down);
             this.controlForm.runView.increaseChoppingTimeButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseChoppingTimeButton_Up);
             //Measuring Sphere Gap Listeners
-           // this.controlForm.runView.decreaseMeasuringGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseMeasureeGap_Down);
+            // this.controlForm.runView.decreaseMeasuringGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseMeasureeGap_Down);
             //this.controlForm.runView.decreaseMeasuringGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseMeasureGap_Up);
-            //this.controlForm.runView.measuringGapTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(measureGapTextBox_valueChange);
+            this.controlForm.runView.trafSpeedTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(trafSpeedTextBox_valueChange);
             //this.controlForm.runView.increaseMeasuringGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseMeasureGapButton_Down);
             //this.controlForm.runView.increaseMeasuringGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseMeasureGapButton_Up);
             //Impulse Sphere Gap Listeners
@@ -467,6 +467,8 @@ namespace HV9104_GUI
             this.controlForm.runView.impulseGapTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseGapTextBox_valueChange);
             this.controlForm.runView.increaseImpulseGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Down);
             this.controlForm.runView.increaseImpulseGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Up);
+            this.controlForm.runView.impulseSelectedRadioButton.Click += new System.EventHandler(impulseSelectedRadioButton_Click);
+            this.controlForm.runView.measuringSelectedRadioButton.Click += new System.EventHandler(measuringSelectedRadioButton_Click);
             //Pressure Control Listeners
             this.controlForm.runView.decreasePressureButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreasePressureButton_Down);
             this.controlForm.runView.decreasePressureButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreasePressureButton_Up);
@@ -501,7 +503,6 @@ namespace HV9104_GUI
             this.measuringForm.chart.cursorMenu.dcChannelRadioButton.Click += new System.EventHandler(this.dcChannelRadioButton_Click);
 
         }
-
 
 
 
@@ -763,47 +764,52 @@ namespace HV9104_GUI
         }
 
 
+        private void trafSpeedTextBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            
+        }
+
         // Voltage ON/OFF Switch
         private void onOffButton_Click(object sender, EventArgs e)
         {
-
+            // Connect K1
             if(this.controlForm.runView.onOffButton.isChecked)
             {
                 ClosePrimaryRequest();
             }
+            // Disconnect K1
             else
             {
+                // First disconnect K2
                 OpenSecondaryRequest();
                 this.controlForm.runView.onOffSecButton.isChecked = false;
                 this.controlForm.runView.onOffSecButton.Invalidate();
+                
+                // Now disconnect K1
                 OpenPrimaryRequest();
-            }
-            
 
+                // If Park is selected
+                if (this.controlForm.runView.parkCheckBox.isChecked)
+                {
+                    // Drive the voltage down to zero
+                    PIO1.ParkTransformer();
+                }
+            }
         }
 
         // Voltage ON/OFF Switch
         private void onOffSecButton_Click(object sender, EventArgs e)
         {
-
+            // Connect K2
             if (this.controlForm.runView.onOffSecButton.isChecked)
             {
-                //ClosePrimaryRequest();
                 CloseSecondaryRequest(this.controlForm.runView.overrideCheckBox.isChecked);
             }
+            // Disconnect K2
             else
             {
                 OpenSecondaryRequest();
-                //OpenPrimaryRequest();
             }
-
-
-        }
-
-        private void pauseButton_Click(object sender, EventArgs e)
-        {
-
-
         }
 
         private void parkCheckBox_Click(object sender, EventArgs e)
@@ -839,7 +845,8 @@ namespace HV9104_GUI
         private void decreaseRegulatedVoltageButton_Down(object sender, MouseEventArgs e)
         {
 
-            DecreaseVoltageRequest(650);
+            int trafSpeed = (int)controlForm.runView.trafSpeedTextBox.Value * 10;
+            DecreaseVoltageRequest(trafSpeed);
 
         }
 
@@ -864,7 +871,6 @@ namespace HV9104_GUI
             Thread regUThread = new Thread(RegulateVoltage);
             regUThread.Start();
 
-        
         }
 
         private void RegulateVoltage()
@@ -912,7 +918,6 @@ namespace HV9104_GUI
 
                 error =  uActual - targetVoltage;
 
-
                 if(error == previousError)
                 {
                     integral += 0.25;
@@ -932,7 +937,6 @@ namespace HV9104_GUI
 
                     // Voltage low, increase
                     IncreaseVoltageRequest(styr);
-
                 }
                 else if (error > toleranceLo)
                 {
@@ -940,13 +944,11 @@ namespace HV9104_GUI
 
                     // Voltage high, decrease
                     DecreaseVoltageRequest(styr);
-
                 }
                 else
                 {
                     // In bounds. We should only make it here once
                     StopTransformerMotorRequest();
-
                 }
                 Thread.Sleep(50);
                 previousError = error;
@@ -954,13 +956,13 @@ namespace HV9104_GUI
 
             // In bounds. We should only make it here once
             StopTransformerMotorRequest();
-            string what = "";
         }
 
         private void increaseRegulatedVoltageButton_Down(object sender, MouseEventArgs e)
         {
 
-            IncreaseVoltageRequest(650);
+            int trafSpeed = (int)controlForm.runView.trafSpeedTextBox.Value * 10;
+            IncreaseVoltageRequest(trafSpeed);
 
         }
 
@@ -1126,6 +1128,18 @@ namespace HV9104_GUI
 
             StopMotorRequest();
 
+        }
+
+        // HV9133 Measuring Sphere Gap selected
+        private void measuringSelectedRadioButton_Click(object sender, EventArgs e)
+        {
+            activeMotor = HV9133;
+        }
+
+        // HV9125 Impulse Sphere Gap selected
+        private void impulseSelectedRadioButton_Click(object sender, EventArgs e)
+        {
+            activeMotor = HV9126;
         }
 
         private void decreasePressureButton_Down(object sender, MouseEventArgs e)
@@ -1395,7 +1409,7 @@ namespace HV9104_GUI
             //guiUpdater.transferLabel41(PIO1.K1Closed.ToString());
             //guiUpdater.transferLabel42(PIO1.K2Closed.ToString());
             guiUpdater.transferstatusLabelUmin(PIO1.minUPos.ToString());
-            //guiUpdater.transferCTSFlag(activeMotor.initComplete.ToString());
+            guiUpdater.transferInitVisible(activeMotor.initComplete);
 
             // Ratio-calculated High Voltage value
             //voltVal = (((double)PIO1.regulatedVoltageValue * 45) / 100);

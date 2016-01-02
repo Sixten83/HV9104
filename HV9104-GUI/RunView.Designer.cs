@@ -32,8 +32,8 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.choppingTimeTextBox = new HV9104_GUI.CustomTextBox();
             this.customButton1 = new HV9104_GUI.CustomButton();
-            this.earthingGroundedRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.earthingIsolatedRadioButton = new HV9104_GUI.CustomRadioButton();
+            this.impulseSelectedRadioButton = new HV9104_GUI.CustomRadioButton();
+            this.measuringSelectedRadioButton = new HV9104_GUI.CustomRadioButton();
             this.choppingCheckBox = new HV9104_GUI.CustomCheckBox();
             this.triggerButton = new HV9104_GUI.CustomButton();
             this.customCheckBox2 = new HV9104_GUI.CustomCheckBox();
@@ -195,37 +195,37 @@
             this.customButton1.Text = "INITIALIZE";
             this.toolTip1.SetToolTip(this.customButton1, "Triggers the HV9132 electronic trigger sphere");
             // 
-            // earthingGroundedRadioButton
+            // impulseSelectedRadioButton
             // 
-            this.earthingGroundedRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.earthingGroundedRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.earthingGroundedRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.earthingGroundedRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.earthingGroundedRadioButton.Enabled = false;
-            this.earthingGroundedRadioButton.isChecked = true;
-            this.earthingGroundedRadioButton.Location = new System.Drawing.Point(163, 42);
-            this.earthingGroundedRadioButton.Name = "earthingGroundedRadioButton";
-            this.earthingGroundedRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.earthingGroundedRadioButton.TabIndex = 1;
-            this.earthingGroundedRadioButton.Text = "customRadioButton1";
-            this.toolTip1.SetToolTip(this.earthingGroundedRadioButton, "Shows the automatic earthing switch position");
-            this.earthingGroundedRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
+            this.impulseSelectedRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.impulseSelectedRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.impulseSelectedRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.impulseSelectedRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.impulseSelectedRadioButton.Enabled = false;
+            this.impulseSelectedRadioButton.isChecked = true;
+            this.impulseSelectedRadioButton.Location = new System.Drawing.Point(163, 42);
+            this.impulseSelectedRadioButton.Name = "impulseSelectedRadioButton";
+            this.impulseSelectedRadioButton.Size = new System.Drawing.Size(47, 47);
+            this.impulseSelectedRadioButton.TabIndex = 1;
+            this.impulseSelectedRadioButton.Text = "customRadioButton1";
+            this.toolTip1.SetToolTip(this.impulseSelectedRadioButton, "Shows the automatic earthing switch position");
+            this.impulseSelectedRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
-            // earthingIsolatedRadioButton
+            // measuringSelectedRadioButton
             // 
-            this.earthingIsolatedRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.earthingIsolatedRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.earthingIsolatedRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.earthingIsolatedRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.earthingIsolatedRadioButton.Enabled = false;
-            this.earthingIsolatedRadioButton.isChecked = false;
-            this.earthingIsolatedRadioButton.Location = new System.Drawing.Point(163, 95);
-            this.earthingIsolatedRadioButton.Name = "earthingIsolatedRadioButton";
-            this.earthingIsolatedRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.earthingIsolatedRadioButton.TabIndex = 1;
-            this.earthingIsolatedRadioButton.Text = "customRadioButton1";
-            this.toolTip1.SetToolTip(this.earthingIsolatedRadioButton, "Shows the automatic earthing switch position");
-            this.earthingIsolatedRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
+            this.measuringSelectedRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.measuringSelectedRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.measuringSelectedRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.measuringSelectedRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.measuringSelectedRadioButton.Enabled = false;
+            this.measuringSelectedRadioButton.isChecked = false;
+            this.measuringSelectedRadioButton.Location = new System.Drawing.Point(163, 95);
+            this.measuringSelectedRadioButton.Name = "measuringSelectedRadioButton";
+            this.measuringSelectedRadioButton.Size = new System.Drawing.Size(47, 47);
+            this.measuringSelectedRadioButton.TabIndex = 1;
+            this.measuringSelectedRadioButton.Text = "customRadioButton1";
+            this.toolTip1.SetToolTip(this.measuringSelectedRadioButton, "Shows the automatic earthing switch position");
+            this.measuringSelectedRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
             // choppingCheckBox
             // 
@@ -675,13 +675,14 @@
             this.trafSpeedTrackBar.HPressedImage = global::HV9104_GUI.Properties.Resources.SliderPressed;
             this.trafSpeedTrackBar.Layout = HV9104_GUI.CustomTrackBar.Orientation.HORIZONTAL;
             this.trafSpeedTrackBar.Location = new System.Drawing.Point(37, 73);
-            this.trafSpeedTrackBar.Max = 10D;
+            this.trafSpeedTrackBar.Max = 90D;
             this.trafSpeedTrackBar.MaximumSize = new System.Drawing.Size(800, 60);
-            this.trafSpeedTrackBar.Min = 0D;
+            this.trafSpeedTrackBar.Min = 10D;
             this.trafSpeedTrackBar.MinimumSize = new System.Drawing.Size(200, 60);
             this.trafSpeedTrackBar.Name = "trafSpeedTrackBar";
             this.trafSpeedTrackBar.Size = new System.Drawing.Size(369, 60);
             this.trafSpeedTrackBar.TabIndex = 1;
+            this.trafSpeedTrackBar.valueChangeHandler += new System.EventHandler<HV9104_GUI.ValueChangeEventArgs>(this.trafSpeedTrackBar_valueChangeHandler);
             // 
             // trafSpeedTextBox
             // 
@@ -1313,10 +1314,10 @@
             this.customPanel9.Controls.Add(this.label22);
             this.customPanel9.Controls.Add(this.statusLabelActiveMotorInitialized);
             this.customPanel9.Controls.Add(this.customButton1);
-            this.customPanel9.Controls.Add(this.earthingGroundedRadioButton);
+            this.customPanel9.Controls.Add(this.impulseSelectedRadioButton);
             this.customPanel9.Controls.Add(this.label5);
             this.customPanel9.Controls.Add(this.label4);
-            this.customPanel9.Controls.Add(this.earthingIsolatedRadioButton);
+            this.customPanel9.Controls.Add(this.measuringSelectedRadioButton);
             this.customPanel9.CornerRadius = 30;
             this.customPanel9.IsPopUp = false;
             this.customPanel9.Location = new System.Drawing.Point(39, 499);
@@ -1741,8 +1742,8 @@
         public System.Windows.Forms.Label impulseTitleLabel;
         public System.Windows.Forms.Label impulseValueLabel;
         public CustomPanel customPanel8;
-        public CustomRadioButton earthingIsolatedRadioButton;
-        public CustomRadioButton earthingGroundedRadioButton;
+        public CustomRadioButton measuringSelectedRadioButton;
+        public CustomRadioButton impulseSelectedRadioButton;
         public System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label label5;
         public System.Windows.Forms.Label label6;
@@ -1785,13 +1786,13 @@
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label label2;
         public CustomRadioButton acOutputRadioButton;
-        private CustomTrackBar trafSpeedTrackBar;
+        public CustomTrackBar trafSpeedTrackBar;
         public System.Windows.Forms.Label label20;
         public System.Windows.Forms.Label label16;
         public System.Windows.Forms.Label label11;
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.Label label17;
-        private CustomTextBox trafSpeedTextBox;
+        public CustomTextBox trafSpeedTextBox;
         public System.Windows.Forms.Label statusLabelActiveMotorInitialized;
         public CustomButton customButton1;
         private CustomPanel customPanel9;

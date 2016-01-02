@@ -32,5 +32,11 @@ namespace HV9104_GUI
         {
 
         }
+
+        private void trafSpeedTrackBar_valueChangeHandler(object sender, ValueChangeEventArgs e)
+        {
+            //double pres = (double)trafSpeedTrackBar.Value / 10;
+
+        }
     }
 }
