@@ -69,7 +69,7 @@ namespace HV9104_GUI
             controlForm.startMeasuringForm(measuringForm);
 
             // Set up the primary measuring device
-            SetupPicoscope();
+           // SetupPicoscope();
 
             // Connect some local event handlers to give access to the form controls
             ConnectEventHandlers();
@@ -91,7 +91,7 @@ namespace HV9104_GUI
             
 
             // Start timed loop for Picoscope routines
-            loopTimer.Start();
+            //loopTimer.Start();
 
             // Obligatory application command 
             Application.Run(controlForm); // Måste vara sist!!!

@@ -39,6 +39,9 @@
             this.overrideCheckBox = new HV9104_GUI.CustomCheckBox();
             this.onOffButton = new HV9104_GUI.CustomCheckBox();
             this.customButton1 = new HV9104_GUI.CustomButton();
+            this.customButton4 = new HV9104_GUI.CustomButton();
+            this.customCheckBox1 = new HV9104_GUI.CustomCheckBox();
+            this.customCheckBox2 = new HV9104_GUI.CustomCheckBox();
             this.trafSpeedTrackBar = new HV9104_GUI.CustomTrackBar();
             this.customPanel4 = new HV9104_GUI.CustomPanel();
             this.label20 = new System.Windows.Forms.Label();
@@ -56,11 +59,13 @@
             this.acTitleLabel = new System.Windows.Forms.Label();
             this.acValueLabel = new System.Windows.Forms.Label();
             this.customPanel7 = new HV9104_GUI.CustomPanel();
+            this.label27 = new System.Windows.Forms.Label();
             this.increaseChoppingTimeButton = new HV9104_GUI.CustomButton();
             this.decreaseChoppingTimeButton = new HV9104_GUI.CustomButton();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.customPanel6 = new HV9104_GUI.CustomPanel();
+            this.label25 = new System.Windows.Forms.Label();
             this.trafSpeedTextBox = new HV9104_GUI.CustomTextBox();
             this.increaseRegulatedVoltageButton = new HV9104_GUI.CustomButton();
             this.decreaseRegulatedVoltageButton = new HV9104_GUI.CustomButton();
@@ -68,6 +73,8 @@
             this.regulatedVoltageTextBox = new HV9104_GUI.CustomTextBox();
             this.voltageRegulationRepresentationComboBox = new HV9104_GUI.CustomComboBox();
             this.customPanel8 = new HV9104_GUI.CustomPanel();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -78,20 +85,20 @@
             this.preassureLabel = new System.Windows.Forms.Label();
             this.pressureTextBox = new HV9104_GUI.CustomTextBox();
             this.customPanel11 = new HV9104_GUI.CustomPanel();
-            this.activeMotorInitializedLabel = new System.Windows.Forms.Label();
             this.increaseImpulseGapButton = new HV9104_GUI.CustomButton();
             this.label18 = new System.Windows.Forms.Label();
             this.decreaseImpulseGapButton = new HV9104_GUI.CustomButton();
             this.impulseGapTextBox = new HV9104_GUI.CustomTextBox();
             this.impulseGapLabel = new System.Windows.Forms.Label();
+            this.activeMotorInitializedLabel = new System.Windows.Forms.Label();
             this.customPanel13 = new HV9104_GUI.CustomPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.pauseButton = new HV9104_GUI.CustomCheckBox();
             this.label14 = new System.Windows.Forms.Label();
             this.overrideLabel = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.customPanel5 = new HV9104_GUI.CustomPanel();
+            this.label26 = new System.Windows.Forms.Label();
             this.dcVoltageRadioButton = new HV9104_GUI.CustomRadioButton();
             this.acOutputRadioButton = new HV9104_GUI.CustomRadioButton();
             this.inputVoltageRadioButton = new HV9104_GUI.CustomRadioButton();
@@ -109,29 +116,22 @@
             this.customPanel9 = new HV9104_GUI.CustomPanel();
             this.label22 = new System.Windows.Forms.Label();
             this.customPanel10 = new HV9104_GUI.CustomPanel();
-            this.customButton4 = new HV9104_GUI.CustomButton();
-            this.label21 = new System.Windows.Forms.Label();
-            this.customCheckBox1 = new HV9104_GUI.CustomCheckBox();
-            this.customCheckBox2 = new HV9104_GUI.CustomCheckBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.statusLabelUmin = new System.Windows.Forms.Label();
-            this.statusLabelEarthingengaged = new System.Windows.Forms.Label();
-            this.statusLabelDischargeRodParked = new System.Windows.Forms.Label();
-            this.statuslabelEmStopKeySwClosed = new System.Windows.Forms.Label();
-            this.statusLabelDoorClosed = new System.Windows.Forms.Label();
-            this.ststuaLabelK1F2Closed = new System.Windows.Forms.Label();
             this.statusLabelK2F1Closed = new System.Windows.Forms.Label();
+            this.ststuaLabelK1F2Closed = new System.Windows.Forms.Label();
+            this.statusLabelDoorClosed = new System.Windows.Forms.Label();
+            this.statuslabelEmStopKeySwClosed = new System.Windows.Forms.Label();
+            this.statusLabelDischargeRodParked = new System.Windows.Forms.Label();
+            this.statusLabelEarthingengaged = new System.Windows.Forms.Label();
+            this.statusLabelUmin = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.customCheckBox3 = new HV9104_GUI.CustomCheckBox();
             this.customPanel4.SuspendLayout();
             this.customPanel3.SuspendLayout();
             this.customPanel2.SuspendLayout();
@@ -234,7 +234,7 @@
             this.parkCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
             this.parkCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
             this.parkCheckBox.isChecked = false;
-            this.parkCheckBox.Location = new System.Drawing.Point(370, 83);
+            this.parkCheckBox.Location = new System.Drawing.Point(138, 64);
             this.parkCheckBox.Name = "parkCheckBox";
             this.parkCheckBox.Size = new System.Drawing.Size(48, 43);
             this.parkCheckBox.TabIndex = 5;
@@ -249,7 +249,7 @@
             this.overrideCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
             this.overrideCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
             this.overrideCheckBox.isChecked = false;
-            this.overrideCheckBox.Location = new System.Drawing.Point(370, 162);
+            this.overrideCheckBox.Location = new System.Drawing.Point(344, 64);
             this.overrideCheckBox.Name = "overrideCheckBox";
             this.overrideCheckBox.Size = new System.Drawing.Size(48, 43);
             this.overrideCheckBox.TabIndex = 3;
@@ -264,7 +264,7 @@
             this.onOffButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
             this.onOffButton.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
             this.onOffButton.isChecked = false;
-            this.onOffButton.Location = new System.Drawing.Point(106, 76);
+            this.onOffButton.Location = new System.Drawing.Point(48, 161);
             this.onOffButton.Name = "onOffButton";
             this.onOffButton.Size = new System.Drawing.Size(138, 56);
             this.onOffButton.TabIndex = 3;
@@ -286,6 +286,51 @@
             this.customButton1.TabIndex = 6;
             this.customButton1.Text = "INITIALIZE";
             this.toolTip1.SetToolTip(this.customButton1, "Triggers the HV9132 electronic trigger sphere");
+            // 
+            // customButton4
+            // 
+            this.customButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customButton4.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.customButton4.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customButton4.ForeColor = System.Drawing.Color.White;
+            this.customButton4.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.customButton4.Location = new System.Drawing.Point(141, 466);
+            this.customButton4.Name = "customButton4";
+            this.customButton4.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.customButton4.Size = new System.Drawing.Size(158, 57);
+            this.customButton4.TabIndex = 9;
+            this.customButton4.Text = "ABORT";
+            this.toolTip1.SetToolTip(this.customButton4, "Triggers the HV9132 electronic trigger sphere");
+            // 
+            // customCheckBox1
+            // 
+            this.customCheckBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customCheckBox1.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
+            this.customCheckBox1.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
+            this.customCheckBox1.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
+            this.customCheckBox1.isChecked = false;
+            this.customCheckBox1.Location = new System.Drawing.Point(57, 82);
+            this.customCheckBox1.Name = "customCheckBox1";
+            this.customCheckBox1.Size = new System.Drawing.Size(138, 56);
+            this.customCheckBox1.TabIndex = 4;
+            this.customCheckBox1.Text = "customCheckBox2";
+            this.toolTip1.SetToolTip(this.customCheckBox1, "Energizes the high voltage transformer");
+            this.customCheckBox1.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
+            // 
+            // customCheckBox2
+            // 
+            this.customCheckBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customCheckBox2.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
+            this.customCheckBox2.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
+            this.customCheckBox2.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
+            this.customCheckBox2.isChecked = false;
+            this.customCheckBox2.Location = new System.Drawing.Point(250, 82);
+            this.customCheckBox2.Name = "customCheckBox2";
+            this.customCheckBox2.Size = new System.Drawing.Size(138, 56);
+            this.customCheckBox2.TabIndex = 5;
+            this.customCheckBox2.Text = "customCheckBox2";
+            this.toolTip1.SetToolTip(this.customCheckBox2, "Energizes the high voltage transformer");
+            this.customCheckBox2.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
             // 
             // trafSpeedTrackBar
             // 
@@ -522,6 +567,17 @@
             this.customPanel7.Size = new System.Drawing.Size(444, 236);
             this.customPanel7.TabIndex = 0;
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label27.Location = new System.Drawing.Point(150, 136);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(154, 19);
+            this.label27.TabIndex = 9;
+            this.label27.Text = "CHOPPING DELAY (μs)";
+            // 
             // increaseChoppingTimeButton
             // 
             this.increaseChoppingTimeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
@@ -585,6 +641,17 @@
             this.customPanel6.Name = "customPanel6";
             this.customPanel6.Size = new System.Drawing.Size(444, 236);
             this.customPanel6.TabIndex = 0;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label25.Location = new System.Drawing.Point(149, 139);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(144, 19);
+            this.label25.TabIndex = 8;
+            this.label25.Text = "SPEED CONTROL (%)";
             // 
             // trafSpeedTextBox
             // 
@@ -687,6 +754,28 @@
             this.customPanel8.Name = "customPanel8";
             this.customPanel8.Size = new System.Drawing.Size(444, 154);
             this.customPanel8.TabIndex = 0;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label24.Location = new System.Drawing.Point(268, 49);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(104, 29);
+            this.label24.TabIndex = 7;
+            this.label24.Text = "VACUUM";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label23.Location = new System.Drawing.Point(52, 50);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(151, 29);
+            this.label23.TabIndex = 6;
+            this.label23.Text = "COMPRESSOR";
             // 
             // label10
             // 
@@ -820,17 +909,6 @@
             this.customPanel11.TabIndex = 0;
             this.customPanel11.Paint += new System.Windows.Forms.PaintEventHandler(this.customPanel11_Paint);
             // 
-            // activeMotorInitializedLabel
-            // 
-            this.activeMotorInitializedLabel.AutoSize = true;
-            this.activeMotorInitializedLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.activeMotorInitializedLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.activeMotorInitializedLabel.Location = new System.Drawing.Point(274, 51);
-            this.activeMotorInitializedLabel.Name = "activeMotorInitializedLabel";
-            this.activeMotorInitializedLabel.Size = new System.Drawing.Size(118, 19);
-            this.activeMotorInitializedLabel.TabIndex = 7;
-            this.activeMotorInitializedLabel.Text = "NOT INITIALIZED";
-            // 
             // increaseImpulseGapButton
             // 
             this.increaseImpulseGapButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
@@ -895,15 +973,26 @@
             this.impulseGapLabel.Text = "50";
             this.impulseGapLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // activeMotorInitializedLabel
+            // 
+            this.activeMotorInitializedLabel.AutoSize = true;
+            this.activeMotorInitializedLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.activeMotorInitializedLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.activeMotorInitializedLabel.Location = new System.Drawing.Point(274, 51);
+            this.activeMotorInitializedLabel.Name = "activeMotorInitializedLabel";
+            this.activeMotorInitializedLabel.Size = new System.Drawing.Size(118, 19);
+            this.activeMotorInitializedLabel.TabIndex = 7;
+            this.activeMotorInitializedLabel.Text = "NOT INITIALIZED";
+            // 
             // customPanel13
             // 
             this.customPanel13.BackColor = System.Drawing.Color.Transparent;
             this.customPanel13.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel13.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel13.Controls.Add(this.customCheckBox3);
             this.customPanel13.Controls.Add(this.label2);
             this.customPanel13.Controls.Add(this.parkCheckBox);
             this.customPanel13.Controls.Add(this.label1);
-            this.customPanel13.Controls.Add(this.pauseButton);
             this.customPanel13.Controls.Add(this.overrideCheckBox);
             this.customPanel13.Controls.Add(this.onOffButton);
             this.customPanel13.Controls.Add(this.label14);
@@ -921,36 +1010,22 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label2.Location = new System.Drawing.Point(25, 169);
+            this.label2.Location = new System.Drawing.Point(250, 131);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 29);
+            this.label2.Size = new System.Drawing.Size(146, 29);
             this.label2.TabIndex = 6;
-            this.label2.Text = "PAUSE";
+            this.label2.Text = "REG. OUTPUT";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label1.Location = new System.Drawing.Point(249, 88);
+            this.label1.Location = new System.Drawing.Point(45, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 33);
             this.label1.TabIndex = 4;
             this.label1.Text = "PARK";
-            // 
-            // pauseButton
-            // 
-            this.pauseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.pauseButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.pauseButton;
-            this.pauseButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.pauseButtonCheckedHover;
-            this.pauseButton.CheckedImage = global::HV9104_GUI.Properties.Resources.pauseButtonChecked;
-            this.pauseButton.isChecked = false;
-            this.pauseButton.Location = new System.Drawing.Point(106, 156);
-            this.pauseButton.Name = "pauseButton";
-            this.pauseButton.Size = new System.Drawing.Size(138, 55);
-            this.pauseButton.TabIndex = 1;
-            this.pauseButton.Text = "pauseButton";
-            this.pauseButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.pauseButtonHover;
             // 
             // label14
             // 
@@ -968,7 +1043,7 @@
             this.overrideLabel.AutoSize = true;
             this.overrideLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.overrideLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.overrideLabel.Location = new System.Drawing.Point(250, 169);
+            this.overrideLabel.Location = new System.Drawing.Point(208, 71);
             this.overrideLabel.Name = "overrideLabel";
             this.overrideLabel.Size = new System.Drawing.Size(114, 29);
             this.overrideLabel.TabIndex = 2;
@@ -979,11 +1054,11 @@
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label15.Location = new System.Drawing.Point(27, 90);
+            this.label15.Location = new System.Drawing.Point(44, 131);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(73, 29);
+            this.label15.Size = new System.Drawing.Size(147, 29);
             this.label15.TabIndex = 2;
-            this.label15.Text = "START";
+            this.label15.Text = "MAINS INPUT";
             // 
             // customPanel5
             // 
@@ -1008,6 +1083,17 @@
             this.customPanel5.Size = new System.Drawing.Size(444, 547);
             this.customPanel5.TabIndex = 0;
             this.customPanel5.Paint += new System.Windows.Forms.PaintEventHandler(this.customPanel5_Paint);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label26.Location = new System.Drawing.Point(158, 366);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(124, 19);
+            this.label26.TabIndex = 10;
+            this.label26.Text = "TARGET VOLTAGE";
             // 
             // dcVoltageRadioButton
             // 
@@ -1118,7 +1204,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Calibri", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label11.Location = new System.Drawing.Point(387, 67);
+            this.label11.Location = new System.Drawing.Point(376, 86);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(42, 45);
             this.label11.TabIndex = 5;
@@ -1129,7 +1215,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label3.Location = new System.Drawing.Point(167, 67);
+            this.label3.Location = new System.Drawing.Point(156, 86);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 45);
             this.label3.TabIndex = 4;
@@ -1139,7 +1225,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.panel1.Location = new System.Drawing.Point(227, 37);
+            this.panel1.Location = new System.Drawing.Point(216, 56);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(2, 100);
             this.panel1.TabIndex = 3;
@@ -1159,7 +1245,7 @@
             // 
             this.currentInputLabel.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.currentInputLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.currentInputLabel.Location = new System.Drawing.Point(251, 56);
+            this.currentInputLabel.Location = new System.Drawing.Point(240, 75);
             this.currentInputLabel.Name = "currentInputLabel";
             this.currentInputLabel.Size = new System.Drawing.Size(145, 58);
             this.currentInputLabel.TabIndex = 1;
@@ -1170,7 +1256,7 @@
             // 
             this.voltageInputLabel.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.voltageInputLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.voltageInputLabel.Location = new System.Drawing.Point(18, 57);
+            this.voltageInputLabel.Location = new System.Drawing.Point(7, 76);
             this.voltageInputLabel.Name = "voltageInputLabel";
             this.voltageInputLabel.Size = new System.Drawing.Size(160, 57);
             this.voltageInputLabel.TabIndex = 1;
@@ -1234,248 +1320,16 @@
             this.customPanel10.Size = new System.Drawing.Size(444, 299);
             this.customPanel10.TabIndex = 2;
             // 
-            // customButton4
+            // statusLabelK2F1Closed
             // 
-            this.customButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customButton4.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.customButton4.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customButton4.ForeColor = System.Drawing.Color.White;
-            this.customButton4.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.customButton4.Location = new System.Drawing.Point(141, 466);
-            this.customButton4.Name = "customButton4";
-            this.customButton4.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.customButton4.Size = new System.Drawing.Size(158, 57);
-            this.customButton4.TabIndex = 9;
-            this.customButton4.Text = "ABORT";
-            this.toolTip1.SetToolTip(this.customButton4, "Triggers the HV9132 electronic trigger sphere");
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label21.Location = new System.Drawing.Point(20, 11);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(229, 18);
-            this.label21.TabIndex = 3;
-            this.label21.Text = "CONTROL CIRCUIT STATUS";
-            // 
-            // customCheckBox1
-            // 
-            this.customCheckBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customCheckBox1.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
-            this.customCheckBox1.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
-            this.customCheckBox1.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
-            this.customCheckBox1.isChecked = false;
-            this.customCheckBox1.Location = new System.Drawing.Point(57, 82);
-            this.customCheckBox1.Name = "customCheckBox1";
-            this.customCheckBox1.Size = new System.Drawing.Size(138, 56);
-            this.customCheckBox1.TabIndex = 4;
-            this.customCheckBox1.Text = "customCheckBox2";
-            this.toolTip1.SetToolTip(this.customCheckBox1, "Energizes the high voltage transformer");
-            this.customCheckBox1.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
-            // 
-            // customCheckBox2
-            // 
-            this.customCheckBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customCheckBox2.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
-            this.customCheckBox2.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
-            this.customCheckBox2.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
-            this.customCheckBox2.isChecked = false;
-            this.customCheckBox2.Location = new System.Drawing.Point(250, 82);
-            this.customCheckBox2.Name = "customCheckBox2";
-            this.customCheckBox2.Size = new System.Drawing.Size(138, 56);
-            this.customCheckBox2.TabIndex = 5;
-            this.customCheckBox2.Text = "customCheckBox2";
-            this.toolTip1.SetToolTip(this.customCheckBox2, "Energizes the high voltage transformer");
-            this.customCheckBox2.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label23.Location = new System.Drawing.Point(52, 50);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(151, 29);
-            this.label23.TabIndex = 6;
-            this.label23.Text = "COMPRESSOR";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label24.Location = new System.Drawing.Point(268, 49);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(104, 29);
-            this.label24.TabIndex = 7;
-            this.label24.Text = "VACUUM";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label25.Location = new System.Drawing.Point(149, 139);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(144, 19);
-            this.label25.TabIndex = 8;
-            this.label25.Text = "SPEED CONTROL (%)";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label26.Location = new System.Drawing.Point(158, 366);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(124, 19);
-            this.label26.TabIndex = 10;
-            this.label26.Text = "TARGET VOLTAGE";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label27.Location = new System.Drawing.Point(150, 136);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(154, 19);
-            this.label27.TabIndex = 9;
-            this.label27.Text = "CHOPPING DELAY (μs)";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label28.Location = new System.Drawing.Point(35, 139);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(247, 19);
-            this.label28.TabIndex = 4;
-            this.label28.Text = "Emergency Stop + Key Switch closed:";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label29.Location = new System.Drawing.Point(35, 87);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(127, 19);
-            this.label29.TabIndex = 5;
-            this.label29.Text = "Earthing engaged:";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label30.Location = new System.Drawing.Point(35, 113);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(154, 19);
-            this.label30.TabIndex = 6;
-            this.label30.Text = "Discharge Rod parked:";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label31.Location = new System.Drawing.Point(35, 165);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(107, 19);
-            this.label31.TabIndex = 7;
-            this.label31.Text = "Door(s) closed:";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label32.Location = new System.Drawing.Point(35, 191);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(235, 19);
-            this.label32.TabIndex = 8;
-            this.label32.Text = "Input Contactor + O/C Prot  closed:";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label33.Location = new System.Drawing.Point(35, 217);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(280, 19);
-            this.label33.TabIndex = 9;
-            this.label33.Text = "Output Contactor + Overload Prot  closed:";
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label34.Location = new System.Drawing.Point(35, 61);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(189, 19);
-            this.label34.TabIndex = 10;
-            this.label34.Text = "Voltage transformer parked:";
-            // 
-            // statusLabelUmin
-            // 
-            this.statusLabelUmin.AutoSize = true;
-            this.statusLabelUmin.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusLabelUmin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.statusLabelUmin.Location = new System.Drawing.Point(351, 61);
-            this.statusLabelUmin.Name = "statusLabelUmin";
-            this.statusLabelUmin.Size = new System.Drawing.Size(41, 19);
-            this.statusLabelUmin.TabIndex = 11;
-            this.statusLabelUmin.Text = "false";
-            // 
-            // statusLabelEarthingengaged
-            // 
-            this.statusLabelEarthingengaged.AutoSize = true;
-            this.statusLabelEarthingengaged.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusLabelEarthingengaged.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.statusLabelEarthingengaged.Location = new System.Drawing.Point(351, 87);
-            this.statusLabelEarthingengaged.Name = "statusLabelEarthingengaged";
-            this.statusLabelEarthingengaged.Size = new System.Drawing.Size(41, 19);
-            this.statusLabelEarthingengaged.TabIndex = 12;
-            this.statusLabelEarthingengaged.Text = "false";
-            // 
-            // statusLabelDischargeRodParked
-            // 
-            this.statusLabelDischargeRodParked.AutoSize = true;
-            this.statusLabelDischargeRodParked.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusLabelDischargeRodParked.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.statusLabelDischargeRodParked.Location = new System.Drawing.Point(351, 113);
-            this.statusLabelDischargeRodParked.Name = "statusLabelDischargeRodParked";
-            this.statusLabelDischargeRodParked.Size = new System.Drawing.Size(41, 19);
-            this.statusLabelDischargeRodParked.TabIndex = 13;
-            this.statusLabelDischargeRodParked.Text = "false";
-            // 
-            // statuslabelEmStopKeySwClosed
-            // 
-            this.statuslabelEmStopKeySwClosed.AutoSize = true;
-            this.statuslabelEmStopKeySwClosed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statuslabelEmStopKeySwClosed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.statuslabelEmStopKeySwClosed.Location = new System.Drawing.Point(351, 139);
-            this.statuslabelEmStopKeySwClosed.Name = "statuslabelEmStopKeySwClosed";
-            this.statuslabelEmStopKeySwClosed.Size = new System.Drawing.Size(41, 19);
-            this.statuslabelEmStopKeySwClosed.TabIndex = 14;
-            this.statuslabelEmStopKeySwClosed.Text = "false";
-            // 
-            // statusLabelDoorClosed
-            // 
-            this.statusLabelDoorClosed.AutoSize = true;
-            this.statusLabelDoorClosed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusLabelDoorClosed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.statusLabelDoorClosed.Location = new System.Drawing.Point(351, 165);
-            this.statusLabelDoorClosed.Name = "statusLabelDoorClosed";
-            this.statusLabelDoorClosed.Size = new System.Drawing.Size(41, 19);
-            this.statusLabelDoorClosed.TabIndex = 15;
-            this.statusLabelDoorClosed.Text = "false";
+            this.statusLabelK2F1Closed.AutoSize = true;
+            this.statusLabelK2F1Closed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabelK2F1Closed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.statusLabelK2F1Closed.Location = new System.Drawing.Point(351, 217);
+            this.statusLabelK2F1Closed.Name = "statusLabelK2F1Closed";
+            this.statusLabelK2F1Closed.Size = new System.Drawing.Size(41, 19);
+            this.statusLabelK2F1Closed.TabIndex = 17;
+            this.statusLabelK2F1Closed.Text = "false";
             // 
             // ststuaLabelK1F2Closed
             // 
@@ -1488,16 +1342,163 @@
             this.ststuaLabelK1F2Closed.TabIndex = 16;
             this.ststuaLabelK1F2Closed.Text = "false";
             // 
-            // statusLabelK2F1Closed
+            // statusLabelDoorClosed
             // 
-            this.statusLabelK2F1Closed.AutoSize = true;
-            this.statusLabelK2F1Closed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusLabelK2F1Closed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.statusLabelK2F1Closed.Location = new System.Drawing.Point(351, 217);
-            this.statusLabelK2F1Closed.Name = "statusLabelK2F1Closed";
-            this.statusLabelK2F1Closed.Size = new System.Drawing.Size(41, 19);
-            this.statusLabelK2F1Closed.TabIndex = 17;
-            this.statusLabelK2F1Closed.Text = "false";
+            this.statusLabelDoorClosed.AutoSize = true;
+            this.statusLabelDoorClosed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabelDoorClosed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.statusLabelDoorClosed.Location = new System.Drawing.Point(351, 165);
+            this.statusLabelDoorClosed.Name = "statusLabelDoorClosed";
+            this.statusLabelDoorClosed.Size = new System.Drawing.Size(41, 19);
+            this.statusLabelDoorClosed.TabIndex = 15;
+            this.statusLabelDoorClosed.Text = "false";
+            // 
+            // statuslabelEmStopKeySwClosed
+            // 
+            this.statuslabelEmStopKeySwClosed.AutoSize = true;
+            this.statuslabelEmStopKeySwClosed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statuslabelEmStopKeySwClosed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.statuslabelEmStopKeySwClosed.Location = new System.Drawing.Point(351, 139);
+            this.statuslabelEmStopKeySwClosed.Name = "statuslabelEmStopKeySwClosed";
+            this.statuslabelEmStopKeySwClosed.Size = new System.Drawing.Size(41, 19);
+            this.statuslabelEmStopKeySwClosed.TabIndex = 14;
+            this.statuslabelEmStopKeySwClosed.Text = "false";
+            // 
+            // statusLabelDischargeRodParked
+            // 
+            this.statusLabelDischargeRodParked.AutoSize = true;
+            this.statusLabelDischargeRodParked.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabelDischargeRodParked.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.statusLabelDischargeRodParked.Location = new System.Drawing.Point(351, 113);
+            this.statusLabelDischargeRodParked.Name = "statusLabelDischargeRodParked";
+            this.statusLabelDischargeRodParked.Size = new System.Drawing.Size(41, 19);
+            this.statusLabelDischargeRodParked.TabIndex = 13;
+            this.statusLabelDischargeRodParked.Text = "false";
+            // 
+            // statusLabelEarthingengaged
+            // 
+            this.statusLabelEarthingengaged.AutoSize = true;
+            this.statusLabelEarthingengaged.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabelEarthingengaged.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.statusLabelEarthingengaged.Location = new System.Drawing.Point(351, 87);
+            this.statusLabelEarthingengaged.Name = "statusLabelEarthingengaged";
+            this.statusLabelEarthingengaged.Size = new System.Drawing.Size(41, 19);
+            this.statusLabelEarthingengaged.TabIndex = 12;
+            this.statusLabelEarthingengaged.Text = "false";
+            // 
+            // statusLabelUmin
+            // 
+            this.statusLabelUmin.AutoSize = true;
+            this.statusLabelUmin.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabelUmin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.statusLabelUmin.Location = new System.Drawing.Point(351, 61);
+            this.statusLabelUmin.Name = "statusLabelUmin";
+            this.statusLabelUmin.Size = new System.Drawing.Size(41, 19);
+            this.statusLabelUmin.TabIndex = 11;
+            this.statusLabelUmin.Text = "false";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label34.Location = new System.Drawing.Point(35, 61);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(189, 19);
+            this.label34.TabIndex = 10;
+            this.label34.Text = "Voltage transformer parked:";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label33.Location = new System.Drawing.Point(35, 217);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(280, 19);
+            this.label33.TabIndex = 9;
+            this.label33.Text = "Output Contactor + Overload Prot  closed:";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label32.Location = new System.Drawing.Point(35, 191);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(235, 19);
+            this.label32.TabIndex = 8;
+            this.label32.Text = "Input Contactor + O/C Prot  closed:";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label31.Location = new System.Drawing.Point(35, 165);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(107, 19);
+            this.label31.TabIndex = 7;
+            this.label31.Text = "Door(s) closed:";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label30.Location = new System.Drawing.Point(35, 113);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(154, 19);
+            this.label30.TabIndex = 6;
+            this.label30.Text = "Discharge Rod parked:";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label29.Location = new System.Drawing.Point(35, 87);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(127, 19);
+            this.label29.TabIndex = 5;
+            this.label29.Text = "Earthing engaged:";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label28.Location = new System.Drawing.Point(35, 139);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(247, 19);
+            this.label28.TabIndex = 4;
+            this.label28.Text = "Emergency Stop + Key Switch closed:";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label21.Location = new System.Drawing.Point(20, 11);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(229, 18);
+            this.label21.TabIndex = 3;
+            this.label21.Text = "CONTROL CIRCUIT STATUS";
+            // 
+            // customCheckBox3
+            // 
+            this.customCheckBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customCheckBox3.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
+            this.customCheckBox3.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
+            this.customCheckBox3.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
+            this.customCheckBox3.isChecked = false;
+            this.customCheckBox3.Location = new System.Drawing.Point(254, 161);
+            this.customCheckBox3.Name = "customCheckBox3";
+            this.customCheckBox3.Size = new System.Drawing.Size(138, 56);
+            this.customCheckBox3.TabIndex = 7;
+            this.customCheckBox3.Text = "customCheckBox2";
+            this.toolTip1.SetToolTip(this.customCheckBox3, "Energizes the high voltage transformer");
+            this.customCheckBox3.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
             // 
             // RunView
             // 
@@ -1615,7 +1616,6 @@
         public CustomTextBox impulseGapTextBox;
         public System.Windows.Forms.Label impulseGapLabel;
         public System.Windows.Forms.ToolTip toolTip1;
-        public CustomCheckBox pauseButton;
         public CustomCheckBox parkCheckBox;
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label label2;
@@ -1655,5 +1655,6 @@
         public System.Windows.Forms.Label label30;
         public System.Windows.Forms.Label label29;
         public System.Windows.Forms.Label label28;
+        public CustomCheckBox customCheckBox3;
     }
 }
