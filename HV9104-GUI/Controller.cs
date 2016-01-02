@@ -445,7 +445,7 @@ namespace HV9104_GUI
             this.controlForm.runView.regulatedVoltageTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(regulatedVoltageTextBox_valueChange);
             this.controlForm.runView.increaseRegulatedVoltageButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Down);
             this.controlForm.runView.increaseRegulatedVoltageButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Up);
-            this.controlForm.runView.incrementButton.Click += new System.EventHandler(incrementButton_Click);
+           // this.controlForm.runView.incrementButton.Click += new System.EventHandler(incrementButton_Click);
             this.controlForm.runView.voltageRegulationRepresentationComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(voltageRegulationRepresentationComboBox_valueChange);
             //Impuse Trigger Control Listeners            
             this.controlForm.runView.triggerButton.Click += new System.EventHandler(triggerButton_Click);

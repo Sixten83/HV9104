@@ -27,5 +27,10 @@ namespace HV9104_GUI
         {
 
         }
+
+        private void customPanel11_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
