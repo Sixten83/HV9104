@@ -88,12 +88,13 @@ namespace HV9104_GUI
             // If all devices are initialized have communication, start own loop for PLC, stepper motors and aux equipment.
             t = new Thread(CyclicRead);
             t.Start();
-
-            // Get and present initial status info from PLC and motors
-            InitializeUIStatus();
-
+            
             // Start timed loop for Picoscope routines
             loopTimer.Start();
+
+            // Get and present initial status info from PLC and motors
+            Thread.Sleep(200);
+            InitializeUIStatus();
 
             // Obligatory application command 
             Application.Run(controlForm); // Måste vara sist!!!
@@ -929,7 +930,7 @@ namespace HV9104_GUI
                 else if (controlForm.runView.acOutputRadioButton.isChecked)
                 {
                     //uActual = Convert.ToDouble(controlForm.runView.acValueLabel.Text);
-                    uActual = picoScope.channels[0].Average;
+                    uActual = picoScope.channels[0].RMS;
                 }
                 else if (controlForm.runView.dcVoltageRadioButton.isChecked)
                 {
@@ -1504,12 +1505,12 @@ namespace HV9104_GUI
 
             Thread.Sleep(200);
 
-            // Check K1 to see if it's been left open
+            // Check K1 and K2 to see if they've been left open
             if (PIO1.regulatedVoltageValue > 0)
             {
                 // K1 has been left open. Reflect this in the UI
                 controlForm.runView.onOffButton.isChecked = true;
-                controlForm.runView.onOffButton.Invalidate();
+                //controlForm.runView.onOffButton.Invalidate();
             }
 
             // Set Regulated Voltage Control parameters based on selected setup and selected reference - TO BE ADDED!!!

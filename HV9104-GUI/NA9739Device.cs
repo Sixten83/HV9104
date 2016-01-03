@@ -7,6 +7,7 @@ using System.IO.Ports;
 using System.Timers;
 using System.ComponentModel;
 
+
 namespace HV9104_GUI
 {
     public class NA9739Device
@@ -333,32 +334,32 @@ namespace HV9104_GUI
             }
         }
 
+        // Tool for extracting Flag bits correctly
+        IEnumerable<bool> GetBits(byte b)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                yield return (b & 0x80) != 0;
+                b *= 2;
+            }
+        }
+
         // After successful ReadFromDevice, extract raw data, format into readable values and update the appropriate variables
         public void FormatReply()
         {
             if (answerBuf.Length > 8)
             {
-                // Flags, convert to bool array and set the writeable flags answerBuf[4] 
-                byte bArray0 = answerBuf[8];
-                byte bArray1 = answerBuf[7];
-                //byte bArray2 = answerBuf[6];
-                //byte bArray3 = answerBuf[5];
-
-                bool[] bits1 = new bool[8];
-                bool[] bits2 = new bool[8];
-                //bool[] bits3 = new bool[8];
-                //bool[] bits4 = new bool[8];
-
-                for (int bIndx = 0; bIndx <= 7; bIndx++)
-                {
-                    bits1[bIndx] = (bArray0 & (1 << bIndx - 1)) != 0;
-                    bits2[bIndx] = (bArray1 & (1 << bIndx - 1)) != 0;
-                    //bits3[bIndx] = (bArray2 & (1 << bIndx - 1)) != 0;
-                    //bits4[bIndx] = (bArray3 & (1 << bIndx - 1)) != 0;
-                }
-
-                // Most of these not to be used here. To be set from regulation routines in Controller Class. 
-                // Maybe add PIO status variables to hold these for comparison?
+                // Flags, convert to byte array to access the following SelectMany instruction 
+                byte[] bArray0 = { answerBuf[8] };
+                byte[] bArray1 = { answerBuf[7] };
+                
+                // Extract the individual bits into bool arrays 
+                bool[] bits1 = bArray0.SelectMany(GetBits).ToArray();
+                bool[] bits2 = bArray1.SelectMany(GetBits).ToArray();
+                
+                // Flip them individually to match what we are expecting
+                Array.Reverse(bits1);
+                Array.Reverse(bits2);
 
                 fault = bits1[0];                       // R
                 earthingEngaged = bits1[1];             // R
@@ -369,35 +370,14 @@ namespace HV9104_GUI
                 K1Closed = bits1[6];                    // R
                 K2Closed = bits1[7];                    // R
 
-                maxUPos = bits2[0];                     // R
-                minUPos = bits2[1];                     // R
+                minUPos = bits2[0];                     // R
+                maxUPos = bits2[1];                     // R
                 //unused = bits2[2];                    // R
                 //unused = bits2[3];                    // R
                 //unused = bits2[4];                    // R
                 //unused = bits2[5];                    // R
                 //unused = bits2[6];                    // R
                 //unused = bits2[7];                    // R
-
-                //regUEnable = bits3[0];                // W
-                //regUDir = bits3[1];                   // W
-                //primaryOnRequest = bits3[2];          // W
-                //secondaryOnRequest = bits3[3];        // W
-                //overrideUMin = bits3[4];              // W
-                //primaryOffRequest = bits3[5];         // W
-                //secondaryOffRequest = bits3[6];       // W
-                //unused = bits3[7];                    // W
-
-                //activateVacuumAndPressure = bits[0];  // W
-                //vacuumSelected = bits4[1];            // W
-                //startCompressor = bits4[2];           // W
-                //startVacuumPump = bits4[3];           // W
-                //unused = bits4[4];                    // W
-                //unused = bits4[5];                    // W
-                //commDetected = bits4[6];              // W
-                //clearFault = bits4[7];                // W
-
-                // Duty cycle value HiByte and LoByte
-                //byte[] bArray4 = { answerBuf[8], answerBuf[7] };
 
                 // Vacuum and Pressure extraction
                 double vacPressLimit = 0;
@@ -410,18 +390,6 @@ namespace HV9104_GUI
                 {
                     vacPressLimit = 6;
                 }
-
-                // Test values - can be erased after final testing
-                //answerBuf[12] = 0xFF;   //0x07FF = 5V = 50%
-                //answerBuf[11] = 0x07;
-                //answerBuf[14] = 0x33;   //0x0333 = 2V = 20%
-                //answerBuf[13] = 0x03;
-
-                // VacuumPressure setpoint value HiByte and LoByte 
-                //byte[] bArray5 = { answerBuf[10], answerBuf[9] };
-                //short vPSetpoint = BitConverter.ToInt16(bArray5, 0);
-                //double formattedVPSetpoint = (double)vPSetpoint / (double)0x0FFF;
-                //double vacuumPressureSetpoint = Math.Round(formattedVPSetpoint * vacPressLimit, 1, MidpointRounding.ToEven);
 
                 // Pressure sensor value HiByte and LoByte mashed, converted to double and rounded to 1 d.p.
                 byte[] bArray6 = { answerBuf[4], answerBuf[3] };

@@ -1542,7 +1542,7 @@
             this.onOffButton.Size = new System.Drawing.Size(138, 56);
             this.onOffButton.TabIndex = 3;
             this.onOffButton.Text = "customCheckBox2";
-            this.toolTip1.SetToolTip(this.onOffButton, "Energizes the high voltage transformer");
+            this.toolTip1.SetToolTip(this.onOffButton, "Energizes the 0-230V regulating transformer");
             this.onOffButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
             // 
             // label14
