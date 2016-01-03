@@ -57,7 +57,7 @@ namespace HV9104_GUI
         public bool clearToSend = false;
         public int commandPending = 0;
         public bool searching = false;
-
+        private bool abortRegulation = false;
 
         public Controller()
         {
@@ -452,7 +452,7 @@ namespace HV9104_GUI
             this.controlForm.runView.regulatedVoltageTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(regulatedVoltageTextBox_valueChange);
             this.controlForm.runView.increaseRegulatedVoltageButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Down);
             this.controlForm.runView.increaseRegulatedVoltageButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Up);
-           // this.controlForm.runView.incrementButton.Click += new System.EventHandler(incrementButton_Click);
+            this.controlForm.runView.abortRegulationButton.Click += new System.EventHandler(abortRegulationButtonButton_Click);
             this.controlForm.runView.voltageRegulationRepresentationComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(voltageRegulationRepresentationComboBox_valueChange);
             //Impuse Trigger Control Listeners            
             this.controlForm.runView.triggerButton.Click += new System.EventHandler(triggerButton_Click);
@@ -513,6 +513,8 @@ namespace HV9104_GUI
             this.measuringForm.chart.cursorMenu.dcChannelRadioButton.Click += new System.EventHandler(this.dcChannelRadioButton_Click);
 
         }
+
+        
 
 
 
@@ -860,6 +862,8 @@ namespace HV9104_GUI
 
         }
 
+       
+
         private void decreaseRegulatedVoltageButton_Down(object sender, MouseEventArgs e)
         {
 
@@ -875,12 +879,20 @@ namespace HV9104_GUI
 
         }
 
+        // Abort an active voltage regulation attempt
+        private void abortRegulationButtonButton_Click(object sender, EventArgs e)
+        {
+            abortRegulation = true;
+        }
+
+        // A value has been entered against which to regulate the voltage
         private void regulatedVoltageTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
+            // Reset any abort commands
+            abortRegulation = false;
 
             // RunTo voltage value
             GoToVoltage(controlForm.runView.regulatedVoltageTextBox.Value);
-
         }
 
         // Automated voltage set routine
@@ -891,6 +903,7 @@ namespace HV9104_GUI
 
         }
 
+        // Set dynamic bounds from user input, then start the process
         private void RegulateVoltage()
         {
             // Set some tolerances (we aren't perfect)
@@ -911,7 +924,8 @@ namespace HV9104_GUI
             int intCnt = 0;
             int styr = 30;
 
-            while (((error <= toleranceLo) || (error >= toleranceHi)) && (controlForm.runView.onOffButton.isChecked))
+            // Continue until found or precess aborted 
+            while (((error <= toleranceLo) || (error >= toleranceHi)) && (controlForm.runView.onOffButton.isChecked) && (!abortRegulation))
             {
 
                 // Get the value to regulate agianst
@@ -1525,6 +1539,13 @@ namespace HV9104_GUI
                 controlForm.runView.onOffButton.isChecked = true;
                 controlForm.runView.onOffButton.Invalidate();
             }
+
+            // Set Regulated Voltage Control parameters based on selected setup and selected reference - TO BE ADDED!!!
+            //controlForm.runView.regulatedVoltageTextBox.Value = ;
+            //controlForm.runView.regulatedVoltageTextBox.Min = ;
+            //controlForm.runView.regulatedVoltageTextBox.Max = ;
+
+
         }
 
         // Present all values in the UI

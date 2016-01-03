@@ -38,7 +38,7 @@
             this.triggerButton = new HV9104_GUI.CustomButton();
             this.vacuumPowerCheckBox = new HV9104_GUI.CustomCheckBox();
             this.compressorPowerCheckBox = new HV9104_GUI.CustomCheckBox();
-            this.customButton4 = new HV9104_GUI.CustomButton();
+            this.abortRegulationButton = new HV9104_GUI.CustomButton();
             this.onOffSecButton = new HV9104_GUI.CustomCheckBox();
             this.parkCheckBox = new HV9104_GUI.CustomCheckBox();
             this.overrideCheckBox = new HV9104_GUI.CustomCheckBox();
@@ -285,20 +285,20 @@
             this.toolTip1.SetToolTip(this.compressorPowerCheckBox, "Energizes the auxilliary 230VAC compressor power outlet");
             this.compressorPowerCheckBox.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
             // 
-            // customButton4
+            // abortRegulationButton
             // 
-            this.customButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customButton4.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.customButton4.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customButton4.ForeColor = System.Drawing.Color.White;
-            this.customButton4.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.customButton4.Location = new System.Drawing.Point(256, 329);
-            this.customButton4.Name = "customButton4";
-            this.customButton4.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.customButton4.Size = new System.Drawing.Size(158, 57);
-            this.customButton4.TabIndex = 9;
-            this.customButton4.Text = "ABORT";
-            this.toolTip1.SetToolTip(this.customButton4, "Triggers the HV9132 electronic trigger sphere");
+            this.abortRegulationButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.abortRegulationButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.abortRegulationButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.abortRegulationButton.ForeColor = System.Drawing.Color.White;
+            this.abortRegulationButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.abortRegulationButton.Location = new System.Drawing.Point(256, 329);
+            this.abortRegulationButton.Name = "abortRegulationButton";
+            this.abortRegulationButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.abortRegulationButton.Size = new System.Drawing.Size(158, 57);
+            this.abortRegulationButton.TabIndex = 9;
+            this.abortRegulationButton.Text = "ABORT";
+            this.toolTip1.SetToolTip(this.abortRegulationButton, "Aborts the actual voltage regulation attempt");
             // 
             // onOffSecButton
             // 
@@ -1180,7 +1180,7 @@
             this.customPanel5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
             this.customPanel5.Controls.Add(this.statusLabelAutoRegVoltage);
             this.customPanel5.Controls.Add(this.label26);
-            this.customPanel5.Controls.Add(this.customButton4);
+            this.customPanel5.Controls.Add(this.abortRegulationButton);
             this.customPanel5.Controls.Add(this.dcVoltageRadioButton);
             this.customPanel5.Controls.Add(this.acOutputRadioButton);
             this.customPanel5.Controls.Add(this.regulatedVoltageTextBox);
@@ -1263,7 +1263,7 @@
             this.regulatedVoltageTextBox.Size = new System.Drawing.Size(169, 54);
             this.regulatedVoltageTextBox.TabIndex = 4;
             this.regulatedVoltageTextBox.TextBoxHint = "";
-            this.regulatedVoltageTextBox.Value = 200F;
+            this.regulatedVoltageTextBox.Value = 20F;
             // 
             // inputVoltageRadioButton
             // 
@@ -1798,7 +1798,7 @@
         public CustomButton motorInitButton;
         private CustomPanel customPanel9;
         public System.Windows.Forms.Label label22;
-        public CustomButton customButton4;
+        public CustomButton abortRegulationButton;
         private CustomPanel customPanel10;
         public System.Windows.Forms.Label label24;
         public System.Windows.Forms.Label label23;
