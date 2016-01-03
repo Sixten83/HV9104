@@ -56,6 +56,7 @@ namespace HV9104_GUI
         public bool quit = false;
         public bool clearToSend = false;
         public int commandPending = 0;
+        public bool searching = false;
 
 
         public Controller()
@@ -114,7 +115,17 @@ namespace HV9104_GUI
             
             if (blockCaptureMode)
                 blockCapure();
-                
+
+            // Present the latest info
+            try
+            {
+                UpdateGUI();
+            }
+            catch
+            {
+                //MessageBox.Show("Page Missing", "Page Error");
+            }
+
         }
         
         // Main loop for Modbus based equipment - runs on own thread
@@ -174,15 +185,7 @@ namespace HV9104_GUI
                     commandPending = 0;
                 }
                 
-                // Present the latest info
-                try
-                {
-                    UpdateGUI();
-                }
-                catch
-                {
-                    //MessageBox.Show("Page Missing", "Page Error");
-                }
+
             }
         }
 
@@ -1167,6 +1170,7 @@ namespace HV9104_GUI
         {
 
             RunToPosRequest(this.controlForm.runView.impulseGapTextBox.Text);
+            searching = true;
 
         }
 
@@ -1523,42 +1527,28 @@ namespace HV9104_GUI
             }
         }
 
-        // Add all updated variables to this...
+        // Present all values in the UI
         public void UpdateGUI()
         {
-            double voltVal = 0;
-
             // Voltage and Current
-            guiUpdater.transferVoltageInputLabel(PIO1.regulatedVoltageValue.ToString("0.0"));
-            guiUpdater.transferCurrentInputLabel(PIO1.regulatedCurrentValue.ToString("0.00"));
+            controlForm.runView.voltageInputLabel.Text = PIO1.regulatedVoltageValue.ToString("0.0");
+            controlForm.runView.currentInputLabel.Text = PIO1.regulatedCurrentValue.ToString("0.00");
 
-            guiUpdater.transferPressureLabel(PIO1.getPressure());
+            // Pressure
+            controlForm.runView.pressureLabel.Text = PIO1.getPressure();
 
             // Status flags
             //guiUpdater.transferLabel36(PIO1.fault.ToString());
-            guiUpdater.transferLabel37(PIO1.earthingEngaged.ToString());
-            guiUpdater.transferLabel38(PIO1.dischargeRodParked.ToString());
-            guiUpdater.transferLabel39(PIO1.emergStpKeySwClosed.ToString());
-            guiUpdater.transferLabel40(PIO1.dorrSwitchClosed.ToString());
-            guiUpdater.transferLabel41(PIO1.K1Closed.ToString());
-            guiUpdater.transferLabel42(PIO1.K2Closed.ToString());
-            guiUpdater.transferstatusLabelUmin(PIO1.minUPos.ToString());
-
-
-            if (activeMotor.initComplete)
-            {
-                guiUpdater.transferInitVisible("  INITIALIZED ");
-            }
-            else
-            {
-                guiUpdater.transferInitVisible("NOT INITIALIZED");
-            }
-
-            // Ratio-calculated High Voltage value
-            voltVal = (((double)PIO1.regulatedVoltageValue * 45) / 100);
+            controlForm.runView.statusLabelUmin.Text = PIO1.minUPos.ToString();
+            controlForm.runView.statusLabelEarthingengaged.Text = PIO1.earthingEngaged.ToString();
+            controlForm.runView.statusLabelDischargeRodParked.Text = PIO1.dischargeRodParked.ToString();
+            controlForm.runView.statuslabelEmStopKeySwClosed.Text = PIO1.emergStpKeySwClosed.ToString();
+            controlForm.runView.statusLabelDoorClosed.Text = PIO1.dorrSwitchClosed.ToString();
+            controlForm.runView.statusLabelK1F2Closed.Text = PIO1.K1Closed.ToString();
+            controlForm.runView.statusLabelK2F1Closed.Text = PIO1.K2Closed.ToString();
 
             // Warning High Voltage image
-            if ((voltVal >= 5) && (PIO1.K2Closed))
+            if ((PIO1.regulatedVoltageValue >= 5) && (PIO1.K2Closed))
             {
                 controlForm.runView.statusPictureBoxHVPresent.Visible = true;
                 controlForm.runView.statusPictureBoxHVPresent.Invalidate();
@@ -1569,10 +1559,41 @@ namespace HV9104_GUI
                 controlForm.runView.statusPictureBoxHVPresent.Invalidate();
             }
 
-            // Motor status
-            //activeForm.label53.Visible = activeMotor.initComplete;
-            guiUpdater.transferImpulseGapLabel(activeMotor.actualPosition.ToString());
+            // Active motor info
+            controlForm.runView.statusLabelActiveMotorInitialized.Text = GetMotorStatus();
+            controlForm.runView.impulseGapLabel.Text = activeMotor.actualPosition.ToString();
 
+        }
+
+        // Return a status text string for the active motor
+        private string GetMotorStatus()
+        {
+
+            if (!searching)
+            {
+                if (activeMotor.initComplete)
+                {
+                    // At rest and 
+                    return "  INITIALIZED ";
+                }
+                else
+                {
+                    return "NOT INITIALIZED";
+                }
+            }
+            else
+            { 
+                if  (controlForm.runView.impulseGapTextBox.Value != Convert.ToInt16(controlForm.runView.impulseGapLabel))
+                {
+                    return "SEARCHING... PLEASE WAIT";
+
+                }
+                else
+                {
+                    searching = false;
+                    return "  INITIALIZED ";
+                }
+            }
         }
 
         // Voltage connection control
@@ -1665,6 +1686,7 @@ namespace HV9104_GUI
         {
             //activeMotor.StartInit();
             commandPending = 4;
+            searching = true;
 
         }
 
