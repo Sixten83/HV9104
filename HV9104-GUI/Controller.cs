@@ -56,8 +56,8 @@ namespace HV9104_GUI
         public bool quit = false;
         public bool clearToSend = false;
         public int commandPending = 0;
-        public bool searching = false;
-        private bool abortRegulation = false;
+        public bool searchingGap = false;
+        private bool abortRegulation = true;
         public int trafSpeed = 600;
 
         public Controller()
@@ -891,6 +891,7 @@ namespace HV9104_GUI
 
             // RunTo voltage value
             GoToVoltage(controlForm.runView.regulatedVoltageTextBox.Value);
+
         }
 
         // Automated voltage set routine
@@ -1162,7 +1163,7 @@ namespace HV9104_GUI
         {
 
             RunToPosRequest(this.controlForm.runView.impulseGapTextBox.Text);
-            searching = true;
+            searchingGap = true;
 
         }
 
@@ -1546,16 +1547,17 @@ namespace HV9104_GUI
             controlForm.runView.statusLabelK1F2Closed.Text = PIO1.K1Closed.ToString();
             controlForm.runView.statusLabelK2F1Closed.Text = PIO1.K2Closed.ToString();
 
+            // Auto voltage regulation status
+            controlForm.runView.statusLabelAutoRegVoltage.Visible = !abortRegulation;
+
             // Warning High Voltage image
             if ((PIO1.regulatedVoltageValue >= 5) && (PIO1.K2Closed))
             {
                 controlForm.runView.statusPictureBoxHVPresent.Visible = true;
-                controlForm.runView.statusPictureBoxHVPresent.Invalidate();
             }
             else
             {
                 controlForm.runView.statusPictureBoxHVPresent.Visible = false;
-                controlForm.runView.statusPictureBoxHVPresent.Invalidate();
             }
 
             // Active motor info
@@ -1568,7 +1570,7 @@ namespace HV9104_GUI
         private string GetMotorStatus()
         {
 
-            if (!searching)
+            if (!searchingGap)
             {
                 if (activeMotor.initComplete)
                 {
@@ -1589,7 +1591,7 @@ namespace HV9104_GUI
                 }
                 else
                 {
-                    searching = false;
+                    searchingGap = false;
                     return "  INITIALIZED ";
                 }
             }
@@ -1685,7 +1687,7 @@ namespace HV9104_GUI
         {
             //activeMotor.StartInit();
             commandPending = 4;
-            searching = true;
+            searchingGap = true;
 
         }
 
