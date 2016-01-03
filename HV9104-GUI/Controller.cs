@@ -58,6 +58,7 @@ namespace HV9104_GUI
         public int commandPending = 0;
         public bool searching = false;
         private bool abortRegulation = false;
+        public int trafSpeed = 600;
 
         public Controller()
         {
@@ -783,10 +784,13 @@ namespace HV9104_GUI
             impulseChannel.Polarity = polarity[(int)e.Value];
         }
 
-
+        // Update the transformer motor speed parameter
         private void trafSpeedTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            
+            if((controlForm.runView.trafSpeedTextBox.Value <= controlForm.runView.trafSpeedTextBox.Max) && (controlForm.runView.trafSpeedTextBox.Value >= controlForm.runView.trafSpeedTextBox.Min))
+            { 
+                trafSpeed = (int)controlForm.runView.trafSpeedTextBox.Value * 10;
+            }
         }
 
         // Voltage ON/OFF Switch
@@ -832,46 +836,23 @@ namespace HV9104_GUI
             }
         }
 
-        private void parkCheckBox_Click(object sender, EventArgs e)
-        {
+        // The following event handlers should set variables/flags for later evaluation but to save time we check the control status isChecked property directly
+        private void parkCheckBox_Click(object sender, EventArgs e) { }
+        private void overrideCheckBox_Click(object sender, EventArgs e) { }
+        private void inputVoltageRadioButton_Click(object sender, EventArgs e) { }
+        private void acVoltageRadioButton_Click(object sender, EventArgs e) { }
+        private void dcVoltageRadioButton_Click(object sender, EventArgs e) { }
 
-
-        }
-
-        private void overrideCheckBox_Click(object sender, EventArgs e)
-        {
-
-
-        }
-       
-        private void inputVoltageRadioButton_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void acVoltageRadioButton_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void dcVoltageRadioButton_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
-       
-
+        // Manual voltage decrease
         private void decreaseRegulatedVoltageButton_Down(object sender, MouseEventArgs e)
         {
 
-            int trafSpeed = (int)controlForm.runView.trafSpeedTextBox.Value * 10;
+            trafSpeed = (int)controlForm.runView.trafSpeedTextBox.Value * 10;
             DecreaseVoltageRequest(trafSpeed);
 
         }
 
+        // Stop manual voltage decrease
         private void decreaseRegulatedVoltageButton_Up(object sender, MouseEventArgs e)
         {
 
@@ -879,13 +860,30 @@ namespace HV9104_GUI
 
         }
 
-        // Abort an active voltage regulation attempt
+        // Manual voltage increase
+        private void increaseRegulatedVoltageButton_Down(object sender, MouseEventArgs e)
+        {
+
+            trafSpeed = (int)controlForm.runView.trafSpeedTextBox.Value * 10;
+            IncreaseVoltageRequest(trafSpeed);
+
+        }
+
+        // Stop manual voltage increase
+        private void increaseRegulatedVoltageButton_Up(object sender, MouseEventArgs e)
+        {
+
+            PIO1.StopTransformerMotor();
+
+        }
+
+        // Abort an active auto voltage regulation attempt
         private void abortRegulationButtonButton_Click(object sender, EventArgs e)
         {
             abortRegulation = true;
         }
 
-        // A value has been entered against which to regulate the voltage
+        // A value has been entered against which to regulate the voltage automatically
         private void regulatedVoltageTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             // Reset any abort commands
@@ -903,7 +901,7 @@ namespace HV9104_GUI
 
         }
 
-        // Set dynamic bounds from user input, then start the process
+        // Set dynamic bounds from user input, then start the auto process
         private void RegulateVoltage()
         {
             // Set some tolerances (we aren't perfect)
@@ -990,35 +988,15 @@ namespace HV9104_GUI
             StopTransformerMotorRequest();
         }
 
-        private void increaseRegulatedVoltageButton_Down(object sender, MouseEventArgs e)
-        {
-
-            int trafSpeed = (int)controlForm.runView.trafSpeedTextBox.Value * 10;
-            IncreaseVoltageRequest(trafSpeed);
-
-        }
-
-        private void increaseRegulatedVoltageButton_Up(object sender, MouseEventArgs e)
-        {
-
-            PIO1.StopTransformerMotor();
-
-        }
-
-
-        private void incrementButton_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
+        // A voltage qualifier (rma, min, max) to regulate against has been selected  
         private void voltageRegulationRepresentationComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
 
+            // *Not needed if we regulate against the already converted UI presentation value 
 
         }
  
-         
+        // Create a signal to trigger an impulse voltage
         private void triggerButton_Click(object sender, EventArgs e)
         {
             
