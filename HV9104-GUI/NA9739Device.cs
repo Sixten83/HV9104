@@ -49,7 +49,7 @@ namespace HV9104_GUI
         public bool startVacuumPump = false;
         public bool minUPos = false;
         public bool maxUPos = false;
-        public bool commDetected = false;
+        public bool commDetected = true;
         public bool earthingEngaged = false;
         public bool earthingDisengaged = false;
 

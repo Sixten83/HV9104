@@ -1506,10 +1506,16 @@ namespace HV9104_GUI
             Thread.Sleep(200);
 
             // Check K1 and K2 to see if they've been left open
-            if (PIO1.regulatedVoltageValue > 0)
+            if (PIO1.K1Closed)
             {
                 // K1 has been left open. Reflect this in the UI
                 controlForm.runView.onOffButton.isChecked = true;
+                //controlForm.runView.onOffButton.Invalidate();
+            }
+            if (PIO1.K2Closed)
+            {
+                // K1 has been left open. Reflect this in the UI
+                controlForm.runView.onOffSecButton.isChecked = true;
                 //controlForm.runView.onOffButton.Invalidate();
             }
 
@@ -1604,7 +1610,9 @@ namespace HV9104_GUI
         public void CloseSecondaryRequest(bool overRideIn)
         {
             PIO1.overrideUMin = overRideIn;
-            if ((PIO1.minUPos) || (PIO1.overrideUMin))
+
+            // If overridden or voltage parked
+            if (((PIO1.minUPos) || (PIO1.overrideUMin)) && (PIO1.K1Closed))
             {
                 PIO1.closeSecondary();
             }
