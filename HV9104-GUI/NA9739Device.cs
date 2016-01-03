@@ -724,7 +724,7 @@ namespace HV9104_GUI
             SetFlags();
             SetTargetPressure();
             AppendCRC(writeBuf, writeBuf.Length);
-            WriteToDevice();
+            //WriteToDevice();
         }
 
         // Return a Vac or Pressure value based on the value of target pressure
@@ -754,10 +754,10 @@ namespace HV9104_GUI
             AppendCRC(writeBuf, writeBuf.Length);
 
             // Send instruction to device
-            WriteToDevice();
+            //WriteToDevice();
 
             // Reset variabel 
-            activateVacuumAndPressure = false;
+            //activateVacuumAndPressure = false;
 
         }
 
@@ -775,7 +775,7 @@ namespace HV9104_GUI
             AppendCRC(writeBuf, writeBuf.Length);
 
             // Send instruction to device
-            WriteToDevice();
+            //WriteToDevice();
 
         }
 
@@ -791,7 +791,7 @@ namespace HV9104_GUI
             AppendCRC(writeBuf, writeBuf.Length);
 
             // Send instruction to device
-            WriteToDevice();
+            //WriteToDevice();
         }
 
         // Anyone out there to talk to?

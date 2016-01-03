@@ -1228,13 +1228,13 @@ namespace HV9104_GUI
         // Manual control of the compressor power outlet
         private void vacuumPowerCheckBox_Click(object sender, EventArgs e)
         {
-            EnergizeCompressorOutputRequest();
+            EnergizeVacuumPumpOutputRequest();
         }
 
         // Manual control of the vacuum pump power outlet
         private void compressorPowerCheckBox_Click(object sender, EventArgs e)
         {
-            EnergizeVacuumPumpOutputRequest();
+            EnergizeCompressorOutputRequest();
         }
 
 
