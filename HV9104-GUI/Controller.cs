@@ -23,7 +23,7 @@ namespace HV9104_GUI
         ControlForm controlForm;
         PicoScope picoScope;
         Channel acChannel, dcChannel, impulseChannel;
-        System.Timers.Timer loopTimer, triggerTimer;
+        System.Windows.Forms.Timer loopTimer, triggerTimer;
         bool fastStreamMode,streamMode;
         bool blockCaptureMode;
         //Voltage Dividers
@@ -71,17 +71,17 @@ namespace HV9104_GUI
             controlForm.startMeasuringForm(measuringForm);
 
             // Set up the primary measuring device
-           // SetupPicoscope();
+            SetupPicoscope();
 
             // Connect some local event handlers to give access to the form controls
             ConnectEventHandlers();
 
             // Find a suitable COM port and connect to it. Then add a Handler to catch any replies. 
             AutoConnect();
-            
+
             // Helper class to update the UI from another thread (avoid cross-threading exception)
-            guiUpdater = new Updater(controlForm.runView);
-            
+            // guiUpdater = new Updater(controlForm.runView);
+
             // Initialize all devices and test communication
             InitializeDevices();
             
@@ -93,7 +93,7 @@ namespace HV9104_GUI
             InitializeUIStatus();
 
             // Start timed loop for Picoscope routines
-            //loopTimer.Start();
+            loopTimer.Start();
 
             // Obligatory application command 
             Application.Run(controlForm); // Måste vara sist!!!
@@ -128,7 +128,7 @@ namespace HV9104_GUI
             }
 
         }
-        
+
         // Main loop for Modbus based equipment - runs on own thread
         private void CyclicRead()
         {
@@ -185,8 +185,6 @@ namespace HV9104_GUI
                     Thread.Sleep(20);
                     commandPending = 0;
                 }
-                
-
             }
         }
 
@@ -216,11 +214,14 @@ namespace HV9104_GUI
             picoScope.Resolution = Imports.DeviceResolution.PS5000A_DR_12BIT;
             picoScope.setFastStreamDataBuffer();
             fastStreamMode = true;
-            loopTimer = new Timer(10);
-            loopTimer.Elapsed += new ElapsedEventHandler(this.loopTimer_Tick);
-   
-            triggerTimer = new Timer(3000);
-            triggerTimer.Elapsed += new ElapsedEventHandler(this.triggerTimer_Tick);
+
+            loopTimer = new System.Windows.Forms.Timer();
+            loopTimer.Tick += new EventHandler(this.loopTimer_Tick);
+            loopTimer.Enabled = true;
+
+            triggerTimer = new System.Windows.Forms.Timer();
+            triggerTimer.Tick += new EventHandler(this.triggerTimer_Tick);
+            triggerTimer.Enabled = true;
 
             this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
         }
@@ -233,11 +234,9 @@ namespace HV9104_GUI
                 if (picoScope._overflow == 0)
                 {
                     acChannel.processFastStreamData();
-                    //this.controlForm.runView.acValueLabel.Text = ;
-                    guiUpdater.transferACVoltageOutputLabel("" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
+                    this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                     dcChannel.processFastStreamData();
-                    //this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
-                    guiUpdater.transferDCVoltageOutputLabel("" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
+                    this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                 }
                 else
                     autoSetVoltageRange();
@@ -267,14 +266,12 @@ namespace HV9104_GUI
                     Channel.ScaledData data = acChannel.processData(1600, trigAt, 400);
 
                     this.measuringForm.chart.Series["acSeries"].Points.DataBindXY(data.x, data.y);
-                    //this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
-                    guiUpdater.transferACVoltageOutputLabel("" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
+                    this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                 }
                 else
                 {
                     acChannel.processMaxMinData(1600, trigAt);
-                    //this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
-                    guiUpdater.transferACVoltageOutputLabel("" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
+                    this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                 }
 
                 if (this.measuringForm.dcEnableCheckBox.isChecked)
@@ -282,14 +279,12 @@ namespace HV9104_GUI
                     this.measuringForm.chart.Series["dcSeries"].Points.Clear();
                     Channel.ScaledData data = dcChannel.processData(1600, trigAt, 400);
                     this.measuringForm.chart.Series["dcSeries"].Points.DataBindXY(data.x, data.y);
-                    //this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
-                    guiUpdater.transferDCVoltageOutputLabel("" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
+                    this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                 }
                 else
                 {
                     dcChannel.processMaxMinData(1600, trigAt);
-                    //this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
-                    guiUpdater.transferDCVoltageOutputLabel("" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
+                    this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                 }
                 this.measuringForm.chart.Series.ResumeUpdates();
                 this.measuringForm.chart.Series.Invalidate();
@@ -318,15 +313,13 @@ namespace HV9104_GUI
                     this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
                     Channel.ScaledData data = impulseChannel.processData((int)picoScope.BlockSamples, 0, 2500);
                     this.measuringForm.chart.Series["impulseSeries"].Points.DataBindXY(data.x, data.y);
-                    //this.controlForm.runView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
-                    guiUpdater.transferImpulseVoltageOutputLabel("" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
+                    this.controlForm.runView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                  
                 }
                 else
                 {
                     impulseChannel.processMaxMinData((int)picoScope.BlockSamples, 0);
-                    //this.controlForm.runView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
-                    guiUpdater.transferImpulseVoltageOutputLabel("" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.'));
+                    this.controlForm.runView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                 }
             }
         }
@@ -433,7 +426,7 @@ namespace HV9104_GUI
             //***                                     RUN VIEW EVENT LISTENERS                                       ****
             //***********************************************************************************************************
             // 
-            this.controlForm.runView.Load += new EventHandler(RunView_Load);
+            //this.controlForm.runView.Load += new EventHandler(RunView_Load);
             //Output Representation Listeners
             this.controlForm.runView.acOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(acOutputComboBox_valueChange);
             this.controlForm.runView.dcOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(dcOutputComboBox_valueChange);
@@ -1418,10 +1411,10 @@ namespace HV9104_GUI
             HV9133 = new PD1161Device(4, serialPort1);
             activeMotor = HV9126;
 
-            if (!activeMotor.initComplete)
-            {
-                InitMotorRequest();
-            }
+            //if (!activeMotor.initComplete)
+            //{
+            //    InitMotorRequest();
+            //}
 
 
             //// Check communication - see who is connected 
@@ -1561,8 +1554,8 @@ namespace HV9104_GUI
             }
 
             // Active motor info
-            controlForm.runView.statusLabelActiveMotorInitialized.Text = GetMotorStatus();
             controlForm.runView.impulseGapLabel.Text = activeMotor.actualPosition.ToString();
+            controlForm.runView.statusLabelActiveMotorInitialized.Text = GetMotorStatus();
 
         }
 
@@ -1575,24 +1568,27 @@ namespace HV9104_GUI
                 if (activeMotor.initComplete)
                 {
                     // At rest and 
-                    return "  INITIALIZED ";
+                    return "       READY     ";
                 }
                 else
                 {
+                           
                     return "NOT INITIALIZED";
                 }
             }
             else
             { 
-                if  (controlForm.runView.impulseGapTextBox.Value != Convert.ToInt16(controlForm.runView.impulseGapLabel))
+                int presentedValue = Convert.ToInt16(controlForm.runView.impulseGapLabel.Text);
+
+                if ((controlForm.runView.impulseGapTextBox.Value != presentedValue) && (presentedValue != 90))
                 {
-                    return "SEARCHING... PLEASE WAIT";
+                    return "   SEARCHING...";
 
                 }
                 else
                 {
                     searchingGap = false;
-                    return "  INITIALIZED ";
+                    return "       READY     ";
                 }
             }
         }
