@@ -86,9 +86,9 @@ namespace HV9104_GUI
             // If all devices are initialized have communication, start own loop for PLC, stepper motors and aux equipment.
             t = new Thread(CyclicRead);
             t.Start();
-           
+
             // Get and present initial status info from PLC and motors
-            
+            InitializeUIStatus();
 
             // Start timed loop for Picoscope routines
             //loopTimer.Start();
@@ -96,9 +96,11 @@ namespace HV9104_GUI
             // Obligatory application command 
             Application.Run(controlForm); // Måste vara sist!!!
             
-        }    
+        }
+
        
-         //***********************************************************************************************************
+
+        //***********************************************************************************************************
         //***                                    PROGRAM LOOPS                                                   *****
         //***********************************************************************************************************
         private void loopTimer_Tick(object sender, EventArgs e)
@@ -426,6 +428,8 @@ namespace HV9104_GUI
             //***********************************************************************************************************
             //***                                     RUN VIEW EVENT LISTENERS                                       ****
             //***********************************************************************************************************
+            // 
+            this.controlForm.runView.Load += new EventHandler(RunView_Load);
             //Output Representation Listeners
             this.controlForm.runView.acOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(acOutputComboBox_valueChange);
             this.controlForm.runView.dcOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(dcOutputComboBox_valueChange);
@@ -453,7 +457,7 @@ namespace HV9104_GUI
             this.controlForm.runView.decreaseChoppingTimeButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseChoppingTimeButton_Down);
             this.controlForm.runView.decreaseChoppingTimeButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseChoppingTimeButton_Up);
             this.controlForm.runView.choppingTimeTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(choppingTimeTextBox_valueChange);
-            this.controlForm.runView.increaseChoppingTimeButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Down);
+            this.controlForm.runView.increaseChoppingTimeButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseChoppingTimeButton_Down);
             this.controlForm.runView.increaseChoppingTimeButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseChoppingTimeButton_Up);
             //Measuring Sphere Gap Listeners
             // this.controlForm.runView.decreaseMeasuringGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseMeasureeGap_Down);
@@ -506,6 +510,8 @@ namespace HV9104_GUI
             this.measuringForm.chart.cursorMenu.dcChannelRadioButton.Click += new System.EventHandler(this.dcChannelRadioButton_Click);
 
         }
+
+
 
 
 
@@ -742,7 +748,12 @@ namespace HV9104_GUI
         //***                                     RUN VIEW EVENT HANDLERS                                       *****
         //***********************************************************************************************************
 
-         private void acOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        private void RunView_Load(object sender, EventArgs e)
+        {
+            InitializeUIStatus();
+        }
+
+        private void acOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
              //representation index: 0 = Vmax, 1 = Vmin, 2 = Vrms, 3 = vpk-vpk, 4 = Vavg
              int[] selection = { 2, 0, 1, 3 };  
@@ -1009,9 +1020,20 @@ namespace HV9104_GUI
             //Set databuffer
             picoScope.setBlockDataBuffer();            
             //Set trigger Channel/Level/Type
-            picoScope.setTriggerChannel(Imports.Channel.ChannelC);            
-            //Setup Trigger / Chopping time
-            picoScope.setupSignalGen(11000);
+            picoScope.setTriggerChannel(Imports.Channel.ChannelC);
+
+
+            //Setup Trigger / Chopping time - IF ENABLED!!! TO BE CHECKED!!!!
+            if (controlForm.runView.choppingCheckBox.isChecked)
+            {
+                picoScope.setupSignalGen(controlForm.runView.choppingTimeTextBox.Value * 10000);
+            }
+            else
+            {
+                picoScope.setupSignalGen(11000);
+            }            
+            
+            
             //Start Block
             picoScope.startBlock();
             //Trigger Signal gen
@@ -1025,13 +1047,32 @@ namespace HV9104_GUI
 
         private void choppingCheckBox_Click(object sender, EventArgs e)
         {
+            if (controlForm.runView.choppingCheckBox.isChecked)
+            {
+                controlForm.runView.choppingTimeTextBox.Enabled = true;
+                controlForm.runView.decreaseChoppingTimeButton.Enabled = true;
+                controlForm.runView.increaseChoppingTimeButton.Enabled = true;
+            }
+            else
+            {
+                controlForm.runView.choppingTimeTextBox.Enabled = false;
+                controlForm.runView.decreaseChoppingTimeButton.Enabled = false;
+                controlForm.runView.increaseChoppingTimeButton.Enabled = false;
+            }
+
 
 
         }
 
         private void decreaseChoppingTimeButton_Down(object sender, MouseEventArgs e)
         {
+            // Verify the input value
 
+            if (controlForm.runView.choppingTimeTextBox.Value > controlForm.runView.choppingTimeTextBox.Min)
+            {
+                // Increase the delay time by one
+                controlForm.runView.choppingTimeTextBox.Value -= 1;
+            }
 
         }
 
@@ -1051,6 +1092,12 @@ namespace HV9104_GUI
 
         private void increaseChoppingTimeButton_Down(object sender, MouseEventArgs e)
         {
+            // Verify the input value
+            if (controlForm.runView.choppingTimeTextBox.Value < controlForm.runView.choppingTimeTextBox.Max)
+            {
+                // Increase the delay time by one
+                controlForm.runView.choppingTimeTextBox.Value += 1;
+            }
 
 
         }
@@ -1356,6 +1403,7 @@ namespace HV9104_GUI
 
         private void formsCloseButton_Click(object sender, EventArgs e)
         {
+
             loopTimer.Stop();
             loopTimer.Dispose();
             picoScope.closeDevice();
@@ -1409,10 +1457,71 @@ namespace HV9104_GUI
         //    }
         //}
 
-        
 
+        // Before we start, make sure the UI correctly represents the PLC and Motor status. Called on startup and after change in SetupView
+        private void InitializeUIStatus()
+        {
+            // Setup information
+            if (controlForm.setupView.acStage1RadioButton.isChecked)
+            {
+                controlForm.runView.statusLabelHVACStage.Text = "1-Stage";
+            }
+            else if (controlForm.setupView.acStage2RadioButton.isChecked)
+            {
+                controlForm.runView.statusLabelHVACStage.Text = "2-Stage";
+            }
+            else if (controlForm.setupView.acStage3RadioButton.isChecked)
+            {
+                controlForm.runView.statusLabelHVACStage.Text = "3-Stage";
+            }
+            else
+            {
+                controlForm.runView.statusLabelHVACStage.Text = "Not Selected";
+            }
 
-               
+            if (controlForm.setupView.dcStage1RadioButton.isChecked)
+            {
+                controlForm.runView.statusLabelHVDCStage.Text = "1-Stage";
+            }
+            else if (controlForm.setupView.dcStage2RadioButton.isChecked)
+            {
+                controlForm.runView.statusLabelHVDCStage.Text = "2-Stage";
+            }
+            else if (controlForm.setupView.dcStage3RadioButton.isChecked)
+            {
+                controlForm.runView.statusLabelHVDCStage.Text = "3-Stage";
+            }
+            else
+            {
+                controlForm.runView.statusLabelHVDCStage.Text = "Not Selected";
+            }
+            if (controlForm.setupView.impulseStage1RadioButton.isChecked)
+            {
+                controlForm.runView.statusLabelHVImpStage.Text = "1-Stage";
+            }
+            else if (controlForm.setupView.impulseStage2RadioButton.isChecked)
+            {
+                controlForm.runView.statusLabelHVImpStage.Text = "2-Stage";
+            }
+            else if (controlForm.setupView.impulseStage3RadioButton.isChecked)
+            {
+                controlForm.runView.statusLabelHVImpStage.Text = "3-Stage";
+            }
+            else
+            {
+                controlForm.runView.statusLabelHVImpStage.Text = "Not Selected";
+            }
+
+            Thread.Sleep(200);
+
+            // Check K1 to see if it's been left open
+            if (PIO1.regulatedVoltageValue > 0)
+            {
+                // K1 has been left open. Reflect this in the UI
+                controlForm.runView.onOffButton.isChecked = true;
+                controlForm.runView.onOffButton.Invalidate();
+            }
+        }
 
         // Add all updated variables to this...
         public void UpdateGUI()
@@ -1423,10 +1532,10 @@ namespace HV9104_GUI
             guiUpdater.transferVoltageInputLabel(PIO1.regulatedVoltageValue.ToString("0.0"));
             guiUpdater.transferCurrentInputLabel(PIO1.regulatedCurrentValue.ToString("0.00"));
 
-            //guiUpdater.pressureLabel(PIO1.getPressure());
+            guiUpdater.transferPressureLabel(PIO1.getPressure());
 
             // Status flags
-            guiUpdater.transferLabel36(PIO1.fault.ToString());
+            //guiUpdater.transferLabel36(PIO1.fault.ToString());
             guiUpdater.transferLabel37(PIO1.earthingEngaged.ToString());
             guiUpdater.transferLabel38(PIO1.dischargeRodParked.ToString());
             guiUpdater.transferLabel39(PIO1.emergStpKeySwClosed.ToString());
@@ -1445,20 +1554,20 @@ namespace HV9104_GUI
                 guiUpdater.transferInitVisible("NOT INITIALIZED");
             }
 
-            
-
             // Ratio-calculated High Voltage value
-            //voltVal = (((double)PIO1.regulatedVoltageValue * 45) / 100);
-            //guiUpdater.transferLabel47(voltVal.ToString("00.00"));
+            voltVal = (((double)PIO1.regulatedVoltageValue * 45) / 100);
 
-            //if ((voltVal >= 5) && (PIO1.K2Closed))
-            //{
-            //    activeForm.pictureBox1.Visible = true;
-            //}
-            //else
-            //{
-            //    activeForm.pictureBox1.Visible = false;
-            //}
+            // Warning High Voltage image
+            if ((voltVal >= 5) && (PIO1.K2Closed))
+            {
+                controlForm.runView.statusPictureBoxHVPresent.Visible = true;
+                controlForm.runView.statusPictureBoxHVPresent.Invalidate();
+            }
+            else
+            {
+                controlForm.runView.statusPictureBoxHVPresent.Visible = false;
+                controlForm.runView.statusPictureBoxHVPresent.Invalidate();
+            }
 
             // Motor status
             //activeForm.label53.Visible = activeMotor.initComplete;

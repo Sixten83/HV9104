@@ -119,6 +119,19 @@ namespace HV9104_GUI
             else this.activeForm.impulseGapLabel.Text = text11;
         }
 
+        // Pressure value
+        public void transferPressureLabel(string text1)
+        {
+            if (activeForm.pressureLabel.InvokeRequired)
+            {
+                activeForm.pressureLabel.Invoke((MethodInvoker)delegate ()
+                {
+                    transferPressureLabel(text1);
+                });
+            }
+            else this.activeForm.pressureLabel.Text = text1;
+        }
+
         //// Calculated High Voltage Value
         //public void transferLabel47(string text47)
         //{
@@ -133,17 +146,17 @@ namespace HV9104_GUI
         //}
 
         // Fault
-        public void transferLabel36(string text36)
-        {
-            if (activeForm.label36.InvokeRequired)
-            {
-                activeForm.label36.Invoke((MethodInvoker)delegate ()
-                {
-                    transferLabel36(text36);
-                });
-            }
-            else this.activeForm.label36.Text = text36;
-        }
+        //public void transferLabel36(string text36)
+        //{
+        //    if (activeForm.label36.InvokeRequired)
+        //    {
+        //        activeForm.label36.Invoke((MethodInvoker)delegate ()
+        //        {
+        //            transferLabel36(text36);
+        //        });
+        //    }
+        //    else this.activeForm.label36.Text = text36;
+        //}
 
         // Earthing switch
         public void transferLabel37(string text37)
