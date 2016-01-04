@@ -138,7 +138,8 @@ namespace HV9104_GUI
             channels[0].setRepresentationIndex(2);
             channels[0].IncrementIndex = 1;
             channels[0].TriggerType = Imports.ThresholdDirection.Rising;
-            channels[0].TriggerLevel = 1000;        
+            channels[0].TriggerLevel = 1000;
+            channels[0].VoltageAutoRange = true;
             Imports.SetChannel(handle, channels[0].ChannelName, channels[0].Enabled, channels[0].Coupling, channels[0].VoltageRange, 0);
         }
 
@@ -153,7 +154,8 @@ namespace HV9104_GUI
             channels[1].setRepresentationIndex(4);
             channels[1].IncrementIndex = 1;
             channels[1].TriggerType = Imports.ThresholdDirection.Above;
-            channels[1].TriggerLevel = 1000;        
+            channels[1].TriggerLevel = 1000;
+            channels[1].VoltageAutoRange = true;
             Imports.SetChannel(handle, channels[1].ChannelName, channels[1].Enabled, channels[1].Coupling, channels[1].VoltageRange, 0);
         }
 

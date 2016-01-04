@@ -29,7 +29,8 @@ namespace HV9104_GUI
         double[][]                  incrementValues;
         int                         incrementIndex;
         float                       dcOffset = 0;
-        int                         polarity = 1;        
+        int                         polarity = 1;
+        bool                        voltageAutoRange;
         
         public struct ScaledData
         {
@@ -45,14 +46,18 @@ namespace HV9104_GUI
             representation = new double[5];
             setIncrementValues();
         }
-               
-//        0.2 kV/div
-//0.5 kV/div
-//1 kV/div
-//2 kV/div
-//5 kV/div
-//10 kV/div
-//20 kV/div
+
+        public bool VoltageAutoRange
+        {
+            set
+            {
+                this.voltageAutoRange = value;
+            }
+            get
+            {
+                return this.voltageAutoRange;
+            }
+        }
 
         public double getRawMaxRatio()
         {
