@@ -230,7 +230,7 @@ namespace HV9104_GUI
             try
             {
                 comport.Write(writeBuf, 0, writeBuf.Length);
-                System.Threading.Thread.Sleep(30);
+                System.Threading.Thread.Sleep(20);
                 startMe = DateTime.Now;
 
             }
@@ -286,7 +286,7 @@ namespace HV9104_GUI
                 // Write to device
                 comport.Write(queryBuf, 0, queryBuf.Length);
                 startMe = DateTime.Now;
-                System.Threading.Thread.Sleep(30);  //16
+                System.Threading.Thread.Sleep(16);  //16
             }
             catch (Exception ex)
             {
@@ -405,61 +405,17 @@ namespace HV9104_GUI
 
                 // Regulated Voltage value HiByte and LoByte mashed, converted to double and rounded to 2 d.p. 
                 // y = 16,833x - 181,37
-                // x = y + 181,37 / 16,833
+                // x = (y + 181,37) / 16,833
                 // volt = vltSensRaw + 181,37 / 16,833;
+                //formattedvltSensRaw = (vltSensRaw + 181.37) / 16.833;
                 byte[] bArray8 = { answerBuf[10], answerBuf[9] };
                 short vltSensRaw = BitConverter.ToInt16(bArray8, 0);
                 double formattedvltSensRaw = 0;
 
-                // Need some different formatting in the beginning
-                if (vltSensRaw == 0)
-                {
-                    formattedvltSensRaw = 0;
-                }
-                else if (vltSensRaw == 1)
-                {
-                    formattedvltSensRaw = 1.0;
-                }
-                else if (vltSensRaw == 2)
-                {
-                    formattedvltSensRaw = 5.0;
-                }
-                else if (vltSensRaw == 3)
-                {
-                    formattedvltSensRaw = 6.0;
-                }
-                else if (vltSensRaw == 4)
-                {
-                    formattedvltSensRaw = 6.5;
-                }
-                else if (vltSensRaw == 5)
-                {
-                    formattedvltSensRaw = 6.8;
-                }
-                else if (vltSensRaw == 6)
-                {
-                    formattedvltSensRaw = 7.8;
-                }
-                else if (vltSensRaw == 7)
-                {
-                    formattedvltSensRaw = 7.1;
-                }
-                else if (vltSensRaw == 7)
-                {
-                    formattedvltSensRaw = 7.1;
-                }
-                else if (vltSensRaw == 8)
-                {
-                    formattedvltSensRaw = 7.2;
-                }
-                else if (vltSensRaw == 9)
-                {
-                    formattedvltSensRaw = 7.4;
-                }
-                else
-                {
-                    formattedvltSensRaw = (vltSensRaw + 181.37) / 16.833;
-                }
+                //y = 25,778 - 7,7778
+                // x = (y + 7,7778) / 25,778
+                // volt = (vltSensRaw + 7,7778) / 25,778
+                formattedvltSensRaw = (vltSensRaw + 1.3772) / 15.158;
 
                 regulatedVoltageValue = Math.Round(formattedvltSensRaw, 1, MidpointRounding.ToEven);
 
@@ -468,7 +424,10 @@ namespace HV9104_GUI
                 // current = (currentSensraw * 0.0085) - 0.0151; 
                 byte[] bArray9 = { answerBuf[12], answerBuf[11] };
                 short currSensRaw = BitConverter.ToInt16(bArray9, 0);
-                double formattedcurrSensRaw = (currSensRaw * 0.0085) - 0.0151;
+
+
+                double formattedcurrSensRaw = ((currSensRaw + 1.6321) /824.47)*5;
+
                 regulatedCurrentValue = Math.Round(formattedcurrSensRaw, 2, MidpointRounding.ToEven);
             }
         }

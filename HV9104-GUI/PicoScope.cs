@@ -422,7 +422,7 @@ namespace HV9104_GUI
             uint status = 1;
 
                        
-            Imports.Stop(handle);
+            //Imports.Stop(handle);
 
             if (_readyBlock)
             {

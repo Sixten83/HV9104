@@ -142,13 +142,13 @@ namespace HV9104_GUI
                 {
                     // Do regular tasks
                     PIO1.ReadFromDevice();
-                    Thread.Sleep(30);
+                    Thread.Sleep(2);
                     activeMotor.checkCTSFlag();
-                    Thread.Sleep(20);
+                    Thread.Sleep(2);
                     PIO1.UpdateDevice();
-                    Thread.Sleep(20);
+                    Thread.Sleep(2);
                     activeMotor.getActualPosition();
-                    Thread.Sleep(20);
+                    Thread.Sleep(2);
                 }
                 else if (commandPending == 1)
                 {
@@ -218,10 +218,12 @@ namespace HV9104_GUI
 
             loopTimer = new System.Windows.Forms.Timer();
             loopTimer.Tick += new EventHandler(this.loopTimer_Tick);
+            loopTimer.Interval = 50;
             loopTimer.Enabled = true;
 
             triggerTimer = new System.Windows.Forms.Timer();
             triggerTimer.Tick += new EventHandler(this.triggerTimer_Tick);
+            triggerTimer.Interval = 3000;
             triggerTimer.Enabled = true;
 
             this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
@@ -901,15 +903,15 @@ namespace HV9104_GUI
         {
             // Set some tolerances (we aren't perfect)
             float targetVoltage = controlForm.runView.regulatedVoltageTextBox.Value;
-            double toleranceHi = 0.16;
-            double toleranceLo = -0.16;
+            double toleranceHi = 0.05;
+            double toleranceLo = -0.05;
             
             // Variable to hold our selectable measured voltage value           
             double uActual = 0;
 
             // Pd Variables - if needed?
             float P = 0;
-            float k = 0;
+            float k = 5;
             float d = 0;
             double error = 10;
             double previousError = 0;
@@ -927,45 +929,60 @@ namespace HV9104_GUI
                     //uActual = (float)PIO1.regulatedVoltageValue;
                     uActual = Convert.ToDouble(controlForm.runView.voltageInputLabel.Text);
                 }
-                else if (controlForm.runView.acOutputRadioButton.isChecked)
+                else if ((controlForm.runView.acOutputRadioButton.isChecked) && (PIO1.K2Closed))
                 {
                     //uActual = Convert.ToDouble(controlForm.runView.acValueLabel.Text);
                     uActual = picoScope.channels[0].RMS;
+                    toleranceHi = 0.15;
+                    toleranceLo = -0.15;
                 }
-                else if (controlForm.runView.dcVoltageRadioButton.isChecked)
+                else if ((controlForm.runView.dcVoltageRadioButton.isChecked) && (PIO1.K2Closed))
                 {
                     uActual = Convert.ToDouble(controlForm.runView.dcValueLabel.Text);
+                    toleranceHi = 0.15;
+                    toleranceLo = -0.15;
                 }
                 else
                 {
                     // Shut down, something is wrong
+                    abortRegulation = true;
+                    return;
                 }
 
                 error =  uActual - targetVoltage;
 
-                if(error == previousError)
+                if ((error <= 5) && (error >= -5))
                 {
-                    integral += 0.25;
+                    k = 0.1F;
+
+                    if (error == previousError)
+                    {
+                        integral += 0.2;
+                    }
+                    else
+                    {
+                        //if(integral >= 0.1)
+                        //{
+                        integral -= 0.2;
+                        // }
+                    }
                 }
                 else
                 {
-                    if(integral >= 0.1)
-                    {
-                        integral -= 0.1;
-                    }
+                    k = 8;
                 }
 
                 // Call the appropriate instruction
                 if (error < toleranceHi)
                 {
-                    styr = (int)((error * -4) + 60 + integral);
+                    styr = (int)((error * -k) + 60 + integral);
 
                     // Voltage low, increase
                     IncreaseVoltageRequest(styr);
                 }
                 else if (error > toleranceLo)
                 {
-                    styr = (int)((error * 4) + 60 + integral);
+                    styr = (int)((error * k) + 60 + integral);
 
                     // Voltage high, decrease
                     DecreaseVoltageRequest(styr);
@@ -981,6 +998,7 @@ namespace HV9104_GUI
 
             // In bounds. We should only make it here once
             StopTransformerMotorRequest();
+            abortRegulation = true;
         }
 
         // A voltage qualifier (rma, min, max) to regulate against has been selected  
@@ -1620,7 +1638,7 @@ namespace HV9104_GUI
             {
                 // Add additional notification here
                 this.controlForm.runView.onOffSecButton.isChecked = false;
-                this.controlForm.runView.onOffSecButton.Invalidate();
+                //this.controlForm.runView.onOffSecButton.Invalidate();
             }
 
         }
