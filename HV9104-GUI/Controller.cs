@@ -403,7 +403,7 @@ namespace HV9104_GUI
                     picoScope.setChannelVoltageRange(1, dcChannel.VoltageRange);
                     this.measuringForm.dcVoltageRangeComboBox.setSelected((int)(dcChannel.VoltageRange - 4));
                 }
-                Console.WriteLine("OverFloow");
+                
             }
             else
             {
