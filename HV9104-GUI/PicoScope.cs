@@ -325,6 +325,7 @@ namespace HV9104_GUI
              _sampleCount = 0;
              _startIndex = 0;
             _trigAt = 0;
+            _overflow = 0;
             _autoStop = false;
             
                 status = Imports.RunStreaming(handle, ref streamingInterval, streamingIntervalUnits, preTrigger, streamingSamples - preTrigger, 1, 1, Imports.RatioMode.None, (uint)bufferSize);
@@ -364,6 +365,9 @@ namespace HV9104_GUI
             
             if(_trig != 0)
                _trigAt = triggerAt;
+
+            if (overflow != 0)
+                _overflow = overflow;
             
                 
             if (_sampleCount != 0 )
@@ -422,7 +426,7 @@ namespace HV9104_GUI
             uint status = 1;
 
                        
-            Imports.Stop(handle);
+            //Imports.Stop(handle);
 
             if (_readyBlock)
             {

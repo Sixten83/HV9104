@@ -25,7 +25,7 @@ namespace HV9104_GUI
         double[]                    representation;
         public int                  index;
         short                       adMaxValue;
-        ushort[]                    inputRanges = { 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000 };
+        ushort[]                    inputRanges = { 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000};
         double[][]                  incrementValues;
         int                         incrementIndex;
         float                       dcOffset = 0;
@@ -44,6 +44,20 @@ namespace HV9104_GUI
             this.voltageRange = Imports.Range.Range_20V;
             representation = new double[5];
             setIncrementValues();
+        }
+               
+//        0.2 kV/div
+//0.5 kV/div
+//1 kV/div
+//2 kV/div
+//5 kV/div
+//10 kV/div
+//20 kV/div
+
+        public double getRawMaxRatio()
+        {
+            double factor = (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;
+            return ((max + 1 * dcOffset) / factor) / adMaxValue;
         }
 
         public Imports.ThresholdDirection TriggerType

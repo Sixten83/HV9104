@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="CustomTrackBar.cs">
       <SubType>Component</SubType>
+      <DependentUpon>CustomControls.cs</DependentUpon>
     </Compile>
     <Compile Include="IncrementWindow.cs">
       <SubType>Form</SubType>

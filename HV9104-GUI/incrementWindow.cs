@@ -105,7 +105,7 @@ namespace HV9104_GUI
             // 
             this.increaseButton.BackColor = System.Drawing.Color.White;
             this.increaseButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.upButton;
-            this.increaseButton.HoverImage = global::HV9104_GUI.Properties.Resources.upButtonHover;
+            this.increaseButton.HoverImage = global::HV9104_GUI.Properties.Resources.upButton;
             this.increaseButton.Location = new System.Drawing.Point(364, 97);
             this.increaseButton.Name = "increaseButton";
             this.increaseButton.PressedImage = global::HV9104_GUI.Properties.Resources.upButtonPressed;

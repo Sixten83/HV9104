@@ -551,7 +551,7 @@
             this.chart.Name = "chart";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Color = System.Drawing.Color.Gold;
+            series1.Color = System.Drawing.Color.Lime;
             series1.IsVisibleInLegend = false;
             series1.Name = "acSeries";
             series2.ChartArea = "ChartArea1";

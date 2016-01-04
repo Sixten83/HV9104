@@ -49,6 +49,11 @@ namespace HV9104_GUI
             toolTip = new ToolTip();
         }
 
+        public void setSelected(int index)
+        {
+            selectedMember.Text = listMembers[index];
+        }
+
         public string SetSelected
         {
             set

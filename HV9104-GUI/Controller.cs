@@ -232,6 +232,7 @@ namespace HV9104_GUI
         {
             if (picoScope._autoStop)
             {
+
                 if (picoScope._overflow == 0)
                 {
                     acChannel.processFastStreamData();
@@ -240,6 +241,9 @@ namespace HV9104_GUI
                     this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                 }
                 else
+                    autoSetVoltageRange();
+
+                if (acChannel.getRawMaxRatio() < 0.3 || dcChannel.getRawMaxRatio() < 0.3)
                     autoSetVoltageRange();
                 picoScope.streamStarted = false;
                 picoScope._autoStop = false;
@@ -260,33 +264,44 @@ namespace HV9104_GUI
             {
                 int trigAt = (int)picoScope._trigAt;
                 this.measuringForm.chart.Series.SuspendUpdates();
-                if (this.measuringForm.acEnableCheckBox.isChecked)
+                if (picoScope._overflow == 0)
                 {
-                    // Console
-                    this.measuringForm.chart.Series["acSeries"].Points.Clear();
-                    Channel.ScaledData data = acChannel.processData(1600, trigAt, 400);
+                    if (this.measuringForm.acEnableCheckBox.isChecked)
+                    {
+                        // Console
+                        this.measuringForm.chart.Series["acSeries"].Points.Clear();
+                        Channel.ScaledData data = acChannel.processData(1600, trigAt, 400);
 
-                    this.measuringForm.chart.Series["acSeries"].Points.DataBindXY(data.x, data.y);
-                    this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
-                }
-                else
-                {
-                    acChannel.processMaxMinData(1600, trigAt);
-                    this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
-                }
+                        this.measuringForm.chart.Series["acSeries"].Points.DataBindXY(data.x, data.y);
+                        this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    }
+                    else
+                    {
+                        acChannel.processMaxMinData(1600, trigAt);
+                        this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    }
 
-                if (this.measuringForm.dcEnableCheckBox.isChecked)
-                {
-                    this.measuringForm.chart.Series["dcSeries"].Points.Clear();
-                    Channel.ScaledData data = dcChannel.processData(1600, trigAt, 400);
-                    this.measuringForm.chart.Series["dcSeries"].Points.DataBindXY(data.x, data.y);
-                    this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
-                }
+                    if (this.measuringForm.dcEnableCheckBox.isChecked)
+                    {
+                        this.measuringForm.chart.Series["dcSeries"].Points.Clear();
+                        Channel.ScaledData data = dcChannel.processData(1600, trigAt, 400);
+                        this.measuringForm.chart.Series["dcSeries"].Points.DataBindXY(data.x, data.y);
+                        this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    }
+                    else
+                    {
+                        dcChannel.processMaxMinData(1600, trigAt);
+                        this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    }
+                }                
                 else
+                    autoSetVoltageRange();
+
+                if (picoScope._overflow != 1 && acChannel.getRawMaxRatio() < 0.3 && dcChannel.getRawMaxRatio() < 0.3)
                 {
-                    dcChannel.processMaxMinData(1600, trigAt);
-                    this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    autoSetVoltageRange();
                 }
+                
                 this.measuringForm.chart.Series.ResumeUpdates();
                 this.measuringForm.chart.Series.Invalidate();
 
@@ -371,19 +386,42 @@ namespace HV9104_GUI
         public void autoSetVoltageRange()
         {
             pauseStream();
-            int ch = (int)picoScope._overflow & 1;
-            if(ch > 0)
-            {
-                acChannel.VoltageRange++;
-                picoScope.setChannelVoltageRange(0, acChannel.VoltageRange);
-    
-            }
+            if(picoScope._overflow != 0)
+            { 
+                int ch = (int)picoScope._overflow & 1;
+                if(ch > 0 && (int)acChannel.VoltageRange < 10)                   
+                {                    
+                        acChannel.VoltageRange++;
+                        picoScope.setChannelVoltageRange(0, acChannel.VoltageRange);
+                        this.measuringForm.acVoltageRangeComboBox.setSelected((int)(acChannel.VoltageRange - 4));                       
+                }
 
-            ch = (int)picoScope._overflow & 2;
-            if (ch > 0)
+                ch = (int)picoScope._overflow & 2;
+                if (ch > 0 && (int)dcChannel.VoltageRange < 10)    
+                {
+                    dcChannel.VoltageRange++;
+                    picoScope.setChannelVoltageRange(1, dcChannel.VoltageRange);
+                    this.measuringForm.dcVoltageRangeComboBox.setSelected((int)(dcChannel.VoltageRange - 4));
+                }
+                Console.WriteLine("OverFloow");
+            }
+            else
             {
-                dcChannel.VoltageRange++;
-                picoScope.setChannelVoltageRange(1, dcChannel.VoltageRange);
+                double ratio = acChannel.getRawMaxRatio();
+                if (acChannel.getRawMaxRatio() < 0.3 && (int)acChannel.VoltageRange > 4)    
+                {
+                    acChannel.VoltageRange--;
+                    picoScope.setChannelVoltageRange(0, acChannel.VoltageRange);
+                    this.measuringForm.acVoltageRangeComboBox.setSelected((int)(acChannel.VoltageRange - 4));
+                }
+
+
+                if (dcChannel.getRawMaxRatio() < 0.3 && (int)dcChannel.VoltageRange > 4) 
+                {
+                    dcChannel.VoltageRange--;
+                    picoScope.setChannelVoltageRange(1, dcChannel.VoltageRange);
+                    this.measuringForm.dcVoltageRangeComboBox.setSelected((int)(dcChannel.VoltageRange - 4));
+                }
             }
             rebootStream();
             
@@ -572,6 +610,7 @@ namespace HV9104_GUI
             pauseStream();            
             picoScope.setChannelVoltageRange(0, (Imports.Range)e.Value + 4);
             rebootStream();
+           
 
             if (this.measuringForm.chart.cursorMenu.acChannelRadioButton.isChecked)
             {
