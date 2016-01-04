@@ -1570,8 +1570,8 @@ namespace HV9104_GUI
         public void UpdateGUI()
         {
             // Voltage and Current
-            controlForm.runView.voltageInputLabel.Text = PIO1.regulatedVoltageValue.ToString("0.0");
-            controlForm.runView.currentInputLabel.Text = PIO1.regulatedCurrentValue.ToString("0.00");
+            controlForm.runView.voltageInputLabel.Text = PIO1.regulatedVoltageValue.ToString("0.0").Replace(',', '.');;
+            controlForm.runView.currentInputLabel.Text = PIO1.regulatedCurrentValue.ToString("0.00").Replace(',', '.');;
 
             // Pressure
             controlForm.runView.pressureLabel.Text = PIO1.getPressure();
