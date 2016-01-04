@@ -1483,6 +1483,16 @@ namespace HV9104_GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Static_discharge {
+            get {
+                object obj = ResourceManager.GetObject("Static discharge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap tabBorder {
             get {
                 object obj = ResourceManager.GetObject("tabBorder", resourceCulture);

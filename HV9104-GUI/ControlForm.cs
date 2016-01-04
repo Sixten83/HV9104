@@ -38,18 +38,10 @@ namespace HV9104_GUI
                     c.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseMove);
                     c.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDoubleClick);
                 }
-                
             }
-
-            
 
             this.controlFormTabController.addPage(runView  = new RunView(), 1);
             this.controlFormTabController.addPage(setupView = new SetupView(), 2);
-            
-
-
-            
-
         }
 
         //Creates a shadow around the form

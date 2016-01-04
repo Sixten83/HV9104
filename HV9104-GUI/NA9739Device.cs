@@ -523,10 +523,10 @@ namespace HV9104_GUI
             AppendCRC(writeBuf, writeBuf.Length);
 
             // Send instruction to device
-            WriteToDevice();
+            //WriteToDevice();
         }
 
-        // Increase the voltage output
+        // Decrease the voltage output
         internal void decreaseVoltage(int speedIn)
         {
             // Set REG_U_DIR to increase
@@ -536,7 +536,15 @@ namespace HV9104_GUI
             regUEnable = true;
 
             // Set speed
-            duty = speedIn;
+            if(regulatedVoltageValue >= 8)
+            {
+                duty = speedIn;
+            }
+            else
+            {
+                duty = 200;
+            }
+            
 
             // Prepare array
             SetFlags();
@@ -544,7 +552,7 @@ namespace HV9104_GUI
             AppendCRC(writeBuf, writeBuf.Length);
 
             // Send instruction to device
-            WriteToDevice();
+            //WriteToDevice();
         }
 
         // Stop the transformer motor

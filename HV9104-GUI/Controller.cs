@@ -59,6 +59,7 @@ namespace HV9104_GUI
         public bool searchingGap = false;
         private bool abortRegulation = true;
         public int trafSpeed = 600;
+        public int maxVoltage = 235;
 
         public Controller()
         {
@@ -122,6 +123,8 @@ namespace HV9104_GUI
             try
             {
                 UpdateGUI();
+                CheckLimits();
+
             }
             catch
             {
@@ -218,7 +221,7 @@ namespace HV9104_GUI
 
             loopTimer = new System.Windows.Forms.Timer();
             loopTimer.Tick += new EventHandler(this.loopTimer_Tick);
-            loopTimer.Interval = 50;
+            loopTimer.Interval = 10;
             loopTimer.Enabled = true;
 
             triggerTimer = new System.Windows.Forms.Timer();
@@ -860,7 +863,7 @@ namespace HV9104_GUI
                 // First disconnect K2
                 OpenSecondaryRequest();
                 this.controlForm.runView.onOffSecButton.isChecked = false;
-                //this.controlForm.runView.onOffSecButton.Invalidate();
+                this.controlForm.runView.onOffSecButton.Invalidate();
                 
                 // Now disconnect K1
                 OpenPrimaryRequest();
@@ -1585,13 +1588,13 @@ namespace HV9104_GUI
             {
                 // K1 has been left open. Reflect this in the UI
                 controlForm.runView.onOffButton.isChecked = true;
-                //controlForm.runView.onOffButton.Invalidate();
+                controlForm.runView.onOffButton.Invalidate();
             }
             if (PIO1.K2Closed)
             {
                 // K1 has been left open. Reflect this in the UI
                 controlForm.runView.onOffSecButton.isChecked = true;
-                //controlForm.runView.onOffButton.Invalidate();
+                controlForm.runView.onOffButton.Invalidate();
             }
 
             // Set Regulated Voltage Control parameters based on selected setup and selected reference - TO BE ADDED!!!
@@ -1615,8 +1618,11 @@ namespace HV9104_GUI
             // Status flags
             //guiUpdater.transferLabel36(PIO1.fault.ToString());
             controlForm.runView.statusLabelUmin.Text = PIO1.minUPos.ToString();
+            controlForm.runView.statusLabelUmin.Invalidate();
             controlForm.runView.statusLabelEarthingengaged.Text = PIO1.earthingEngaged.ToString();
+            controlForm.runView.statusLabelEarthingengaged.Invalidate();
             controlForm.runView.statusLabelDischargeRodParked.Text = PIO1.dischargeRodParked.ToString();
+            controlForm.runView.statusLabelDischargeRodParked.Invalidate();
             controlForm.runView.statuslabelEmStopKeySwClosed.Text = PIO1.emergStpKeySwClosed.ToString();
             controlForm.runView.statusLabelDoorClosed.Text = PIO1.dorrSwitchClosed.ToString();
             controlForm.runView.statusLabelK1F2Closed.Text = PIO1.K1Closed.ToString();
@@ -1629,10 +1635,12 @@ namespace HV9104_GUI
             if ((PIO1.regulatedVoltageValue >= 5) && (PIO1.K2Closed))
             {
                 controlForm.runView.statusPictureBoxHVPresent.Visible = true;
+                controlForm.runView.dischargePictureBox.Visible = false;
             }
             else
             {
                 controlForm.runView.statusPictureBoxHVPresent.Visible = false;
+                controlForm.runView.dischargePictureBox.Visible = true;
             }
 
             // Active motor info
@@ -1641,7 +1649,25 @@ namespace HV9104_GUI
 
         }
 
-        // Return a status text string for the active motor
+        // periodically check to see that nothing weird or dangerous is happening
+        private void CheckLimits()
+        {
+        //    // Make sure the voltage output is within limits
+        //    if (PIO1.regulatedVoltageValue >= 235)
+        //    {
+        //        // Stop the transformer
+        //        if(PIO1.regulatedVoltageValue >= maxVoltage)
+        //        {
+        //            PIO1.StopTransformerMotor();
+        //        }
+
+
+            //        // Notify max voltage has been reached..
+            //    }
+
+        }
+
+            // Return a status text string for the active motor
         private string GetMotorStatus()
         {
 
@@ -1695,7 +1721,7 @@ namespace HV9104_GUI
             {
                 // Add additional notification here
                 this.controlForm.runView.onOffSecButton.isChecked = false;
-                //this.controlForm.runView.onOffSecButton.Invalidate();
+                this.controlForm.runView.onOffSecButton.Invalidate();
             }
 
         }
