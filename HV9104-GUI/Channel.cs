@@ -25,11 +25,12 @@ namespace HV9104_GUI
         double[]                    representation;
         public int                  index;
         short                       adMaxValue;
-        ushort[]                    inputRanges = { 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000 };
+        ushort[]                    inputRanges = { 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000};
         double[][]                  incrementValues;
         int                         incrementIndex;
         float                       dcOffset = 0;
-        int                         polarity = 1;        
+        int                         polarity = 1;
+        bool                        voltageAutoRange;
         
         public struct ScaledData
         {
@@ -44,6 +45,24 @@ namespace HV9104_GUI
             this.voltageRange = Imports.Range.Range_20V;
             representation = new double[5];
             setIncrementValues();
+        }
+
+        public bool VoltageAutoRange
+        {
+            set
+            {
+                this.voltageAutoRange = value;
+            }
+            get
+            {
+                return this.voltageAutoRange;
+            }
+        }
+
+        public double getRawMaxRatio()
+        {
+            double factor = (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;
+            return ((max + 1 * dcOffset) / factor) / adMaxValue;
         }
 
         public Imports.ThresholdDirection TriggerType

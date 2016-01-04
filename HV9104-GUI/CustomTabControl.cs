@@ -39,9 +39,8 @@ namespace HV9104_GUI
                 tabPage.Location = new System.Drawing.Point((this.Width-tabPage.Width)/2, 150);
                 tabPage.BackColor = this.BackColor;
                 tabPages.Add(tabPage);
-                //tabPage.Controls.Add(new RunView());
                 this.Controls.Add(tabPage);
-               
+                
             }            
             
         }

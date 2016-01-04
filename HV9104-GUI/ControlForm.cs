@@ -43,8 +43,9 @@ namespace HV9104_GUI
 
             
 
-            this.controlFormTabController.addPage(runView  = new RunView(), 0);
-            this.controlFormTabController.addPage(setupView = new SetupView(), 1);
+            this.controlFormTabController.addPage(runView  = new RunView(), 1);
+            this.controlFormTabController.addPage(setupView = new SetupView(), 2);
+            
 
 
             

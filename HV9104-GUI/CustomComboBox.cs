@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing.Drawing2D;
 
 
 
@@ -28,25 +29,40 @@ namespace HV9104_GUI
         {
             focusColor = System.Drawing.Color.FromArgb(143, 200, 232);
             lostFocusColor = System.Drawing.Color.FromArgb(140, 159, 171);
-            Size = new System.Drawing.Size(209, 67);         
-            
+            Size = new System.Drawing.Size(200, 60);
+            this.MinimumSize = new System.Drawing.Size(145, 45);
+            this.MaximumSize = new System.Drawing.Size(400, 60);
+
             this.BackColor = System.Drawing.Color.FromArgb(236, 236, 236);
-            
+
             listMembers = new List<String>();
 
             selectedMember = new Label();
             selectedMember.Font = new System.Drawing.Font("Calibri (Body)", 20, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             selectedMember.ForeColor = System.Drawing.Color.FromArgb(127, 127, 127);
 
-            selectedMember.Size = new System.Drawing.Size(200, 40);
-            selectedMember.Location = new System.Drawing.Point((this.Width - selectedMember.Width) / 2, 12);
+            selectedMember.Size = new System.Drawing.Size(this.Width, this.Height);
+            selectedMember.Location = new System.Drawing.Point((int)(this.Width * 0.05F), 0);
             selectedMember.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            selectedMember.AutoSize = false;
             selectedMember.BackColor = Color.Transparent;
             this.Controls.Add(selectedMember);
             selectedMember.MouseEnter += new System.EventHandler(this._OnMouseEnter);
             selectedMember.MouseLeave += new System.EventHandler(this._OnMouseLeave);
             selectedMember.MouseDown += new System.Windows.Forms.MouseEventHandler(this._OnMouseDown);
             toolTip = new ToolTip();
+            this.SizeChanged += new System.EventHandler(comboBox_SizeChanged);
+        }
+
+        private void comboBox_SizeChanged(object sender, EventArgs e)
+        {
+            selectedMember.Size = new System.Drawing.Size(this.Width, this.Height);
+            selectedMember.Location = new System.Drawing.Point((int)(this.Width * 0.05F), 0);
+        }
+
+        public void setSelected(int index)
+        {
+            selectedMember.Text = listMembers[index];
         }
 
         public string SetSelected
@@ -95,82 +111,12 @@ namespace HV9104_GUI
             }
         }
 
-        public Image BackgroundImage
-        {
-            get
-            {
-                return this.backgroundImage;
-            }
-            set
-            {
-                this.backgroundImage = value;
-            }
-        }
-
-        public Image HoverImage
-        {
-            get
-            {
-                return this.hoverImage;
-            }
-            set
-            {
-                this.hoverImage = value;
-            }
-        }
-
+        
         public void addListMembers(String member)
         {
             listMembers.Add(member);
         }
 
-        //Tries to get the images from the resources
-        public Image setImage(String file)
-        {
-            try
-            {
-
-                return Image.FromFile(file);
-
-
-            }
-            catch (System.IO.FileNotFoundException)
-            {
-                //Draws a representation of the "image" if the image can't be found 
-                Bitmap bmp = new Bitmap(Width, Height);
-                Graphics g = Graphics.FromImage(bmp);
-                int cornerRadius = 12;
-                int borderThickness = 2;
-                System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(lostFocusColor);
-              
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                g.FillEllipse(myBrush, new Rectangle(0, 0, cornerRadius * 2, cornerRadius * 2));
-                g.FillEllipse(myBrush, new Rectangle(this.Width - cornerRadius * 2, 0, cornerRadius * 2, cornerRadius * 2));
-                g.FillEllipse(myBrush, new Rectangle(0, this.Height - cornerRadius * 2, cornerRadius * 2, cornerRadius * 2));
-                g.FillEllipse(myBrush, new Rectangle(this.Width - cornerRadius * 2, this.Height - cornerRadius * 2, cornerRadius * 2, cornerRadius * 2));
-                g.FillRectangle(myBrush, new Rectangle(cornerRadius, 0, this.Width - cornerRadius * 2, this.Height));
-                g.FillRectangle(myBrush, new Rectangle(0, cornerRadius, this.Width, this.Height - cornerRadius * 2));
-
-                myBrush.Color = Color.White;
-
-                g.FillEllipse(myBrush, new Rectangle(borderThickness, borderThickness, 2 * (cornerRadius - borderThickness), 2 * (cornerRadius - borderThickness)));
-                g.FillEllipse(myBrush, new Rectangle(this.Width - cornerRadius * 2 + borderThickness, 0 + borderThickness, 2 * (cornerRadius - borderThickness), 2 * (cornerRadius - borderThickness)));
-                g.FillEllipse(myBrush, new Rectangle(borderThickness, this.Height - cornerRadius * 2 + borderThickness, 2 * (cornerRadius - borderThickness), 2 * (cornerRadius - borderThickness)));
-                g.FillEllipse(myBrush, new Rectangle(this.Width - cornerRadius * 2 + borderThickness, this.Height - cornerRadius * 2 + borderThickness, 2 * (cornerRadius - borderThickness), 2 * (cornerRadius - borderThickness)));
-                g.FillRectangle(myBrush, new Rectangle(cornerRadius + borderThickness, borderThickness, this.Width - 2 * (cornerRadius + borderThickness), this.Height - 2 * borderThickness));
-                g.FillRectangle(myBrush, new Rectangle(borderThickness, cornerRadius + borderThickness, this.Width - 2 * borderThickness, this.Height - 2 * (cornerRadius + borderThickness)));
-
-                myBrush.Dispose();
-                g.Dispose();
-
-                return bmp;
-
-                
-
-
-            }
-
-        }
 
         // When the mouse button is pressed, set the "pressed" flag to true  
         // and invalidate the form to cause a repaint.  The .NET Compact Framework  
@@ -294,11 +240,7 @@ namespace HV9104_GUI
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if ((this.hover || clicked) && this.hoverImage != null)
-                e.Graphics.DrawImage(this.hoverImage, new Rectangle(0, 0, hoverImage.Width, hoverImage.Height));
-            else if (!this.hover && this.backgroundImage != null)
-                e.Graphics.DrawImage(this.backgroundImage, new Rectangle(0, 0, backgroundImage.Width, backgroundImage.Height));
-            else
+
             {
                 //Draws a representation of the "image" if the image can't be found 
                 Bitmap bmp = new Bitmap(Width, Height);
@@ -306,6 +248,18 @@ namespace HV9104_GUI
                 int cornerRadius = 12;
                 int borderThickness = 2;
                 System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(lostFocusColor);
+                PointF point1 = new PointF(this.Width * 0.9F, this.Height / 3);
+                PointF point2 = new PointF(point1.X - 2 * point1.Y, point1.Y);
+                PointF point3 = new PointF(point1.X - point1.Y, point1.Y * 2);
+                PointF[] trianglePoints = { point1, point2, point3 };
+                PointF[] cornerPoints = { point1, point2, point3, point1, point2 };
+                Pen pen = new Pen(lostFocusColor, 3);
+
+                FillMode newFillMode = FillMode.Winding;
+
+                if (hover || clicked)
+                    myBrush.Color = focusColor;
+
 
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 g.FillEllipse(myBrush, new Rectangle(0, 0, cornerRadius * 2, cornerRadius * 2));
@@ -323,8 +277,17 @@ namespace HV9104_GUI
                 g.FillEllipse(myBrush, new Rectangle(this.Width - cornerRadius * 2 + borderThickness, this.Height - cornerRadius * 2 + borderThickness, 2 * (cornerRadius - borderThickness), 2 * (cornerRadius - borderThickness)));
                 g.FillRectangle(myBrush, new Rectangle(cornerRadius + borderThickness, borderThickness, this.Width - 2 * (cornerRadius + borderThickness), this.Height - 2 * borderThickness));
                 g.FillRectangle(myBrush, new Rectangle(borderThickness, cornerRadius + borderThickness, this.Width - 2 * borderThickness, this.Height - 2 * (cornerRadius + borderThickness)));
+                myBrush.Color = focusColor;
 
+                myBrush.Color = lostFocusColor;
+
+                if (hover || clicked)
+                    pen.Color = focusColor;
+
+                g.FillPolygon(myBrush, trianglePoints, newFillMode);
+                g.DrawLines(pen, cornerPoints);
                 myBrush.Dispose();
+
                 g.Dispose();
                 e.Graphics.DrawImage(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
             }
