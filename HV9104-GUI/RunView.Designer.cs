@@ -848,15 +848,16 @@
             // impulseOutputComboBox
             // 
             this.impulseOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.impulseOutputComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
-            this.impulseOutputComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
+           
             this.impulseOutputComboBox.Location = new System.Drawing.Point(118, 121);
+            this.impulseOutputComboBox.MaximumSize = new System.Drawing.Size(400, 60);
+            this.impulseOutputComboBox.MinimumSize = new System.Drawing.Size(145, 45);
             this.impulseOutputComboBox.Name = "impulseOutputComboBox";
             this.impulseOutputComboBox.setCollection = new string[] {
         "Pos",
         "Neg"};
             this.impulseOutputComboBox.SetSelected = "Pos";
-            this.impulseOutputComboBox.Size = new System.Drawing.Size(209, 67);
+            this.impulseOutputComboBox.Size = new System.Drawing.Size(209, 60);
             this.impulseOutputComboBox.TabIndex = 3;
             this.impulseOutputComboBox.Text = "customComboBox1";
             this.impulseOutputComboBox.TextBoxHint = "";
@@ -912,10 +913,10 @@
             // 
             // dcOutputComboBox
             // 
-            this.dcOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.dcOutputComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
-            this.dcOutputComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
+            this.dcOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));            
             this.dcOutputComboBox.Location = new System.Drawing.Point(116, 118);
+            this.dcOutputComboBox.MaximumSize = new System.Drawing.Size(400, 60);
+            this.dcOutputComboBox.MinimumSize = new System.Drawing.Size(145, 45);
             this.dcOutputComboBox.Name = "dcOutputComboBox";
             this.dcOutputComboBox.setCollection = new string[] {
         "avg",
@@ -923,7 +924,7 @@
         "min",
         "pk-Vpk"};
             this.dcOutputComboBox.SetSelected = "avg";
-            this.dcOutputComboBox.Size = new System.Drawing.Size(209, 67);
+            this.dcOutputComboBox.Size = new System.Drawing.Size(209, 60);
             this.dcOutputComboBox.TabIndex = 3;
             this.dcOutputComboBox.Text = "z";
             this.dcOutputComboBox.TextBoxHint = "";
@@ -980,9 +981,10 @@
             // acOutputComboBox
             // 
             this.acOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.acOutputComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
-            this.acOutputComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
+         
             this.acOutputComboBox.Location = new System.Drawing.Point(118, 121);
+            this.acOutputComboBox.MaximumSize = new System.Drawing.Size(400, 60);
+            this.acOutputComboBox.MinimumSize = new System.Drawing.Size(145, 45);
             this.acOutputComboBox.Name = "acOutputComboBox";
             this.acOutputComboBox.setCollection = new string[] {
         "rms",
@@ -990,7 +992,7 @@
         "min",
         "pk-Vpk"};
             this.acOutputComboBox.SetSelected = "rms";
-            this.acOutputComboBox.Size = new System.Drawing.Size(212, 67);
+            this.acOutputComboBox.Size = new System.Drawing.Size(212, 60);
             this.acOutputComboBox.TabIndex = 3;
             this.acOutputComboBox.Text = "customComboBox1";
             this.acOutputComboBox.TextBoxHint = "";
@@ -1233,15 +1235,16 @@
             // voltageRegulationRepresentationComboBox
             // 
             this.voltageRegulationRepresentationComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.voltageRegulationRepresentationComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
-            this.voltageRegulationRepresentationComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
+        
             this.voltageRegulationRepresentationComboBox.Location = new System.Drawing.Point(25, 323);
+            this.voltageRegulationRepresentationComboBox.MaximumSize = new System.Drawing.Size(400, 60);
+            this.voltageRegulationRepresentationComboBox.MinimumSize = new System.Drawing.Size(145, 45);
             this.voltageRegulationRepresentationComboBox.Name = "voltageRegulationRepresentationComboBox";
             this.voltageRegulationRepresentationComboBox.setCollection = new string[] {
         "rms",
         "pk"};
             this.voltageRegulationRepresentationComboBox.SetSelected = "rms";
-            this.voltageRegulationRepresentationComboBox.Size = new System.Drawing.Size(209, 67);
+            this.voltageRegulationRepresentationComboBox.Size = new System.Drawing.Size(209, 60);
             this.voltageRegulationRepresentationComboBox.TabIndex = 3;
             this.voltageRegulationRepresentationComboBox.Text = "customComboBox1";
             this.voltageRegulationRepresentationComboBox.TextBoxHint = "";

@@ -180,16 +180,16 @@ namespace HV9104_GUI
             // customComboBox2
             // 
             this.customComboBox2.BackColor = System.Drawing.Color.White;
-            this.customComboBox2.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
-            this.customComboBox2.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
             this.customComboBox2.Location = new System.Drawing.Point(264, 90);
+            this.customComboBox2.MaximumSize = new System.Drawing.Size(400, 60);
+            this.customComboBox2.MinimumSize = new System.Drawing.Size(145, 45);
             this.customComboBox2.Name = "customComboBox2";
             this.customComboBox2.setCollection = new string[] {
         "Vrms",
         "Vpk",
         "Vpk-Vpk"};
             this.customComboBox2.SetSelected = "Vrms";
-            this.customComboBox2.Size = new System.Drawing.Size(209, 67);
+            this.customComboBox2.Size = new System.Drawing.Size(209, 60);
             this.customComboBox2.TabIndex = 8;
             this.customComboBox2.Text = "customComboBox1";
             this.customComboBox2.TextBoxHint = "";
@@ -197,16 +197,16 @@ namespace HV9104_GUI
             // customComboBox1
             // 
             this.customComboBox1.BackColor = System.Drawing.Color.White;
-            this.customComboBox1.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
-            this.customComboBox1.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
             this.customComboBox1.Location = new System.Drawing.Point(27, 90);
+            this.customComboBox1.MaximumSize = new System.Drawing.Size(400, 60);
+            this.customComboBox1.MinimumSize = new System.Drawing.Size(145, 45);
             this.customComboBox1.Name = "customComboBox1";
             this.customComboBox1.setCollection = new string[] {
         "Vrms",
         "Vpk",
         "Vpk-Vpk"};
             this.customComboBox1.SetSelected = "Vrms";
-            this.customComboBox1.Size = new System.Drawing.Size(209, 67);
+            this.customComboBox1.Size = new System.Drawing.Size(209, 60);
             this.customComboBox1.TabIndex = 8;
             this.customComboBox1.Text = "customComboBox1";
             this.customComboBox1.TextBoxHint = "";

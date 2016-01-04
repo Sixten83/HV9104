@@ -248,11 +248,12 @@
             // acVoltageRangeComboBox
             // 
             this.acVoltageRangeComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.acVoltageRangeComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
-            this.acVoltageRangeComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
             this.acVoltageRangeComboBox.Location = new System.Drawing.Point(13, 51);
+            this.acVoltageRangeComboBox.MaximumSize = new System.Drawing.Size(400, 60);
+            this.acVoltageRangeComboBox.MinimumSize = new System.Drawing.Size(145, 45);
             this.acVoltageRangeComboBox.Name = "acVoltageRangeComboBox";
             this.acVoltageRangeComboBox.setCollection = new string[] {
+        "Auto",
         "0.2 kV/div",
         "0.5 kV/div",
         "1 kV/div",
@@ -260,8 +261,8 @@
         "5 kV/div",
         "10 kV/div",
         "20 kV/div"};
-            this.acVoltageRangeComboBox.SetSelected = "20 kV/div";
-            this.acVoltageRangeComboBox.Size = new System.Drawing.Size(209, 67);
+            this.acVoltageRangeComboBox.SetSelected = "Auto";
+            this.acVoltageRangeComboBox.Size = new System.Drawing.Size(209, 60);
             this.acVoltageRangeComboBox.TabIndex = 18;
             this.acVoltageRangeComboBox.TextBoxHint = "";
             // 
@@ -310,11 +311,12 @@
             // dcVoltageRangeComboBox
             // 
             this.dcVoltageRangeComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.dcVoltageRangeComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
-            this.dcVoltageRangeComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
             this.dcVoltageRangeComboBox.Location = new System.Drawing.Point(13, 51);
+            this.dcVoltageRangeComboBox.MaximumSize = new System.Drawing.Size(400, 60);
+            this.dcVoltageRangeComboBox.MinimumSize = new System.Drawing.Size(145, 45);
             this.dcVoltageRangeComboBox.Name = "dcVoltageRangeComboBox";
             this.dcVoltageRangeComboBox.setCollection = new string[] {
+        "Auto",
         "0.2 kV/div",
         "0.5 kV/div",
         "1 kV/div",
@@ -322,8 +324,8 @@
         "5 kV/div",
         "10 kV/div",
         "20 kV/div"};
-            this.dcVoltageRangeComboBox.SetSelected = "20 kV/div";
-            this.dcVoltageRangeComboBox.Size = new System.Drawing.Size(209, 67);
+            this.dcVoltageRangeComboBox.SetSelected = "Auto";
+            this.dcVoltageRangeComboBox.Size = new System.Drawing.Size(209, 60);
             this.dcVoltageRangeComboBox.TabIndex = 18;
             this.dcVoltageRangeComboBox.Text = "z";
             this.dcVoltageRangeComboBox.TextBoxHint = "";
@@ -374,9 +376,9 @@
             // impulseVoltageRangeComboBox
             // 
             this.impulseVoltageRangeComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.impulseVoltageRangeComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
-            this.impulseVoltageRangeComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
             this.impulseVoltageRangeComboBox.Location = new System.Drawing.Point(13, 51);
+            this.impulseVoltageRangeComboBox.MaximumSize = new System.Drawing.Size(400, 60);
+            this.impulseVoltageRangeComboBox.MinimumSize = new System.Drawing.Size(145, 45);
             this.impulseVoltageRangeComboBox.Name = "impulseVoltageRangeComboBox";
             this.impulseVoltageRangeComboBox.setCollection = new string[] {
         "0.2 kV/div",
@@ -387,7 +389,7 @@
         "10 kV/div",
         "20 kV/div"};
             this.impulseVoltageRangeComboBox.SetSelected = "20 kV/div";
-            this.impulseVoltageRangeComboBox.Size = new System.Drawing.Size(209, 67);
+            this.impulseVoltageRangeComboBox.Size = new System.Drawing.Size(209, 60);
             this.impulseVoltageRangeComboBox.TabIndex = 18;
             this.impulseVoltageRangeComboBox.Text = "z";
             this.impulseVoltageRangeComboBox.TextBoxHint = "";
@@ -439,16 +441,16 @@
             // timeBaseComboBox
             // 
             this.timeBaseComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.timeBaseComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
-            this.timeBaseComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
             this.timeBaseComboBox.Location = new System.Drawing.Point(35, 136);
+            this.timeBaseComboBox.MaximumSize = new System.Drawing.Size(400, 60);
+            this.timeBaseComboBox.MinimumSize = new System.Drawing.Size(145, 45);
             this.timeBaseComboBox.Name = "timeBaseComboBox";
             this.timeBaseComboBox.setCollection = new string[] {
         "2 ms/Div",
         "5 ms/Div",
         "10 ms/Div"};
             this.timeBaseComboBox.SetSelected = "5 ms/Div";
-            this.timeBaseComboBox.Size = new System.Drawing.Size(209, 67);
+            this.timeBaseComboBox.Size = new System.Drawing.Size(209, 60);
             this.timeBaseComboBox.TabIndex = 18;
             this.timeBaseComboBox.Text = "z";
             this.timeBaseComboBox.TextBoxHint = "";
@@ -456,15 +458,15 @@
             // resolutionComboBox
             // 
             this.resolutionComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.resolutionComboBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.listButton;
-            this.resolutionComboBox.HoverImage = global::HV9104_GUI.Properties.Resources.listButtonHover;
             this.resolutionComboBox.Location = new System.Drawing.Point(35, 53);
+            this.resolutionComboBox.MaximumSize = new System.Drawing.Size(400, 60);
+            this.resolutionComboBox.MinimumSize = new System.Drawing.Size(145, 45);
             this.resolutionComboBox.Name = "resolutionComboBox";
             this.resolutionComboBox.setCollection = new string[] {
         "8 Bit",
         "12 Bit"};
             this.resolutionComboBox.SetSelected = "12 Bit";
-            this.resolutionComboBox.Size = new System.Drawing.Size(209, 67);
+            this.resolutionComboBox.Size = new System.Drawing.Size(209, 60);
             this.resolutionComboBox.TabIndex = 18;
             this.resolutionComboBox.Text = "z";
             this.resolutionComboBox.TextBoxHint = "";

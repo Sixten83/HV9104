@@ -56,8 +56,10 @@ namespace HV9104_GUI
                 listMember.Font = new System.Drawing.Font("Calibri (Body)", fontSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 listMember.ForeColor = System.Drawing.Color.FromArgb(127, 127, 127);
                 listMember.Size = new System.Drawing.Size(200, fontSize * 2);
-                listMember.Location = new System.Drawing.Point((this.Width - listMember.Width) / 2, listMember.Height * r + 12);
+                listMember.AutoSize = false;
+                listMember.Location = new System.Drawing.Point((int)(this.Width * 0.05F), listMember.Height * r + 12);
                 listMember.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                
                 listMember.BackColor = Color.Transparent;
                 listMember.Text = s;
                 this.Controls.Add(listMember);
@@ -69,7 +71,7 @@ namespace HV9104_GUI
                 r++;
                 newHeight += fontSize * 2;
             }
-            ClientSize = new System.Drawing.Size(209, newHeight);
+            ClientSize = new System.Drawing.Size(this.Width, newHeight);
             list.Size = this.Size;
         }
 
