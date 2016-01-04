@@ -860,7 +860,7 @@ namespace HV9104_GUI
                 // First disconnect K2
                 OpenSecondaryRequest();
                 this.controlForm.runView.onOffSecButton.isChecked = false;
-                this.controlForm.runView.onOffSecButton.Invalidate();
+                //this.controlForm.runView.onOffSecButton.Invalidate();
                 
                 // Now disconnect K1
                 OpenPrimaryRequest();

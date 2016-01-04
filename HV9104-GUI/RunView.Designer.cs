@@ -1198,7 +1198,7 @@
             this.customPanel5.Name = "customPanel5";
             this.customPanel5.Size = new System.Drawing.Size(444, 402);
             this.customPanel5.TabIndex = 0;
-            this.customPanel5.Paint += new System.Windows.Forms.PaintEventHandler(this.customPanel5_Paint);
+            //this.customPanel5.Paint += new System.Windows.Forms.PaintEventHandler(this.customPanel5_Paint);
             // 
             // statusLabelAutoRegVoltage
             // 
@@ -1358,7 +1358,7 @@
             this.customPanel11.Name = "customPanel11";
             this.customPanel11.Size = new System.Drawing.Size(445, 127);
             this.customPanel11.TabIndex = 0;
-            this.customPanel11.Paint += new System.Windows.Forms.PaintEventHandler(this.customPanel11_Paint);
+            //this.customPanel11.Paint += new System.Windows.Forms.PaintEventHandler(this.customPanel11_Paint);
             // 
             // increaseImpulseGapButton
             // 
@@ -1685,7 +1685,7 @@
             this.Controls.Add(this.customPanel1);
             this.Name = "RunView";
             this.Size = new System.Drawing.Size(1875, 800);
-            this.Load += new System.EventHandler(this.RunView_Load);
+           // this.Load += new System.EventHandler(this.RunView_Load);
             this.customPanel15.ResumeLayout(false);
             this.customPanel15.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusPictureBoxHVPresent)).EndInit();

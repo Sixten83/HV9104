@@ -17,26 +17,36 @@ namespace HV9104_GUI
         {
             InitializeComponent();
         }
+        //protected override CreateParams CreateParams
+        //{
+        //    get
+        //    {
+        //        CreateParams cp = base.CreateParams;
+        //        cp.ExStyle = cp.ExStyle | 0x2000000;
+        //        return cp;
+        //    }
+        //}
+ 
 
-        private void RunView_Load(object sender, EventArgs e)
-        {
+        //private void RunView_Load(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
-        private void customPanel5_Paint(object sender, PaintEventArgs e)
-        {
+        //private void customPanel5_Paint(object sender, PaintEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void customPanel11_Paint(object sender, PaintEventArgs e)
-        {
+        //private void customPanel11_Paint(object sender, PaintEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void trafSpeedTrackBar_valueChangeHandler(object sender, ValueChangeEventArgs e)
-        {
+        //private void trafSpeedTrackBar_valueChangeHandler(object sender, ValueChangeEventArgs e)
+        //{
 
-        }
+        //}
 
 
     }
