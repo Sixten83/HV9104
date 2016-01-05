@@ -977,15 +977,15 @@ namespace HV9104_GUI
         {
             // Set some tolerances (we aren't perfect)
             float targetVoltage = controlForm.dashboardView.regulatedVoltageTextBox.Value;
-            double toleranceHi = 0.05;
-            double toleranceLo = -0.05;
+            double toleranceHi = 0.18;
+            double toleranceLo = -0.18;
             
             // Variable to hold our selectable measured voltage value           
             double uActual = 0;
 
             // Pd Variables - if needed?
             float P = 0;
-            float k = 5;
+            float k = 4;
             float d = 0;
             double error = 10;
             double previousError = 0;
@@ -1005,10 +1005,10 @@ namespace HV9104_GUI
                 }
                 else if ((controlForm.dashboardView.acOutputRadioButton.isChecked) && (PIO1.K2Closed))
                 {
-                    //uActual = Convert.ToDouble(controlForm.runView.acValueLabel.Text);
-                    uActual = picoScope.channels[0].RMS;
-                    toleranceHi = 0.15;
-                    toleranceLo = -0.15;
+                    uActual = Convert.ToDouble(controlForm.dashboardView.acValueLabel.Text);
+                    //uActual = picoScope.channels[0].RMS;
+                    toleranceHi = 0.2;
+                    toleranceLo = -0.2;
                 }
                 else if ((controlForm.dashboardView.dcVoltageRadioButton.isChecked) && (PIO1.K2Closed))
                 {
@@ -1025,39 +1025,45 @@ namespace HV9104_GUI
 
                 error =  uActual - targetVoltage;
 
-                if ((error <= 5) && (error >= -5))
+                if (error == previousError)
                 {
-                    k = 0.1F;
-
-                    if (error == previousError)
-                    {
-                        integral += 0.2;
-                    }
-                    else
-                    {
-                        //if(integral >= 0.1)
-                        //{
-                        integral -= 0.2;
-                        // }
-                    }
+                    integral += 0.1;
                 }
                 else
                 {
-                    k = 8;
+                    //if(integral >= 0.1)
+                    //{
+                    integral = 0;
+                    // }
                 }
+
 
                 // Call the appropriate instruction
                 if (error < toleranceHi)
                 {
-                    styr = (int)((error * -k) + 60 + integral);
 
+                    if ((error <= 4) && (error >= -4))
+                    {
+                        styr = 57 + (int)integral;
+                    }
+                    else
+                    {
+                        styr = (int)((error * -k) + 60 + integral);
+                    }
                     // Voltage low, increase
                     IncreaseVoltageRequest(styr);
                 }
                 else if (error > toleranceLo)
                 {
-                    styr = (int)((error * k) + 60 + integral);
 
+                    if ((error <= 4) && (error >= -4))
+                    {
+                        styr = 57 + (int)integral;
+                    }
+                    else
+                    {
+                        styr = (int)((error * k) + 60 + integral);
+                    }
                     // Voltage high, decrease
                     DecreaseVoltageRequest(styr);
                 }
@@ -1066,7 +1072,50 @@ namespace HV9104_GUI
                     // In bounds. We should only make it here once
                     StopTransformerMotorRequest();
                 }
-                Thread.Sleep(50);
+
+
+                //if ((error <= 5) && (error >= -5))
+                //{
+                //    k = 0.1F;
+
+                //    if (error == previousError)
+                //    {
+                //        integral += 0.2;
+                //    }
+                //    else
+                //    {
+                //        //if(integral >= 0.1)
+                //        //{
+                //        integral -= 0.2;
+                //        // }
+                //    }
+                //}
+                //else
+                //{
+                //    k = 8;
+                //}
+
+                //// Call the appropriate instruction
+                //if (error < toleranceHi)
+                //{
+                //    styr = (int)((error * -k) + 60 + integral);
+
+                //    // Voltage low, increase
+                //    IncreaseVoltageRequest(styr);
+                //}
+                //else if (error > toleranceLo)
+                //{
+                //    styr = (int)((error * k) + 60 + integral);
+
+                //    // Voltage high, decrease
+                //    DecreaseVoltageRequest(styr);
+                //}
+                //else
+                //{
+                //    // In bounds. We should only make it here once
+                //    StopTransformerMotorRequest();
+                //}
+                Thread.Sleep(10);
                 previousError = error;
             }
 
