@@ -8,9 +8,9 @@ namespace HV9104_GUI
 {
     public class Updater
     {
-        public RunView activeForm;
+        public DashBoardView activeForm;
 
-        public Updater(RunView activeFormIn)
+        public Updater(DashBoardView activeFormIn)
         {
             activeForm = activeFormIn;
         }

@@ -13,8 +13,9 @@ namespace HV9104_GUI
     public partial class ControlForm : Form
     {
         public MeasuringForm measuringForm;
-        public RunView runView;
+        public DashBoardView dashboardView;
         public SetupView setupView;
+        public RunView runView;
         int formX, formY;
         bool moveForm;
 
@@ -39,8 +40,8 @@ namespace HV9104_GUI
                     c.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDoubleClick);
                 }
             }
-
-            this.controlFormTabController.addPage(runView  = new RunView(), 1);
+            this.controlFormTabController.addPage(runView = new RunView(), 0);
+            this.controlFormTabController.addPage(dashboardView  = new DashBoardView(), 1);
             this.controlFormTabController.addPage(setupView = new SetupView(), 2);
         }
 

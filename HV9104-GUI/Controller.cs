@@ -36,7 +36,7 @@ namespace HV9104_GUI
         decimal impulseAttenuatorRatio = 25.1448M;
 
         // Class objects
-        public RunView activeForm;
+        public DashBoardView activeForm;
         public SerialPort serialPort1;
         public Updater guiUpdater;
 
@@ -184,7 +184,7 @@ namespace HV9104_GUI
                 else if (commandPending == 5)
                 {
                     // Do on-demand task
-                    int targetPos = Convert.ToInt16(this.controlForm.runView.impulseGapTextBox.Value);
+                    int targetPos = Convert.ToInt16(this.controlForm.dashboardView.impulseGapTextBox.Value);
                     activeMotor.MoveToPosition(targetPos);
                     Thread.Sleep(20);
                     commandPending = 0;
@@ -241,7 +241,7 @@ namespace HV9104_GUI
                 if ((int)(picoScope._overflow & 1) == 0 || !acChannel.VoltageAutoRange)
                 {
                     acChannel.processFastStreamData();
-                    this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    this.controlForm.dashboardView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                    
 
                 }
@@ -257,7 +257,7 @@ namespace HV9104_GUI
                 if ((int)(picoScope._overflow & 2) == 0 || !dcChannel.VoltageAutoRange)
                 {
                     dcChannel.processFastStreamData();
-                    this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    this.controlForm.dashboardView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                 }
                 else
                     autoSetVoltageRange(dcChannel);
@@ -295,12 +295,12 @@ namespace HV9104_GUI
                         Channel.ScaledData data = acChannel.processData(1600, trigAt, 400);
 
                         this.measuringForm.chart.Series["acSeries"].Points.DataBindXY(data.x, data.y);
-                        this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                        this.controlForm.dashboardView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                     }
                     else
                     {
                         acChannel.processMaxMinData(1600, trigAt);
-                        this.controlForm.runView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                        this.controlForm.dashboardView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                     }
                 }
                 else
@@ -318,12 +318,12 @@ namespace HV9104_GUI
                         this.measuringForm.chart.Series["dcSeries"].Points.Clear();
                         Channel.ScaledData data = dcChannel.processData(1600, trigAt, 400);
                         this.measuringForm.chart.Series["dcSeries"].Points.DataBindXY(data.x, data.y);
-                        this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                        this.controlForm.dashboardView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                     }
                     else
                     {
                         dcChannel.processMaxMinData(1600, trigAt);
-                        this.controlForm.runView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                        this.controlForm.dashboardView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                     }
                 }
                 else
@@ -362,13 +362,13 @@ namespace HV9104_GUI
                     this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
                     Channel.ScaledData data = impulseChannel.processData((int)picoScope.BlockSamples, 0, 2500);
                     this.measuringForm.chart.Series["impulseSeries"].Points.DataBindXY(data.x, data.y);
-                    this.controlForm.runView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    this.controlForm.dashboardView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                  
                 }
                 else
                 {
                     impulseChannel.processMaxMinData((int)picoScope.BlockSamples, 0);
-                    this.controlForm.runView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                    this.controlForm.dashboardView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                 }
             }
         }
@@ -481,57 +481,57 @@ namespace HV9104_GUI
             // 
             //this.controlForm.runView.Load += new EventHandler(RunView_Load);
             //Output Representation Listeners
-            this.controlForm.runView.acOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(acOutputComboBox_valueChange);
-            this.controlForm.runView.dcOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(dcOutputComboBox_valueChange);
-            this.controlForm.runView.impulseOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseOutputComboBox_valueChange);
+            this.controlForm.dashboardView.acOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(acOutputComboBox_valueChange);
+            this.controlForm.dashboardView.dcOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(dcOutputComboBox_valueChange);
+            this.controlForm.dashboardView.impulseOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseOutputComboBox_valueChange);
             //POWER Listeners
-            this.controlForm.runView.onOffButton.Click += new System.EventHandler(onOffButton_Click);
-            this.controlForm.runView.onOffSecButton.Click += new System.EventHandler(onOffSecButton_Click);
-            this.controlForm.runView.parkCheckBox.Click += new System.EventHandler(parkCheckBox_Click);
-            this.controlForm.runView.overrideCheckBox.Click += new System.EventHandler(overrideCheckBox_Click);
+            this.controlForm.dashboardView.onOffButton.Click += new System.EventHandler(onOffButton_Click);
+            this.controlForm.dashboardView.onOffSecButton.Click += new System.EventHandler(onOffSecButton_Click);
+            this.controlForm.dashboardView.parkCheckBox.Click += new System.EventHandler(parkCheckBox_Click);
+            this.controlForm.dashboardView.overrideCheckBox.Click += new System.EventHandler(overrideCheckBox_Click);
             //Regulated Voltage Type Listeners            
-            this.controlForm.runView.inputVoltageRadioButton.Click += new System.EventHandler(inputVoltageRadioButton_Click);
-            this.controlForm.runView.acOutputRadioButton.Click += new System.EventHandler(acVoltageRadioButton_Click);
-            this.controlForm.runView.dcVoltageRadioButton.Click += new System.EventHandler(dcVoltageRadioButton_Click);
+            this.controlForm.dashboardView.inputVoltageRadioButton.Click += new System.EventHandler(inputVoltageRadioButton_Click);
+            this.controlForm.dashboardView.acOutputRadioButton.Click += new System.EventHandler(acVoltageRadioButton_Click);
+            this.controlForm.dashboardView.dcVoltageRadioButton.Click += new System.EventHandler(dcVoltageRadioButton_Click);
             //Set Voltage Listeners            
-            this.controlForm.runView.decreaseRegulatedVoltageButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseRegulatedVoltageButton_Down);
-            this.controlForm.runView.decreaseRegulatedVoltageButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseRegulatedVoltageButton_Up);
-            this.controlForm.runView.regulatedVoltageTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(regulatedVoltageTextBox_valueChange);
-            this.controlForm.runView.increaseRegulatedVoltageButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Down);
-            this.controlForm.runView.increaseRegulatedVoltageButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Up);
-            this.controlForm.runView.abortRegulationButton.Click += new System.EventHandler(abortRegulationButtonButton_Click);
-            this.controlForm.runView.voltageRegulationRepresentationComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(voltageRegulationRepresentationComboBox_valueChange);
+            this.controlForm.dashboardView.decreaseRegulatedVoltageButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseRegulatedVoltageButton_Down);
+            this.controlForm.dashboardView.decreaseRegulatedVoltageButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseRegulatedVoltageButton_Up);
+            this.controlForm.dashboardView.regulatedVoltageTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(regulatedVoltageTextBox_valueChange);
+            this.controlForm.dashboardView.increaseRegulatedVoltageButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Down);
+            this.controlForm.dashboardView.increaseRegulatedVoltageButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Up);
+            this.controlForm.dashboardView.abortRegulationButton.Click += new System.EventHandler(abortRegulationButtonButton_Click);
+            this.controlForm.dashboardView.voltageRegulationRepresentationComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(voltageRegulationRepresentationComboBox_valueChange);
             //Impuse Trigger Control Listeners            
-            this.controlForm.runView.triggerButton.Click += new System.EventHandler(triggerButton_Click);
-            this.controlForm.runView.choppingCheckBox.Click += new System.EventHandler(choppingCheckBox_Click);
-            this.controlForm.runView.decreaseChoppingTimeButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseChoppingTimeButton_Down);
-            this.controlForm.runView.decreaseChoppingTimeButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseChoppingTimeButton_Up);
-            this.controlForm.runView.choppingTimeTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(choppingTimeTextBox_valueChange);
-            this.controlForm.runView.increaseChoppingTimeButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseChoppingTimeButton_Down);
-            this.controlForm.runView.increaseChoppingTimeButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseChoppingTimeButton_Up);
+            this.controlForm.dashboardView.triggerButton.Click += new System.EventHandler(triggerButton_Click);
+            this.controlForm.dashboardView.choppingCheckBox.Click += new System.EventHandler(choppingCheckBox_Click);
+            this.controlForm.dashboardView.decreaseChoppingTimeButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseChoppingTimeButton_Down);
+            this.controlForm.dashboardView.decreaseChoppingTimeButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseChoppingTimeButton_Up);
+            this.controlForm.dashboardView.choppingTimeTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(choppingTimeTextBox_valueChange);
+            this.controlForm.dashboardView.increaseChoppingTimeButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseChoppingTimeButton_Down);
+            this.controlForm.dashboardView.increaseChoppingTimeButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseChoppingTimeButton_Up);
             //Measuring Sphere Gap Listeners
             // this.controlForm.runView.decreaseMeasuringGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseMeasureeGap_Down);
             //this.controlForm.runView.decreaseMeasuringGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseMeasureGap_Up);
-            this.controlForm.runView.trafSpeedTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(trafSpeedTextBox_valueChange);
+            this.controlForm.dashboardView.trafSpeedTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(trafSpeedTextBox_valueChange);
             //this.controlForm.runView.increaseMeasuringGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseMeasureGapButton_Down);
             //this.controlForm.runView.increaseMeasuringGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseMeasureGapButton_Up);
             //Sphere Gap Listeners
-            this.controlForm.runView.decreaseImpulseGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseImpulseGap_Down);
-            this.controlForm.runView.decreaseImpulseGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseImpulseGap_Up);
-            this.controlForm.runView.impulseGapTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseGapTextBox_valueChange);
-            this.controlForm.runView.increaseImpulseGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Down);
-            this.controlForm.runView.increaseImpulseGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Up);
-            this.controlForm.runView.impulseSelectedRadioButton.Click += new System.EventHandler(impulseSelectedRadioButton_Click);
-            this.controlForm.runView.measuringSelectedRadioButton.Click += new System.EventHandler(measuringSelectedRadioButton_Click);
-            this.controlForm.runView.motorInitButton.Click += new System.EventHandler(motorInitButtonButton_Click);
+            this.controlForm.dashboardView.decreaseImpulseGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseImpulseGap_Down);
+            this.controlForm.dashboardView.decreaseImpulseGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseImpulseGap_Up);
+            this.controlForm.dashboardView.impulseGapTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseGapTextBox_valueChange);
+            this.controlForm.dashboardView.increaseImpulseGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Down);
+            this.controlForm.dashboardView.increaseImpulseGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseImpulseGapButton_Up);
+            this.controlForm.dashboardView.impulseSelectedRadioButton.Click += new System.EventHandler(impulseSelectedRadioButton_Click);
+            this.controlForm.dashboardView.measuringSelectedRadioButton.Click += new System.EventHandler(measuringSelectedRadioButton_Click);
+            this.controlForm.dashboardView.motorInitButton.Click += new System.EventHandler(motorInitButtonButton_Click);
             //Pressure Control Listeners
-            this.controlForm.runView.decreasePressureButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreasePressureButton_Down);
-            this.controlForm.runView.decreasePressureButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreasePressureButton_Up);
-            this.controlForm.runView.pressureTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(pressureTextBox_valueChange);
-            this.controlForm.runView.increasePressureButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increasePressureButton_Down);
-            this.controlForm.runView.increasePressureButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increasePressureButton_Up);
-            this.controlForm.runView.compressorPowerCheckBox.Click += new System.EventHandler(compressorPowerCheckBox_Click);
-            this.controlForm.runView.vacuumPowerCheckBox.Click += new System.EventHandler(vacuumPowerCheckBox_Click);
+            this.controlForm.dashboardView.decreasePressureButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreasePressureButton_Down);
+            this.controlForm.dashboardView.decreasePressureButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreasePressureButton_Up);
+            this.controlForm.dashboardView.pressureTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(pressureTextBox_valueChange);
+            this.controlForm.dashboardView.increasePressureButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increasePressureButton_Down);
+            this.controlForm.dashboardView.increasePressureButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increasePressureButton_Up);
+            this.controlForm.dashboardView.compressorPowerCheckBox.Click += new System.EventHandler(compressorPowerCheckBox_Click);
+            this.controlForm.dashboardView.vacuumPowerCheckBox.Click += new System.EventHandler(vacuumPowerCheckBox_Click);
 
             //***********************************************************************************************************
             //***                                  MEASURING FORM EVENT LISTENERS                                   *****
@@ -843,9 +843,9 @@ namespace HV9104_GUI
         // Update the transformer motor speed parameter
         private void trafSpeedTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            if((controlForm.runView.trafSpeedTextBox.Value <= controlForm.runView.trafSpeedTextBox.Max) && (controlForm.runView.trafSpeedTextBox.Value >= controlForm.runView.trafSpeedTextBox.Min))
+            if((controlForm.dashboardView.trafSpeedTextBox.Value <= controlForm.dashboardView.trafSpeedTextBox.Max) && (controlForm.dashboardView.trafSpeedTextBox.Value >= controlForm.dashboardView.trafSpeedTextBox.Min))
             { 
-                trafSpeed = (int)controlForm.runView.trafSpeedTextBox.Value * 10;
+                trafSpeed = (int)controlForm.dashboardView.trafSpeedTextBox.Value * 10;
             }
         }
 
@@ -853,7 +853,7 @@ namespace HV9104_GUI
         private void onOffButton_Click(object sender, EventArgs e)
         {
             // Connect K1
-            if(this.controlForm.runView.onOffButton.isChecked)
+            if(this.controlForm.dashboardView.onOffButton.isChecked)
             {
                 ClosePrimaryRequest();
             }
@@ -862,14 +862,14 @@ namespace HV9104_GUI
             {
                 // First disconnect K2
                 OpenSecondaryRequest();
-                this.controlForm.runView.onOffSecButton.isChecked = false;
-                this.controlForm.runView.onOffSecButton.Invalidate();
+                this.controlForm.dashboardView.onOffSecButton.isChecked = false;
+                this.controlForm.dashboardView.onOffSecButton.Invalidate();
                 
                 // Now disconnect K1
                 OpenPrimaryRequest();
 
                 // If Park is selected
-                if (this.controlForm.runView.parkCheckBox.isChecked)
+                if (this.controlForm.dashboardView.parkCheckBox.isChecked)
                 {
                     // Drive the voltage down to zero
                     PIO1.ParkTransformer();
@@ -881,9 +881,9 @@ namespace HV9104_GUI
         private void onOffSecButton_Click(object sender, EventArgs e)
         {
             // Connect K2
-            if (this.controlForm.runView.onOffSecButton.isChecked)
+            if (this.controlForm.dashboardView.onOffSecButton.isChecked)
             {
-                CloseSecondaryRequest(this.controlForm.runView.overrideCheckBox.isChecked);
+                CloseSecondaryRequest(this.controlForm.dashboardView.overrideCheckBox.isChecked);
             }
             // Disconnect K2
             else
@@ -903,7 +903,7 @@ namespace HV9104_GUI
         private void decreaseRegulatedVoltageButton_Down(object sender, MouseEventArgs e)
         {
 
-            trafSpeed = (int)controlForm.runView.trafSpeedTextBox.Value * 10;
+            trafSpeed = (int)controlForm.dashboardView.trafSpeedTextBox.Value * 10;
             DecreaseVoltageRequest(trafSpeed);
 
         }
@@ -920,7 +920,7 @@ namespace HV9104_GUI
         private void increaseRegulatedVoltageButton_Down(object sender, MouseEventArgs e)
         {
 
-            trafSpeed = (int)controlForm.runView.trafSpeedTextBox.Value * 10;
+            trafSpeed = (int)controlForm.dashboardView.trafSpeedTextBox.Value * 10;
             IncreaseVoltageRequest(trafSpeed);
 
         }
@@ -946,7 +946,7 @@ namespace HV9104_GUI
             abortRegulation = false;
 
             // RunTo voltage value
-            GoToVoltage(controlForm.runView.regulatedVoltageTextBox.Value);
+            GoToVoltage(controlForm.dashboardView.regulatedVoltageTextBox.Value);
 
         }
 
@@ -962,7 +962,7 @@ namespace HV9104_GUI
         private void RegulateVoltage()
         {
             // Set some tolerances (we aren't perfect)
-            float targetVoltage = controlForm.runView.regulatedVoltageTextBox.Value;
+            float targetVoltage = controlForm.dashboardView.regulatedVoltageTextBox.Value;
             double toleranceHi = 0.05;
             double toleranceLo = -0.05;
             
@@ -980,25 +980,25 @@ namespace HV9104_GUI
             int styr = 30;
 
             // Continue until found or precess aborted 
-            while (((error <= toleranceLo) || (error >= toleranceHi)) && (controlForm.runView.onOffButton.isChecked) && (!abortRegulation))
+            while (((error <= toleranceLo) || (error >= toleranceHi)) && (controlForm.dashboardView.onOffButton.isChecked) && (!abortRegulation))
             {
 
                 // Get the value to regulate agianst
-                if (controlForm.runView.inputVoltageRadioButton.isChecked)
+                if (controlForm.dashboardView.inputVoltageRadioButton.isChecked)
                 {
                     //uActual = (float)PIO1.regulatedVoltageValue;
-                    uActual = Convert.ToDouble(controlForm.runView.voltageInputLabel.Text);
+                    uActual = Convert.ToDouble(controlForm.dashboardView.voltageInputLabel.Text);
                 }
-                else if ((controlForm.runView.acOutputRadioButton.isChecked) && (PIO1.K2Closed))
+                else if ((controlForm.dashboardView.acOutputRadioButton.isChecked) && (PIO1.K2Closed))
                 {
                     //uActual = Convert.ToDouble(controlForm.runView.acValueLabel.Text);
                     uActual = picoScope.channels[0].RMS;
                     toleranceHi = 0.15;
                     toleranceLo = -0.15;
                 }
-                else if ((controlForm.runView.dcVoltageRadioButton.isChecked) && (PIO1.K2Closed))
+                else if ((controlForm.dashboardView.dcVoltageRadioButton.isChecked) && (PIO1.K2Closed))
                 {
-                    uActual = Convert.ToDouble(controlForm.runView.dcValueLabel.Text);
+                    uActual = Convert.ToDouble(controlForm.dashboardView.dcValueLabel.Text);
                     toleranceHi = 0.15;
                     toleranceLo = -0.15;
                 }
@@ -1092,9 +1092,9 @@ namespace HV9104_GUI
 
 
             //Setup Trigger / Chopping time - IF ENABLED!!! TO BE CHECKED!!!!
-            if (controlForm.runView.choppingCheckBox.isChecked)
+            if (controlForm.dashboardView.choppingCheckBox.isChecked)
             {
-                picoScope.setupSignalGen(controlForm.runView.choppingTimeTextBox.Value * 10000);
+                picoScope.setupSignalGen(controlForm.dashboardView.choppingTimeTextBox.Value * 10000);
             }
             else
             {
@@ -1115,17 +1115,17 @@ namespace HV9104_GUI
 
         private void choppingCheckBox_Click(object sender, EventArgs e)
         {
-            if (controlForm.runView.choppingCheckBox.isChecked)
+            if (controlForm.dashboardView.choppingCheckBox.isChecked)
             {
-                controlForm.runView.choppingTimeTextBox.Enabled = true;
-                controlForm.runView.decreaseChoppingTimeButton.Enabled = true;
-                controlForm.runView.increaseChoppingTimeButton.Enabled = true;
+                controlForm.dashboardView.choppingTimeTextBox.Enabled = true;
+                controlForm.dashboardView.decreaseChoppingTimeButton.Enabled = true;
+                controlForm.dashboardView.increaseChoppingTimeButton.Enabled = true;
             }
             else
             {
-                controlForm.runView.choppingTimeTextBox.Enabled = false;
-                controlForm.runView.decreaseChoppingTimeButton.Enabled = false;
-                controlForm.runView.increaseChoppingTimeButton.Enabled = false;
+                controlForm.dashboardView.choppingTimeTextBox.Enabled = false;
+                controlForm.dashboardView.decreaseChoppingTimeButton.Enabled = false;
+                controlForm.dashboardView.increaseChoppingTimeButton.Enabled = false;
             }
 
 
@@ -1136,10 +1136,10 @@ namespace HV9104_GUI
         {
             // Verify the input value
 
-            if (controlForm.runView.choppingTimeTextBox.Value > controlForm.runView.choppingTimeTextBox.Min)
+            if (controlForm.dashboardView.choppingTimeTextBox.Value > controlForm.dashboardView.choppingTimeTextBox.Min)
             {
                 // Increase the delay time by one
-                controlForm.runView.choppingTimeTextBox.Value -= 1;
+                controlForm.dashboardView.choppingTimeTextBox.Value -= 1;
             }
 
         }
@@ -1161,10 +1161,10 @@ namespace HV9104_GUI
         private void increaseChoppingTimeButton_Down(object sender, MouseEventArgs e)
         {
             // Verify the input value
-            if (controlForm.runView.choppingTimeTextBox.Value < controlForm.runView.choppingTimeTextBox.Max)
+            if (controlForm.dashboardView.choppingTimeTextBox.Value < controlForm.dashboardView.choppingTimeTextBox.Max)
             {
                 // Increase the delay time by one
-                controlForm.runView.choppingTimeTextBox.Value += 1;
+                controlForm.dashboardView.choppingTimeTextBox.Value += 1;
             }
 
 
@@ -1234,7 +1234,7 @@ namespace HV9104_GUI
         private void impulseGapTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
 
-            RunToPosRequest(this.controlForm.runView.impulseGapTextBox.Text);
+            RunToPosRequest(this.controlForm.dashboardView.impulseGapTextBox.Text);
             searchingGap = true;
 
         }
@@ -1286,7 +1286,7 @@ namespace HV9104_GUI
         private void pressureTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
 
-            SetPressureRequest(controlForm.runView.pressureTextBox.Value);
+            SetPressureRequest(controlForm.dashboardView.pressureTextBox.Value);
 
         }
 
@@ -1533,52 +1533,52 @@ namespace HV9104_GUI
             // Setup information
             if (controlForm.setupView.acStage1RadioButton.isChecked)
             {
-                controlForm.runView.statusLabelHVACStage.Text = "1-Stage";
+                controlForm.dashboardView.statusLabelHVACStage.Text = "1-Stage";
             }
             else if (controlForm.setupView.acStage2RadioButton.isChecked)
             {
-                controlForm.runView.statusLabelHVACStage.Text = "2-Stage";
+                controlForm.dashboardView.statusLabelHVACStage.Text = "2-Stage";
             }
             else if (controlForm.setupView.acStage3RadioButton.isChecked)
             {
-                controlForm.runView.statusLabelHVACStage.Text = "3-Stage";
+                controlForm.dashboardView.statusLabelHVACStage.Text = "3-Stage";
             }
             else
             {
-                controlForm.runView.statusLabelHVACStage.Text = "Not Selected";
+                controlForm.dashboardView.statusLabelHVACStage.Text = "Not Selected";
             }
 
             if (controlForm.setupView.dcStage1RadioButton.isChecked)
             {
-                controlForm.runView.statusLabelHVDCStage.Text = "1-Stage";
+                controlForm.dashboardView.statusLabelHVDCStage.Text = "1-Stage";
             }
             else if (controlForm.setupView.dcStage2RadioButton.isChecked)
             {
-                controlForm.runView.statusLabelHVDCStage.Text = "2-Stage";
+                controlForm.dashboardView.statusLabelHVDCStage.Text = "2-Stage";
             }
             else if (controlForm.setupView.dcStage3RadioButton.isChecked)
             {
-                controlForm.runView.statusLabelHVDCStage.Text = "3-Stage";
+                controlForm.dashboardView.statusLabelHVDCStage.Text = "3-Stage";
             }
             else
             {
-                controlForm.runView.statusLabelHVDCStage.Text = "Not Selected";
+                controlForm.dashboardView.statusLabelHVDCStage.Text = "Not Selected";
             }
             if (controlForm.setupView.impulseStage1RadioButton.isChecked)
             {
-                controlForm.runView.statusLabelHVImpStage.Text = "1-Stage";
+                controlForm.dashboardView.statusLabelHVImpStage.Text = "1-Stage";
             }
             else if (controlForm.setupView.impulseStage2RadioButton.isChecked)
             {
-                controlForm.runView.statusLabelHVImpStage.Text = "2-Stage";
+                controlForm.dashboardView.statusLabelHVImpStage.Text = "2-Stage";
             }
             else if (controlForm.setupView.impulseStage3RadioButton.isChecked)
             {
-                controlForm.runView.statusLabelHVImpStage.Text = "3-Stage";
+                controlForm.dashboardView.statusLabelHVImpStage.Text = "3-Stage";
             }
             else
             {
-                controlForm.runView.statusLabelHVImpStage.Text = "Not Selected";
+                controlForm.dashboardView.statusLabelHVImpStage.Text = "Not Selected";
             }
 
             Thread.Sleep(200);
@@ -1587,14 +1587,14 @@ namespace HV9104_GUI
             if (PIO1.K1Closed)
             {
                 // K1 has been left open. Reflect this in the UI
-                controlForm.runView.onOffButton.isChecked = true;
-                controlForm.runView.onOffButton.Invalidate();
+                controlForm.dashboardView.onOffButton.isChecked = true;
+                controlForm.dashboardView.onOffButton.Invalidate();
             }
             if (PIO1.K2Closed)
             {
                 // K1 has been left open. Reflect this in the UI
-                controlForm.runView.onOffSecButton.isChecked = true;
-                controlForm.runView.onOffButton.Invalidate();
+                controlForm.dashboardView.onOffSecButton.isChecked = true;
+                controlForm.dashboardView.onOffButton.Invalidate();
             }
 
             // Set Regulated Voltage Control parameters based on selected setup and selected reference - TO BE ADDED!!!
@@ -1609,43 +1609,43 @@ namespace HV9104_GUI
         public void UpdateGUI()
         {
             // Voltage and Current
-            controlForm.runView.voltageInputLabel.Text = PIO1.regulatedVoltageValue.ToString("0.0").Replace(',', '.');;
-            controlForm.runView.currentInputLabel.Text = PIO1.regulatedCurrentValue.ToString("0.00").Replace(',', '.');;
+            controlForm.dashboardView.voltageInputLabel.Text = PIO1.regulatedVoltageValue.ToString("0.0").Replace(',', '.');;
+            controlForm.dashboardView.currentInputLabel.Text = PIO1.regulatedCurrentValue.ToString("0.00").Replace(',', '.');;
 
             // Pressure
-            controlForm.runView.pressureLabel.Text = PIO1.getPressure();
+            controlForm.dashboardView.pressureLabel.Text = PIO1.getPressure();
 
             // Status flags
             //guiUpdater.transferLabel36(PIO1.fault.ToString());
-            controlForm.runView.statusLabelUmin.Text = PIO1.minUPos.ToString();
-            controlForm.runView.statusLabelUmin.Invalidate();
-            controlForm.runView.statusLabelEarthingengaged.Text = PIO1.earthingEngaged.ToString();
-            controlForm.runView.statusLabelEarthingengaged.Invalidate();
-            controlForm.runView.statusLabelDischargeRodParked.Text = PIO1.dischargeRodParked.ToString();
-            controlForm.runView.statusLabelDischargeRodParked.Invalidate();
-            controlForm.runView.statuslabelEmStopKeySwClosed.Text = PIO1.emergStpKeySwClosed.ToString();
-            controlForm.runView.statusLabelDoorClosed.Text = PIO1.dorrSwitchClosed.ToString();
-            controlForm.runView.statusLabelK1F2Closed.Text = PIO1.K1Closed.ToString();
-            controlForm.runView.statusLabelK2F1Closed.Text = PIO1.K2Closed.ToString();
+            controlForm.dashboardView.statusLabelUmin.Text = PIO1.minUPos.ToString();
+            controlForm.dashboardView.statusLabelUmin.Invalidate();
+            controlForm.dashboardView.statusLabelEarthingengaged.Text = PIO1.earthingEngaged.ToString();
+            controlForm.dashboardView.statusLabelEarthingengaged.Invalidate();
+            controlForm.dashboardView.statusLabelDischargeRodParked.Text = PIO1.dischargeRodParked.ToString();
+            controlForm.dashboardView.statusLabelDischargeRodParked.Invalidate();
+            controlForm.dashboardView.statuslabelEmStopKeySwClosed.Text = PIO1.emergStpKeySwClosed.ToString();
+            controlForm.dashboardView.statusLabelDoorClosed.Text = PIO1.dorrSwitchClosed.ToString();
+            controlForm.dashboardView.statusLabelK1F2Closed.Text = PIO1.K1Closed.ToString();
+            controlForm.dashboardView.statusLabelK2F1Closed.Text = PIO1.K2Closed.ToString();
 
             // Auto voltage regulation status
-            controlForm.runView.statusLabelAutoRegVoltage.Visible = !abortRegulation;
+            controlForm.dashboardView.statusLabelAutoRegVoltage.Visible = !abortRegulation;
 
             // Warning High Voltage image
             if ((PIO1.regulatedVoltageValue >= 5) && (PIO1.K2Closed))
             {
-                controlForm.runView.statusPictureBoxHVPresent.Visible = true;
-                controlForm.runView.dischargePictureBox.Visible = false;
+                controlForm.dashboardView.statusPictureBoxHVPresent.Visible = true;
+                controlForm.dashboardView.dischargePictureBox.Visible = false;
             }
             else
             {
-                controlForm.runView.statusPictureBoxHVPresent.Visible = false;
-                controlForm.runView.dischargePictureBox.Visible = true;
+                controlForm.dashboardView.statusPictureBoxHVPresent.Visible = false;
+                controlForm.dashboardView.dischargePictureBox.Visible = true;
             }
 
             // Active motor info
-            controlForm.runView.impulseGapLabel.Text = activeMotor.actualPosition.ToString();
-            controlForm.runView.statusLabelActiveMotorInitialized.Text = GetMotorStatus();
+            controlForm.dashboardView.impulseGapLabel.Text = activeMotor.actualPosition.ToString();
+            controlForm.dashboardView.statusLabelActiveMotorInitialized.Text = GetMotorStatus();
 
         }
 
@@ -1686,9 +1686,9 @@ namespace HV9104_GUI
             }
             else
             { 
-                int presentedValue = Convert.ToInt16(controlForm.runView.impulseGapLabel.Text);
+                int presentedValue = Convert.ToInt16(controlForm.dashboardView.impulseGapLabel.Text);
 
-                if ((controlForm.runView.impulseGapTextBox.Value != presentedValue) && (presentedValue != 90))
+                if ((controlForm.dashboardView.impulseGapTextBox.Value != presentedValue) && (presentedValue != 90))
                 {
                     return "   SEARCHING...";
 
@@ -1720,8 +1720,8 @@ namespace HV9104_GUI
             else
             {
                 // Add additional notification here
-                this.controlForm.runView.onOffSecButton.isChecked = false;
-                this.controlForm.runView.onOffSecButton.Invalidate();
+                this.controlForm.dashboardView.onOffSecButton.isChecked = false;
+                this.controlForm.dashboardView.onOffSecButton.Invalidate();
             }
 
         }
@@ -1844,7 +1844,7 @@ namespace HV9104_GUI
         private void EnergizeCompressorOutputRequest()
         {
 
-            if (controlForm.runView.compressorPowerCheckBox.isChecked)
+            if (controlForm.dashboardView.compressorPowerCheckBox.isChecked)
             {
                 PIO1.startCompressor = true;
             }
@@ -1858,7 +1858,7 @@ namespace HV9104_GUI
         // Manually control the 230V outputs
         private void EnergizeVacuumPumpOutputRequest()
         {
-            if (controlForm.runView.vacuumPowerCheckBox.isChecked)
+            if (controlForm.dashboardView.vacuumPowerCheckBox.isChecked)
             {
                 PIO1.startVacuumPump = true;
             }

@@ -102,6 +102,12 @@
     </Compile>
     <Compile Include="NA9739Device.cs" />
     <Compile Include="PD1161Device.cs" />
+    <Compile Include="RunView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RunView.Designer.cs">
+      <DependentUpon>RunView.cs</DependentUpon>
+    </Compile>
     <Compile Include="SetupView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -148,11 +154,11 @@
       <SubType>Code</SubType>
       <DependentUpon>PicoScope.cs</DependentUpon>
     </Compile>
-    <Compile Include="RunView.cs">
+    <Compile Include="DashBoardView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RunView.Designer.cs">
-      <DependentUpon>RunView.cs</DependentUpon>
+    <Compile Include="DashBoardView.Designer.cs">
+      <DependentUpon>DashBoardView.cs</DependentUpon>
     </Compile>
     <Compile Include="Updater.cs" />
     <Compile Include="ValueChangeEventArgs.cs">
@@ -180,6 +186,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="DashBoardView.resx">
+      <DependentUpon>DashBoardView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RunView.resx">
       <DependentUpon>RunView.cs</DependentUpon>
     </EmbeddedResource>
