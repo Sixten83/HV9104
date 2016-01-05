@@ -476,7 +476,7 @@ namespace HV9104_GUI
             this.controlForm.setupView.impulseStage2RadioButton.Click += new System.EventHandler(impulseStage2RadioButton_Click);
             this.controlForm.setupView.impulseStage3RadioButton.Click += new System.EventHandler(impulseStage3RadioButton_Click);
             //***********************************************************************************************************
-            //***                                     RUN VIEW EVENT LISTENERS                                       ****
+            //***                                     DASHBOARD VIEW EVENT LISTENERS                                       ****
             //***********************************************************************************************************
             // 
             //this.controlForm.runView.Load += new EventHandler(RunView_Load);
@@ -1530,56 +1530,56 @@ namespace HV9104_GUI
         // Before we start, make sure the UI correctly represents the PLC and Motor status. Called on startup and after change in SetupView
         private void InitializeUIStatus()
         {
-            // Setup information
-            if (controlForm.setupView.acStage1RadioButton.isChecked)
-            {
-                controlForm.dashboardView.statusLabelHVACStage.Text = "1-Stage";
-            }
-            else if (controlForm.setupView.acStage2RadioButton.isChecked)
-            {
-                controlForm.dashboardView.statusLabelHVACStage.Text = "2-Stage";
-            }
-            else if (controlForm.setupView.acStage3RadioButton.isChecked)
-            {
-                controlForm.dashboardView.statusLabelHVACStage.Text = "3-Stage";
-            }
-            else
-            {
-                controlForm.dashboardView.statusLabelHVACStage.Text = "Not Selected";
-            }
+            //    // Setup information
+            //    if (controlForm.setupView.acStage1RadioButton.isChecked)
+            //    {
+            //        controlForm.dashboardView.statusLabelHVACStage.Text = "1-Stage";
+            //    }
+            //    else if (controlForm.setupView.acStage2RadioButton.isChecked)
+            //    {
+            //        controlForm.dashboardView.statusLabelHVACStage.Text = "2-Stage";
+            //    }
+            //    else if (controlForm.setupView.acStage3RadioButton.isChecked)
+            //    {
+            //        controlForm.dashboardView.statusLabelHVACStage.Text = "3-Stage";
+            //    }
+            //    else
+            //    {
+            //        controlForm.dashboardView.statusLabelHVACStage.Text = "Not Selected";
+            //    }
 
-            if (controlForm.setupView.dcStage1RadioButton.isChecked)
-            {
-                controlForm.dashboardView.statusLabelHVDCStage.Text = "1-Stage";
-            }
-            else if (controlForm.setupView.dcStage2RadioButton.isChecked)
-            {
-                controlForm.dashboardView.statusLabelHVDCStage.Text = "2-Stage";
-            }
-            else if (controlForm.setupView.dcStage3RadioButton.isChecked)
-            {
-                controlForm.dashboardView.statusLabelHVDCStage.Text = "3-Stage";
-            }
-            else
-            {
-                controlForm.dashboardView.statusLabelHVDCStage.Text = "Not Selected";
-            }
-            if (controlForm.setupView.impulseStage1RadioButton.isChecked)
-            {
-                controlForm.dashboardView.statusLabelHVImpStage.Text = "1-Stage";
-            }
-            else if (controlForm.setupView.impulseStage2RadioButton.isChecked)
-            {
-                controlForm.dashboardView.statusLabelHVImpStage.Text = "2-Stage";
-            }
-            else if (controlForm.setupView.impulseStage3RadioButton.isChecked)
-            {
-                controlForm.dashboardView.statusLabelHVImpStage.Text = "3-Stage";
-            }
-            else
-            {
-                controlForm.dashboardView.statusLabelHVImpStage.Text = "Not Selected";
-            }
+            //    if (controlForm.setupView.dcStage1RadioButton.isChecked)
+            //    {
+            //        controlForm.dashboardView.statusLabelHVDCStage.Text = "1-Stage";
+            //    }
+            //    else if (controlForm.setupView.dcStage2RadioButton.isChecked)
+            //    {
+            //        controlForm.dashboardView.statusLabelHVDCStage.Text = "2-Stage";
+            //    }
+            //    else if (controlForm.setupView.dcStage3RadioButton.isChecked)
+            //    {
+            //        controlForm.dashboardView.statusLabelHVDCStage.Text = "3-Stage";
+            //    }
+            //    else
+            //    {
+            //        controlForm.dashboardView.statusLabelHVDCStage.Text = "Not Selected";
+            //    }
+            //    if (controlForm.setupView.impulseStage1RadioButton.isChecked)
+            //    {
+            //        controlForm.dashboardView.statusLabelHVImpStage.Text = "1-Stage";
+            //    }
+            //    else if (controlForm.setupView.impulseStage2RadioButton.isChecked)
+            //    {
+            //        controlForm.dashboardView.statusLabelHVImpStage.Text = "2-Stage";
+            //    }
+            //    else if (controlForm.setupView.impulseStage3RadioButton.isChecked)
+            //    {
+            //        controlForm.dashboardView.statusLabelHVImpStage.Text = "3-Stage";
+            //    }
+            //    else
+            //    {
+            //        controlForm.dashboardView.statusLabelHVImpStage.Text = "Not Selected";
+            //    }
 
             Thread.Sleep(200);
 
@@ -1602,7 +1602,8 @@ namespace HV9104_GUI
             //controlForm.runView.regulatedVoltageTextBox.Min = ;
             //controlForm.runView.regulatedVoltageTextBox.Max = ;
 
-
+            // Get the setup
+            GetActiveSetup();
         }
 
         // Present all values in the UI
@@ -1635,17 +1636,136 @@ namespace HV9104_GUI
             if ((PIO1.regulatedVoltageValue >= 5) && (PIO1.K2Closed))
             {
                 controlForm.dashboardView.statusPictureBoxHVPresent.Visible = true;
-                controlForm.dashboardView.dischargePictureBox.Visible = false;
+                //controlForm.dashboardView.dischargePictureBox.Visible = false;
             }
             else
             {
                 controlForm.dashboardView.statusPictureBoxHVPresent.Visible = false;
-                controlForm.dashboardView.dischargePictureBox.Visible = true;
+                //controlForm.dashboardView.dischargePictureBox.Visible = true;
             }
-
+            
             // Active motor info
             controlForm.dashboardView.impulseGapLabel.Text = activeMotor.actualPosition.ToString();
             controlForm.dashboardView.statusLabelActiveMotorInitialized.Text = GetMotorStatus();
+
+        }
+
+        // Evaluate the user entered information to present the correct setup image
+        private void GetActiveSetup()
+        {
+            int picNr = 0;
+
+            if (controlForm.setupView.acCheckBox.isChecked)
+            {
+                //
+                if (controlForm.setupView.acStage1RadioButton.isChecked)
+                {
+                    picNr += 100;
+                }
+                else if (controlForm.setupView.acStage2RadioButton.isChecked)
+                {
+                    picNr += 200;
+                }
+                else if (controlForm.setupView.acStage3RadioButton.isChecked)
+                {
+                    picNr += 300;
+                }
+
+            }
+            if (controlForm.setupView.dcCheckBox.isChecked)
+            {
+                //
+                if (controlForm.setupView.dcStage1RadioButton.isChecked)
+                {
+                    picNr += 10;
+                }
+                else if (controlForm.setupView.dcStage2RadioButton.isChecked)
+                {
+                    picNr += 20;
+                }
+                else if (controlForm.setupView.dcStage3RadioButton.isChecked)
+                {
+                    picNr += 30;
+                }
+            }
+            if (controlForm.setupView.impulseCheckBox.isChecked)
+            {
+                // 
+                if (controlForm.setupView.impulseStage1RadioButton.isChecked)
+                {
+                    picNr += 1;
+                }
+                else if (controlForm.setupView.impulseStage2RadioButton.isChecked)
+                {
+                    picNr += 2;
+                }
+                else if (controlForm.setupView.impulseStage3RadioButton.isChecked)
+                {
+                    picNr += 3;
+                }
+            }
+
+            if (picNr == 100)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._1_stageAC;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
+            }
+            else if (picNr == 110)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._1_stageDC;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
+            }
+            else if (picNr == 111)
+            {
+
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._1_stageImp;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
+            }
+            else if (picNr == 112)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._2_stageImp;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
+            }
+            else if (picNr == 113)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._3_stageImp;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
+            }
+            else if (picNr == 120)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._2_stageDC;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
+            }
+            else if (picNr == 130)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._3_stageDC;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
+            }
+            else if (picNr == 200)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._2_stageAC;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
+            }
+            else if (picNr == 300)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._3_stageAC;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
+            }
+            else
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources.tercoLogo;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
+            }
 
         }
 

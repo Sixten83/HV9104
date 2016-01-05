@@ -17,6 +17,7 @@ namespace HV9104_GUI
         {
             InitializeComponent();
         }
+
         //protected override CreateParams CreateParams
         //{
         //    get
@@ -26,7 +27,7 @@ namespace HV9104_GUI
         //        return cp;
         //    }
         //}
- 
+
 
         //private void RunView_Load(object sender, EventArgs e)
         //{

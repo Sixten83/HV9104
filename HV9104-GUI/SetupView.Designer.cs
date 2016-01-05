@@ -801,7 +801,7 @@
             this.impulseCheckBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.checkBox;
             this.impulseCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
             this.impulseCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
-            this.impulseCheckBox.isChecked = false;
+            this.impulseCheckBox.isChecked = true;
             this.impulseCheckBox.Location = new System.Drawing.Point(193, 8);
             this.impulseCheckBox.Name = "impulseCheckBox";
             this.impulseCheckBox.Size = new System.Drawing.Size(48, 43);
@@ -962,7 +962,7 @@
             this.dcCheckBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.checkBox;
             this.dcCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
             this.dcCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
-            this.dcCheckBox.isChecked = false;
+            this.dcCheckBox.isChecked = true;
             this.dcCheckBox.Location = new System.Drawing.Point(193, 8);
             this.dcCheckBox.Name = "dcCheckBox";
             this.dcCheckBox.Size = new System.Drawing.Size(48, 43);
@@ -1144,7 +1144,7 @@
             this.acCheckBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.checkBox;
             this.acCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
             this.acCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
-            this.acCheckBox.isChecked = false;
+            this.acCheckBox.isChecked = true;
             this.acCheckBox.Location = new System.Drawing.Point(189, 8);
             this.acCheckBox.Name = "acCheckBox";
             this.acCheckBox.Size = new System.Drawing.Size(48, 43);

@@ -63,6 +63,86 @@ namespace HV9104_GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _1_stage {
+            get {
+                object obj = ResourceManager.GetObject("1-stage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1_stageAC {
+            get {
+                object obj = ResourceManager.GetObject("1-stageAC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1_stageDC {
+            get {
+                object obj = ResourceManager.GetObject("1-stageDC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1_stageImp {
+            get {
+                object obj = ResourceManager.GetObject("1-stageImp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _2_stage {
+            get {
+                object obj = ResourceManager.GetObject("2-stage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _2_stageAC {
+            get {
+                object obj = ResourceManager.GetObject("2-stageAC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _2_stageDC {
+            get {
+                object obj = ResourceManager.GetObject("2-stageDC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _2_stageImp {
+            get {
+                object obj = ResourceManager.GetObject("2-stageImp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _2321 {
             get {
                 object obj = ResourceManager.GetObject("2321", resourceCulture);
@@ -86,6 +166,46 @@ namespace HV9104_GUI.Properties {
         internal static System.Drawing.Bitmap _23212 {
             get {
                 object obj = ResourceManager.GetObject("23212", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3_stage {
+            get {
+                object obj = ResourceManager.GetObject("3-stage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3_stageAC {
+            get {
+                object obj = ResourceManager.GetObject("3-stageAC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3_stageDC {
+            get {
+                object obj = ResourceManager.GetObject("3-stageDC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3_stageImp {
+            get {
+                object obj = ResourceManager.GetObject("3-stageImp", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -526,6 +646,16 @@ namespace HV9104_GUI.Properties {
         internal static System.Drawing.Bitmap High_Voltage {
             get {
                 object obj = ResourceManager.GetObject("High Voltage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HV9107 {
+            get {
+                object obj = ResourceManager.GetObject("HV9107", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
