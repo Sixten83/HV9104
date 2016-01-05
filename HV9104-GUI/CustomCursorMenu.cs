@@ -317,7 +317,7 @@ namespace HV9104_GUI
             this.customPanel7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(118)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
             this.customPanel7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(118)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
             this.customPanel7.Controls.Add(this.vCurs1Label);
-            this.customPanel7.CornerRadius = 27;
+            this.customPanel7.CornerRadius = 25;
             this.customPanel7.IsPopUp = false;
             this.customPanel7.Location = new System.Drawing.Point(58, 152);
             this.customPanel7.Name = "customPanel7";
@@ -342,7 +342,7 @@ namespace HV9104_GUI
             this.customPanel6.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(118)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
             this.customPanel6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(118)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
             this.customPanel6.Controls.Add(this.vCurs2Label);
-            this.customPanel6.CornerRadius = 27;
+            this.customPanel6.CornerRadius = 25;
             this.customPanel6.IsPopUp = false;
             this.customPanel6.Location = new System.Drawing.Point(201, 152);
             this.customPanel6.Name = "customPanel6";
@@ -368,7 +368,7 @@ namespace HV9104_GUI
             this.customPanel4.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
             this.customPanel4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
             this.customPanel4.Controls.Add(this.hCurs1Label);
-            this.customPanel4.CornerRadius = 27;
+            this.customPanel4.CornerRadius = 25;
             this.customPanel4.IsPopUp = false;
             this.customPanel4.Location = new System.Drawing.Point(58, 80);
             this.customPanel4.Name = "customPanel4";
@@ -393,7 +393,7 @@ namespace HV9104_GUI
             this.customPanel5.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(118)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
             this.customPanel5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(118)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
             this.customPanel5.Controls.Add(this.vDiffLabel);
-            this.customPanel5.CornerRadius = 27;
+            this.customPanel5.CornerRadius = 25;
             this.customPanel5.IsPopUp = false;
             this.customPanel5.Location = new System.Drawing.Point(346, 152);
             this.customPanel5.Name = "customPanel5";
@@ -418,7 +418,7 @@ namespace HV9104_GUI
             this.customPanel2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
             this.customPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
             this.customPanel2.Controls.Add(this.hCurs2Label);
-            this.customPanel2.CornerRadius = 27;
+            this.customPanel2.CornerRadius = 25;
             this.customPanel2.IsPopUp = false;
             this.customPanel2.Location = new System.Drawing.Point(201, 80);
             this.customPanel2.Name = "customPanel2";
@@ -443,7 +443,7 @@ namespace HV9104_GUI
             this.customPanel3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
             this.customPanel3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
             this.customPanel3.Controls.Add(this.hDiffLabel);
-            this.customPanel3.CornerRadius = 27;
+            this.customPanel3.CornerRadius = 25;
             this.customPanel3.IsPopUp = false;
             this.customPanel3.Location = new System.Drawing.Point(346, 80);
             this.customPanel3.Name = "customPanel3";

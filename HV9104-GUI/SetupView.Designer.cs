@@ -175,7 +175,7 @@
             this.impulseDividerPanel.IsPopUp = false;
             this.impulseDividerPanel.Location = new System.Drawing.Point(725, 393);
             this.impulseDividerPanel.Name = "impulseDividerPanel";
-            this.impulseDividerPanel.Size = new System.Drawing.Size(300, 377);
+            this.impulseDividerPanel.Size = new System.Drawing.Size(300, 361);
             this.impulseDividerPanel.TabIndex = 0;
             // 
             // flowLayoutPanel3
@@ -191,56 +191,65 @@
             this.flowLayoutPanel3.Location = new System.Drawing.Point(62, 54);
             this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(3, 3, 62, 20);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(176, 303);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(176, 287);
             this.flowLayoutPanel3.TabIndex = 3;
             // 
             // impulseLowDivderTextBox
             // 
+            this.impulseLowDivderTextBox.AllowText = false;
             this.impulseLowDivderTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseLowDivderTextBox.BackgroundColor = System.Drawing.Color.White;
             this.impulseLowDivderTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.impulseLowDivderTextBox.CornerRadius = 27;
+            this.impulseLowDivderTextBox.CornerRadius = 25;
             this.impulseLowDivderTextBox.Decimals = 2;
             this.impulseLowDivderTextBox.IsPopUp = false;
             this.impulseLowDivderTextBox.Location = new System.Drawing.Point(3, 3);
             this.impulseLowDivderTextBox.Max = 230;
+            this.impulseLowDivderTextBox.MaximumSize = new System.Drawing.Size(400, 50);
             this.impulseLowDivderTextBox.Min = 0;
+            this.impulseLowDivderTextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseLowDivderTextBox.Name = "impulseLowDivderTextBox";
-            this.impulseLowDivderTextBox.Size = new System.Drawing.Size(170, 54);
+            this.impulseLowDivderTextBox.Size = new System.Drawing.Size(170, 50);
             this.impulseLowDivderTextBox.TabIndex = 5;
             this.impulseLowDivderTextBox.TextBoxHint = "hej";
             this.impulseLowDivderTextBox.Value = 519.498F;
             // 
             // impulseDivder1TextBox
             // 
+            this.impulseDivder1TextBox.AllowText = false;
             this.impulseDivder1TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseDivder1TextBox.BackgroundColor = System.Drawing.Color.White;
             this.impulseDivder1TextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.impulseDivder1TextBox.CornerRadius = 27;
+            this.impulseDivder1TextBox.CornerRadius = 25;
             this.impulseDivder1TextBox.Decimals = 4;
             this.impulseDivder1TextBox.IsPopUp = false;
-            this.impulseDivder1TextBox.Location = new System.Drawing.Point(3, 63);
+            this.impulseDivder1TextBox.Location = new System.Drawing.Point(3, 59);
             this.impulseDivder1TextBox.Max = 230;
+            this.impulseDivder1TextBox.MaximumSize = new System.Drawing.Size(400, 50);
             this.impulseDivder1TextBox.Min = 0;
+            this.impulseDivder1TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseDivder1TextBox.Name = "impulseDivder1TextBox";
-            this.impulseDivder1TextBox.Size = new System.Drawing.Size(170, 54);
+            this.impulseDivder1TextBox.Size = new System.Drawing.Size(170, 50);
             this.impulseDivder1TextBox.TabIndex = 5;
             this.impulseDivder1TextBox.TextBoxHint = "";
             this.impulseDivder1TextBox.Value = 1.302F;
             // 
             // impulseDivder2TextBox
             // 
+            this.impulseDivder2TextBox.AllowText = false;
             this.impulseDivder2TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseDivder2TextBox.BackgroundColor = System.Drawing.Color.White;
             this.impulseDivder2TextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.impulseDivder2TextBox.CornerRadius = 27;
+            this.impulseDivder2TextBox.CornerRadius = 25;
             this.impulseDivder2TextBox.Decimals = 4;
             this.impulseDivder2TextBox.IsPopUp = false;
-            this.impulseDivder2TextBox.Location = new System.Drawing.Point(3, 123);
+            this.impulseDivder2TextBox.Location = new System.Drawing.Point(3, 115);
             this.impulseDivder2TextBox.Max = 230;
+            this.impulseDivder2TextBox.MaximumSize = new System.Drawing.Size(400, 50);
             this.impulseDivder2TextBox.Min = 0;
+            this.impulseDivder2TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseDivder2TextBox.Name = "impulseDivder2TextBox";
-            this.impulseDivder2TextBox.Size = new System.Drawing.Size(170, 54);
+            this.impulseDivder2TextBox.Size = new System.Drawing.Size(170, 50);
             this.impulseDivder2TextBox.TabIndex = 5;
             this.impulseDivder2TextBox.TextBoxHint = "";
             this.impulseDivder2TextBox.Value = 1.2714F;
@@ -248,17 +257,20 @@
             // 
             // impulseDivder3TextBox
             // 
+            this.impulseDivder3TextBox.AllowText = false;
             this.impulseDivder3TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseDivder3TextBox.BackgroundColor = System.Drawing.Color.White;
             this.impulseDivder3TextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.impulseDivder3TextBox.CornerRadius = 27;
+            this.impulseDivder3TextBox.CornerRadius = 25;
             this.impulseDivder3TextBox.Decimals = 4;
             this.impulseDivder3TextBox.IsPopUp = false;
-            this.impulseDivder3TextBox.Location = new System.Drawing.Point(3, 183);
-            this.impulseDivder3TextBox.Max = 230;
-            this.impulseDivder3TextBox.Min = 0;
+            this.impulseDivder3TextBox.Location = new System.Drawing.Point(3, 171);
+            this.impulseDivder3TextBox.Max = 1100;
+            this.impulseDivder3TextBox.MaximumSize = new System.Drawing.Size(400, 50);
+            this.impulseDivder3TextBox.Min = 800;
+            this.impulseDivder3TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseDivder3TextBox.Name = "impulseDivder3TextBox";
-            this.impulseDivder3TextBox.Size = new System.Drawing.Size(170, 54);
+            this.impulseDivder3TextBox.Size = new System.Drawing.Size(170, 50);
             this.impulseDivder3TextBox.TabIndex = 5;
             this.impulseDivder3TextBox.TextBoxHint = "";
             this.impulseDivder3TextBox.Value = 1.2638F;
@@ -269,9 +281,9 @@
             this.impulseDivderDefaultButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseDivderDefaultButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.impulseDivderDefaultButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.impulseDivderDefaultButton.ForeColor = System.Drawing.Color.White;
+            this.impulseDivderDefaultButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.impulseDivderDefaultButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.impulseDivderDefaultButton.Location = new System.Drawing.Point(9, 243);
+            this.impulseDivderDefaultButton.Location = new System.Drawing.Point(9, 227);
             this.impulseDivderDefaultButton.Margin = new System.Windows.Forms.Padding(9, 3, 9, 3);
             this.impulseDivderDefaultButton.Name = "impulseDivderDefaultButton";
             this.impulseDivderDefaultButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
@@ -303,7 +315,7 @@
             this.dcDividerPanel.IsPopUp = false;
             this.dcDividerPanel.Location = new System.Drawing.Point(391, 393);
             this.dcDividerPanel.Name = "dcDividerPanel";
-            this.dcDividerPanel.Size = new System.Drawing.Size(300, 317);
+            this.dcDividerPanel.Size = new System.Drawing.Size(300, 305);
             this.dcDividerPanel.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -318,39 +330,45 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(62, 54);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 3, 62, 20);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(176, 243);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(176, 231);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // dcDivder1TextBox
             // 
+            this.dcDivder1TextBox.AllowText = false;
             this.dcDivder1TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.dcDivder1TextBox.BackgroundColor = System.Drawing.Color.White;
             this.dcDivder1TextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.dcDivder1TextBox.CornerRadius = 27;
+            this.dcDivder1TextBox.CornerRadius = 25;
             this.dcDivder1TextBox.Decimals = 2;
             this.dcDivder1TextBox.IsPopUp = false;
             this.dcDivder1TextBox.Location = new System.Drawing.Point(3, 3);
             this.dcDivder1TextBox.Max = 230;
+            this.dcDivder1TextBox.MaximumSize = new System.Drawing.Size(400, 50);
             this.dcDivder1TextBox.Min = 0;
+            this.dcDivder1TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.dcDivder1TextBox.Name = "dcDivder1TextBox";
-            this.dcDivder1TextBox.Size = new System.Drawing.Size(170, 54);
+            this.dcDivder1TextBox.Size = new System.Drawing.Size(170, 50);
             this.dcDivder1TextBox.TabIndex = 5;
             this.dcDivder1TextBox.TextBoxHint = "";
             this.dcDivder1TextBox.Value = 280.49F;
             // 
             // dcDivder2TextBox
             // 
+            this.dcDivder2TextBox.AllowText = false;
             this.dcDivder2TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.dcDivder2TextBox.BackgroundColor = System.Drawing.Color.White;
             this.dcDivder2TextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.dcDivder2TextBox.CornerRadius = 27;
+            this.dcDivder2TextBox.CornerRadius = 25;
             this.dcDivder2TextBox.Decimals = 2;
             this.dcDivder2TextBox.IsPopUp = false;
-            this.dcDivder2TextBox.Location = new System.Drawing.Point(3, 63);
+            this.dcDivder2TextBox.Location = new System.Drawing.Point(3, 59);
             this.dcDivder2TextBox.Max = 230;
+            this.dcDivder2TextBox.MaximumSize = new System.Drawing.Size(400, 50);
             this.dcDivder2TextBox.Min = 0;
+            this.dcDivder2TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.dcDivder2TextBox.Name = "dcDivder2TextBox";
-            this.dcDivder2TextBox.Size = new System.Drawing.Size(170, 54);
+            this.dcDivder2TextBox.Size = new System.Drawing.Size(170, 50);
             this.dcDivder2TextBox.TabIndex = 5;
             this.dcDivder2TextBox.TextBoxHint = "";
             this.dcDivder2TextBox.Value = 280.21F;
@@ -358,20 +376,23 @@
             // 
             // dcDivder3TextBox
             // 
+            this.dcDivder3TextBox.AllowText = false;
             this.dcDivder3TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.dcDivder3TextBox.BackgroundColor = System.Drawing.Color.White;
             this.dcDivder3TextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.dcDivder3TextBox.CornerRadius = 27;
+            this.dcDivder3TextBox.CornerRadius = 25;
             this.dcDivder3TextBox.Decimals = 2;
             this.dcDivder3TextBox.IsPopUp = false;
-            this.dcDivder3TextBox.Location = new System.Drawing.Point(3, 123);
+            this.dcDivder3TextBox.Location = new System.Drawing.Point(3, 115);
             this.dcDivder3TextBox.Max = 230;
+            this.dcDivder3TextBox.MaximumSize = new System.Drawing.Size(400, 50);
             this.dcDivder3TextBox.Min = 0;
+            this.dcDivder3TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.dcDivder3TextBox.Name = "dcDivder3TextBox";
-            this.dcDivder3TextBox.Size = new System.Drawing.Size(170, 54);
+            this.dcDivder3TextBox.Size = new System.Drawing.Size(170, 50);
             this.dcDivder3TextBox.TabIndex = 5;
             this.dcDivder3TextBox.TextBoxHint = "";
-            this.dcDivder3TextBox.Value = 980.79F;
+            this.dcDivder3TextBox.Value = 280.79F;
             this.dcDivder3TextBox.Visible = false;
             // 
             // dcDivderDefaultButton
@@ -379,9 +400,9 @@
             this.dcDivderDefaultButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.dcDivderDefaultButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.dcDivderDefaultButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dcDivderDefaultButton.ForeColor = System.Drawing.Color.White;
+            this.dcDivderDefaultButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.dcDivderDefaultButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.dcDivderDefaultButton.Location = new System.Drawing.Point(9, 183);
+            this.dcDivderDefaultButton.Location = new System.Drawing.Point(9, 171);
             this.dcDivderDefaultButton.Margin = new System.Windows.Forms.Padding(9, 3, 9, 3);
             this.dcDivderDefaultButton.Name = "dcDivderDefaultButton";
             this.dcDivderDefaultButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
@@ -413,7 +434,7 @@
             this.acDividerPanel.IsPopUp = false;
             this.acDividerPanel.Location = new System.Drawing.Point(45, 393);
             this.acDividerPanel.Name = "acDividerPanel";
-            this.acDividerPanel.Size = new System.Drawing.Size(300, 197);
+            this.acDividerPanel.Size = new System.Drawing.Size(300, 193);
             this.acDividerPanel.TabIndex = 0;
             // 
             // flowLayoutPanel2
@@ -426,23 +447,26 @@
             this.flowLayoutPanel2.Location = new System.Drawing.Point(62, 54);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 3, 62, 20);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(176, 123);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(176, 119);
             this.flowLayoutPanel2.TabIndex = 4;
             // 
             // acDivder1TextBox
             // 
+            this.acDivder1TextBox.AllowText = false;
             this.acDivder1TextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.acDivder1TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.acDivder1TextBox.BackgroundColor = System.Drawing.Color.White;
             this.acDivder1TextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.acDivder1TextBox.CornerRadius = 27;
+            this.acDivder1TextBox.CornerRadius = 25;
             this.acDivder1TextBox.Decimals = 2;
             this.acDivder1TextBox.IsPopUp = false;
             this.acDivder1TextBox.Location = new System.Drawing.Point(3, 3);
             this.acDivder1TextBox.Max = 230;
+            this.acDivder1TextBox.MaximumSize = new System.Drawing.Size(400, 50);
             this.acDivder1TextBox.Min = 0;
+            this.acDivder1TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.acDivder1TextBox.Name = "acDivder1TextBox";
-            this.acDivder1TextBox.Size = new System.Drawing.Size(170, 54);
+            this.acDivder1TextBox.Size = new System.Drawing.Size(170, 50);
             this.acDivder1TextBox.TabIndex = 5;
             this.acDivder1TextBox.TextBoxHint = "";
             this.acDivder1TextBox.Value = 101.27F;
@@ -453,9 +477,9 @@
             this.acDivderDefaultButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.acDivderDefaultButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.acDivderDefaultButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.acDivderDefaultButton.ForeColor = System.Drawing.Color.White;
+            this.acDivderDefaultButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.acDivderDefaultButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.acDivderDefaultButton.Location = new System.Drawing.Point(9, 63);
+            this.acDivderDefaultButton.Location = new System.Drawing.Point(9, 59);
             this.acDivderDefaultButton.Name = "acDivderDefaultButton";
             this.acDivderDefaultButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
             this.acDivderDefaultButton.Size = new System.Drawing.Size(158, 57);

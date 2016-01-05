@@ -17,15 +17,48 @@ namespace HV9104_GUI
         bool valueOk;
         int decimals = 2;
         string decimalString = "0.00";
-         
+        bool allowText;
+        bool decimalDot;
 
         public CustomTextBox()
         {
-
-           
             InitializeComponent();
             toolTip = new ToolTip();
+            this.SizeChanged += new System.EventHandler(textBox_SizeChanged);
         }
+
+        private void textBox_SizeChanged(object sender, EventArgs e)
+        {
+            inputBox.Size = new System.Drawing.Size(this.Width - CornerRadius * 3, 20);
+            inputBox.Location = new System.Drawing.Point((int)(CornerRadius * 1.5F), (this.Height - 30) / 2);
+            this.maxValueBox.Location = new System.Drawing.Point((int)(this.Width - maxValueBox.Width - cornerRadius / 2), (this.Height - 11) / 2);
+
+        }
+
+        public bool AllowText
+        {
+            get
+            {
+                return this.allowText;
+            }
+            set
+            {
+                this.allowText = value;
+                if (value == true)
+                {
+                    minValueBox.Visible = false;
+                    maxValueBox.Visible = false;
+                    inputBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+                }
+                else
+                {
+                    minValueBox.Visible = true;
+                    maxValueBox.Visible = true;
+                    inputBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+                }
+            }
+        }
+
 
         protected virtual void reportValueChange(string text, double value)
         {
@@ -36,6 +69,24 @@ namespace HV9104_GUI
                 handler(this, e);
             }
         }
+
+        private void textBox_EnabledChanged(object sender, EventArgs e)
+        {
+            if (this.Enabled)
+            {
+                this.minValueBox.Enabled = false;
+                this.maxValueBox.Enabled = false;
+                this.inputBox.Enabled = true;
+                this.inputBox.ForeColor = Color.FromArgb(127, 127, 127);
+            }
+            else
+            {
+                this.inputBox.Enabled = false;
+                this.inputBox.BackColor = Color.White;
+                this.inputBox.ForeColor = Color.LightGray;
+            }
+        }
+
 
         public string TextBoxHint
         {
@@ -63,7 +114,7 @@ namespace HV9104_GUI
             {
                 this.decimals = value;
                 decimalString = "0.";
-                for(int r = 0 ;r <decimals; r++)
+                for (int r = 0; r < decimals; r++)
                 {
                     decimalString = decimalString + "0";
                 }
@@ -105,7 +156,8 @@ namespace HV9104_GUI
             set
             {
                 this.value = value;
-                inputBox.Text = "" + this.value.ToString(decimalString).Replace(',', '.'); 
+                if (!allowText)
+                    inputBox.Text = "" + this.value.ToString(decimalString).Replace(',', '.');
             }
         }
 
@@ -116,70 +168,95 @@ namespace HV9104_GUI
             string decimalSeparator = numberFormatInfo.NumberDecimalSeparator;
             string groupSeparator = numberFormatInfo.NumberGroupSeparator;
             string negativeSign = numberFormatInfo.NegativeSign;
-
+            System.Drawing.Graphics g = this.CreateGraphics();
+            System.Drawing.SizeF fontSize = g.MeasureString(inputBox.Text, inputFont);
 
             string keyInput = e.KeyChar.ToString();
+            if (!allowText)
+            {
+                if (inputBox.Text.Contains('.'))
+                    decimalDot = true;
+                else
+                    decimalDot = false;
+                if ((Char.IsDigit(e.KeyChar) || (Char.IsPunctuation(e.KeyChar) && !decimalDot)) && (fontSize.Width < inputBox.Width - 15 || inputBox.SelectedText.Length > 0))
+                {
+                    if (e.KeyChar == ',')
+                    {
+                        e.KeyChar = '.';
+                    }
+                    if (Char.IsPunctuation(e.KeyChar))
+                        decimalDot = true;
+                    // Digits are OK
+                }
 
-            if ((Char.IsDigit(e.KeyChar) || Char.IsPunctuation(e.KeyChar)) && inputBox.Text.Length < 5)
-            {
-                 if (e.KeyChar == ',')
-            {
-                 e.KeyChar = '.';
-                 
-               
-            }
-                // Digits are OK
-            }
-           
-            else if (keyInput.Equals(negativeSign) && inputBox.Text.Length > 0)
-            {
-                inputBox.Text.Remove(inputBox.Text.Length - 1);// Decimal separator is OK
-            }
-            else if (e.KeyChar == '\b')
-            {
-                // Backspace key is OK
-            }
-            //    else if ((ModifierKeys & (Keys.Control | Keys.Alt)) != 0) 
-            //    { 
-            //     // Let the edit control handle control and alt key combinations 
-            //    } 
-            else if (this.allowSpace && e.KeyChar == ' ')
-            {
-
-            }
-            else if (e.KeyChar == '\r')
-            {
-                if (inputBox.Text.Length != 0)
+               /* else if (keyInput.Equals(negativeSign) && inputBox.Text.Length > 0)
+                {
+                    inputBox.Text.Remove(inputBox.Text.Length - 1);// Decimal separator is OK
+                }*/
+                else if (e.KeyChar == '\b')
                 {
 
-                    inputBox.Text = inputBox.Text.Replace('.', ',');
-                    float textValue = Single.Parse(inputBox.Text);
-                    if (textValue >= min && textValue <= max)
+                    // Backspace key is OK
+                }
+                else if (e.KeyChar == '\r')
+                {
+                    if (inputBox.Text.Length != 0)
                     {
-                        value = textValue;
-                        reportValueChange(inputBox.Text, (double)value);
-                        inputBox.Text = inputBox.Text.Replace(',', '.');
-                        
-                        this.Parent.Focus();
+
+                        inputBox.Text = inputBox.Text.Replace('.', ',');
+                        float textValue = Single.Parse(inputBox.Text);
+                        if (textValue >= min && textValue <= max)
+                        {
+                            value = textValue;
+                            reportValueChange(inputBox.Text, (double)value);
+                            inputBox.Text = inputBox.Text.Replace(',', '.');
+
+                            this.FindForm().ActiveControl = null;
+                        }
+                        else
+                            inputBox.Text = "" + value.ToString().Replace(',', '.');
+                        inputBox.SelectionStart = inputBox.Text.Length;
                     }
-                    else
-                        inputBox.Text = "" + value;
-                }                
+                }
+
+                else
+                {
+                    // Consume this invalid key and beep
+                    e.Handled = true;
+                    //    MessageBeep();
+                }
             }
-            
             else
             {
-                // Consume this invalid key and beep
-                e.Handled = true;
-                //    MessageBeep();
+                // Console.WriteLine("fontSize.Width: " + fontSize.Width + " inputBox.Width" + inputBox.Width);
+                if (fontSize.Width < inputBox.Width - 15 || e.KeyChar == '\r')
+                {
+                    if (e.KeyChar == '\r')
+                    {
+                        reportValueChange(inputBox.Text, (double)value);
+                        Console.WriteLine(inputBox.Text);
+                        this.FindForm().ActiveControl = null;
+                    }
+                }
+                else if (inputBox.SelectedText.Length > 0)
+                {
+
+                }
+                else if (e.KeyChar == '\b')
+                {
+
+
+                }
+                else
+                    e.Handled = true;
             }
         }
 
-        
-       
+
+
     }
 
 
 
-    
+
 }

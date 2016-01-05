@@ -578,7 +578,7 @@
             this.choppingTimeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.choppingTimeTextBox.BackgroundColor = System.Drawing.Color.White;
             this.choppingTimeTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.choppingTimeTextBox.CornerRadius = 27;
+            this.choppingTimeTextBox.CornerRadius = 25;
             this.choppingTimeTextBox.Decimals = 0;
             this.choppingTimeTextBox.Enabled = false;
             this.choppingTimeTextBox.IsPopUp = false;
@@ -648,7 +648,7 @@
             this.trafSpeedTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.trafSpeedTextBox.BackgroundColor = System.Drawing.Color.White;
             this.trafSpeedTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.trafSpeedTextBox.CornerRadius = 27;
+            this.trafSpeedTextBox.CornerRadius = 25;
             this.trafSpeedTextBox.Decimals = 0;
             this.trafSpeedTextBox.IsPopUp = false;
             this.trafSpeedTextBox.Location = new System.Drawing.Point(136, 161);
@@ -972,7 +972,7 @@
             this.regulatedVoltageTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.regulatedVoltageTextBox.BackgroundColor = System.Drawing.Color.White;
             this.regulatedVoltageTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.regulatedVoltageTextBox.CornerRadius = 27;
+            this.regulatedVoltageTextBox.CornerRadius = 25;
             this.regulatedVoltageTextBox.Decimals = 0;
             this.regulatedVoltageTextBox.IsPopUp = false;
             this.regulatedVoltageTextBox.Location = new System.Drawing.Point(45, 259);
@@ -1077,7 +1077,7 @@
             this.impulseGapTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseGapTextBox.BackgroundColor = System.Drawing.Color.White;
             this.impulseGapTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.impulseGapTextBox.CornerRadius = 27;
+            this.impulseGapTextBox.CornerRadius = 25;
             this.impulseGapTextBox.Decimals = 0;
             this.impulseGapTextBox.IsPopUp = false;
             this.impulseGapTextBox.Location = new System.Drawing.Point(177, 50);
@@ -1146,7 +1146,7 @@
             this.pressureTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.pressureTextBox.BackgroundColor = System.Drawing.Color.White;
             this.pressureTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.pressureTextBox.CornerRadius = 27;
+            this.pressureTextBox.CornerRadius = 25;
             this.pressureTextBox.Decimals = 1;
             this.pressureTextBox.IsPopUp = false;
             this.pressureTextBox.Location = new System.Drawing.Point(168, 51);

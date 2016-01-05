@@ -128,7 +128,7 @@ namespace HV9104_GUI
             this.triggerLevelTextBox.BackColor = System.Drawing.Color.White;
             this.triggerLevelTextBox.BackgroundColor = System.Drawing.Color.White;
             this.triggerLevelTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.triggerLevelTextBox.CornerRadius = 27;
+            this.triggerLevelTextBox.CornerRadius = 25;
             this.triggerLevelTextBox.Decimals = 2;
             this.triggerLevelTextBox.IsPopUp = false;
             this.triggerLevelTextBox.Location = new System.Drawing.Point(165, 101);
