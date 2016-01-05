@@ -67,6 +67,7 @@
             this.dcEnableCheckBox = new HV9104_GUI.CustomCheckBox();
             this.dcVoltageRangeComboBox = new HV9104_GUI.CustomComboBox();
             this.impulseChannelPanel = new HV9104_GUI.CustomPanel();
+            this.impulsePreTriggerTextBox = new HV9104_GUI.CustomTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.impulseEnableCheckBox = new HV9104_GUI.CustomCheckBox();
             this.impulseVoltageRangeComboBox = new HV9104_GUI.CustomComboBox();
@@ -346,6 +347,7 @@
             this.impulseChannelPanel.BackColor = System.Drawing.Color.Transparent;
             this.impulseChannelPanel.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseChannelPanel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.impulseChannelPanel.Controls.Add(this.impulsePreTriggerTextBox);
             this.impulseChannelPanel.Controls.Add(this.label2);
             this.impulseChannelPanel.Controls.Add(this.impulseEnableCheckBox);
             this.impulseChannelPanel.Controls.Add(this.impulseVoltageRangeComboBox);
@@ -354,9 +356,30 @@
             this.impulseChannelPanel.Location = new System.Drawing.Point(3, 313);
             this.impulseChannelPanel.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.impulseChannelPanel.Name = "impulseChannelPanel";
-            this.impulseChannelPanel.Size = new System.Drawing.Size(302, 142);
+            this.impulseChannelPanel.Size = new System.Drawing.Size(302, 195);
             this.impulseChannelPanel.TabIndex = 20;
             this.impulseChannelPanel.Visible = false;
+            // 
+            // impulsePreTriggerTextBox
+            // 
+            this.impulsePreTriggerTextBox.AllowDecimals = false;
+            this.impulsePreTriggerTextBox.AllowText = false;
+            this.impulsePreTriggerTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.impulsePreTriggerTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.impulsePreTriggerTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.impulsePreTriggerTextBox.CornerRadius = 25;
+            this.impulsePreTriggerTextBox.Decimals = 0;
+            this.impulsePreTriggerTextBox.IsPopUp = false;
+            this.impulsePreTriggerTextBox.Location = new System.Drawing.Point(69, 130);
+            this.impulsePreTriggerTextBox.Max = 100;
+            this.impulsePreTriggerTextBox.MaximumSize = new System.Drawing.Size(400, 50);
+            this.impulsePreTriggerTextBox.Min = 0;
+            this.impulsePreTriggerTextBox.MinimumSize = new System.Drawing.Size(170, 50);
+            this.impulsePreTriggerTextBox.Name = "impulsePreTriggerTextBox";
+            this.impulsePreTriggerTextBox.Size = new System.Drawing.Size(170, 50);
+            this.impulsePreTriggerTextBox.TabIndex = 20;
+            this.impulsePreTriggerTextBox.TextBoxHint = "PreTriggering as a percentage of the total capture time";
+            this.impulsePreTriggerTextBox.Value = 10F;
             // 
             // label2
             // 
@@ -416,7 +439,7 @@
             this.customPanel5.Controls.Add(this.resolutionComboBox);
             this.customPanel5.CornerRadius = 20;
             this.customPanel5.IsPopUp = false;
-            this.customPanel5.Location = new System.Drawing.Point(3, 468);
+            this.customPanel5.Location = new System.Drawing.Point(3, 521);
             this.customPanel5.Name = "customPanel5";
             this.customPanel5.Size = new System.Drawing.Size(302, 297);
             this.customPanel5.TabIndex = 20;
@@ -736,5 +759,6 @@
         public System.Windows.Forms.ToolTip toolTip1;
         public CustomChart chart;
         private System.Windows.Forms.Panel panel1;
+        public CustomTextBox impulsePreTriggerTextBox;
     }
 }

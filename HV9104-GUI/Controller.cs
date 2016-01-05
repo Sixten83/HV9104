@@ -548,6 +548,7 @@ namespace HV9104_GUI
             //Impulse Channel Listeners
             this.measuringForm.impulseVoltageRangeComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseVoltageRangeComboBox_valueChange);
             this.measuringForm.impulseEnableCheckBox.Click += new System.EventHandler(impulseEnableCheckBox_Click);
+            this.measuringForm.impulsePreTriggerTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulsePreTriggerTextBox_valueChange);
             //Common Controls Listeners
             this.measuringForm.resolutionComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(resolutionComboBox_valueChange);
             this.measuringForm.timeBaseComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(timeBaseComboBox_valueChange);
@@ -693,7 +694,7 @@ namespace HV9104_GUI
             }
         }
 
-
+         
           
         private void impulseVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
@@ -709,6 +710,11 @@ namespace HV9104_GUI
         private void impulseEnableCheckBox_Click(object sender, EventArgs e)
         {
             
+        }
+
+         private void impulsePreTriggerTextBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            picoScope.BlockPreTrigger = (double)(e.Value / 100); 
         }
 
         private void resolutionComboBox_valueChange(object sender, ValueChangeEventArgs e)

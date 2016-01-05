@@ -18,6 +18,7 @@ namespace HV9104_GUI
         int decimals = 2;
         string decimalString = "0.00";
         bool allowText;
+        bool allowDecimals = true;
         bool decimalDot;
 
         public CustomTextBox()
@@ -33,6 +34,18 @@ namespace HV9104_GUI
             inputBox.Location = new System.Drawing.Point((int)(CornerRadius * 1.5F), (this.Height - 30) / 2);
             this.maxValueBox.Location = new System.Drawing.Point((int)(this.Width - maxValueBox.Width - cornerRadius / 2), (this.Height - 11) / 2);
 
+        }
+
+        public bool AllowDecimals
+        {
+            get
+            {
+                return this.allowDecimals;
+            }
+            set
+            {
+                this.allowDecimals = value;                
+            }
         }
 
         public bool AllowText
@@ -178,7 +191,7 @@ namespace HV9104_GUI
                     decimalDot = true;
                 else
                     decimalDot = false;
-                if ((Char.IsDigit(e.KeyChar) || (Char.IsPunctuation(e.KeyChar) && !decimalDot)) && (fontSize.Width < inputBox.Width - 15 || inputBox.SelectedText.Length > 0))
+                if ((Char.IsDigit(e.KeyChar) || (Char.IsPunctuation(e.KeyChar) && !decimalDot && allowDecimals)) && (fontSize.Width < inputBox.Width - 15 || inputBox.SelectedText.Length > 0))
                 {
                     if (e.KeyChar == ',')
                     {
