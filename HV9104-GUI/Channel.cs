@@ -177,7 +177,7 @@ namespace HV9104_GUI
 
         private void setIncrementValues()
         {
-            incrementValues = new double[9][];
+            incrementValues = new double[10][];
 
             //if (e.Text.Equals("2 ms/Div"))0,0001
                 
@@ -247,6 +247,13 @@ namespace HV9104_GUI
                 for (increment = -50, r = 0; increment < 50; increment += 0.002m)
                 {
                     incrementValues[8][r++] = (double)increment;
+                }
+
+                incrementValues[9] = new double[100000];
+                //X values for 20 us/Div
+                for (increment = -100, r = 0; increment < 100; increment += 0.002m)
+                {
+                    incrementValues[9][r++] = (double)increment;
                 }
          
         }       

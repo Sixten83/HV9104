@@ -613,7 +613,8 @@ namespace HV9104_GUI
         "1 us/Div",
         "2 us/Div",
         "5 us/Div",
-        "10 us/Div"};
+        "10 us/Div",
+        "20 us/Div"};
             this.measuringForm.timeBaseComboBox.SetSelected = "500 ns/Div";
            
         }   
@@ -794,6 +795,13 @@ namespace HV9104_GUI
                     picoScope.TimePerDivision = 10;
                     impulseChannel.IncrementIndex = 8;  
                     this.measuringForm.chart.setTimePerDiv(10);
+                }
+                else if (e.Text.Equals("20 us/Div"))
+                {
+                    picoScope.BlockSamples = 100000;
+                    picoScope.TimePerDivision = 20;
+                    impulseChannel.IncrementIndex = 9;
+                    this.measuringForm.chart.setTimePerDiv(20);
                 }
             }
             this.measuringForm.chart.updateCursorMenu();
