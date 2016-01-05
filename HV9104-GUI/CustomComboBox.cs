@@ -222,8 +222,7 @@ namespace HV9104_GUI
             if (!clicked) 
             {
                 hover = false;
-                selectedMember.ForeColor = System.Drawing.Color.FromArgb(1
-                    , 127, 127);
+                selectedMember.ForeColor = System.Drawing.Color.FromArgb(127, 127, 127);
                 this.Invalidate();
             }
 

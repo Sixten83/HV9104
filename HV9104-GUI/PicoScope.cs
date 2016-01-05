@@ -34,7 +34,7 @@ namespace HV9104_GUI
         uint streamingSamples = 10000;
         uint streamingInterval = 31250;
         private Imports.ReportedTimeUnits streamingIntervalUnits = Imports.ReportedTimeUnits.NanoSeconds;
-        uint blockPreTriggerSamples = 100;
+        double blockPreTriggerSamples = 0.1;
         uint blockSamples = 2500;
         uint blockTimeBase = 1;
         short maxADValue = 32512;
@@ -105,6 +105,19 @@ namespace HV9104_GUI
 
         }
 
+
+        public double BlockPreTrigger
+        {
+            set
+            {
+                this.blockPreTriggerSamples = value;
+            }
+            get
+            {
+                return this.blockPreTriggerSamples;
+            }
+
+        } 
 
         public uint PreTrigger
         {
@@ -418,7 +431,7 @@ namespace HV9104_GUI
             _callbackDelegate = BlockCallback;
           
             int timeIndisposed;
-            status = Imports.RunBlock(handle, (int)blockPreTriggerSamples, (int)(blockSamples - blockPreTriggerSamples), blockTimeBase, out timeIndisposed, 0, _callbackDelegate, IntPtr.Zero);
+            status = Imports.RunBlock(handle, (int)(blockSamples * blockPreTriggerSamples), (int)(blockSamples - blockSamples * blockPreTriggerSamples), blockTimeBase, out timeIndisposed, 0, _callbackDelegate, IntPtr.Zero);
             Console.WriteLine("RunBlock Status:" + status);
         }
 
