@@ -9,7 +9,7 @@
         private System.Windows.Forms.Label minValueBox, maxValueBox;
         private float value;
         private bool allowSpace = false;
-        private int max, min;
+        private double max, min;
 
 
         private void InitializeComponent()

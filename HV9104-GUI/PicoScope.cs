@@ -39,7 +39,7 @@ namespace HV9104_GUI
         uint blockTimeBase = 1;
         short maxADValue = 32512;
         double timePerDivision = 5;
-        
+        int[] frequencys;
        
 
         public PicoScope()
@@ -49,8 +49,8 @@ namespace HV9104_GUI
 
            triggerChannel = Imports.Channel.ChannelA;
            triggerLevel = 1000;
-           triggerType = Imports.ThresholdDirection.Rising;         
-                      
+           triggerType = Imports.ThresholdDirection.Rising;
+           initFreqArray();    
         }
 
         //***********************************************************************************************************
@@ -182,6 +182,7 @@ namespace HV9104_GUI
             channels[2].setRepresentationIndex(0);
             channels[2].IncrementIndex = 4;
             channels[2].DCOffset = -16;
+            channels[2].VoltageRange = Imports.Range.Range_20V;
             channels[2].TriggerType = Imports.ThresholdDirection.Rising;
             channels[2].TriggerLevel = (short)(-1 * channels[2].Polarity * maxADValue * 4 / 5 + 1000);  
             Imports.SetChannel(handle, channels[2].ChannelName, 0, channels[2].Coupling, channels[2].VoltageRange, 0);
@@ -539,12 +540,40 @@ namespace HV9104_GUI
         //***                                     SIGNAL GENERATOR                                               ****
         //***********************************************************************************************************
 
+        //Frequenzy array initiation 
+        private void initFreqArray()
+        {
+            frequencys = new int[1001];
+            
+            //15 Hz frequency is used when chopping is disabled
+            frequencys[0] = 15;
+
+
+            //10kHz - 39 kHz (0.1us - 3 us) 100ns/Step (30 Steps)
+            int r = 0 , i = 0;
+            int hz = 1000;
+            for(; r < 30 ; r++)
+            {
+                frequencys[r + 1] = 10000 + hz * i++;
+            }
+
+            //10Hz - 9700 Hz (0.1us - 3 us) 100ns/Step (970 Steps)
+            hz = 10;
+            i = 0;
+            for (; r < 1000; r++)
+            {
+                frequencys[r + 1] = 10 + hz * i++;
+            }                   
+            
+        }
+
         //Setup for signalgenerator outputs a 2 V puls with variable frequency ("uint shots" controls how many cycles should be sent)
-        public void setupSignalGen(float frequency)
+        public void setupSignalGen(int index)
         {
             uint status;
-            status = Imports.SetSigGenBuiltIn(handle, 1000000, 2000000, Imports.WaveType.PS5000A_SQUARE, frequency, frequency, 0, 1, Imports.SweepType.PS5000A_UP, Imports.ExtraOperations.PS5000A_ES_OFF, 100, 0, Imports.SigGenTrigType.PS5000A_SIGGEN_RISING, Imports.SigGenTrigSource.PS5000A_SIGGEN_SOFT_TRIG, 0);
-            Console.WriteLine("SetSigGenBuiltIn Status:" + status);
+            status = Imports.SetSigGenBuiltIn(handle, 1000000, 2000000, Imports.WaveType.PS5000A_SQUARE, frequencys[index], frequencys[index], 0, 1, Imports.SweepType.PS5000A_UP, Imports.ExtraOperations.PS5000A_ES_OFF, 100, 0, Imports.SigGenTrigType.PS5000A_SIGGEN_RISING, Imports.SigGenTrigSource.PS5000A_SIGGEN_SOFT_TRIG, 0);
+            Console.WriteLine("SetSigGenBuiltIn Freq:" + frequencys[index]);
+            Console.WriteLine("SetSigGenBuiltIn Status:" + status );
         
         }
 
