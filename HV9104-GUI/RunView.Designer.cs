@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
             this.autoTestChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.customPanel1 = new HV9104_GUI.CustomPanel();
             this.testStatusLabel = new System.Windows.Forms.Label();
@@ -76,8 +76,6 @@
             this.customPanel7 = new HV9104_GUI.CustomPanel();
             this.impPerLevelLabel = new System.Windows.Forms.Label();
             this.voltLevelsLabel = new System.Windows.Forms.Label();
-            this.impulsePerLevelComboBox = new HV9104_GUI.CustomComboBox();
-            this.voltageLevelsComboBox = new HV9104_GUI.CustomComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.customPanel8 = new HV9104_GUI.CustomPanel();
             this.label9 = new System.Windows.Forms.Label();
@@ -94,6 +92,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.acTitleLabel = new System.Windows.Forms.Label();
             this.acValueLabel = new System.Windows.Forms.Label();
+            this.voltageLevelsTextBox = new HV9104_GUI.CustomTextBox();
+            this.impPerLevelTextBox = new HV9104_GUI.CustomTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).BeginInit();
             this.customPanel1.SuspendLayout();
             this.customPanel2.SuspendLayout();
@@ -111,27 +111,27 @@
             // autoTestChart
             // 
             this.autoTestChart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            chartArea1.AxisX.LineColor = System.Drawing.Color.Transparent;
-            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
-            chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisX.MajorTickMark.Enabled = false;
-            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.Transparent;
-            chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisY.LineColor = System.Drawing.Color.Transparent;
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
-            chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisY.MajorTickMark.Enabled = false;
-            chartArea1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            chartArea1.BorderColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.autoTestChart.ChartAreas.Add(chartArea1);
+            chartArea2.AxisX.LineColor = System.Drawing.Color.Transparent;
+            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
+            chartArea2.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea2.AxisX.MajorTickMark.Enabled = false;
+            chartArea2.AxisX.MinorGrid.LineColor = System.Drawing.Color.Transparent;
+            chartArea2.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea2.AxisY.LineColor = System.Drawing.Color.Transparent;
+            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
+            chartArea2.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea2.AxisY.MajorTickMark.Enabled = false;
+            chartArea2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            chartArea2.BorderColor = System.Drawing.Color.Transparent;
+            chartArea2.Name = "ChartArea1";
+            this.autoTestChart.ChartAreas.Add(chartArea2);
             this.autoTestChart.Location = new System.Drawing.Point(64, 50);
             this.autoTestChart.Name = "autoTestChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Name = "Series1";
-            series1.Points.Add(dataPoint1);
-            this.autoTestChart.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Name = "Series1";
+            series2.Points.Add(dataPoint2);
+            this.autoTestChart.Series.Add(series2);
             this.autoTestChart.Size = new System.Drawing.Size(756, 301);
             this.autoTestChart.TabIndex = 0;
             this.autoTestChart.Text = "chart1";
@@ -668,10 +668,10 @@
             this.customPanel7.BackColor = System.Drawing.Color.Transparent;
             this.customPanel7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel7.Controls.Add(this.impPerLevelTextBox);
+            this.customPanel7.Controls.Add(this.voltageLevelsTextBox);
             this.customPanel7.Controls.Add(this.impPerLevelLabel);
             this.customPanel7.Controls.Add(this.voltLevelsLabel);
-            this.customPanel7.Controls.Add(this.impulsePerLevelComboBox);
-            this.customPanel7.Controls.Add(this.voltageLevelsComboBox);
             this.customPanel7.Controls.Add(this.label8);
             this.customPanel7.Controls.Add(this.testButton);
             this.customPanel7.CornerRadius = 40;
@@ -702,40 +702,6 @@
             this.voltLevelsLabel.Size = new System.Drawing.Size(241, 29);
             this.voltLevelsLabel.TabIndex = 8;
             this.voltLevelsLabel.Text = "TOTAL VOLTAGE LEVELS";
-            // 
-            // impulsePerLevelComboBox
-            // 
-            this.impulsePerLevelComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.impulsePerLevelComboBox.Location = new System.Drawing.Point(266, 151);
-            this.impulsePerLevelComboBox.MaximumSize = new System.Drawing.Size(400, 60);
-            this.impulsePerLevelComboBox.MinimumSize = new System.Drawing.Size(120, 45);
-            this.impulsePerLevelComboBox.Name = "impulsePerLevelComboBox";
-            this.impulsePerLevelComboBox.setCollection = new string[] {
-        "AC",
-        "DC",
-        "Impulse"};
-            this.impulsePerLevelComboBox.SetSelected = "AC";
-            this.impulsePerLevelComboBox.Size = new System.Drawing.Size(184, 45);
-            this.impulsePerLevelComboBox.TabIndex = 7;
-            this.impulsePerLevelComboBox.Text = "voltageLevelsComboBox";
-            this.impulsePerLevelComboBox.TextBoxHint = "";
-            // 
-            // voltageLevelsComboBox
-            // 
-            this.voltageLevelsComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.voltageLevelsComboBox.Location = new System.Drawing.Point(266, 93);
-            this.voltageLevelsComboBox.MaximumSize = new System.Drawing.Size(400, 60);
-            this.voltageLevelsComboBox.MinimumSize = new System.Drawing.Size(120, 45);
-            this.voltageLevelsComboBox.Name = "voltageLevelsComboBox";
-            this.voltageLevelsComboBox.setCollection = new string[] {
-        "AC",
-        "DC",
-        "Impulse"};
-            this.voltageLevelsComboBox.SetSelected = "AC";
-            this.voltageLevelsComboBox.Size = new System.Drawing.Size(184, 45);
-            this.voltageLevelsComboBox.TabIndex = 6;
-            this.voltageLevelsComboBox.Text = "voltageLevelsComboBox";
-            this.voltageLevelsComboBox.TextBoxHint = "";
             // 
             // label8
             // 
@@ -949,6 +915,48 @@
             this.acValueLabel.Text = "0.0";
             this.acValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // voltageLevelsTextBox
+            // 
+            this.voltageLevelsTextBox.AllowDecimals = true;
+            this.voltageLevelsTextBox.AllowText = false;
+            this.voltageLevelsTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.voltageLevelsTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.voltageLevelsTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.voltageLevelsTextBox.CornerRadius = 25;
+            this.voltageLevelsTextBox.Decimals = 0;
+            this.voltageLevelsTextBox.IsPopUp = false;
+            this.voltageLevelsTextBox.Location = new System.Drawing.Point(270, 91);
+            this.voltageLevelsTextBox.Max = 20D;
+            this.voltageLevelsTextBox.MaximumSize = new System.Drawing.Size(400, 50);
+            this.voltageLevelsTextBox.Min = 1D;
+            this.voltageLevelsTextBox.MinimumSize = new System.Drawing.Size(170, 50);
+            this.voltageLevelsTextBox.Name = "voltageLevelsTextBox";
+            this.voltageLevelsTextBox.Size = new System.Drawing.Size(170, 50);
+            this.voltageLevelsTextBox.TabIndex = 10;
+            this.voltageLevelsTextBox.TextBoxHint = "";
+            this.voltageLevelsTextBox.Value = 10F;
+            // 
+            // impPerLevelTextBox
+            // 
+            this.impPerLevelTextBox.AllowDecimals = true;
+            this.impPerLevelTextBox.AllowText = false;
+            this.impPerLevelTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.impPerLevelTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.impPerLevelTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.impPerLevelTextBox.CornerRadius = 25;
+            this.impPerLevelTextBox.Decimals = 0;
+            this.impPerLevelTextBox.IsPopUp = false;
+            this.impPerLevelTextBox.Location = new System.Drawing.Point(270, 147);
+            this.impPerLevelTextBox.Max = 50D;
+            this.impPerLevelTextBox.MaximumSize = new System.Drawing.Size(400, 50);
+            this.impPerLevelTextBox.Min = 1D;
+            this.impPerLevelTextBox.MinimumSize = new System.Drawing.Size(170, 50);
+            this.impPerLevelTextBox.Name = "impPerLevelTextBox";
+            this.impPerLevelTextBox.Size = new System.Drawing.Size(170, 50);
+            this.impPerLevelTextBox.TabIndex = 11;
+            this.impPerLevelTextBox.TextBoxHint = "";
+            this.impPerLevelTextBox.Value = 1F;
+            // 
             // RunView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1028,8 +1036,6 @@
         public CustomButton exportValuesButton;
         public System.Windows.Forms.Label impPerLevelLabel;
         public System.Windows.Forms.Label voltLevelsLabel;
-        public CustomComboBox impulsePerLevelComboBox;
-        public CustomComboBox voltageLevelsComboBox;
         public CustomPanel customPanel8;
         public System.Windows.Forms.Label label9;
         public CustomComboBox impulseOutputComboBox;
@@ -1055,5 +1061,7 @@
         public System.Windows.Forms.Label passFailLabel;
         private System.Windows.Forms.TextBox otherTextBox;
         public System.Windows.Forms.Label otherLabel;
+        private CustomTextBox impPerLevelTextBox;
+        private CustomTextBox voltageLevelsTextBox;
     }
 }
