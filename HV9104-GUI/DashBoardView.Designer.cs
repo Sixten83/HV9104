@@ -142,9 +142,9 @@
             this.currentInputLabel = new System.Windows.Forms.Label();
             this.voltageInputLabel = new System.Windows.Forms.Label();
             this.customPanel15 = new HV9104_GUI.CustomPanel();
-            this.statusPictureBoxHVPresent = new System.Windows.Forms.PictureBox();
             this.label39 = new System.Windows.Forms.Label();
             this.dischargePictureBox = new System.Windows.Forms.PictureBox();
+            this.statusPictureBoxHVPresent = new System.Windows.Forms.PictureBox();
             this.customPanel14.SuspendLayout();
             this.customPanel10.SuspendLayout();
             this.customPanel9.SuspendLayout();
@@ -160,8 +160,8 @@
             this.customPanel13.SuspendLayout();
             this.customPanel1.SuspendLayout();
             this.customPanel15.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.statusPictureBoxHVPresent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dischargePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.statusPictureBoxHVPresent)).BeginInit();
             this.SuspendLayout();
             // 
             // customPanel14
@@ -812,7 +812,7 @@
             // 
             this.label20.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label20.Location = new System.Drawing.Point(217, 90);
+            this.label20.Location = new System.Drawing.Point(212, 90);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(77, 58);
             this.label20.TabIndex = 6;
@@ -822,7 +822,7 @@
             // impulseOutputComboBox
             // 
             this.impulseOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.impulseOutputComboBox.Location = new System.Drawing.Point(300, 94);
+            this.impulseOutputComboBox.Location = new System.Drawing.Point(289, 94);
             this.impulseOutputComboBox.MaximumSize = new System.Drawing.Size(400, 60);
             this.impulseOutputComboBox.MinimumSize = new System.Drawing.Size(120, 45);
             this.impulseOutputComboBox.Name = "impulseOutputComboBox";
@@ -830,7 +830,7 @@
         "Pos",
         "Neg"};
             this.impulseOutputComboBox.SetSelected = "Pos";
-            this.impulseOutputComboBox.Size = new System.Drawing.Size(120, 45);
+            this.impulseOutputComboBox.Size = new System.Drawing.Size(131, 45);
             this.impulseOutputComboBox.TabIndex = 3;
             this.impulseOutputComboBox.Text = "customComboBox1";
             this.impulseOutputComboBox.TextBoxHint = "";
@@ -850,7 +850,7 @@
             // 
             this.impulseValueLabel.Font = new System.Drawing.Font("Calibri", 60F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.impulseValueLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.impulseValueLabel.Location = new System.Drawing.Point(15, 59);
+            this.impulseValueLabel.Location = new System.Drawing.Point(10, 59);
             this.impulseValueLabel.Name = "impulseValueLabel";
             this.impulseValueLabel.Size = new System.Drawing.Size(227, 97);
             this.impulseValueLabel.TabIndex = 1;
@@ -877,7 +877,7 @@
             // 
             this.label17.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label17.Location = new System.Drawing.Point(217, 90);
+            this.label17.Location = new System.Drawing.Point(212, 90);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(77, 58);
             this.label17.TabIndex = 5;
@@ -887,7 +887,7 @@
             // dcOutputComboBox
             // 
             this.dcOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.dcOutputComboBox.Location = new System.Drawing.Point(300, 94);
+            this.dcOutputComboBox.Location = new System.Drawing.Point(289, 94);
             this.dcOutputComboBox.MaximumSize = new System.Drawing.Size(400, 60);
             this.dcOutputComboBox.MinimumSize = new System.Drawing.Size(120, 45);
             this.dcOutputComboBox.Name = "dcOutputComboBox";
@@ -895,9 +895,9 @@
         "avg",
         "max",
         "min",
-        "pk-Vpk"};
+        "pk-pk"};
             this.dcOutputComboBox.SetSelected = "avg";
-            this.dcOutputComboBox.Size = new System.Drawing.Size(120, 45);
+            this.dcOutputComboBox.Size = new System.Drawing.Size(131, 45);
             this.dcOutputComboBox.TabIndex = 3;
             this.dcOutputComboBox.Text = "z";
             this.dcOutputComboBox.TextBoxHint = "";
@@ -917,7 +917,7 @@
             // 
             this.dcValueLabel.Font = new System.Drawing.Font("Calibri", 60F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dcValueLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.dcValueLabel.Location = new System.Drawing.Point(12, 59);
+            this.dcValueLabel.Location = new System.Drawing.Point(7, 59);
             this.dcValueLabel.Name = "dcValueLabel";
             this.dcValueLabel.Size = new System.Drawing.Size(230, 96);
             this.dcValueLabel.TabIndex = 1;
@@ -944,7 +944,7 @@
             // 
             this.label16.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label16.Location = new System.Drawing.Point(217, 90);
+            this.label16.Location = new System.Drawing.Point(212, 90);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(77, 58);
             this.label16.TabIndex = 4;
@@ -954,7 +954,7 @@
             // acOutputComboBox
             // 
             this.acOutputComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.acOutputComboBox.Location = new System.Drawing.Point(300, 94);
+            this.acOutputComboBox.Location = new System.Drawing.Point(289, 94);
             this.acOutputComboBox.MaximumSize = new System.Drawing.Size(400, 60);
             this.acOutputComboBox.MinimumSize = new System.Drawing.Size(120, 45);
             this.acOutputComboBox.Name = "acOutputComboBox";
@@ -964,7 +964,7 @@
         "min",
         "pk-Vpk"};
             this.acOutputComboBox.SetSelected = "rms";
-            this.acOutputComboBox.Size = new System.Drawing.Size(120, 45);
+            this.acOutputComboBox.Size = new System.Drawing.Size(131, 45);
             this.acOutputComboBox.TabIndex = 3;
             this.acOutputComboBox.Text = "customComboBox1";
             this.acOutputComboBox.TextBoxHint = "";
@@ -984,7 +984,7 @@
             // 
             this.acValueLabel.Font = new System.Drawing.Font("Calibri", 60F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.acValueLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.acValueLabel.Location = new System.Drawing.Point(5, 60);
+            this.acValueLabel.Location = new System.Drawing.Point(0, 60);
             this.acValueLabel.Name = "acValueLabel";
             this.acValueLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.acValueLabel.Size = new System.Drawing.Size(237, 94);
@@ -1649,26 +1649,15 @@
             this.customPanel15.BackColor = System.Drawing.Color.Transparent;
             this.customPanel15.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel15.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel15.Controls.Add(this.statusPictureBoxHVPresent);
             this.customPanel15.Controls.Add(this.label39);
             this.customPanel15.Controls.Add(this.dischargePictureBox);
+            this.customPanel15.Controls.Add(this.statusPictureBoxHVPresent);
             this.customPanel15.CornerRadius = 30;
             this.customPanel15.IsPopUp = false;
             this.customPanel15.Location = new System.Drawing.Point(1232, 666);
             this.customPanel15.Name = "customPanel15";
             this.customPanel15.Size = new System.Drawing.Size(171, 126);
             this.customPanel15.TabIndex = 4;
-            // 
-            // statusPictureBoxHVPresent
-            // 
-            this.statusPictureBoxHVPresent.Image = global::HV9104_GUI.Properties.Resources.Hazard_Sign_HIGH_VOLTAGE;
-            this.statusPictureBoxHVPresent.Location = new System.Drawing.Point(45, 39);
-            this.statusPictureBoxHVPresent.Name = "statusPictureBoxHVPresent";
-            this.statusPictureBoxHVPresent.Size = new System.Drawing.Size(79, 74);
-            this.statusPictureBoxHVPresent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.statusPictureBoxHVPresent.TabIndex = 5;
-            this.statusPictureBoxHVPresent.TabStop = false;
-            this.statusPictureBoxHVPresent.Visible = false;
             // 
             // label39
             // 
@@ -1683,14 +1672,25 @@
             // 
             // dischargePictureBox
             // 
-            this.dischargePictureBox.Image = global::HV9104_GUI.Properties.Resources.Static_discharge;
-            this.dischargePictureBox.Location = new System.Drawing.Point(34, 39);
+            this.dischargePictureBox.Image = global::HV9104_GUI.Properties.Resources.HV9107trans;
+            this.dischargePictureBox.Location = new System.Drawing.Point(46, 34);
             this.dischargePictureBox.Name = "dischargePictureBox";
-            this.dischargePictureBox.Size = new System.Drawing.Size(107, 74);
+            this.dischargePictureBox.Size = new System.Drawing.Size(79, 79);
             this.dischargePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.dischargePictureBox.TabIndex = 6;
             this.dischargePictureBox.TabStop = false;
             this.dischargePictureBox.Visible = false;
+            // 
+            // statusPictureBoxHVPresent
+            // 
+            this.statusPictureBoxHVPresent.Image = global::HV9104_GUI.Properties.Resources.Hazard_Sign_HIGH_VOLTAGE;
+            this.statusPictureBoxHVPresent.Location = new System.Drawing.Point(46, 39);
+            this.statusPictureBoxHVPresent.Name = "statusPictureBoxHVPresent";
+            this.statusPictureBoxHVPresent.Size = new System.Drawing.Size(79, 74);
+            this.statusPictureBoxHVPresent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.statusPictureBoxHVPresent.TabIndex = 5;
+            this.statusPictureBoxHVPresent.TabStop = false;
+            this.statusPictureBoxHVPresent.Visible = false;
             // 
             // DashBoardView
             // 
@@ -1744,8 +1744,8 @@
             this.customPanel1.PerformLayout();
             this.customPanel15.ResumeLayout(false);
             this.customPanel15.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.statusPictureBoxHVPresent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dischargePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.statusPictureBoxHVPresent)).EndInit();
             this.ResumeLayout(false);
 
         }

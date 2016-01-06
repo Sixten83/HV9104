@@ -1705,15 +1705,17 @@ namespace HV9104_GUI
             controlForm.dashboardView.statusLabelAutoRegVoltage.Visible = !abortRegulation;
 
             // Warning High Voltage image
-            if ((PIO1.regulatedVoltageValue >= 5) && (PIO1.K2Closed))
+            if ((PIO1.regulatedVoltageValue >= 1) && (PIO1.K2Closed))
             {
                 controlForm.dashboardView.statusPictureBoxHVPresent.Visible = true;
                 controlForm.dashboardView.dischargePictureBox.Visible = false;
+               
             }
             else
             {
                 controlForm.dashboardView.statusPictureBoxHVPresent.Visible = false;
                 controlForm.dashboardView.dischargePictureBox.Visible = true;
+              
             }
 
             // Active motor info

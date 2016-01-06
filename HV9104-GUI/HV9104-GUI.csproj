@@ -414,6 +414,10 @@
     <Content Include="Resources\3-stageAC.png" />
     <Content Include="Resources\3-stageDC.png" />
     <Content Include="Resources\3-stageImp.png" />
+    <None Include="Resources\HV9107trans.png" />
+    <None Include="Resources\HV9107.png" />
+    <None Include="Resources\HV9107warning.png" />
+    <None Include="Resources\HV91071.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
