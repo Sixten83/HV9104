@@ -53,23 +53,6 @@
             this.acDivder1TextBox = new HV9104_GUI.CustomTextBox();
             this.acDivderDefaultButton = new HV9104_GUI.CustomButton();
             this.label12 = new System.Windows.Forms.Label();
-            this.customPanel2 = new HV9104_GUI.CustomPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.manualModeRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.acWithstandRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.acDisruptiveRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.dcWithstandRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.impulseWithstandRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.impulseDisruptiveRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.dcDisruptiveRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.label23 = new System.Windows.Forms.Label();
             this.customPanel5 = new HV9104_GUI.CustomPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label14 = new System.Windows.Forms.Label();
@@ -111,8 +94,6 @@
             this.flowLayoutPanel1.SuspendLayout();
             this.acDividerPanel.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
-            this.customPanel2.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.customPanel5.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.customPanel3.SuspendLayout();
@@ -196,6 +177,7 @@
             // 
             // impulseLowDivderTextBox
             // 
+            this.impulseLowDivderTextBox.AllowDecimals = true;
             this.impulseLowDivderTextBox.AllowText = false;
             this.impulseLowDivderTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseLowDivderTextBox.BackgroundColor = System.Drawing.Color.White;
@@ -204,9 +186,9 @@
             this.impulseLowDivderTextBox.Decimals = 2;
             this.impulseLowDivderTextBox.IsPopUp = false;
             this.impulseLowDivderTextBox.Location = new System.Drawing.Point(3, 3);
-            this.impulseLowDivderTextBox.Max = 230;
+            this.impulseLowDivderTextBox.Max = 230D;
             this.impulseLowDivderTextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impulseLowDivderTextBox.Min = 0;
+            this.impulseLowDivderTextBox.Min = 0D;
             this.impulseLowDivderTextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseLowDivderTextBox.Name = "impulseLowDivderTextBox";
             this.impulseLowDivderTextBox.Size = new System.Drawing.Size(170, 50);
@@ -216,6 +198,7 @@
             // 
             // impulseDivder1TextBox
             // 
+            this.impulseDivder1TextBox.AllowDecimals = true;
             this.impulseDivder1TextBox.AllowText = false;
             this.impulseDivder1TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseDivder1TextBox.BackgroundColor = System.Drawing.Color.White;
@@ -224,9 +207,9 @@
             this.impulseDivder1TextBox.Decimals = 4;
             this.impulseDivder1TextBox.IsPopUp = false;
             this.impulseDivder1TextBox.Location = new System.Drawing.Point(3, 59);
-            this.impulseDivder1TextBox.Max = 230;
+            this.impulseDivder1TextBox.Max = 230D;
             this.impulseDivder1TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impulseDivder1TextBox.Min = 0;
+            this.impulseDivder1TextBox.Min = 0D;
             this.impulseDivder1TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseDivder1TextBox.Name = "impulseDivder1TextBox";
             this.impulseDivder1TextBox.Size = new System.Drawing.Size(170, 50);
@@ -236,6 +219,7 @@
             // 
             // impulseDivder2TextBox
             // 
+            this.impulseDivder2TextBox.AllowDecimals = true;
             this.impulseDivder2TextBox.AllowText = false;
             this.impulseDivder2TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseDivder2TextBox.BackgroundColor = System.Drawing.Color.White;
@@ -244,9 +228,9 @@
             this.impulseDivder2TextBox.Decimals = 4;
             this.impulseDivder2TextBox.IsPopUp = false;
             this.impulseDivder2TextBox.Location = new System.Drawing.Point(3, 115);
-            this.impulseDivder2TextBox.Max = 230;
+            this.impulseDivder2TextBox.Max = 230D;
             this.impulseDivder2TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impulseDivder2TextBox.Min = 0;
+            this.impulseDivder2TextBox.Min = 0D;
             this.impulseDivder2TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseDivder2TextBox.Name = "impulseDivder2TextBox";
             this.impulseDivder2TextBox.Size = new System.Drawing.Size(170, 50);
@@ -257,6 +241,7 @@
             // 
             // impulseDivder3TextBox
             // 
+            this.impulseDivder3TextBox.AllowDecimals = true;
             this.impulseDivder3TextBox.AllowText = false;
             this.impulseDivder3TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseDivder3TextBox.BackgroundColor = System.Drawing.Color.White;
@@ -265,9 +250,9 @@
             this.impulseDivder3TextBox.Decimals = 4;
             this.impulseDivder3TextBox.IsPopUp = false;
             this.impulseDivder3TextBox.Location = new System.Drawing.Point(3, 171);
-            this.impulseDivder3TextBox.Max = 1100;
+            this.impulseDivder3TextBox.Max = 1100D;
             this.impulseDivder3TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impulseDivder3TextBox.Min = 800;
+            this.impulseDivder3TextBox.Min = 800D;
             this.impulseDivder3TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseDivder3TextBox.Name = "impulseDivder3TextBox";
             this.impulseDivder3TextBox.Size = new System.Drawing.Size(170, 50);
@@ -335,6 +320,7 @@
             // 
             // dcDivder1TextBox
             // 
+            this.dcDivder1TextBox.AllowDecimals = true;
             this.dcDivder1TextBox.AllowText = false;
             this.dcDivder1TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.dcDivder1TextBox.BackgroundColor = System.Drawing.Color.White;
@@ -343,9 +329,9 @@
             this.dcDivder1TextBox.Decimals = 2;
             this.dcDivder1TextBox.IsPopUp = false;
             this.dcDivder1TextBox.Location = new System.Drawing.Point(3, 3);
-            this.dcDivder1TextBox.Max = 230;
+            this.dcDivder1TextBox.Max = 230D;
             this.dcDivder1TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.dcDivder1TextBox.Min = 0;
+            this.dcDivder1TextBox.Min = 0D;
             this.dcDivder1TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.dcDivder1TextBox.Name = "dcDivder1TextBox";
             this.dcDivder1TextBox.Size = new System.Drawing.Size(170, 50);
@@ -355,6 +341,7 @@
             // 
             // dcDivder2TextBox
             // 
+            this.dcDivder2TextBox.AllowDecimals = true;
             this.dcDivder2TextBox.AllowText = false;
             this.dcDivder2TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.dcDivder2TextBox.BackgroundColor = System.Drawing.Color.White;
@@ -363,9 +350,9 @@
             this.dcDivder2TextBox.Decimals = 2;
             this.dcDivder2TextBox.IsPopUp = false;
             this.dcDivder2TextBox.Location = new System.Drawing.Point(3, 59);
-            this.dcDivder2TextBox.Max = 230;
+            this.dcDivder2TextBox.Max = 230D;
             this.dcDivder2TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.dcDivder2TextBox.Min = 0;
+            this.dcDivder2TextBox.Min = 0D;
             this.dcDivder2TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.dcDivder2TextBox.Name = "dcDivder2TextBox";
             this.dcDivder2TextBox.Size = new System.Drawing.Size(170, 50);
@@ -376,6 +363,7 @@
             // 
             // dcDivder3TextBox
             // 
+            this.dcDivder3TextBox.AllowDecimals = true;
             this.dcDivder3TextBox.AllowText = false;
             this.dcDivder3TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.dcDivder3TextBox.BackgroundColor = System.Drawing.Color.White;
@@ -384,9 +372,9 @@
             this.dcDivder3TextBox.Decimals = 2;
             this.dcDivder3TextBox.IsPopUp = false;
             this.dcDivder3TextBox.Location = new System.Drawing.Point(3, 115);
-            this.dcDivder3TextBox.Max = 230;
+            this.dcDivder3TextBox.Max = 230D;
             this.dcDivder3TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.dcDivder3TextBox.Min = 0;
+            this.dcDivder3TextBox.Min = 0D;
             this.dcDivder3TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.dcDivder3TextBox.Name = "dcDivder3TextBox";
             this.dcDivder3TextBox.Size = new System.Drawing.Size(170, 50);
@@ -452,6 +440,7 @@
             // 
             // acDivder1TextBox
             // 
+            this.acDivder1TextBox.AllowDecimals = true;
             this.acDivder1TextBox.AllowText = false;
             this.acDivder1TextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.acDivder1TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
@@ -461,9 +450,9 @@
             this.acDivder1TextBox.Decimals = 2;
             this.acDivder1TextBox.IsPopUp = false;
             this.acDivder1TextBox.Location = new System.Drawing.Point(3, 3);
-            this.acDivder1TextBox.Max = 230;
+            this.acDivder1TextBox.Max = 230D;
             this.acDivder1TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.acDivder1TextBox.Min = 0;
+            this.acDivder1TextBox.Min = 0D;
             this.acDivder1TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.acDivder1TextBox.Name = "acDivder1TextBox";
             this.acDivder1TextBox.Size = new System.Drawing.Size(170, 50);
@@ -496,253 +485,6 @@
             this.label12.Size = new System.Drawing.Size(217, 18);
             this.label12.TabIndex = 2;
             this.label12.Text = "AC VOLTAGE DIVIDER (pF)";
-            // 
-            // customPanel2
-            // 
-            this.customPanel2.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel2.Controls.Add(this.tableLayoutPanel2);
-            this.customPanel2.Controls.Add(this.label23);
-            this.customPanel2.CornerRadius = 40;
-            this.customPanel2.IsPopUp = false;
-            this.customPanel2.Location = new System.Drawing.Point(1053, 37);
-            this.customPanel2.Name = "customPanel2";
-            this.customPanel2.Size = new System.Drawing.Size(421, 542);
-            this.customPanel2.TabIndex = 0;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.Controls.Add(this.manualModeRadioButton, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label20, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label22, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.label21, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.label24, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.label25, 0, 5);
-            this.tableLayoutPanel2.Controls.Add(this.label26, 0, 6);
-            this.tableLayoutPanel2.Controls.Add(this.acWithstandRadioButton, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.acDisruptiveRadioButton, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.dcWithstandRadioButton, 1, 3);
-            this.tableLayoutPanel2.Controls.Add(this.impulseWithstandRadioButton, 1, 5);
-            this.tableLayoutPanel2.Controls.Add(this.impulseDisruptiveRadioButton, 1, 6);
-            this.tableLayoutPanel2.Controls.Add(this.dcDisruptiveRadioButton, 1, 4);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(24, 59);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tableLayoutPanel2.RowCount = 7;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(379, 468);
-            this.tableLayoutPanel2.TabIndex = 3;
-            // 
-            // manualModeRadioButton
-            // 
-            this.manualModeRadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.manualModeRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.manualModeRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.manualModeRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.manualModeRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.manualModeRadioButton.isChecked = true;
-            this.manualModeRadioButton.Location = new System.Drawing.Point(308, 9);
-            this.manualModeRadioButton.Name = "manualModeRadioButton";
-            this.manualModeRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.manualModeRadioButton.TabIndex = 2;
-            this.manualModeRadioButton.Text = "customRadioButton1";
-            this.manualModeRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            // 
-            // label20
-            // 
-            this.label20.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label20.Location = new System.Drawing.Point(3, 148);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(275, 33);
-            this.label20.TabIndex = 2;
-            this.label20.Text = "AC Disruptive Discharge";
-            // 
-            // label22
-            // 
-            this.label22.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label22.Location = new System.Drawing.Point(3, 16);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(98, 33);
-            this.label22.TabIndex = 2;
-            this.label22.Text = "Manual";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label4.Location = new System.Drawing.Point(3, 214);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(166, 33);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "DC Withstand";
-            // 
-            // label21
-            // 
-            this.label21.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label21.Location = new System.Drawing.Point(3, 82);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(165, 33);
-            this.label21.TabIndex = 2;
-            this.label21.Text = "AC Withstand";
-            // 
-            // label24
-            // 
-            this.label24.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label24.Location = new System.Drawing.Point(3, 280);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(276, 33);
-            this.label24.TabIndex = 2;
-            this.label24.Text = "DC Disruptive Discharge";
-            // 
-            // label25
-            // 
-            this.label25.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label25.Location = new System.Drawing.Point(3, 346);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(222, 33);
-            this.label25.TabIndex = 2;
-            this.label25.Text = "Impulse Withstand";
-            // 
-            // label26
-            // 
-            this.label26.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label26.Location = new System.Drawing.Point(3, 399);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(231, 66);
-            this.label26.TabIndex = 2;
-            this.label26.Text = "Impulse  Disruptive Discharge";
-            // 
-            // acWithstandRadioButton
-            // 
-            this.acWithstandRadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.acWithstandRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.acWithstandRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.acWithstandRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.acWithstandRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.acWithstandRadioButton.isChecked = false;
-            this.acWithstandRadioButton.Location = new System.Drawing.Point(308, 75);
-            this.acWithstandRadioButton.Name = "acWithstandRadioButton";
-            this.acWithstandRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.acWithstandRadioButton.TabIndex = 2;
-            this.acWithstandRadioButton.Text = "customRadioButton1";
-            this.acWithstandRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            // 
-            // acDisruptiveRadioButton
-            // 
-            this.acDisruptiveRadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.acDisruptiveRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.acDisruptiveRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.acDisruptiveRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.acDisruptiveRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.acDisruptiveRadioButton.isChecked = false;
-            this.acDisruptiveRadioButton.Location = new System.Drawing.Point(308, 141);
-            this.acDisruptiveRadioButton.Name = "acDisruptiveRadioButton";
-            this.acDisruptiveRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.acDisruptiveRadioButton.TabIndex = 2;
-            this.acDisruptiveRadioButton.Text = "customRadioButton1";
-            this.acDisruptiveRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            // 
-            // dcWithstandRadioButton
-            // 
-            this.dcWithstandRadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.dcWithstandRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.dcWithstandRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.dcWithstandRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.dcWithstandRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.dcWithstandRadioButton.isChecked = false;
-            this.dcWithstandRadioButton.Location = new System.Drawing.Point(308, 207);
-            this.dcWithstandRadioButton.Name = "dcWithstandRadioButton";
-            this.dcWithstandRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.dcWithstandRadioButton.TabIndex = 2;
-            this.dcWithstandRadioButton.Text = "customRadioButton1";
-            this.dcWithstandRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            // 
-            // impulseWithstandRadioButton
-            // 
-            this.impulseWithstandRadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.impulseWithstandRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.impulseWithstandRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.impulseWithstandRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.impulseWithstandRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.impulseWithstandRadioButton.isChecked = false;
-            this.impulseWithstandRadioButton.Location = new System.Drawing.Point(308, 339);
-            this.impulseWithstandRadioButton.Name = "impulseWithstandRadioButton";
-            this.impulseWithstandRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.impulseWithstandRadioButton.TabIndex = 2;
-            this.impulseWithstandRadioButton.Text = "customRadioButton1";
-            this.impulseWithstandRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            // 
-            // impulseDisruptiveRadioButton
-            // 
-            this.impulseDisruptiveRadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.impulseDisruptiveRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.impulseDisruptiveRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.impulseDisruptiveRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.impulseDisruptiveRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.impulseDisruptiveRadioButton.isChecked = false;
-            this.impulseDisruptiveRadioButton.Location = new System.Drawing.Point(308, 408);
-            this.impulseDisruptiveRadioButton.Name = "impulseDisruptiveRadioButton";
-            this.impulseDisruptiveRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.impulseDisruptiveRadioButton.TabIndex = 2;
-            this.impulseDisruptiveRadioButton.Text = "customRadioButton1";
-            this.impulseDisruptiveRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            // 
-            // dcDisruptiveRadioButton
-            // 
-            this.dcDisruptiveRadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.dcDisruptiveRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.dcDisruptiveRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.dcDisruptiveRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.dcDisruptiveRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.dcDisruptiveRadioButton.isChecked = false;
-            this.dcDisruptiveRadioButton.Location = new System.Drawing.Point(308, 273);
-            this.dcDisruptiveRadioButton.Name = "dcDisruptiveRadioButton";
-            this.dcDisruptiveRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.dcDisruptiveRadioButton.TabIndex = 2;
-            this.dcDisruptiveRadioButton.Text = "customRadioButton1";
-            this.dcDisruptiveRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label23.Location = new System.Drawing.Point(21, 18);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(156, 18);
-            this.label23.TabIndex = 2;
-            this.label23.Text = "MODE SELECTION";
             // 
             // customPanel5
             // 
@@ -1238,7 +980,6 @@
             this.Controls.Add(this.impulseDividerPanel);
             this.Controls.Add(this.dcDividerPanel);
             this.Controls.Add(this.acDividerPanel);
-            this.Controls.Add(this.customPanel2);
             this.Controls.Add(this.customPanel5);
             this.Controls.Add(this.customPanel3);
             this.Controls.Add(this.customPanel4);
@@ -1256,10 +997,6 @@
             this.acDividerPanel.ResumeLayout(false);
             this.acDividerPanel.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
-            this.customPanel2.ResumeLayout(false);
-            this.customPanel2.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.customPanel5.ResumeLayout(false);
             this.customPanel5.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -1335,25 +1072,8 @@
         public CustomTextBox impulseDivder2TextBox;
         public CustomButton impulseDivderDefaultButton;
         public CustomTextBox impulseDivder3TextBox;
-        public CustomPanel customPanel2;
-        public System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        public System.Windows.Forms.Label label20;
-        public System.Windows.Forms.Label label22;
-        public System.Windows.Forms.Label label4;
-        public System.Windows.Forms.Label label21;
-        public System.Windows.Forms.Label label23;
-        public System.Windows.Forms.Label label24;
-        public System.Windows.Forms.Label label25;
-        public System.Windows.Forms.Label label26;
         public CustomPanel customPanel4;
         public System.Windows.Forms.Label label31;
-        public CustomRadioButton manualModeRadioButton;
-        public CustomRadioButton acWithstandRadioButton;
-        public CustomRadioButton acDisruptiveRadioButton;
-        public CustomRadioButton dcWithstandRadioButton;
-        public CustomRadioButton impulseWithstandRadioButton;
-        public CustomRadioButton impulseDisruptiveRadioButton;
-        public CustomRadioButton dcDisruptiveRadioButton;
         public CustomPanel customPanel6;
         public System.Windows.Forms.Label label27;
     }
