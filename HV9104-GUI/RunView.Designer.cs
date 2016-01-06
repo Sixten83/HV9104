@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
             this.autoTestChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.customPanel1 = new HV9104_GUI.CustomPanel();
-            this.testDurationLabel = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.motorInitButton = new HV9104_GUI.CustomButton();
+            this.secondsUnitLabel = new System.Windows.Forms.Label();
+            this.testDurationLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.testButton = new System.Windows.Forms.Button();
             this.WithstandRadioButton = new HV9104_GUI.CustomRadioButton();
@@ -60,12 +60,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.customPanel6 = new HV9104_GUI.CustomPanel();
-            this.customButton1 = new HV9104_GUI.CustomButton();
+            this.testRunningLabel = new System.Windows.Forms.Label();
+            this.abortAutoTestButton = new HV9104_GUI.CustomButton();
             this.onOffButton = new HV9104_GUI.CustomCheckBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.customPanel7 = new HV9104_GUI.CustomPanel();
             this.label8 = new System.Windows.Forms.Label();
+            this.exportValuesButton = new HV9104_GUI.CustomButton();
+            this.createReportButton = new HV9104_GUI.CustomButton();
             ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).BeginInit();
             this.customPanel1.SuspendLayout();
             this.customPanel2.SuspendLayout();
@@ -82,27 +85,27 @@
             // autoTestChart
             // 
             this.autoTestChart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            chartArea2.AxisX.LineColor = System.Drawing.Color.Transparent;
-            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
-            chartArea2.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea2.AxisX.MajorTickMark.Enabled = false;
-            chartArea2.AxisX.MinorGrid.LineColor = System.Drawing.Color.Transparent;
-            chartArea2.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea2.AxisY.LineColor = System.Drawing.Color.Transparent;
-            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
-            chartArea2.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea2.AxisY.MajorTickMark.Enabled = false;
-            chartArea2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            chartArea2.BorderColor = System.Drawing.Color.Transparent;
-            chartArea2.Name = "ChartArea1";
-            this.autoTestChart.ChartAreas.Add(chartArea2);
+            chartArea1.AxisX.LineColor = System.Drawing.Color.Transparent;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
+            chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.Transparent;
+            chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea1.AxisY.LineColor = System.Drawing.Color.Transparent;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
+            chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea1.AxisY.MajorTickMark.Enabled = false;
+            chartArea1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            chartArea1.BorderColor = System.Drawing.Color.Transparent;
+            chartArea1.Name = "ChartArea1";
+            this.autoTestChart.ChartAreas.Add(chartArea1);
             this.autoTestChart.Location = new System.Drawing.Point(56, 63);
             this.autoTestChart.Name = "autoTestChart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Name = "Series1";
-            series2.Points.Add(dataPoint2);
-            this.autoTestChart.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Name = "Series1";
+            series1.Points.Add(dataPoint1);
+            this.autoTestChart.Series.Add(series1);
             this.autoTestChart.Size = new System.Drawing.Size(362, 217);
             this.autoTestChart.TabIndex = 0;
             this.autoTestChart.Text = "chart1";
@@ -112,9 +115,11 @@
             this.customPanel1.BackColor = System.Drawing.Color.Transparent;
             this.customPanel1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel1.Controls.Add(this.testDurationLabel);
+            this.customPanel1.Controls.Add(this.createReportButton);
+            this.customPanel1.Controls.Add(this.exportValuesButton);
             this.customPanel1.Controls.Add(this.label7);
-            this.customPanel1.Controls.Add(this.motorInitButton);
+            this.customPanel1.Controls.Add(this.secondsUnitLabel);
+            this.customPanel1.Controls.Add(this.testDurationLabel);
             this.customPanel1.Controls.Add(this.label5);
             this.customPanel1.Controls.Add(this.autoTestChart);
             this.customPanel1.CornerRadius = 40;
@@ -124,42 +129,39 @@
             this.customPanel1.Size = new System.Drawing.Size(483, 505);
             this.customPanel1.TabIndex = 1;
             // 
-            // testDurationLabel
-            // 
-            this.testDurationLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.testDurationLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.testDurationLabel.Location = new System.Drawing.Point(69, 354);
-            this.testDurationLabel.Name = "testDurationLabel";
-            this.testDurationLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.testDurationLabel.Size = new System.Drawing.Size(99, 97);
-            this.testDurationLabel.TabIndex = 11;
-            this.testDurationLabel.Text = "50";
-            this.testDurationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label7.Location = new System.Drawing.Point(51, 328);
+            this.label7.Location = new System.Drawing.Point(48, 328);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(135, 26);
             this.label7.TabIndex = 10;
             this.label7.Text = "ELAPSED TIME";
             // 
-            // motorInitButton
+            // secondsUnitLabel
             // 
-            this.motorInitButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.motorInitButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.motorInitButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.motorInitButton.ForeColor = System.Drawing.Color.White;
-            this.motorInitButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.motorInitButton.Location = new System.Drawing.Point(294, 414);
-            this.motorInitButton.Name = "motorInitButton";
-            this.motorInitButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.motorInitButton.Size = new System.Drawing.Size(158, 57);
-            this.motorInitButton.TabIndex = 7;
-            this.motorInitButton.Text = "EXPORT";
+            this.secondsUnitLabel.AutoSize = true;
+            this.secondsUnitLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.secondsUnitLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.secondsUnitLabel.Location = new System.Drawing.Point(80, 415);
+            this.secondsUnitLabel.Name = "secondsUnitLabel";
+            this.secondsUnitLabel.Size = new System.Drawing.Size(71, 19);
+            this.secondsUnitLabel.TabIndex = 12;
+            this.secondsUnitLabel.Text = "SECONDS";
+            // 
+            // testDurationLabel
+            // 
+            this.testDurationLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testDurationLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.testDurationLabel.Location = new System.Drawing.Point(66, 345);
+            this.testDurationLabel.Name = "testDurationLabel";
+            this.testDurationLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.testDurationLabel.Size = new System.Drawing.Size(99, 80);
+            this.testDurationLabel.TabIndex = 11;
+            this.testDurationLabel.Text = "50";
+            this.testDurationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label5
             // 
@@ -462,7 +464,8 @@
             this.customPanel6.BackColor = System.Drawing.Color.Transparent;
             this.customPanel6.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel6.Controls.Add(this.customButton1);
+            this.customPanel6.Controls.Add(this.testRunningLabel);
+            this.customPanel6.Controls.Add(this.abortAutoTestButton);
             this.customPanel6.Controls.Add(this.onOffButton);
             this.customPanel6.Controls.Add(this.label15);
             this.customPanel6.Controls.Add(this.label6);
@@ -473,19 +476,31 @@
             this.customPanel6.Size = new System.Drawing.Size(381, 254);
             this.customPanel6.TabIndex = 7;
             // 
-            // customButton1
+            // testRunningLabel
             // 
-            this.customButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customButton1.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.customButton1.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customButton1.ForeColor = System.Drawing.Color.White;
-            this.customButton1.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.customButton1.Location = new System.Drawing.Point(161, 163);
-            this.customButton1.Name = "customButton1";
-            this.customButton1.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.customButton1.Size = new System.Drawing.Size(158, 57);
-            this.customButton1.TabIndex = 12;
-            this.customButton1.Text = "ABORT";
+            this.testRunningLabel.AutoSize = true;
+            this.testRunningLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testRunningLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.testRunningLabel.Location = new System.Drawing.Point(49, 172);
+            this.testRunningLabel.Name = "testRunningLabel";
+            this.testRunningLabel.Size = new System.Drawing.Size(72, 38);
+            this.testRunningLabel.TabIndex = 13;
+            this.testRunningLabel.Text = "TEST\r\nRUNNING";
+            this.testRunningLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // abortAutoTestButton
+            // 
+            this.abortAutoTestButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.abortAutoTestButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.abortAutoTestButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.abortAutoTestButton.ForeColor = System.Drawing.Color.White;
+            this.abortAutoTestButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.abortAutoTestButton.Location = new System.Drawing.Point(161, 163);
+            this.abortAutoTestButton.Name = "abortAutoTestButton";
+            this.abortAutoTestButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.abortAutoTestButton.Size = new System.Drawing.Size(158, 57);
+            this.abortAutoTestButton.TabIndex = 12;
+            this.abortAutoTestButton.Text = "ABORT";
             // 
             // onOffButton
             // 
@@ -546,6 +561,34 @@
             this.label8.Size = new System.Drawing.Size(273, 18);
             this.label8.TabIndex = 5;
             this.label8.Text = "IMPULSE TESTING PARAMETERS";
+            // 
+            // exportValuesButton
+            // 
+            this.exportValuesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.exportValuesButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.exportValuesButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exportValuesButton.ForeColor = System.Drawing.Color.White;
+            this.exportValuesButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.exportValuesButton.Location = new System.Drawing.Point(303, 415);
+            this.exportValuesButton.Name = "exportValuesButton";
+            this.exportValuesButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.exportValuesButton.Size = new System.Drawing.Size(158, 57);
+            this.exportValuesButton.TabIndex = 13;
+            this.exportValuesButton.Text = "EXPORT VALUES";
+            // 
+            // createReportButton
+            // 
+            this.createReportButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.createReportButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.createReportButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.createReportButton.ForeColor = System.Drawing.Color.White;
+            this.createReportButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.createReportButton.Location = new System.Drawing.Point(303, 345);
+            this.createReportButton.Name = "createReportButton";
+            this.createReportButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.createReportButton.Size = new System.Drawing.Size(158, 57);
+            this.createReportButton.TabIndex = 14;
+            this.createReportButton.Text = "CREATE REPORT";
             // 
             // RunView
             // 
@@ -613,13 +656,16 @@
         public System.Windows.Forms.Label label5;
         private CustomPanel customPanel6;
         public System.Windows.Forms.Label label6;
-        public CustomButton motorInitButton;
         public System.Windows.Forms.Label label7;
-        public CustomButton customButton1;
+        public CustomButton abortAutoTestButton;
         public CustomCheckBox onOffButton;
         public System.Windows.Forms.Label label15;
         public System.Windows.Forms.Label testDurationLabel;
         private CustomPanel customPanel7;
         public System.Windows.Forms.Label label8;
+        public System.Windows.Forms.Label secondsUnitLabel;
+        public System.Windows.Forms.Label testRunningLabel;
+        public CustomButton createReportButton;
+        public CustomButton exportValuesButton;
     }
 }
