@@ -40,8 +40,8 @@ namespace HV9104_GUI
                     c.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDoubleClick);
                 }
             }
-            this.controlFormTabController.addPage(runView = new RunView(), 0);
-            this.controlFormTabController.addPage(dashboardView  = new DashBoardView(), 1);
+            this.controlFormTabController.addPage(runView = new RunView(), 1);
+            this.controlFormTabController.addPage(dashboardView  = new DashBoardView(), 0);
             this.controlFormTabController.addPage(setupView = new SetupView(), 2);
         }
 
@@ -133,6 +133,20 @@ namespace HV9104_GUI
 
         }
 
+
+        
+        // Dashboard selected
+        private void customTab22_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // Setup view selected
+        private void customTab21_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void restoreDownButton_Click(object sender, EventArgs e)
         {
             Point lastLocation = this.Location;            
@@ -143,6 +157,6 @@ namespace HV9104_GUI
             
         }
 
-        
+
     }
 }

@@ -60,6 +60,7 @@ namespace HV9104_GUI
         private bool abortRegulation = true;
         public int trafSpeed = 600;
         public int maxVoltage = 235;
+        
 
         public Controller()
         {
@@ -462,10 +463,14 @@ namespace HV9104_GUI
             this.measuringForm.closeButton.Click += new System.EventHandler(this.formsCloseButton_Click);
             this.controlForm.closeButton.Click += new System.EventHandler(this.formsCloseButton_Click);
 
+            this.controlForm.runExperimentTab.Click += new System.EventHandler(runExperimentTab_Click);
+            this.controlForm.dashboardTab.Click += new System.EventHandler(dashboardTab_Click);
+            this.controlForm.setupTab.Click += new System.EventHandler(setupTab_Click);
+
             //***********************************************************************************************************
             //***                                     SETUP VIEW EVENT LISTENERS                                     ****
             //***********************************************************************************************************
-     
+
             //Stage setup listeners
             this.controlForm.setupView.acCheckBox.Click += new System.EventHandler(acCheckBox_Click);
             this.controlForm.setupView.acStage1RadioButton.Click += new System.EventHandler(acStage1RadioButton_Click);
@@ -543,13 +548,14 @@ namespace HV9104_GUI
             this.controlForm.runView.testButton.Click += new System.EventHandler(testButton_Click);
             
             //Mode selection listeners
-            this.controlForm.runView.acWithstandRadioButton.Click += new System.EventHandler(acWithstandRadioButton_Click);
-            this.controlForm.runView.acDisruptiveRadioButton.Click += new System.EventHandler(acDisruptiveRadioButton_Click);
-            this.controlForm.runView.dcWithstandRadioButton.Click += new System.EventHandler(dcWithstandRadioButton_Click);
-            this.controlForm.runView.dcDisruptiveRadioButton.Click += new System.EventHandler(dcDisruptiveRadioButton_Click);
-            this.controlForm.runView.impulseWithstandRadioButton.Click += new System.EventHandler(impulseWithstandRadioButton_Click);
-            this.controlForm.runView.impulseDisruptiveRadioButton.Click += new System.EventHandler(impulseDisruptiveRadioButton_Click);
-            
+            this.controlForm.runView.WithstandRadioButton.Click += new System.EventHandler(testWithstandRadioButton_Click);
+            this.controlForm.runView.DisruptiveRadioButton.Click += new System.EventHandler(testDisruptiveRadioButton_Click);
+           
+            //this.controlForm.runView.dcWithstandRadioButton.Click += new System.EventHandler(dcWithstandRadioButton_Click);
+            //this.controlForm.runView.dcDisruptiveRadioButton.Click += new System.EventHandler(dcDisruptiveRadioButton_Click);
+            //this.controlForm.runView.impulseWithstandRadioButton.Click += new System.EventHandler(impulseWithstandRadioButton_Click);
+            //this.controlForm.runView.impulseDisruptiveRadioButton.Click += new System.EventHandler(impulseDisruptiveRadioButton_Click);
+
             //***********************************************************************************************************
             //***                                  MEASURING FORM EVENT LISTENERS                                   *****
             //***********************************************************************************************************
@@ -579,11 +585,27 @@ namespace HV9104_GUI
 
         }
 
+
+
+        //***********************************************************************************************************
+        //***                                    CONTROL FORM EVENT HANDLERS                                  *****
+        //***********************************************************************************************************
+        private void dashboardTab_Click(object sender, EventArgs e)
+        {
+            controlForm.modeLabel.Text = "Manual Operation";
+        }
+
+        // Run experiment selected
+        private void runExperimentTab_Click(object sender, EventArgs e)
+        {
+            GetTestType();
+        }
         
-
-
-
-
+        // Run experiment selected
+        private void setupTab_Click(object sender, EventArgs e)
+        {
+            controlForm.modeLabel.Text = "Setup/Config";
+        }
 
 
         //***********************************************************************************************************
@@ -837,14 +859,16 @@ namespace HV9104_GUI
 
         }
 
-
+        public int cnt = 0;
         //***********************************************************************************************************
-        //***                                     DASHVOARD VIEW EVENT HANDLERS                                 *****
+        //***                                     DASHBOARD VIEW EVENT HANDLERS                                 *****
         //***********************************************************************************************************
 
         private void RunView_Load(object sender, EventArgs e)
         {
             InitializeUIStatus();
+            cnt += 1;
+            controlForm.runView.label1.Text = cnt.ToString();
         }
 
         private void acOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
@@ -906,6 +930,9 @@ namespace HV9104_GUI
                     // Drive the voltage down to zero
                     PIO1.ParkTransformer();
                 }
+
+                // Write a reminder to use discharge rod
+                this.controlForm.messageLabel.Text = "Important! Always use the Discharge Rod to discharge components when entering the HV area.";
             }
         }
 
@@ -1433,6 +1460,14 @@ namespace HV9104_GUI
             this.controlForm.runView.autoTestChart.ChartAreas[0].AxisY.Interval = (int)((y.Max() - y.Min()) / 10);
         }
 
+        private void voltageComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            //representation index: 0 = AC, 1 = DC, 2 = Impulse
+            //int[] selection = { 2, 0, 1, 3 };
+            //acChannel.setRepresentationIndex(selection[(int)e.Value]);
+
+        }
+
         //***********************************************************************************************************
         //***                                     SETUP VIEW EVENT HANDLERS                                     *****
         //***********************************************************************************************************
@@ -1524,47 +1559,18 @@ namespace HV9104_GUI
 
         }
 
-        private void manualModeRadiobutton_Click(object sender, EventArgs e)
-        {
-
-            this.controlForm.modeLabel.Text = "Manual mode";
-        }
-
-        private void acWithstandRadioButton_Click(object sender, EventArgs e)
+        private void testWithstandRadioButton_Click(object sender, EventArgs e)
         {
             disableForControls();
-            this.controlForm.modeLabel.Text = "AC Withstand Voltage Test";
+            GetTestType();
         }
 
-        private void acDisruptiveRadioButton_Click(object sender, EventArgs e)
+        private void testDisruptiveRadioButton_Click(object sender, EventArgs e)
         {
             disableForControls();
-            this.controlForm.modeLabel.Text = "AC Disruptive Discharge Voltage Test";
+            GetTestType();
         }
 
-        private void dcWithstandRadioButton_Click(object sender, EventArgs e)
-        {
-            disableForControls();
-            this.controlForm.modeLabel.Text = "DC Withstand Voltage Test";
-        }
-
-        private void dcDisruptiveRadioButton_Click(object sender, EventArgs e)
-        {
-            disableForControls();
-            this.controlForm.modeLabel.Text = "DC Disruptive Discharge Voltage Test";
-        }
-
-        private void impulseWithstandRadioButton_Click(object sender, EventArgs e)
-        {
-            disableForControls();
-            this.controlForm.modeLabel.Text = "Impulse Withstand Voltage Test";
-        }
-
-        private void impulseDisruptiveRadioButton_Click(object sender, EventArgs e)
-        {
-            disableForControls();
-            this.controlForm.modeLabel.Text = "Impulse Disruptive Discharge Voltage Test";
-        }
 
         private void acChannelRadioButton_Click(object sender, EventArgs e)
         {
@@ -2191,5 +2197,27 @@ namespace HV9104_GUI
 
             }
         }
+
+
+        public void GetTestType()
+        {
+            string selectedVoltage = controlForm.runView.voltageComboBox.SetSelected;
+
+            if (controlForm.runView.WithstandRadioButton.isChecked)
+            {
+                this.controlForm.modeLabel.Text = selectedVoltage + " Withstand Voltage Test"; ;
+            }
+            else if (controlForm.runView.DisruptiveRadioButton.isChecked)
+            {
+                this.controlForm.modeLabel.Text = selectedVoltage + " Disruptive Discharge Voltage Test";
+            }
+            else
+            {
+                this.controlForm.modeLabel.Text = selectedVoltage + " No Test Selected";
+            }
+        }
+
+
+
     }
 }

@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.acStage1RadioButton = new HV9104_GUI.CustomRadioButton();
-            this.customPanel6 = new HV9104_GUI.CustomPanel();
-            this.label27 = new System.Windows.Forms.Label();
             this.impulseDividerPanel = new HV9104_GUI.CustomPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.impulseLowDivderTextBox = new HV9104_GUI.CustomTextBox();
@@ -75,8 +73,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.customPanel4 = new HV9104_GUI.CustomPanel();
-            this.label31 = new System.Windows.Forms.Label();
             this.customPanel1 = new HV9104_GUI.CustomPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label13 = new System.Windows.Forms.Label();
@@ -87,7 +83,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.customPanel6.SuspendLayout();
             this.impulseDividerPanel.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.dcDividerPanel.SuspendLayout();
@@ -98,7 +93,6 @@
             this.tableLayoutPanel5.SuspendLayout();
             this.customPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            this.customPanel4.SuspendLayout();
             this.customPanel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -118,30 +112,6 @@
             this.acStage1RadioButton.Text = "customRadioButton1";
             this.toolTip1.SetToolTip(this.acStage1RadioButton, "Continuous current input");
             this.acStage1RadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            // 
-            // customPanel6
-            // 
-            this.customPanel6.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel6.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel6.Controls.Add(this.label27);
-            this.customPanel6.CornerRadius = 40;
-            this.customPanel6.IsPopUp = false;
-            this.customPanel6.Location = new System.Drawing.Point(1053, 610);
-            this.customPanel6.Name = "customPanel6";
-            this.customPanel6.Size = new System.Drawing.Size(421, 150);
-            this.customPanel6.TabIndex = 1;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label27.Location = new System.Drawing.Point(25, 20);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(110, 18);
-            this.label27.TabIndex = 2;
-            this.label27.Text = "TEST SETUP";
             // 
             // impulseDividerPanel
             // 
@@ -266,7 +236,7 @@
             this.impulseDivderDefaultButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseDivderDefaultButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.impulseDivderDefaultButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.impulseDivderDefaultButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.impulseDivderDefaultButton.ForeColor = System.Drawing.Color.White;
             this.impulseDivderDefaultButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
             this.impulseDivderDefaultButton.Location = new System.Drawing.Point(9, 227);
             this.impulseDivderDefaultButton.Margin = new System.Windows.Forms.Padding(9, 3, 9, 3);
@@ -298,7 +268,7 @@
             this.dcDividerPanel.Controls.Add(this.label6);
             this.dcDividerPanel.CornerRadius = 40;
             this.dcDividerPanel.IsPopUp = false;
-            this.dcDividerPanel.Location = new System.Drawing.Point(391, 393);
+            this.dcDividerPanel.Location = new System.Drawing.Point(385, 393);
             this.dcDividerPanel.Name = "dcDividerPanel";
             this.dcDividerPanel.Size = new System.Drawing.Size(300, 305);
             this.dcDividerPanel.TabIndex = 0;
@@ -388,7 +358,7 @@
             this.dcDivderDefaultButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.dcDivderDefaultButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.dcDivderDefaultButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dcDivderDefaultButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dcDivderDefaultButton.ForeColor = System.Drawing.Color.White;
             this.dcDivderDefaultButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
             this.dcDivderDefaultButton.Location = new System.Drawing.Point(9, 171);
             this.dcDivderDefaultButton.Margin = new System.Windows.Forms.Padding(9, 3, 9, 3);
@@ -466,7 +436,7 @@
             this.acDivderDefaultButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.acDivderDefaultButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
             this.acDivderDefaultButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.acDivderDefaultButton.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.acDivderDefaultButton.ForeColor = System.Drawing.Color.White;
             this.acDivderDefaultButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
             this.acDivderDefaultButton.Location = new System.Drawing.Point(9, 59);
             this.acDivderDefaultButton.Name = "acDivderDefaultButton";
@@ -656,7 +626,7 @@
             this.customPanel3.Controls.Add(this.label11);
             this.customPanel3.CornerRadius = 40;
             this.customPanel3.IsPopUp = false;
-            this.customPanel3.Location = new System.Drawing.Point(391, 37);
+            this.customPanel3.Location = new System.Drawing.Point(385, 37);
             this.customPanel3.Name = "customPanel3";
             this.customPanel3.Size = new System.Drawing.Size(300, 329);
             this.customPanel3.TabIndex = 0;
@@ -805,30 +775,6 @@
             this.label11.TabIndex = 2;
             this.label11.Text = "DC SETUP";
             // 
-            // customPanel4
-            // 
-            this.customPanel4.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel4.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel4.Controls.Add(this.label31);
-            this.customPanel4.CornerRadius = 40;
-            this.customPanel4.IsPopUp = false;
-            this.customPanel4.Location = new System.Drawing.Point(1500, 37);
-            this.customPanel4.Name = "customPanel4";
-            this.customPanel4.Size = new System.Drawing.Size(356, 723);
-            this.customPanel4.TabIndex = 0;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label31.Location = new System.Drawing.Point(21, 18);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(167, 18);
-            this.label31.TabIndex = 2;
-            this.label31.Text = "TEST DESCRITPION";
-            // 
             // customPanel1
             // 
             this.customPanel1.BackColor = System.Drawing.Color.Transparent;
@@ -976,18 +922,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.customPanel6);
             this.Controls.Add(this.impulseDividerPanel);
             this.Controls.Add(this.dcDividerPanel);
             this.Controls.Add(this.acDividerPanel);
             this.Controls.Add(this.customPanel5);
             this.Controls.Add(this.customPanel3);
-            this.Controls.Add(this.customPanel4);
             this.Controls.Add(this.customPanel1);
             this.Name = "SetupView";
             this.Size = new System.Drawing.Size(1875, 800);
-            this.customPanel6.ResumeLayout(false);
-            this.customPanel6.PerformLayout();
             this.impulseDividerPanel.ResumeLayout(false);
             this.impulseDividerPanel.PerformLayout();
             this.flowLayoutPanel3.ResumeLayout(false);
@@ -1005,8 +947,6 @@
             this.customPanel3.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            this.customPanel4.ResumeLayout(false);
-            this.customPanel4.PerformLayout();
             this.customPanel1.ResumeLayout(false);
             this.customPanel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -1072,9 +1012,5 @@
         public CustomTextBox impulseDivder2TextBox;
         public CustomButton impulseDivderDefaultButton;
         public CustomTextBox impulseDivder3TextBox;
-        public CustomPanel customPanel4;
-        public System.Windows.Forms.Label label31;
-        public CustomPanel customPanel6;
-        public System.Windows.Forms.Label label27;
     }
 }

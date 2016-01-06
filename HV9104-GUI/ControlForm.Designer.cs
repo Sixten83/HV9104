@@ -31,6 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlForm));
             this.titleBarPanel = new System.Windows.Forms.Panel();
             this.messageLabel = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.minimizeButton = new HV9104_GUI.CustomButton();
+            this.maximizeButton = new HV9104_GUI.CustomButton();
+            this.restoreDownButton = new HV9104_GUI.CustomButton();
+            this.closeButton = new HV9104_GUI.CustomButton();
             this.userTitleLabel = new System.Windows.Forms.Label();
             this.modeLabel = new System.Windows.Forms.Label();
             this.modeTitleLabel = new System.Windows.Forms.Label();
@@ -41,17 +46,12 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.controlFormTabController = new HV9104_GUI.CustomTabControl();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.minimizeButton = new HV9104_GUI.CustomButton();
-            this.maximizeButton = new HV9104_GUI.CustomButton();
-            this.restoreDownButton = new HV9104_GUI.CustomButton();
-            this.closeButton = new HV9104_GUI.CustomButton();
-            this.customTab22 = new HV9104_GUI.CustomTab();
-            this.customTab1 = new HV9104_GUI.CustomTab();
-            this.customTab21 = new HV9104_GUI.CustomTab();
+            this.dashboardTab = new HV9104_GUI.CustomTab();
+            this.runExperimentTab = new HV9104_GUI.CustomTab();
+            this.setupTab = new HV9104_GUI.CustomTab();
             this.titleBarPanel.SuspendLayout();
-            this.controlFormTabController.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.controlFormTabController.SuspendLayout();
             this.SuspendLayout();
             // 
             // titleBarPanel
@@ -85,6 +85,67 @@
             this.messageLabel.Name = "messageLabel";
             this.messageLabel.Size = new System.Drawing.Size(501, 49);
             this.messageLabel.TabIndex = 6;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::HV9104_GUI.Properties.Resources.tercoLogo;
+            this.pictureBox1.Location = new System.Drawing.Point(1840, 34);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(68, 56);
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
+            // minimizeButton
+            // 
+            this.minimizeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.minimizeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.minimizeButton;
+            this.minimizeButton.ForeColor = System.Drawing.Color.White;
+            this.minimizeButton.HoverImage = global::HV9104_GUI.Properties.Resources.minimizeButtonHover;
+            this.minimizeButton.Location = new System.Drawing.Point(1843, 10);
+            this.minimizeButton.Name = "minimizeButton";
+            this.minimizeButton.PressedImage = global::HV9104_GUI.Properties.Resources.minimizeButtonPressed;
+            this.minimizeButton.Size = new System.Drawing.Size(13, 13);
+            this.minimizeButton.TabIndex = 4;
+            this.minimizeButton.Click += new System.EventHandler(this.minimizeButton_Click);
+            // 
+            // maximizeButton
+            // 
+            this.maximizeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.maximizeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.maximizeButton;
+            this.maximizeButton.ForeColor = System.Drawing.Color.White;
+            this.maximizeButton.HoverImage = global::HV9104_GUI.Properties.Resources.maximizeButtonHover;
+            this.maximizeButton.Location = new System.Drawing.Point(1869, 10);
+            this.maximizeButton.Name = "maximizeButton";
+            this.maximizeButton.PressedImage = global::HV9104_GUI.Properties.Resources.maximizeButtonPressed;
+            this.maximizeButton.Size = new System.Drawing.Size(13, 13);
+            this.maximizeButton.TabIndex = 4;
+            this.maximizeButton.Visible = false;
+            this.maximizeButton.Click += new System.EventHandler(this.maximizeButton_Click);
+            // 
+            // restoreDownButton
+            // 
+            this.restoreDownButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.restoreDownButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.restoreDownButton;
+            this.restoreDownButton.ForeColor = System.Drawing.Color.White;
+            this.restoreDownButton.HoverImage = global::HV9104_GUI.Properties.Resources.restoreDownButtonHover;
+            this.restoreDownButton.Location = new System.Drawing.Point(1869, 10);
+            this.restoreDownButton.Name = "restoreDownButton";
+            this.restoreDownButton.PressedImage = global::HV9104_GUI.Properties.Resources.restoreDownButtonPressed;
+            this.restoreDownButton.Size = new System.Drawing.Size(13, 13);
+            this.restoreDownButton.TabIndex = 4;
+            this.restoreDownButton.Click += new System.EventHandler(this.restoreDownButton_Click);
+            // 
+            // closeButton
+            // 
+            this.closeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.closeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.closeButton;
+            this.closeButton.ForeColor = System.Drawing.Color.White;
+            this.closeButton.HoverImage = global::HV9104_GUI.Properties.Resources.closeButtonHover;
+            this.closeButton.Location = new System.Drawing.Point(1895, 10);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.PressedImage = global::HV9104_GUI.Properties.Resources.closeButtonPressed;
+            this.closeButton.Size = new System.Drawing.Size(13, 13);
+            this.closeButton.TabIndex = 4;
             // 
             // userTitleLabel
             // 
@@ -173,114 +234,55 @@
             // controlFormTabController
             // 
             this.controlFormTabController.BackColor = System.Drawing.Color.White;
-            this.controlFormTabController.Controls.Add(this.customTab22);
-            this.controlFormTabController.Controls.Add(this.customTab1);
-            this.controlFormTabController.Controls.Add(this.customTab21);
+            this.controlFormTabController.Controls.Add(this.dashboardTab);
+            this.controlFormTabController.Controls.Add(this.runExperimentTab);
+            this.controlFormTabController.Controls.Add(this.setupTab);
             this.controlFormTabController.Location = new System.Drawing.Point(1, 100);
             this.controlFormTabController.Name = "controlFormTabController";
             this.controlFormTabController.Size = new System.Drawing.Size(1918, 978);
             this.controlFormTabController.TabIndex = 11;
             this.controlFormTabController.Paint += new System.Windows.Forms.PaintEventHandler(this.controlFormTabController_Paint);
             // 
-            // pictureBox1
+            // dashboardTab
             // 
-            this.pictureBox1.Image = global::HV9104_GUI.Properties.Resources.tercoLogo;
-            this.pictureBox1.Location = new System.Drawing.Point(1840, 34);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(68, 56);
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
+            this.dashboardTab.BackColor = System.Drawing.Color.White;
+            this.dashboardTab.BackgroundImage = global::HV9104_GUI.Properties.Resources.tabBorder;
+            this.dashboardTab.isSelected = true;
+            this.dashboardTab.Location = new System.Drawing.Point(400, 35);
+            this.dashboardTab.Name = "dashboardTab";
+            this.dashboardTab.SelectedIcon = global::HV9104_GUI.Properties.Resources.InstrumentSelectedIcon;
+            this.dashboardTab.Size = new System.Drawing.Size(400, 100);
+            this.dashboardTab.TabIndex = 0;
+            this.dashboardTab.Text = "   Dashboard";
+            this.dashboardTab.UnselectedIcon = global::HV9104_GUI.Properties.Resources.InstrumentUnselectedIcon;
+            this.dashboardTab.Click += new System.EventHandler(this.customTab22_Click);
             // 
-            // minimizeButton
+            // runExperimentTab
             // 
-            this.minimizeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.minimizeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.minimizeButton;
-            this.minimizeButton.ForeColor = System.Drawing.Color.White;
-            this.minimizeButton.HoverImage = global::HV9104_GUI.Properties.Resources.minimizeButtonHover;
-            this.minimizeButton.Location = new System.Drawing.Point(1843, 10);
-            this.minimizeButton.Name = "minimizeButton";
-            this.minimizeButton.PressedImage = global::HV9104_GUI.Properties.Resources.minimizeButtonPressed;
-            this.minimizeButton.Size = new System.Drawing.Size(13, 13);
-            this.minimizeButton.TabIndex = 4;
-            this.minimizeButton.Click += new System.EventHandler(this.minimizeButton_Click);
+            this.runExperimentTab.BackColor = System.Drawing.Color.White;
+            this.runExperimentTab.BackgroundImage = global::HV9104_GUI.Properties.Resources.tabBorder;
+            this.runExperimentTab.isSelected = false;
+            this.runExperimentTab.Location = new System.Drawing.Point(800, 35);
+            this.runExperimentTab.Name = "runExperimentTab";
+            this.runExperimentTab.SelectedIcon = global::HV9104_GUI.Properties.Resources.playSelectedIcon;
+            this.runExperimentTab.Size = new System.Drawing.Size(400, 100);
+            this.runExperimentTab.TabIndex = 3;
+            this.runExperimentTab.Text = "Run Experiment";
+            this.runExperimentTab.UnselectedIcon = global::HV9104_GUI.Properties.Resources.playIcon;
             // 
-            // maximizeButton
+            // setupTab
             // 
-            this.maximizeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.maximizeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.maximizeButton;
-            this.maximizeButton.ForeColor = System.Drawing.Color.White;
-            this.maximizeButton.HoverImage = global::HV9104_GUI.Properties.Resources.maximizeButtonHover;
-            this.maximizeButton.Location = new System.Drawing.Point(1869, 10);
-            this.maximizeButton.Name = "maximizeButton";
-            this.maximizeButton.PressedImage = global::HV9104_GUI.Properties.Resources.maximizeButtonPressed;
-            this.maximizeButton.Size = new System.Drawing.Size(13, 13);
-            this.maximizeButton.TabIndex = 4;
-            this.maximizeButton.Visible = false;
-            this.maximizeButton.Click += new System.EventHandler(this.maximizeButton_Click);
-            // 
-            // restoreDownButton
-            // 
-            this.restoreDownButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.restoreDownButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.restoreDownButton;
-            this.restoreDownButton.ForeColor = System.Drawing.Color.White;
-            this.restoreDownButton.HoverImage = global::HV9104_GUI.Properties.Resources.restoreDownButtonHover;
-            this.restoreDownButton.Location = new System.Drawing.Point(1869, 10);
-            this.restoreDownButton.Name = "restoreDownButton";
-            this.restoreDownButton.PressedImage = global::HV9104_GUI.Properties.Resources.restoreDownButtonPressed;
-            this.restoreDownButton.Size = new System.Drawing.Size(13, 13);
-            this.restoreDownButton.TabIndex = 4;
-            this.restoreDownButton.Click += new System.EventHandler(this.restoreDownButton_Click);
-            // 
-            // closeButton
-            // 
-            this.closeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.closeButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.closeButton;
-            this.closeButton.ForeColor = System.Drawing.Color.White;
-            this.closeButton.HoverImage = global::HV9104_GUI.Properties.Resources.closeButtonHover;
-            this.closeButton.Location = new System.Drawing.Point(1895, 10);
-            this.closeButton.Name = "closeButton";
-            this.closeButton.PressedImage = global::HV9104_GUI.Properties.Resources.closeButtonPressed;
-            this.closeButton.Size = new System.Drawing.Size(13, 13);
-            this.closeButton.TabIndex = 4;
-            // 
-            // customTab22
-            // 
-            this.customTab22.BackColor = System.Drawing.Color.White;
-            this.customTab22.BackgroundImage = global::HV9104_GUI.Properties.Resources.tabBorder;
-            this.customTab22.isSelected = true;
-            this.customTab22.Location = new System.Drawing.Point(401, 35);
-            this.customTab22.Name = "customTab22";
-            this.customTab22.SelectedIcon = global::HV9104_GUI.Properties.Resources.InstrumentBlueIcon;
-            this.customTab22.Size = new System.Drawing.Size(400, 100);
-            this.customTab22.TabIndex = 0;
-            this.customTab22.Text = "Dashboard";
-            this.customTab22.UnselectedIcon = global::HV9104_GUI.Properties.Resources.InstrumentLtGreyIcon;
-            // 
-            // customTab1
-            // 
-            this.customTab1.BackColor = System.Drawing.Color.White;
-            this.customTab1.BackgroundImage = global::HV9104_GUI.Properties.Resources.tabBorder;
-            this.customTab1.isSelected = false;
-            this.customTab1.Location = new System.Drawing.Point(802, 35);
-            this.customTab1.Name = "customTab1";
-            this.customTab1.SelectedIcon = global::HV9104_GUI.Properties.Resources.playSelectedIcon;
-            this.customTab1.Size = new System.Drawing.Size(400, 100);
-            this.customTab1.TabIndex = 3;
-            this.customTab1.Text = "Run Experiment";
-            this.customTab1.UnselectedIcon = global::HV9104_GUI.Properties.Resources.playIcon;
-            // 
-            // customTab21
-            // 
-            this.customTab21.BackColor = System.Drawing.Color.White;
-            this.customTab21.BackgroundImage = global::HV9104_GUI.Properties.Resources.tabBorder;
-            this.customTab21.isSelected = false;
-            this.customTab21.Location = new System.Drawing.Point(0, 35);
-            this.customTab21.Name = "customTab21";
-            this.customTab21.SelectedIcon = global::HV9104_GUI.Properties.Resources.setupSelectedIcon;
-            this.customTab21.Size = new System.Drawing.Size(400, 100);
-            this.customTab21.TabIndex = 0;
-            this.customTab21.Text = "Setup";
-            this.customTab21.UnselectedIcon = global::HV9104_GUI.Properties.Resources.setupIcon;
+            this.setupTab.BackColor = System.Drawing.Color.White;
+            this.setupTab.BackgroundImage = global::HV9104_GUI.Properties.Resources.tabBorder;
+            this.setupTab.isSelected = false;
+            this.setupTab.Location = new System.Drawing.Point(0, 35);
+            this.setupTab.Name = "setupTab";
+            this.setupTab.SelectedIcon = global::HV9104_GUI.Properties.Resources.setupSelectedIcon;
+            this.setupTab.Size = new System.Drawing.Size(400, 100);
+            this.setupTab.TabIndex = 0;
+            this.setupTab.Text = "Setup";
+            this.setupTab.UnselectedIcon = global::HV9104_GUI.Properties.Resources.setupIcon;
+            this.setupTab.Click += new System.EventHandler(this.customTab21_Click);
             // 
             // ControlForm
             // 
@@ -298,8 +300,8 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.titleBarPanel.ResumeLayout(false);
             this.titleBarPanel.PerformLayout();
-            this.controlFormTabController.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.controlFormTabController.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -307,8 +309,8 @@
         #endregion
 
         public CustomTabControl controlFormTabController;
-        public CustomTab customTab22;
-        public CustomTab customTab21;
+        public CustomTab dashboardTab;
+        public CustomTab setupTab;
         public System.Windows.Forms.Panel titleBarPanel;
         public System.Windows.Forms.Panel panel2;
         public System.Windows.Forms.Panel panel3;
@@ -325,6 +327,6 @@
         public System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Label modeLabel;
         public System.Windows.Forms.Label messageLabel;
-        private CustomTab customTab1;
+        public CustomTab runExperimentTab;
     }
 }
