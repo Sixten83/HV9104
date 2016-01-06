@@ -1672,8 +1672,18 @@ namespace HV9104_GUI
         public void UpdateGUI()
         {
             // Voltage and Current
-            controlForm.dashboardView.voltageInputLabel.Text = PIO1.regulatedVoltageValue.ToString("0.0").Replace(',', '.');;
-            controlForm.dashboardView.currentInputLabel.Text = PIO1.regulatedCurrentValue.ToString("0.00").Replace(',', '.');;
+            if ((PIO1.minUPos) && (!PIO1.K2Closed) && (PIO1.regulatedVoltageValue > 8))
+            {
+                // With K2 open (no load) when parked, there can be some scrap voltage in the transformer. Don't show it. 
+                controlForm.dashboardView.voltageInputLabel.Text = "0.0";
+                controlForm.dashboardView.currentInputLabel.Text = "0.00";
+            }
+            else
+            {
+                // When loading or not parked, the value is correct. Present it.
+                controlForm.dashboardView.voltageInputLabel.Text = PIO1.regulatedVoltageValue.ToString("0.0").Replace(',', '.'); ;
+                controlForm.dashboardView.currentInputLabel.Text = PIO1.regulatedCurrentValue.ToString("0.00").Replace(',', '.'); ;
+            }
 
             // Pressure
             controlForm.dashboardView.pressureLabel.Text = PIO1.getPressure();

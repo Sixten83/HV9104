@@ -749,7 +749,7 @@
             this.trafSpeedTextBox.Location = new System.Drawing.Point(136, 161);
             this.trafSpeedTextBox.Max = 90;
             this.trafSpeedTextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.trafSpeedTextBox.Min = 10;
+            this.trafSpeedTextBox.Min = 5;
             this.trafSpeedTextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.trafSpeedTextBox.Name = "trafSpeedTextBox";
             this.trafSpeedTextBox.Size = new System.Drawing.Size(170, 50);
