@@ -404,6 +404,17 @@
   <ItemGroup>
     <None Include="Resources\Static discharge.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\1-stageAC.png" />
+    <Content Include="Resources\1-stageDC.png" />
+    <Content Include="Resources\1-stageImp.png" />
+    <Content Include="Resources\2-stageAC.png" />
+    <Content Include="Resources\2-stageDC.png" />
+    <Content Include="Resources\2-stageImp.png" />
+    <Content Include="Resources\3-stageAC.png" />
+    <Content Include="Resources\3-stageDC.png" />
+    <Content Include="Resources\3-stageImp.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
