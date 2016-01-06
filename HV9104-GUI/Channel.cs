@@ -110,7 +110,7 @@ namespace HV9104_GUI
         {   
             set
             {
-                this.dcOffset = value * (float)dividerRatio;
+                this.dcOffset = value;
                  
             }
             get
@@ -292,8 +292,8 @@ namespace HV9104_GUI
 
             scaledData[0].y[0] = (double)(channelBuffers[0][0] * factor);
             scaledData[1].y[0] = (double)(channelBuffers[1][0] * factor);
-            max = (double)scaledData[0].y[0] - 1 * dcOffset;
-            min = (double)scaledData[1].y[0] - 1 * dcOffset;
+            max = (double)scaledData[0].y[0] - 1 * dcOffset * (float)dividerRatio;
+            min = (double)scaledData[1].y[0] - 1 * dcOffset * (float)dividerRatio;
             rms = max / Math.Sqrt(2);
             amplitud = max - min;
             average = (max + min) / 2;
@@ -308,8 +308,8 @@ namespace HV9104_GUI
             double factor = (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;
             Array.Copy(channelBuffers[0], startIndex, scaledData[0].y, 0, samples);
             average = factor * scaledData[0].y.Sum() / samples;
-            max = factor * scaledData[0].y.Max() - 1 * dcOffset;
-            min = factor * scaledData[0].y.Min() - 1 * dcOffset;
+            max = factor * scaledData[0].y.Max() - 1 * dcOffset * (float)dividerRatio;
+            min = factor * scaledData[0].y.Min() - 1 * dcOffset * (float)dividerRatio;
             rms = max / Math.Sqrt(2);
             amplitud = max - min;
             updateRepresentation();
@@ -345,9 +345,9 @@ namespace HV9104_GUI
                 }
                 average = factor * scaledData[0].y.Sum() / downSampelCount;
             }
-            
-            max = factor * scaledData[0].y.Max() - 1 * dcOffset;
-            min = factor * scaledData[0].y.Min() - 1 * dcOffset;
+
+            max = factor * scaledData[0].y.Max() - 1 * dcOffset * (float)dividerRatio;
+            min = factor * scaledData[0].y.Min() - 1 * dcOffset * (float)dividerRatio;
             rms = max / Math.Sqrt(2);
             amplitud = max - min;          
             
