@@ -437,6 +437,18 @@ namespace HV9104_GUI
                 }
 
             }
+
+            if (this.measuringForm.chart.cursorMenu.acChannelRadioButton.isChecked)
+            {
+                this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
+                this.measuringForm.chart.updateCursorMenu();
+            }
+            else            
+            {
+                    this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);
+                    this.measuringForm.chart.updateCursorMenu();
+            }
+
             rebootStream();            
         }
 

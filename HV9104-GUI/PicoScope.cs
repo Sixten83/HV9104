@@ -563,10 +563,7 @@ namespace HV9104_GUI
             for (; r < 1000; r++)
             {
                 frequencys[r + 1] = 10 + hz * i++;
-            }
-
-            for (r = 0; r < 1001; r++)
-                Console.WriteLine(frequencys[r]);
+            }                   
             
         }
 
