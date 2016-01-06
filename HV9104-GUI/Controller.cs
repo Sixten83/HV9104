@@ -511,7 +511,7 @@ namespace HV9104_GUI
             this.controlForm.dashboardView.increaseRegulatedVoltageButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Down);
             this.controlForm.dashboardView.increaseRegulatedVoltageButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Up);
             this.controlForm.dashboardView.abortRegulationButton.Click += new System.EventHandler(abortRegulationButtonButton_Click);
-            this.controlForm.dashboardView.voltageRegulationRepresentationComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(voltageRegulationRepresentationComboBox_valueChange);
+            //this.controlForm.dashboardView.voltageRegulationRepresentationComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(voltageRegulationRepresentationComboBox_valueChange);
             //Impuse Trigger Control Listeners            
             this.controlForm.dashboardView.triggerButton.Click += new System.EventHandler(triggerButton_Click);
             this.controlForm.dashboardView.choppingCheckBox.Click += new System.EventHandler(choppingCheckBox_Click);
@@ -926,7 +926,14 @@ namespace HV9104_GUI
         private void parkCheckBox_Click(object sender, EventArgs e) { }
         private void overrideCheckBox_Click(object sender, EventArgs e) { }
         private void inputVoltageRadioButton_Click(object sender, EventArgs e) { }
-        private void acVoltageRadioButton_Click(object sender, EventArgs e) { }
+
+        // We want to regulate the AC output value
+        private void acVoltageRadioButton_Click(object sender, EventArgs e)
+        {
+            // What type of AC output?
+
+
+        }
         private void dcVoltageRadioButton_Click(object sender, EventArgs e) { }
 
         // Manual voltage decrease
@@ -1751,19 +1758,142 @@ namespace HV9104_GUI
             if ((PIO1.regulatedVoltageValue >= 1) && (PIO1.K2Closed))
             {
                 controlForm.dashboardView.statusPictureBoxHVPresent.Visible = true;
-                //controlForm.dashboardView.dischargePictureBox.Visible = false;
+                controlForm.dashboardView.dischargePictureBox.Visible = false;
                
             }
             else
             {
                 controlForm.dashboardView.statusPictureBoxHVPresent.Visible = false;
-                //controlForm.dashboardView.dischargePictureBox.Visible = true;
+                controlForm.dashboardView.dischargePictureBox.Visible = true;
               
             }
 
             // Active motor info
             controlForm.dashboardView.impulseGapLabel.Text = activeMotor.actualPosition.ToString();
             controlForm.dashboardView.statusLabelActiveMotorInitialized.Text = GetMotorStatus();
+
+            // Active setup presentation
+            GetActiveSetup();
+
+
+        }
+
+        // Evaluate the user input and present the current setup image
+        private void GetActiveSetup()
+        {
+            int setupNr = 0;
+
+            if (controlForm.setupView.acCheckBox.isChecked)
+            {
+                if (controlForm.setupView.acStage1RadioButton.isChecked)
+                {
+                    setupNr += 100;
+
+                }
+                else if (controlForm.setupView.acStage2RadioButton.isChecked)
+                {
+                    setupNr += 200;
+                }
+                else if (controlForm.setupView.acStage3RadioButton.isChecked)
+                {
+                    setupNr += 300;
+                }
+            }
+            if (controlForm.setupView.dcCheckBox.isChecked)
+            {
+                if (controlForm.setupView.dcStage1RadioButton.isChecked)
+                {
+                    setupNr += 10;
+
+                }
+                else if (controlForm.setupView.dcStage2RadioButton.isChecked)
+                {
+                    setupNr += 20;
+                }
+                else if (controlForm.setupView.dcStage3RadioButton.isChecked)
+                {
+                    setupNr += 30;
+                }
+            }
+            if (controlForm.setupView.impulseCheckBox.isChecked)
+            {
+                if (controlForm.setupView.impulseStage1RadioButton.isChecked)
+                {
+                    setupNr += 1;
+
+                }
+                else if (controlForm.setupView.impulseStage2RadioButton.isChecked)
+                {
+                    setupNr += 2;
+                }
+                else if (controlForm.setupView.impulseStage3RadioButton.isChecked)
+                {
+                    setupNr += 3;
+                }
+            }
+
+            if(setupNr == 100)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._1_stageAC;
+                controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh(); 
+            }
+            else if (setupNr == 200)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._2_stageAC;
+                controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+            }
+            else if (setupNr == 300)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._3_stageAC;
+                controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+            }
+            else if (setupNr == 110)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._1_stageDC;
+                controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+            }
+            else if (setupNr == 120)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._2_stageDC;
+                controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+            }
+            else if (setupNr == 130)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._3_stageDC;
+                controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+            }
+            else if (setupNr == 111)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._1_stageImp;
+                controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+            }
+            else if (setupNr == 112)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._2_stageImp;
+                controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+            }
+            else if (setupNr == 113)
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._3_stageImp;
+                controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+            }
+            else
+            {
+                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources.tercoLogo;
+                controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
+                controlForm.dashboardView.activeSetupPictureBox.Refresh();
+            }
+           
+           
 
         }
 
@@ -1785,7 +1915,7 @@ namespace HV9104_GUI
 
         }
 
-            // Return a status text string for the active motor
+        // Return a status text string for the active motor
         private string GetMotorStatus()
         {
 
