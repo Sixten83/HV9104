@@ -511,7 +511,7 @@ namespace HV9104_GUI
             this.controlForm.dashboardView.increaseRegulatedVoltageButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Down);
             this.controlForm.dashboardView.increaseRegulatedVoltageButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseRegulatedVoltageButton_Up);
             this.controlForm.dashboardView.abortRegulationButton.Click += new System.EventHandler(abortRegulationButtonButton_Click);
-            this.controlForm.dashboardView.voltageRegulationRepresentationComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(voltageRegulationRepresentationComboBox_valueChange);
+            //this.controlForm.dashboardView.voltageRegulationRepresentationComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(voltageRegulationRepresentationComboBox_valueChange);
             //Impuse Trigger Control Listeners            
             this.controlForm.dashboardView.triggerButton.Click += new System.EventHandler(triggerButton_Click);
             this.controlForm.dashboardView.choppingCheckBox.Click += new System.EventHandler(choppingCheckBox_Click);
@@ -925,7 +925,14 @@ namespace HV9104_GUI
         private void parkCheckBox_Click(object sender, EventArgs e) { }
         private void overrideCheckBox_Click(object sender, EventArgs e) { }
         private void inputVoltageRadioButton_Click(object sender, EventArgs e) { }
-        private void acVoltageRadioButton_Click(object sender, EventArgs e) { }
+
+        // We want to regulate the AC output value
+        private void acVoltageRadioButton_Click(object sender, EventArgs e)
+        {
+            // What type of AC output?
+
+
+        }
         private void dcVoltageRadioButton_Click(object sender, EventArgs e) { }
 
         // Manual voltage decrease

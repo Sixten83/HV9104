@@ -33,8 +33,8 @@
             this.customPanel14 = new HV9104_GUI.CustomPanel();
             this.label35 = new System.Windows.Forms.Label();
             this.statusPictureBoxHVPresent = new System.Windows.Forms.PictureBox();
-            this.dischargePictureBox = new System.Windows.Forms.PictureBox();
             this.activeSetupPictureBox = new System.Windows.Forms.PictureBox();
+            this.dischargePictureBox = new System.Windows.Forms.PictureBox();
             this.customPanel10 = new HV9104_GUI.CustomPanel();
             this.statusLabelK2F1Closed = new System.Windows.Forms.Label();
             this.statusLabelK1F2Closed = new System.Windows.Forms.Label();
@@ -105,7 +105,6 @@
             this.regulatedVoltageTextBox = new HV9104_GUI.CustomTextBox();
             this.inputVoltageRadioButton = new HV9104_GUI.CustomRadioButton();
             this.label9 = new System.Windows.Forms.Label();
-            this.voltageRegulationRepresentationComboBox = new HV9104_GUI.CustomComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -140,8 +139,8 @@
             this.voltageInputLabel = new System.Windows.Forms.Label();
             this.customPanel14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusPictureBoxHVPresent)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dischargePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.activeSetupPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dischargePictureBox)).BeginInit();
             this.customPanel10.SuspendLayout();
             this.customPanel9.SuspendLayout();
             this.customPanel7.SuspendLayout();
@@ -162,15 +161,15 @@
             this.customPanel14.BackColor = System.Drawing.Color.Transparent;
             this.customPanel14.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel14.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel14.Controls.Add(this.dischargePictureBox);
             this.customPanel14.Controls.Add(this.label35);
             this.customPanel14.Controls.Add(this.statusPictureBoxHVPresent);
-            this.customPanel14.Controls.Add(this.dischargePictureBox);
             this.customPanel14.Controls.Add(this.activeSetupPictureBox);
             this.customPanel14.CornerRadius = 30;
             this.customPanel14.IsPopUp = false;
-            this.customPanel14.Location = new System.Drawing.Point(959, 666);
+            this.customPanel14.Location = new System.Drawing.Point(959, 626);
             this.customPanel14.Name = "customPanel14";
-            this.customPanel14.Size = new System.Drawing.Size(444, 126);
+            this.customPanel14.Size = new System.Drawing.Size(444, 167);
             this.customPanel14.TabIndex = 3;
             // 
             // label35
@@ -187,7 +186,7 @@
             // statusPictureBoxHVPresent
             // 
             this.statusPictureBoxHVPresent.Image = global::HV9104_GUI.Properties.Resources.Hazard_Sign_HIGH_VOLTAGE;
-            this.statusPictureBoxHVPresent.Location = new System.Drawing.Point(385, 13);
+            this.statusPictureBoxHVPresent.Location = new System.Drawing.Point(379, 13);
             this.statusPictureBoxHVPresent.Name = "statusPictureBoxHVPresent";
             this.statusPictureBoxHVPresent.Size = new System.Drawing.Size(56, 56);
             this.statusPictureBoxHVPresent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -195,26 +194,26 @@
             this.statusPictureBoxHVPresent.TabStop = false;
             this.statusPictureBoxHVPresent.Visible = false;
             // 
+            // activeSetupPictureBox
+            // 
+            this.activeSetupPictureBox.Image = global::HV9104_GUI.Properties.Resources.tercoLogo;
+            this.activeSetupPictureBox.Location = new System.Drawing.Point(128, 30);
+            this.activeSetupPictureBox.Name = "activeSetupPictureBox";
+            this.activeSetupPictureBox.Size = new System.Drawing.Size(252, 131);
+            this.activeSetupPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.activeSetupPictureBox.TabIndex = 14;
+            this.activeSetupPictureBox.TabStop = false;
+            // 
             // dischargePictureBox
             // 
             this.dischargePictureBox.Image = global::HV9104_GUI.Properties.Resources.HV9107trans;
-            this.dischargePictureBox.Location = new System.Drawing.Point(39, 40);
+            this.dischargePictureBox.Location = new System.Drawing.Point(25, 55);
             this.dischargePictureBox.Name = "dischargePictureBox";
-            this.dischargePictureBox.Size = new System.Drawing.Size(79, 74);
+            this.dischargePictureBox.Size = new System.Drawing.Size(103, 85);
             this.dischargePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.dischargePictureBox.TabIndex = 7;
             this.dischargePictureBox.TabStop = false;
             this.dischargePictureBox.Visible = false;
-            // 
-            // activeSetupPictureBox
-            // 
-            this.activeSetupPictureBox.Image = global::HV9104_GUI.Properties.Resources.tercoLogo;
-            this.activeSetupPictureBox.Location = new System.Drawing.Point(148, 13);
-            this.activeSetupPictureBox.Name = "activeSetupPictureBox";
-            this.activeSetupPictureBox.Size = new System.Drawing.Size(238, 113);
-            this.activeSetupPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.activeSetupPictureBox.TabIndex = 14;
-            this.activeSetupPictureBox.TabStop = false;
             // 
             // customPanel10
             // 
@@ -1042,7 +1041,6 @@
             this.customPanel5.Controls.Add(this.regulatedVoltageTextBox);
             this.customPanel5.Controls.Add(this.inputVoltageRadioButton);
             this.customPanel5.Controls.Add(this.label9);
-            this.customPanel5.Controls.Add(this.voltageRegulationRepresentationComboBox);
             this.customPanel5.Controls.Add(this.label6);
             this.customPanel5.Controls.Add(this.label7);
             this.customPanel5.Controls.Add(this.label8);
@@ -1050,7 +1048,7 @@
             this.customPanel5.IsPopUp = false;
             this.customPanel5.Location = new System.Drawing.Point(959, 251);
             this.customPanel5.Name = "customPanel5";
-            this.customPanel5.Size = new System.Drawing.Size(444, 402);
+            this.customPanel5.Size = new System.Drawing.Size(444, 364);
             this.customPanel5.TabIndex = 0;
             // 
             // statusLabelAutoRegVoltage
@@ -1058,18 +1056,18 @@
             this.statusLabelAutoRegVoltage.AutoSize = true;
             this.statusLabelAutoRegVoltage.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statusLabelAutoRegVoltage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.statusLabelAutoRegVoltage.Location = new System.Drawing.Point(285, 267);
+            this.statusLabelAutoRegVoltage.Location = new System.Drawing.Point(124, 335);
             this.statusLabelAutoRegVoltage.Name = "statusLabelAutoRegVoltage";
-            this.statusLabelAutoRegVoltage.Size = new System.Drawing.Size(101, 38);
+            this.statusLabelAutoRegVoltage.Size = new System.Drawing.Size(186, 19);
             this.statusLabelAutoRegVoltage.TabIndex = 11;
-            this.statusLabelAutoRegVoltage.Text = "SEARCHING....\r\nPLEASE WAIT";
+            this.statusLabelAutoRegVoltage.Text = "SEARCHING....PLEASE WAIT";
             // 
             // label26
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label26.Location = new System.Drawing.Point(82, 241);
+            this.label26.Location = new System.Drawing.Point(84, 254);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(95, 15);
             this.label26.TabIndex = 10;
@@ -1082,7 +1080,7 @@
             this.abortRegulationButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.abortRegulationButton.ForeColor = System.Drawing.Color.White;
             this.abortRegulationButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.abortRegulationButton.Location = new System.Drawing.Point(256, 329);
+            this.abortRegulationButton.Location = new System.Drawing.Point(250, 268);
             this.abortRegulationButton.Name = "abortRegulationButton";
             this.abortRegulationButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
             this.abortRegulationButton.Size = new System.Drawing.Size(158, 57);
@@ -1097,7 +1095,7 @@
             this.dcVoltageRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
             this.dcVoltageRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
             this.dcVoltageRadioButton.isChecked = false;
-            this.dcVoltageRadioButton.Location = new System.Drawing.Point(330, 178);
+            this.dcVoltageRadioButton.Location = new System.Drawing.Point(333, 178);
             this.dcVoltageRadioButton.Name = "dcVoltageRadioButton";
             this.dcVoltageRadioButton.Size = new System.Drawing.Size(47, 47);
             this.dcVoltageRadioButton.TabIndex = 1;
@@ -1111,7 +1109,7 @@
             this.acOutputRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
             this.acOutputRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
             this.acOutputRadioButton.isChecked = false;
-            this.acOutputRadioButton.Location = new System.Drawing.Point(330, 118);
+            this.acOutputRadioButton.Location = new System.Drawing.Point(333, 118);
             this.acOutputRadioButton.Name = "acOutputRadioButton";
             this.acOutputRadioButton.Size = new System.Drawing.Size(47, 47);
             this.acOutputRadioButton.TabIndex = 1;
@@ -1128,7 +1126,7 @@
             this.regulatedVoltageTextBox.CornerRadius = 25;
             this.regulatedVoltageTextBox.Decimals = 0;
             this.regulatedVoltageTextBox.IsPopUp = false;
-            this.regulatedVoltageTextBox.Location = new System.Drawing.Point(45, 259);
+            this.regulatedVoltageTextBox.Location = new System.Drawing.Point(41, 272);
             this.regulatedVoltageTextBox.Max = 230D;
             this.regulatedVoltageTextBox.MaximumSize = new System.Drawing.Size(400, 50);
             this.regulatedVoltageTextBox.Min = 0D;
@@ -1146,7 +1144,7 @@
             this.inputVoltageRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
             this.inputVoltageRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
             this.inputVoltageRadioButton.isChecked = true;
-            this.inputVoltageRadioButton.Location = new System.Drawing.Point(330, 58);
+            this.inputVoltageRadioButton.Location = new System.Drawing.Point(333, 58);
             this.inputVoltageRadioButton.Name = "inputVoltageRadioButton";
             this.inputVoltageRadioButton.Size = new System.Drawing.Size(47, 47);
             this.inputVoltageRadioButton.TabIndex = 1;
@@ -1163,22 +1161,6 @@
             this.label9.Size = new System.Drawing.Size(186, 29);
             this.label9.TabIndex = 2;
             this.label9.Text = "VDC OUTPUT (kV)";
-            // 
-            // voltageRegulationRepresentationComboBox
-            // 
-            this.voltageRegulationRepresentationComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.voltageRegulationRepresentationComboBox.Location = new System.Drawing.Point(25, 323);
-            this.voltageRegulationRepresentationComboBox.MaximumSize = new System.Drawing.Size(400, 60);
-            this.voltageRegulationRepresentationComboBox.MinimumSize = new System.Drawing.Size(145, 45);
-            this.voltageRegulationRepresentationComboBox.Name = "voltageRegulationRepresentationComboBox";
-            this.voltageRegulationRepresentationComboBox.setCollection = new string[] {
-        "rms",
-        "pk"};
-            this.voltageRegulationRepresentationComboBox.SetSelected = "rms";
-            this.voltageRegulationRepresentationComboBox.Size = new System.Drawing.Size(209, 60);
-            this.voltageRegulationRepresentationComboBox.TabIndex = 3;
-            this.voltageRegulationRepresentationComboBox.Text = "customComboBox1";
-            this.voltageRegulationRepresentationComboBox.TextBoxHint = "";
             // 
             // label6
             // 
@@ -1625,8 +1607,8 @@
             this.customPanel14.ResumeLayout(false);
             this.customPanel14.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusPictureBoxHVPresent)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dischargePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.activeSetupPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dischargePictureBox)).EndInit();
             this.customPanel10.ResumeLayout(false);
             this.customPanel10.PerformLayout();
             this.customPanel9.ResumeLayout(false);
@@ -1687,7 +1669,6 @@
         public System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label label5;
         public System.Windows.Forms.Label label6;
-        public CustomComboBox voltageRegulationRepresentationComboBox;
         public CustomPanel customPanel13;
         public CustomRadioButton dcVoltageRadioButton;
         public CustomRadioButton inputVoltageRadioButton;
