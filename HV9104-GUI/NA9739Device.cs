@@ -417,7 +417,16 @@ namespace HV9104_GUI
                 // volt = (vltSensRaw + 7,7778) / 25,778
                 formattedvltSensRaw = (vltSensRaw + 1.3772) / 15.158;
 
-                regulatedVoltageValue = Math.Round(formattedvltSensRaw, 1, MidpointRounding.ToEven);
+
+                if (K1Closed)
+                {
+                    regulatedVoltageValue = Math.Round(formattedvltSensRaw, 1, MidpointRounding.ToEven);
+                }
+                else
+                {
+                    regulatedVoltageValue = 0;
+                }
+                
 
                 // Regulated Current value HiByte and LoByte mashed, converted to double and rounded to 2 d.p.
                 // y = 0,0085x - 0,0151
