@@ -213,7 +213,7 @@ namespace HV9104_GUI
             acChannel.DividerRatio = (double)((acHighDividerValues[0] + acLowDividerValue) / acHighDividerValues[0]) / 1000;
             dcChannel.DividerRatio = (double)((dcHighDividerValues[0] + dcLowDividerValue) / dcLowDividerValue) / 1000;
             impulseChannel.DividerRatio = (double)(impulseAttenuatorRatio * (impulseHighDividerValues[0] + impulseLowDividerValues[0]) / impulseHighDividerValues[0]) / 1000;
-            Console.WriteLine("impulseChannel.DividerRatio" + (int)impulseChannel.DividerRatio);
+            Console.WriteLine("impulseChannel.DividerRatio" + impulseChannel.DividerRatio);
             picoScope.setTriggerChannel(Imports.Channel.ChannelA);
             picoScope.Resolution = Imports.DeviceResolution.PS5000A_DR_12BIT;
             picoScope.setFastStreamDataBuffer();
@@ -545,6 +545,10 @@ namespace HV9104_GUI
             this.controlForm.dashboardView.vacuumPowerCheckBox.Click += new System.EventHandler(vacuumPowerCheckBox_Click);
 
             //***********************************************************************************************************
+            //***                                  RUNVIEW EVENT LISTENERS                                          *****
+            //***********************************************************************************************************
+            this.controlForm.runView.testButton.Click += new System.EventHandler(testButton_Click);
+            //***********************************************************************************************************
             //***                                  MEASURING FORM EVENT LISTENERS                                   *****
             //***********************************************************************************************************
             //Input Listeners
@@ -616,7 +620,7 @@ namespace HV9104_GUI
             this.measuringForm.chart.Series["acSeries"].Points.Clear();
             this.measuringForm.chart.Series["dcSeries"].Points.Clear();
             fastStreamMode = true;
-            this.measuringForm.chart.cursorMenu.setScaleFactor(impulseChannel.getScaleFactor(), impulseChannel.DCOffset);
+            this.measuringForm.chart.cursorMenu.setScaleFactor(impulseChannel.getScaleFactor(), impulseChannel.DCOffset * impulseChannel.DividerRatio);
             this.measuringForm.chart.cursorMenu.resizeDown();
             this.measuringForm.chart.updateCursorMenu();
             this.measuringForm.timeBaseComboBox.setCollection = new string[] {
@@ -832,7 +836,7 @@ namespace HV9104_GUI
 
 
         //***********************************************************************************************************
-        //***                                     RUN VIEW EVENT HANDLERS                                       *****
+        //***                                     DASHVOARD VIEW EVENT HANDLERS                                 *****
         //***********************************************************************************************************
 
         private void RunView_Load(object sender, EventArgs e)
@@ -1343,8 +1347,33 @@ namespace HV9104_GUI
             EnergizeCompressorOutputRequest();
         }
 
+         //***********************************************************************************************************
+         //***                                  RUNVIEW EVENT HANDLERS                                          *****
+         //***********************************************************************************************************
+            
 
+         private void testButton_Click(object sender, EventArgs e)
+        {
+            this.controlForm.runView.autoTestChart.Series["Series1"].Points.Clear();
+            Random rand = new Random();
+            double[] x, y;
+              x = new double[100];
+            y = new double[100];
+            for (int r = 0; r < 100; r++)
+            {
+                x[r] = r;
+                y[r] = r * 5 * Math.Sin(r + rand.NextDouble());
+                //There are two ways to add points 1) Add points one by one with the AddXY method 
+                //this.controlForm.runView.autoTestChart.Series["Series1"].Points.AddXY(x[r], y[r]);
+                    
+            }
+                //2) by using databind and adding all the point at once
+                this.controlForm.runView.autoTestChart.Series["Series1"].Points.DataBindXY(x,y);
 
+             //If you want 10Div * 10Div
+            this.controlForm.runView.autoTestChart.ChartAreas[0].AxisX.Interval = (int)((x.Max() - x.Min()) / 10);
+            this.controlForm.runView.autoTestChart.ChartAreas[0].AxisY.Interval = (int)((y.Max() - y.Min()) / 10);
+        }
 
         //***********************************************************************************************************
         //***                                     SETUP VIEW EVENT HANDLERS                                     *****

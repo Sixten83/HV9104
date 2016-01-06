@@ -53,7 +53,7 @@ namespace HV9104_GUI
 
         public void updateCursorPos(double hCurs1, double hCurs2, double vCurs1, double vCurs2)
         {
-            hCurs1Label.Text = "" + hCurs1.ToString("0.0").Replace(',', '.');
+                hCurs1Label.Text = "" + hCurs1.ToString("0.0").Replace(',', '.');
                 hCurs2Label.Text = "" + hCurs2.ToString("0.0").Replace(',', '.');
                 vCurs1Label.Text = "" + (vCurs1 * scaleFactor - offset).ToString("0.0").Replace(',', '.');
                 vCurs2Label.Text = "" + (vCurs2 * scaleFactor - offset).ToString("0.0").Replace(',', '.');
