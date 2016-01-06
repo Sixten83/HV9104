@@ -32,6 +32,8 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.customPanel14 = new HV9104_GUI.CustomPanel();
             this.label35 = new System.Windows.Forms.Label();
+            this.statusPictureBoxHVPresent = new System.Windows.Forms.PictureBox();
+            this.dischargePictureBox = new System.Windows.Forms.PictureBox();
             this.activeSetupPictureBox = new System.Windows.Forms.PictureBox();
             this.customPanel10 = new HV9104_GUI.CustomPanel();
             this.statusLabelK2F1Closed = new System.Windows.Forms.Label();
@@ -136,11 +138,9 @@
             this.inputTitleLabel = new System.Windows.Forms.Label();
             this.currentInputLabel = new System.Windows.Forms.Label();
             this.voltageInputLabel = new System.Windows.Forms.Label();
-            this.customPanel15 = new HV9104_GUI.CustomPanel();
-            this.dischargePictureBox = new System.Windows.Forms.PictureBox();
-            this.statusPictureBoxHVPresent = new System.Windows.Forms.PictureBox();
-            this.label39 = new System.Windows.Forms.Label();
             this.customPanel14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.statusPictureBoxHVPresent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dischargePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.activeSetupPictureBox)).BeginInit();
             this.customPanel10.SuspendLayout();
             this.customPanel9.SuspendLayout();
@@ -155,9 +155,6 @@
             this.customPanel12.SuspendLayout();
             this.customPanel13.SuspendLayout();
             this.customPanel1.SuspendLayout();
-            this.customPanel15.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dischargePictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.statusPictureBoxHVPresent)).BeginInit();
             this.SuspendLayout();
             // 
             // customPanel14
@@ -166,12 +163,14 @@
             this.customPanel14.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel14.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
             this.customPanel14.Controls.Add(this.label35);
+            this.customPanel14.Controls.Add(this.statusPictureBoxHVPresent);
+            this.customPanel14.Controls.Add(this.dischargePictureBox);
             this.customPanel14.Controls.Add(this.activeSetupPictureBox);
             this.customPanel14.CornerRadius = 30;
             this.customPanel14.IsPopUp = false;
             this.customPanel14.Location = new System.Drawing.Point(959, 666);
             this.customPanel14.Name = "customPanel14";
-            this.customPanel14.Size = new System.Drawing.Size(259, 126);
+            this.customPanel14.Size = new System.Drawing.Size(444, 126);
             this.customPanel14.TabIndex = 3;
             // 
             // label35
@@ -185,16 +184,37 @@
             this.label35.TabIndex = 3;
             this.label35.Text = "ACTIVE SETUP";
             // 
+            // statusPictureBoxHVPresent
+            // 
+            this.statusPictureBoxHVPresent.Image = global::HV9104_GUI.Properties.Resources.Hazard_Sign_HIGH_VOLTAGE;
+            this.statusPictureBoxHVPresent.Location = new System.Drawing.Point(385, 13);
+            this.statusPictureBoxHVPresent.Name = "statusPictureBoxHVPresent";
+            this.statusPictureBoxHVPresent.Size = new System.Drawing.Size(56, 56);
+            this.statusPictureBoxHVPresent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.statusPictureBoxHVPresent.TabIndex = 6;
+            this.statusPictureBoxHVPresent.TabStop = false;
+            this.statusPictureBoxHVPresent.Visible = false;
+            // 
+            // dischargePictureBox
+            // 
+            this.dischargePictureBox.Image = global::HV9104_GUI.Properties.Resources.HV9107trans;
+            this.dischargePictureBox.Location = new System.Drawing.Point(39, 40);
+            this.dischargePictureBox.Name = "dischargePictureBox";
+            this.dischargePictureBox.Size = new System.Drawing.Size(79, 74);
+            this.dischargePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.dischargePictureBox.TabIndex = 7;
+            this.dischargePictureBox.TabStop = false;
+            this.dischargePictureBox.Visible = false;
+            // 
             // activeSetupPictureBox
             // 
-            this.activeSetupPictureBox.Image = global::HV9104_GUI.Properties.Resources._1_stageImp;
-            this.activeSetupPictureBox.Location = new System.Drawing.Point(37, 30);
+            this.activeSetupPictureBox.Image = global::HV9104_GUI.Properties.Resources.tercoLogo;
+            this.activeSetupPictureBox.Location = new System.Drawing.Point(148, 13);
             this.activeSetupPictureBox.Name = "activeSetupPictureBox";
-            this.activeSetupPictureBox.Size = new System.Drawing.Size(197, 93);
-            this.activeSetupPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.activeSetupPictureBox.Size = new System.Drawing.Size(238, 113);
+            this.activeSetupPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.activeSetupPictureBox.TabIndex = 14;
             this.activeSetupPictureBox.TabStop = false;
-            this.activeSetupPictureBox.Visible = false;
             // 
             // customPanel10
             // 
@@ -1581,54 +1601,6 @@
             this.voltageInputLabel.Text = "0.0";
             this.voltageInputLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // customPanel15
-            // 
-            this.customPanel15.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel15.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel15.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel15.Controls.Add(this.dischargePictureBox);
-            this.customPanel15.Controls.Add(this.statusPictureBoxHVPresent);
-            this.customPanel15.Controls.Add(this.label39);
-            this.customPanel15.CornerRadius = 30;
-            this.customPanel15.IsPopUp = false;
-            this.customPanel15.Location = new System.Drawing.Point(1232, 666);
-            this.customPanel15.Name = "customPanel15";
-            this.customPanel15.Size = new System.Drawing.Size(171, 126);
-            this.customPanel15.TabIndex = 4;
-            // 
-            // dischargePictureBox
-            // 
-            this.dischargePictureBox.Image = global::HV9104_GUI.Properties.Resources.HV9107trans;
-            this.dischargePictureBox.Location = new System.Drawing.Point(48, 40);
-            this.dischargePictureBox.Name = "dischargePictureBox";
-            this.dischargePictureBox.Size = new System.Drawing.Size(79, 74);
-            this.dischargePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.dischargePictureBox.TabIndex = 7;
-            this.dischargePictureBox.TabStop = false;
-            this.dischargePictureBox.Visible = false;
-            // 
-            // statusPictureBoxHVPresent
-            // 
-            this.statusPictureBoxHVPresent.Image = global::HV9104_GUI.Properties.Resources.Hazard_Sign_HIGH_VOLTAGE;
-            this.statusPictureBoxHVPresent.Location = new System.Drawing.Point(48, 40);
-            this.statusPictureBoxHVPresent.Name = "statusPictureBoxHVPresent";
-            this.statusPictureBoxHVPresent.Size = new System.Drawing.Size(79, 74);
-            this.statusPictureBoxHVPresent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.statusPictureBoxHVPresent.TabIndex = 6;
-            this.statusPictureBoxHVPresent.TabStop = false;
-            this.statusPictureBoxHVPresent.Visible = false;
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label39.Location = new System.Drawing.Point(13, 13);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(99, 18);
-            this.label39.TabIndex = 4;
-            this.label39.Text = "HV STATUS";
-            // 
             // DashBoardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1648,11 +1620,12 @@
             this.Controls.Add(this.customPanel12);
             this.Controls.Add(this.customPanel13);
             this.Controls.Add(this.customPanel1);
-            this.Controls.Add(this.customPanel15);
             this.Name = "DashBoardView";
             this.Size = new System.Drawing.Size(1875, 800);
             this.customPanel14.ResumeLayout(false);
             this.customPanel14.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.statusPictureBoxHVPresent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dischargePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.activeSetupPictureBox)).EndInit();
             this.customPanel10.ResumeLayout(false);
             this.customPanel10.PerformLayout();
@@ -1680,10 +1653,6 @@
             this.customPanel13.PerformLayout();
             this.customPanel1.ResumeLayout(false);
             this.customPanel1.PerformLayout();
-            this.customPanel15.ResumeLayout(false);
-            this.customPanel15.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dischargePictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.statusPictureBoxHVPresent)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1795,8 +1764,6 @@
         public System.Windows.Forms.Label statusLabelAutoRegVoltage;
         private CustomPanel customPanel14;
         public System.Windows.Forms.Label label35;
-        private CustomPanel customPanel15;
-        public System.Windows.Forms.Label label39;
         public CustomCheckBox onOffButton;
         public System.Windows.Forms.PictureBox statusPictureBoxHVPresent;
         public System.Windows.Forms.PictureBox activeSetupPictureBox;
