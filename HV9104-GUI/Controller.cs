@@ -438,12 +438,12 @@ namespace HV9104_GUI
 
             }
 
-            if (this.measuringForm.chart.cursorMenu.acChannelRadioButton.isChecked)
+            if (this.measuringForm.chart.cursorMenu.acChannelRadioButton.isChecked && !this.measuringForm.impulseRadioButton.isChecked)
             {
                 this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
                 this.measuringForm.chart.updateCursorMenu();
             }
-            else            
+            else if (this.measuringForm.chart.cursorMenu.dcChannelRadioButton.isChecked && !this.measuringForm.impulseRadioButton.isChecked)           
             {
                     this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);
                     this.measuringForm.chart.updateCursorMenu();
@@ -619,7 +619,7 @@ namespace HV9104_GUI
             this.measuringForm.dcEnableCheckBox.isChecked = false;
             this.measuringForm.chart.Series["acSeries"].Points.Clear();
             this.measuringForm.chart.Series["dcSeries"].Points.Clear();
-            fastStreamMode = true;
+            fastStreamMode = true;                          
             this.measuringForm.chart.cursorMenu.setScaleFactor(impulseChannel.getScaleFactor(), impulseChannel.DCOffset * impulseChannel.DividerRatio);
             this.measuringForm.chart.cursorMenu.resizeDown();
             this.measuringForm.chart.updateCursorMenu();
@@ -715,9 +715,10 @@ namespace HV9104_GUI
         {
             
             pauseStream();
-            picoScope.setChannelVoltageRange(2, (Imports.Range)e.Value + 4);            
+            picoScope.setChannelVoltageRange(2, (Imports.Range)e.Value + 4);
+            picoScope.setDCoffset(2, (float)(-1 * impulseChannel.Polarity * impulseChannel.rangeToVolt() * 0.8f));
             rebootStream();
-            this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);
+            this.measuringForm.chart.cursorMenu.setScaleFactor(impulseChannel.getScaleFactor(), impulseChannel.DCOffset * impulseChannel.DividerRatio);
             this.measuringForm.chart.updateCursorMenu();
             
         }
@@ -1162,7 +1163,7 @@ namespace HV9104_GUI
             picoScope.disableChannel(0);
             picoScope.disableChannel(1);
             picoScope.enableChannel(2);
-            picoScope.setDCoffset(2, -1 * impulseChannel.Polarity * impulseChannel.rangeToVolt() * 0.8f);              
+            picoScope.setDCoffset(2, -1 * (float)(impulseChannel.Polarity * impulseChannel.rangeToVolt()) * 0.8f);              
             //Set databuffer
             picoScope.setBlockDataBuffer();            
             //Set trigger Channel/Level/Type

@@ -77,9 +77,9 @@ namespace HV9104_GUI
             }
         }
 
-        public int rangeToVolt()
+        public double rangeToVolt()
         {
-            return inputRanges[(int)voltageRange]  /1000;
+            return (double)inputRanges[(int)voltageRange]  /1000;
         }
 
         public short TriggerLevel
