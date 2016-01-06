@@ -134,7 +134,7 @@ namespace HV9104_GUI
             }
         }
 
-        public int Max
+        public double Max
         {
             get
             {
@@ -143,11 +143,11 @@ namespace HV9104_GUI
             set
             {
                 this.max = value;
-                maxValueBox.Text = "" + max;
+                maxValueBox.Text = "" + max.ToString().Replace(',', '.'); 
             }
         }
 
-        public int Min
+        public double Min
         {
             get
             {
@@ -156,7 +156,7 @@ namespace HV9104_GUI
             set
             {
                 this.min = value;
-                minValueBox.Text = "" + min;
+                minValueBox.Text = "" + min.ToString().Replace(',', '.'); 
             }
         }
 

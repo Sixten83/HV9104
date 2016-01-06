@@ -182,6 +182,7 @@ namespace HV9104_GUI
             channels[2].setRepresentationIndex(0);
             channels[2].IncrementIndex = 4;
             channels[2].DCOffset = -16;
+            channels[2].VoltageRange = Imports.Range.Range_20V;
             channels[2].TriggerType = Imports.ThresholdDirection.Rising;
             channels[2].TriggerLevel = (short)(-1 * channels[2].Polarity * maxADValue * 4 / 5 + 1000);  
             Imports.SetChannel(handle, channels[2].ChannelName, 0, channels[2].Coupling, channels[2].VoltageRange, 0);

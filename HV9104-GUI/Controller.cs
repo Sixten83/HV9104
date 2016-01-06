@@ -242,8 +242,7 @@ namespace HV9104_GUI
                 {
                     acChannel.processFastStreamData();
                     this.controlForm.dashboardView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
-                   
-
+  
                 }
                 else
                     autoSetVoltageRange(acChannel);

@@ -42,7 +42,7 @@ namespace HV9104_GUI
         public Channel()
         {
             this.coupling = Imports.Coupling.PS5000A_DC;
-            this.voltageRange = Imports.Range.Range_20V;
+            this.voltageRange = Imports.Range.Range_1V;
             representation = new double[5];
             setIncrementValues();
         }
