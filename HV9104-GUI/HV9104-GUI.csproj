@@ -414,6 +414,9 @@
     <Content Include="Resources\3-stageAC.png" />
     <Content Include="Resources\3-stageDC.png" />
     <Content Include="Resources\3-stageImp.png" />
+    <None Include="Resources\StopWatchGrey.png" />
+    <None Include="Resources\lightningBoltGrey.png" />
+    <None Include="Resources\BorderGrey.png" />
     <None Include="Resources\InstrumentUnselectedIcon.png" />
     <None Include="Resources\InstrumentSelectedIcon.png" />
     <None Include="Resources\InstrumentLtGreyIcon.png" />
