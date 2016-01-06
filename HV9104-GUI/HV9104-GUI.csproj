@@ -414,6 +414,10 @@
     <Content Include="Resources\3-stageAC.png" />
     <Content Include="Resources\3-stageDC.png" />
     <Content Include="Resources\3-stageImp.png" />
+    <None Include="Resources\InstrumentLtGreyIcon.png" />
+    <None Include="Resources\InstrumentBlueIcon.png" />
+    <None Include="Resources\InstrumentLtGrey.png" />
+    <None Include="Resources\InstrumentBlue.png" />
     <None Include="Resources\HV9107trans.png" />
     <None Include="Resources\HV9107.png" />
     <None Include="Resources\HV9107warning.png" />

@@ -465,14 +465,7 @@ namespace HV9104_GUI
             //***********************************************************************************************************
             //***                                     SETUP VIEW EVENT LISTENERS                                     ****
             //***********************************************************************************************************
-            //Mode selection listeners
-            this.controlForm.setupView.manualModeRadioButton.Click += new System.EventHandler(manualModeRadiobutton_Click);
-            this.controlForm.setupView.acWithstandRadioButton.Click += new System.EventHandler(acWithstandRadioButton_Click);
-            this.controlForm.setupView.acDisruptiveRadioButton.Click += new System.EventHandler(acDisruptiveRadioButton_Click);
-            this.controlForm.setupView.dcWithstandRadioButton.Click += new System.EventHandler(dcWithstandRadioButton_Click);
-            this.controlForm.setupView.dcDisruptiveRadioButton.Click += new System.EventHandler(dcDisruptiveRadioButton_Click);
-            this.controlForm.setupView.impulseWithstandRadioButton.Click += new System.EventHandler(impulseWithstandRadioButton_Click);
-            this.controlForm.setupView.impulseDisruptiveRadioButton.Click += new System.EventHandler(impulseDisruptiveRadioButton_Click);
+     
             //Stage setup listeners
             this.controlForm.setupView.acCheckBox.Click += new System.EventHandler(acCheckBox_Click);
             this.controlForm.setupView.acStage1RadioButton.Click += new System.EventHandler(acStage1RadioButton_Click);
@@ -487,7 +480,7 @@ namespace HV9104_GUI
             this.controlForm.setupView.impulseStage2RadioButton.Click += new System.EventHandler(impulseStage2RadioButton_Click);
             this.controlForm.setupView.impulseStage3RadioButton.Click += new System.EventHandler(impulseStage3RadioButton_Click);
             //***********************************************************************************************************
-            //***                                     RUN VIEW EVENT LISTENERS                                       ****
+            //***                                     DASHBOARD VIEW EVENT LISTENERS                                       ****
             //***********************************************************************************************************
             // 
             //this.controlForm.runView.Load += new EventHandler(RunView_Load);
@@ -548,6 +541,15 @@ namespace HV9104_GUI
             //***                                  RUNVIEW EVENT LISTENERS                                          *****
             //***********************************************************************************************************
             this.controlForm.runView.testButton.Click += new System.EventHandler(testButton_Click);
+            
+            //Mode selection listeners
+            this.controlForm.runView.acWithstandRadioButton.Click += new System.EventHandler(acWithstandRadioButton_Click);
+            this.controlForm.runView.acDisruptiveRadioButton.Click += new System.EventHandler(acDisruptiveRadioButton_Click);
+            this.controlForm.runView.dcWithstandRadioButton.Click += new System.EventHandler(dcWithstandRadioButton_Click);
+            this.controlForm.runView.dcDisruptiveRadioButton.Click += new System.EventHandler(dcDisruptiveRadioButton_Click);
+            this.controlForm.runView.impulseWithstandRadioButton.Click += new System.EventHandler(impulseWithstandRadioButton_Click);
+            this.controlForm.runView.impulseDisruptiveRadioButton.Click += new System.EventHandler(impulseDisruptiveRadioButton_Click);
+            
             //***********************************************************************************************************
             //***                                  MEASURING FORM EVENT LISTENERS                                   *****
             //***********************************************************************************************************

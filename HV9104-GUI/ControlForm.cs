@@ -128,6 +128,11 @@ namespace HV9104_GUI
             
         }
 
+        private void controlFormTabController_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         private void restoreDownButton_Click(object sender, EventArgs e)
         {
             Point lastLocation = this.Location;            
