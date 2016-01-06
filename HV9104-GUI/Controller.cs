@@ -1107,11 +1107,12 @@ namespace HV9104_GUI
             //Setup Trigger / Chopping time - IF ENABLED!!! TO BE CHECKED!!!!
             if (controlForm.dashboardView.choppingCheckBox.isChecked)
             {
-                picoScope.setupSignalGen(controlForm.dashboardView.choppingTimeTextBox.Value * 10000);
+                int index = (int)((float)(1000 * controlForm.dashboardView.choppingTimeTextBox.Value) / 100);
+                picoScope.setupSignalGen(index);
             }
             else
             {
-                picoScope.setupSignalGen(11000);
+                picoScope.setupSignalGen(0);
             }            
             
             
@@ -1152,7 +1153,8 @@ namespace HV9104_GUI
             if (controlForm.dashboardView.choppingTimeTextBox.Value > controlForm.dashboardView.choppingTimeTextBox.Min)
             {
                 // Increase the delay time by one
-                controlForm.dashboardView.choppingTimeTextBox.Value -= 1;
+                controlForm.dashboardView.choppingTimeTextBox.Value -= 0.1F;
+                
             }
 
         }
@@ -1177,7 +1179,7 @@ namespace HV9104_GUI
             if (controlForm.dashboardView.choppingTimeTextBox.Value < controlForm.dashboardView.choppingTimeTextBox.Max)
             {
                 // Increase the delay time by one
-                controlForm.dashboardView.choppingTimeTextBox.Value += 1;
+                controlForm.dashboardView.choppingTimeTextBox.Value += 0.1F;
             }
 
 

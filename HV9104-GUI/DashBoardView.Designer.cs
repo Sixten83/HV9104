@@ -225,7 +225,7 @@
             this.choppingTimeTextBox.BackgroundColor = System.Drawing.Color.White;
             this.choppingTimeTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
             this.choppingTimeTextBox.CornerRadius = 25;
-            this.choppingTimeTextBox.Decimals = 0;
+            this.choppingTimeTextBox.Decimals = 1;
             this.choppingTimeTextBox.Enabled = false;
             this.choppingTimeTextBox.IsPopUp = false;
             this.choppingTimeTextBox.Location = new System.Drawing.Point(143, 157);
