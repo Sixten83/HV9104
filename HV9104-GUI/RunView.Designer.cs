@@ -55,14 +55,14 @@
             chartArea1.BorderColor = System.Drawing.Color.Transparent;
             chartArea1.Name = "ChartArea1";
             this.autoTestChart.ChartAreas.Add(chartArea1);
-            this.autoTestChart.Location = new System.Drawing.Point(64, 63);
+            this.autoTestChart.Location = new System.Drawing.Point(25, 23);
             this.autoTestChart.Name = "autoTestChart";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Name = "Series1";
             series1.Points.Add(dataPoint1);
             this.autoTestChart.Series.Add(series1);
-            this.autoTestChart.Size = new System.Drawing.Size(510, 396);
+            this.autoTestChart.Size = new System.Drawing.Size(617, 442);
             this.autoTestChart.TabIndex = 0;
             this.autoTestChart.Text = "chart1";
             // 

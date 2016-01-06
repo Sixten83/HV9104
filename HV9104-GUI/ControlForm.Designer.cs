@@ -249,18 +249,18 @@
             this.customTab1.isSelected = false;
             this.customTab1.Location = new System.Drawing.Point(800, 35);
             this.customTab1.Name = "customTab1";
-            this.customTab1.SelectedIcon = null;
+            this.customTab1.SelectedIcon = global::HV9104_GUI.Properties.Resources._1_stageImp;
             this.customTab1.Size = new System.Drawing.Size(400, 100);
             this.customTab1.TabIndex = 3;
             this.customTab1.Text = "customTab1";
-            this.customTab1.UnselectedIcon = null;
+            this.customTab1.UnselectedIcon = global::HV9104_GUI.Properties.Resources._1_stageAC;
             // 
             // customTab22
             // 
             this.customTab22.BackColor = System.Drawing.Color.White;
             this.customTab22.BackgroundImage = global::HV9104_GUI.Properties.Resources.tabBorder;
             this.customTab22.isSelected = true;
-            this.customTab22.Location = new System.Drawing.Point(400, 35);
+            this.customTab22.Location = new System.Drawing.Point(392, 36);
             this.customTab22.Name = "customTab22";
             this.customTab22.SelectedIcon = global::HV9104_GUI.Properties.Resources.playSelectedIcon;
             this.customTab22.Size = new System.Drawing.Size(400, 100);
