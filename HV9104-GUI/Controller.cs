@@ -487,7 +487,7 @@ namespace HV9104_GUI
             this.controlForm.setupView.impulseStage2RadioButton.Click += new System.EventHandler(impulseStage2RadioButton_Click);
             this.controlForm.setupView.impulseStage3RadioButton.Click += new System.EventHandler(impulseStage3RadioButton_Click);
             //***********************************************************************************************************
-            //***                                     DASHBOARD VIEW EVENT LISTENERS                                       ****
+            //***                                     RUN VIEW EVENT LISTENERS                                       ****
             //***********************************************************************************************************
             // 
             //this.controlForm.runView.Load += new EventHandler(RunView_Load);
@@ -992,15 +992,15 @@ namespace HV9104_GUI
         {
             // Set some tolerances (we aren't perfect)
             float targetVoltage = controlForm.dashboardView.regulatedVoltageTextBox.Value;
-            double toleranceHi = 0.05;
-            double toleranceLo = -0.05;
+            double toleranceHi = 0.18;
+            double toleranceLo = -0.18;
             
             // Variable to hold our selectable measured voltage value           
             double uActual = 0;
 
             // Pd Variables - if needed?
             float P = 0;
-            float k = 5;
+            float k = 4;
             float d = 0;
             double error = 10;
             double previousError = 0;
@@ -1020,10 +1020,10 @@ namespace HV9104_GUI
                 }
                 else if ((controlForm.dashboardView.acOutputRadioButton.isChecked) && (PIO1.K2Closed))
                 {
-                    //uActual = Convert.ToDouble(controlForm.runView.acValueLabel.Text);
-                    uActual = picoScope.channels[0].RMS;
-                    toleranceHi = 0.15;
-                    toleranceLo = -0.15;
+                    uActual = Convert.ToDouble(controlForm.dashboardView.acValueLabel.Text);
+                    //uActual = picoScope.channels[0].RMS;
+                    toleranceHi = 0.2;
+                    toleranceLo = -0.2;
                 }
                 else if ((controlForm.dashboardView.dcVoltageRadioButton.isChecked) && (PIO1.K2Closed))
                 {
@@ -1040,39 +1040,45 @@ namespace HV9104_GUI
 
                 error =  uActual - targetVoltage;
 
-                if ((error <= 5) && (error >= -5))
+                if (error == previousError)
                 {
-                    k = 0.1F;
-
-                    if (error == previousError)
-                    {
-                        integral += 0.2;
-                    }
-                    else
-                    {
-                        //if(integral >= 0.1)
-                        //{
-                        integral -= 0.2;
-                        // }
-                    }
+                    integral += 0.1;
                 }
                 else
                 {
-                    k = 8;
+                    //if(integral >= 0.1)
+                    //{
+                    integral = 0;
+                    // }
                 }
+
 
                 // Call the appropriate instruction
                 if (error < toleranceHi)
                 {
-                    styr = (int)((error * -k) + 60 + integral);
 
+                    if ((error <= 4) && (error >= -4))
+                    {
+                        styr = 57 + (int)integral;
+                    }
+                    else
+                    {
+                        styr = (int)((error * -k) + 60 + integral);
+                    }
                     // Voltage low, increase
                     IncreaseVoltageRequest(styr);
                 }
                 else if (error > toleranceLo)
                 {
-                    styr = (int)((error * k) + 60 + integral);
 
+                    if ((error <= 4) && (error >= -4))
+                    {
+                        styr = 57 + (int)integral;
+                    }
+                    else
+                    {
+                        styr = (int)((error * k) + 60 + integral);
+                    }
                     // Voltage high, decrease
                     DecreaseVoltageRequest(styr);
                 }
@@ -1081,7 +1087,50 @@ namespace HV9104_GUI
                     // In bounds. We should only make it here once
                     StopTransformerMotorRequest();
                 }
-                Thread.Sleep(50);
+
+
+                //if ((error <= 5) && (error >= -5))
+                //{
+                //    k = 0.1F;
+
+                //    if (error == previousError)
+                //    {
+                //        integral += 0.2;
+                //    }
+                //    else
+                //    {
+                //        //if(integral >= 0.1)
+                //        //{
+                //        integral -= 0.2;
+                //        // }
+                //    }
+                //}
+                //else
+                //{
+                //    k = 8;
+                //}
+
+                //// Call the appropriate instruction
+                //if (error < toleranceHi)
+                //{
+                //    styr = (int)((error * -k) + 60 + integral);
+
+                //    // Voltage low, increase
+                //    IncreaseVoltageRequest(styr);
+                //}
+                //else if (error > toleranceLo)
+                //{
+                //    styr = (int)((error * k) + 60 + integral);
+
+                //    // Voltage high, decrease
+                //    DecreaseVoltageRequest(styr);
+                //}
+                //else
+                //{
+                //    // In bounds. We should only make it here once
+                //    StopTransformerMotorRequest();
+                //}
+                Thread.Sleep(10);
                 previousError = error;
             }
 
@@ -1586,56 +1635,56 @@ namespace HV9104_GUI
         // Before we start, make sure the UI correctly represents the PLC and Motor status. Called on startup and after change in SetupView
         private void InitializeUIStatus()
         {
-            //    // Setup information
-            //    if (controlForm.setupView.acStage1RadioButton.isChecked)
-            //    {
-            //        controlForm.dashboardView.statusLabelHVACStage.Text = "1-Stage";
-            //    }
-            //    else if (controlForm.setupView.acStage2RadioButton.isChecked)
-            //    {
-            //        controlForm.dashboardView.statusLabelHVACStage.Text = "2-Stage";
-            //    }
-            //    else if (controlForm.setupView.acStage3RadioButton.isChecked)
-            //    {
-            //        controlForm.dashboardView.statusLabelHVACStage.Text = "3-Stage";
-            //    }
-            //    else
-            //    {
-            //        controlForm.dashboardView.statusLabelHVACStage.Text = "Not Selected";
-            //    }
+            //// Setup information
+            //if (controlForm.setupView.acStage1RadioButton.isChecked)
+            //{
+            //    controlForm.dashboardView.statusLabelHVACStage.Text = "1-Stage";
+            //}
+            //else if (controlForm.setupView.acStage2RadioButton.isChecked)
+            //{
+            //    controlForm.dashboardView.statusLabelHVACStage.Text = "2-Stage";
+            //}
+            //else if (controlForm.setupView.acStage3RadioButton.isChecked)
+            //{
+            //    controlForm.dashboardView.statusLabelHVACStage.Text = "3-Stage";
+            //}
+            //else
+            //{
+            //    controlForm.dashboardView.statusLabelHVACStage.Text = "Not Selected";
+            //}
 
-            //    if (controlForm.setupView.dcStage1RadioButton.isChecked)
-            //    {
-            //        controlForm.dashboardView.statusLabelHVDCStage.Text = "1-Stage";
-            //    }
-            //    else if (controlForm.setupView.dcStage2RadioButton.isChecked)
-            //    {
-            //        controlForm.dashboardView.statusLabelHVDCStage.Text = "2-Stage";
-            //    }
-            //    else if (controlForm.setupView.dcStage3RadioButton.isChecked)
-            //    {
-            //        controlForm.dashboardView.statusLabelHVDCStage.Text = "3-Stage";
-            //    }
-            //    else
-            //    {
-            //        controlForm.dashboardView.statusLabelHVDCStage.Text = "Not Selected";
-            //    }
-            //    if (controlForm.setupView.impulseStage1RadioButton.isChecked)
-            //    {
-            //        controlForm.dashboardView.statusLabelHVImpStage.Text = "1-Stage";
-            //    }
-            //    else if (controlForm.setupView.impulseStage2RadioButton.isChecked)
-            //    {
-            //        controlForm.dashboardView.statusLabelHVImpStage.Text = "2-Stage";
-            //    }
-            //    else if (controlForm.setupView.impulseStage3RadioButton.isChecked)
-            //    {
-            //        controlForm.dashboardView.statusLabelHVImpStage.Text = "3-Stage";
-            //    }
-            //    else
-            //    {
-            //        controlForm.dashboardView.statusLabelHVImpStage.Text = "Not Selected";
-            //    }
+            //if (controlForm.setupView.dcStage1RadioButton.isChecked)
+            //{
+            //    controlForm.dashboardView.statusLabelHVDCStage.Text = "1-Stage";
+            //}
+            //else if (controlForm.setupView.dcStage2RadioButton.isChecked)
+            //{
+            //    controlForm.dashboardView.statusLabelHVDCStage.Text = "2-Stage";
+            //}
+            //else if (controlForm.setupView.dcStage3RadioButton.isChecked)
+            //{
+            //    controlForm.dashboardView.statusLabelHVDCStage.Text = "3-Stage";
+            //}
+            //else
+            //{
+            //    controlForm.dashboardView.statusLabelHVDCStage.Text = "Not Selected";
+            //}
+            //if (controlForm.setupView.impulseStage1RadioButton.isChecked)
+            //{
+            //    controlForm.dashboardView.statusLabelHVImpStage.Text = "1-Stage";
+            //}
+            //else if (controlForm.setupView.impulseStage2RadioButton.isChecked)
+            //{
+            //    controlForm.dashboardView.statusLabelHVImpStage.Text = "2-Stage";
+            //}
+            //else if (controlForm.setupView.impulseStage3RadioButton.isChecked)
+            //{
+            //    controlForm.dashboardView.statusLabelHVImpStage.Text = "3-Stage";
+            //}
+            //else
+            //{
+            //    controlForm.dashboardView.statusLabelHVImpStage.Text = "Not Selected";
+            //}
 
             Thread.Sleep(200);
 
@@ -1658,16 +1707,25 @@ namespace HV9104_GUI
             //controlForm.runView.regulatedVoltageTextBox.Min = ;
             //controlForm.runView.regulatedVoltageTextBox.Max = ;
 
-            // Get the setup
-            GetActiveSetup();
+
         }
 
         // Present all values in the UI
         public void UpdateGUI()
         {
             // Voltage and Current
-            controlForm.dashboardView.voltageInputLabel.Text = PIO1.regulatedVoltageValue.ToString("0.0").Replace(',', '.');;
-            controlForm.dashboardView.currentInputLabel.Text = PIO1.regulatedCurrentValue.ToString("0.00").Replace(',', '.');;
+            if ((PIO1.minUPos) && (!PIO1.K2Closed) && (PIO1.regulatedVoltageValue > 8))
+            {
+                // With K2 open (no load) when parked, there can be some scrap voltage in the transformer. Don't show it. 
+                controlForm.dashboardView.voltageInputLabel.Text = "0.0";
+                controlForm.dashboardView.currentInputLabel.Text = "0.00";
+            }
+            else
+            {
+                // When loading or not parked, the value is correct. Present it.
+                controlForm.dashboardView.voltageInputLabel.Text = PIO1.regulatedVoltageValue.ToString("0.0").Replace(',', '.'); ;
+                controlForm.dashboardView.currentInputLabel.Text = PIO1.regulatedCurrentValue.ToString("0.00").Replace(',', '.'); ;
+            }
 
             // Pressure
             controlForm.dashboardView.pressureLabel.Text = PIO1.getPressure();
@@ -1689,139 +1747,22 @@ namespace HV9104_GUI
             controlForm.dashboardView.statusLabelAutoRegVoltage.Visible = !abortRegulation;
 
             // Warning High Voltage image
-            if ((PIO1.regulatedVoltageValue >= 5) && (PIO1.K2Closed))
+            if ((PIO1.regulatedVoltageValue >= 1) && (PIO1.K2Closed))
             {
                 controlForm.dashboardView.statusPictureBoxHVPresent.Visible = true;
                 //controlForm.dashboardView.dischargePictureBox.Visible = false;
+               
             }
             else
             {
                 controlForm.dashboardView.statusPictureBoxHVPresent.Visible = false;
                 //controlForm.dashboardView.dischargePictureBox.Visible = true;
+              
             }
-            
+
             // Active motor info
             controlForm.dashboardView.impulseGapLabel.Text = activeMotor.actualPosition.ToString();
             controlForm.dashboardView.statusLabelActiveMotorInitialized.Text = GetMotorStatus();
-
-        }
-
-        // Evaluate the user entered information to present the correct setup image
-        private void GetActiveSetup()
-        {
-            int picNr = 0;
-
-            if (controlForm.setupView.acCheckBox.isChecked)
-            {
-                //
-                if (controlForm.setupView.acStage1RadioButton.isChecked)
-                {
-                    picNr += 100;
-                }
-                else if (controlForm.setupView.acStage2RadioButton.isChecked)
-                {
-                    picNr += 200;
-                }
-                else if (controlForm.setupView.acStage3RadioButton.isChecked)
-                {
-                    picNr += 300;
-                }
-
-            }
-            if (controlForm.setupView.dcCheckBox.isChecked)
-            {
-                //
-                if (controlForm.setupView.dcStage1RadioButton.isChecked)
-                {
-                    picNr += 10;
-                }
-                else if (controlForm.setupView.dcStage2RadioButton.isChecked)
-                {
-                    picNr += 20;
-                }
-                else if (controlForm.setupView.dcStage3RadioButton.isChecked)
-                {
-                    picNr += 30;
-                }
-            }
-            if (controlForm.setupView.impulseCheckBox.isChecked)
-            {
-                // 
-                if (controlForm.setupView.impulseStage1RadioButton.isChecked)
-                {
-                    picNr += 1;
-                }
-                else if (controlForm.setupView.impulseStage2RadioButton.isChecked)
-                {
-                    picNr += 2;
-                }
-                else if (controlForm.setupView.impulseStage3RadioButton.isChecked)
-                {
-                    picNr += 3;
-                }
-            }
-
-            if (picNr == 100)
-            {
-                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._1_stageAC;
-                controlForm.dashboardView.activeSetupPictureBox.Refresh();
-                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
-            }
-            else if (picNr == 110)
-            {
-                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._1_stageDC;
-                controlForm.dashboardView.activeSetupPictureBox.Refresh();
-                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
-            }
-            else if (picNr == 111)
-            {
-
-                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._1_stageImp;
-                controlForm.dashboardView.activeSetupPictureBox.Refresh();
-                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
-            }
-            else if (picNr == 112)
-            {
-                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._2_stageImp;
-                controlForm.dashboardView.activeSetupPictureBox.Refresh();
-                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
-            }
-            else if (picNr == 113)
-            {
-                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._3_stageImp;
-                controlForm.dashboardView.activeSetupPictureBox.Refresh();
-                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
-            }
-            else if (picNr == 120)
-            {
-                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._2_stageDC;
-                controlForm.dashboardView.activeSetupPictureBox.Refresh();
-                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
-            }
-            else if (picNr == 130)
-            {
-                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._3_stageDC;
-                controlForm.dashboardView.activeSetupPictureBox.Refresh();
-                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
-            }
-            else if (picNr == 200)
-            {
-                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._2_stageAC;
-                controlForm.dashboardView.activeSetupPictureBox.Refresh();
-                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
-            }
-            else if (picNr == 300)
-            {
-                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._3_stageAC;
-                controlForm.dashboardView.activeSetupPictureBox.Refresh();
-                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
-            }
-            else
-            {
-                controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources.tercoLogo;
-                controlForm.dashboardView.activeSetupPictureBox.Refresh();
-                controlForm.dashboardView.activeSetupPictureBox.Visible = true;
-            }
 
         }
 
