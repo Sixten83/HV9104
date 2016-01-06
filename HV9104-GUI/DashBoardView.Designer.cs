@@ -137,6 +137,7 @@
             this.currentInputLabel = new System.Windows.Forms.Label();
             this.voltageInputLabel = new System.Windows.Forms.Label();
             this.customPanel15 = new HV9104_GUI.CustomPanel();
+            this.dischargePictureBox = new System.Windows.Forms.PictureBox();
             this.statusPictureBoxHVPresent = new System.Windows.Forms.PictureBox();
             this.label39 = new System.Windows.Forms.Label();
             this.customPanel14.SuspendLayout();
@@ -155,6 +156,7 @@
             this.customPanel13.SuspendLayout();
             this.customPanel1.SuspendLayout();
             this.customPanel15.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dischargePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusPictureBoxHVPresent)).BeginInit();
             this.SuspendLayout();
             // 
@@ -829,7 +831,7 @@
         "avg",
         "max",
         "min",
-        "pk-Vpk"};
+        "pk-pk"};
             this.dcOutputComboBox.SetSelected = "avg";
             this.dcOutputComboBox.Size = new System.Drawing.Size(140, 45);
             this.dcOutputComboBox.TabIndex = 3;
@@ -885,7 +887,7 @@
         "rms",
         "max",
         "min",
-        "pk-Vpk"};
+        "pk-pk"};
             this.acOutputComboBox.SetSelected = "rms";
             this.acOutputComboBox.Size = new System.Drawing.Size(140, 45);
             this.acOutputComboBox.TabIndex = 3;
@@ -1584,6 +1586,7 @@
             this.customPanel15.BackColor = System.Drawing.Color.Transparent;
             this.customPanel15.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel15.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel15.Controls.Add(this.dischargePictureBox);
             this.customPanel15.Controls.Add(this.statusPictureBoxHVPresent);
             this.customPanel15.Controls.Add(this.label39);
             this.customPanel15.CornerRadius = 30;
@@ -1592,6 +1595,17 @@
             this.customPanel15.Name = "customPanel15";
             this.customPanel15.Size = new System.Drawing.Size(171, 126);
             this.customPanel15.TabIndex = 4;
+            // 
+            // dischargePictureBox
+            // 
+            this.dischargePictureBox.Image = global::HV9104_GUI.Properties.Resources.HV9107trans;
+            this.dischargePictureBox.Location = new System.Drawing.Point(48, 40);
+            this.dischargePictureBox.Name = "dischargePictureBox";
+            this.dischargePictureBox.Size = new System.Drawing.Size(79, 74);
+            this.dischargePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.dischargePictureBox.TabIndex = 7;
+            this.dischargePictureBox.TabStop = false;
+            this.dischargePictureBox.Visible = false;
             // 
             // statusPictureBoxHVPresent
             // 
@@ -1668,6 +1682,7 @@
             this.customPanel1.PerformLayout();
             this.customPanel15.ResumeLayout(false);
             this.customPanel15.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dischargePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusPictureBoxHVPresent)).EndInit();
             this.ResumeLayout(false);
 
@@ -1785,5 +1800,6 @@
         public CustomCheckBox onOffButton;
         public System.Windows.Forms.PictureBox statusPictureBoxHVPresent;
         public System.Windows.Forms.PictureBox activeSetupPictureBox;
+        public System.Windows.Forms.PictureBox dischargePictureBox;
     }
 }

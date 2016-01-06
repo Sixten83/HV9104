@@ -1721,13 +1721,13 @@ namespace HV9104_GUI
             if ((PIO1.regulatedVoltageValue >= 1) && (PIO1.K2Closed))
             {
                 controlForm.dashboardView.statusPictureBoxHVPresent.Visible = true;
-                //controlForm.dashboardView.dischargePictureBox.Visible = false;
+                controlForm.dashboardView.dischargePictureBox.Visible = false;
                
             }
             else
             {
                 controlForm.dashboardView.statusPictureBoxHVPresent.Visible = false;
-                //controlForm.dashboardView.dischargePictureBox.Visible = true;
+                controlForm.dashboardView.dischargePictureBox.Visible = true;
               
             }
 
