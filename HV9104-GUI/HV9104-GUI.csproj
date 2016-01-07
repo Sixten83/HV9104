@@ -53,6 +53,7 @@
       <SubType>Code</SubType>
       <DependentUpon>CustomControls.cs</DependentUpon>
     </Compile>
+    <Compile Include="AutoTest.cs" />
     <Compile Include="Channel.cs">
       <SubType>Code</SubType>
       <DependentUpon>PicoScope.cs</DependentUpon>

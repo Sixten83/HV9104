@@ -1442,7 +1442,10 @@ namespace HV9104_GUI
             this.controlForm.runView.autoTestChart.Series["Series1"].Points.Clear();
             Random rand = new Random();
             double[] x, y;
-              x = new double[100];
+
+
+
+            x = new double[100];
             y = new double[100];
             for (int r = 0; r < 100; r++)
             {
