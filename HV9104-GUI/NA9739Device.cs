@@ -586,7 +586,7 @@ namespace HV9104_GUI
         internal void ParkTransformer()
         {
             // Call the method to reduce the voltage
-            decreaseVoltage(500);
+            decreaseVoltage(350);
 
             // Start a timer to poll uMinPos, where we call StopTransformerMotor() 
             T2.Start();

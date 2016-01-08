@@ -61,7 +61,7 @@ namespace HV9104_GUI
         private bool abortRegulation = true;
         public int trafSpeed = 600;
         public int maxVoltage = 235;
-        
+        private double targetVoltage;
 
         public Controller()
         {
@@ -73,9 +73,6 @@ namespace HV9104_GUI
             controlForm = new ControlForm();            
             controlForm.startMeasuringForm(measuringForm);
 
-            // Instantiate the class for autorun procedures
-            autoTest = new AutoTest(controlForm.runView, PIO1, HV9126, HV9133);
-
             // Set up the primary measuring device
             SetupPicoscope();
 
@@ -85,12 +82,12 @@ namespace HV9104_GUI
             // Find a suitable COM port and connect to it. Then add a Handler to catch any replies. 
             AutoConnect();
 
-            // Helper class to update the UI from another thread (avoid cross-threading exception)
-            // guiUpdater = new Updater(controlForm.runView);
-
             // Initialize all devices and test communication
             InitializeDevices();
-            
+
+            // Instantiate the class for autorun procedures
+            autoTest = new AutoTest(controlForm.runView, controlForm.dashboardView, PIO1, HV9126, HV9133);
+
             // If all devices are initialized have communication, start own loop for PLC, stepper motors and aux equipment.
             t = new Thread(CyclicRead);
             t.Start();
@@ -549,7 +546,7 @@ namespace HV9104_GUI
             //***********************************************************************************************************
             //***                                  RUNVIEW EVENT LISTENERS                                          *****
             //***********************************************************************************************************
-            this.controlForm.runView.testButton.Click += new System.EventHandler(testButton_Click);
+           
             
             //Mode selection listeners
             this.controlForm.runView.WithstandRadioButton.Click += new System.EventHandler(testWithstandRadioButton_Click);
@@ -604,7 +601,11 @@ namespace HV9104_GUI
             if (controlForm.runView.onOffAutoButton.isChecked)
             {
 
-                autoTest.StartTest();
+                bool ready = autoTest.StartTest();
+                if (ready)
+                {
+                    autoTest.GoToVoltageAuto(autoTest.testVoltage);
+                }
             }
             else
             {
@@ -622,24 +623,24 @@ namespace HV9104_GUI
         // Voltage to test at
         private void testVoltageTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            throw new NotImplementedException();
+   
         }
 
         // length of time at test voltage
         private void testDurationTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         // Ammoint of impulse levels to run
         private void voltageLevelsTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            throw new NotImplementedException();
+    
         }
         // Impulses to run at each level
         private void impPerLevelTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            throw new NotImplementedException();
+ 
         }
 
         //***********************************************************************************************************
@@ -1070,8 +1071,9 @@ namespace HV9104_GUI
         }
 
         // Automated voltage set routine
-        private void GoToVoltage(float value)
+        private void GoToVoltage(double valueIn)
         {
+            targetVoltage = valueIn;
             Thread regUThread = new Thread(RegulateVoltage);
             regUThread.Start();
 
@@ -1081,7 +1083,7 @@ namespace HV9104_GUI
         private void RegulateVoltage()
         {
             // Set some tolerances (we aren't perfect)
-            float targetVoltage = controlForm.dashboardView.regulatedVoltageTextBox.Value;
+            targetVoltage = controlForm.dashboardView.regulatedVoltageTextBox.Value;
             double toleranceHi = 0.18;
             double toleranceLo = -0.18;
             
@@ -1178,48 +1180,6 @@ namespace HV9104_GUI
                     StopTransformerMotorRequest();
                 }
 
-
-                //if ((error <= 5) && (error >= -5))
-                //{
-                //    k = 0.1F;
-
-                //    if (error == previousError)
-                //    {
-                //        integral += 0.2;
-                //    }
-                //    else
-                //    {
-                //        //if(integral >= 0.1)
-                //        //{
-                //        integral -= 0.2;
-                //        // }
-                //    }
-                //}
-                //else
-                //{
-                //    k = 8;
-                //}
-
-                //// Call the appropriate instruction
-                //if (error < toleranceHi)
-                //{
-                //    styr = (int)((error * -k) + 60 + integral);
-
-                //    // Voltage low, increase
-                //    IncreaseVoltageRequest(styr);
-                //}
-                //else if (error > toleranceLo)
-                //{
-                //    styr = (int)((error * k) + 60 + integral);
-
-                //    // Voltage high, decrease
-                //    DecreaseVoltageRequest(styr);
-                //}
-                //else
-                //{
-                //    // In bounds. We should only make it here once
-                //    StopTransformerMotorRequest();
-                //}
                 Thread.Sleep(10);
                 previousError = error;
             }
@@ -1487,32 +1447,6 @@ namespace HV9104_GUI
          //***********************************************************************************************************
          //***                                  RUNVIEW EVENT HANDLERS                                          *****
          //***********************************************************************************************************   
-
-         private void testButton_Click(object sender, EventArgs e)
-        {
-            this.controlForm.runView.autoTestChart.Series["Series1"].Points.Clear();
-            Random rand = new Random();
-            double[] x, y;
-
-
-
-            x = new double[100];
-            y = new double[100];
-            for (int r = 0; r < 100; r++)
-            {
-                x[r] = r;
-                y[r] = r * 5 * Math.Sin(r + rand.NextDouble());
-                //There are two ways to add points 1) Add points one by one with the AddXY method 
-                //this.controlForm.runView.autoTestChart.Series["Series1"].Points.AddXY(x[r], y[r]);
-                    
-            }
-                //2) by using databind and adding all the point at once
-                this.controlForm.runView.autoTestChart.Series["Series1"].Points.DataBindXY(x,y);
-
-             //If you want 10Div * 10Div
-            this.controlForm.runView.autoTestChart.ChartAreas[0].AxisX.Interval = (int)((x.Max() - x.Min()) / 10);
-            this.controlForm.runView.autoTestChart.ChartAreas[0].AxisY.Interval = (int)((y.Max() - y.Min()) / 10);
-        }
 
         private void voltageComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
