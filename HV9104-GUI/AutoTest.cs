@@ -84,6 +84,11 @@ namespace HV9104_GUI
             updateValueTimer.Interval = 10;
             updateValueTimer.Enabled = true;
             updateValueTimer.Start();
+
+            // Update the chart
+            xList.Add((double)0);
+            yList.Add((double)0);
+            PresentChart();
         }
 
         private void updateValueTimer_Tick(object sender, EventArgs e)
@@ -100,7 +105,10 @@ namespace HV9104_GUI
            
             
             // Add values to the chart
-            FillChart();
+           // FillChart();
+            
+            // Update the chart
+            PresentChart();
 
             // In bounds
             if ((actualVoltage < maxTestVoltage) && (actualVoltage > minTestVoltage))
@@ -144,6 +152,7 @@ namespace HV9104_GUI
                         }
                     }                
                 }
+
             }
 
             // We are running the test but the voltage is too high
@@ -172,6 +181,9 @@ namespace HV9104_GUI
             if ((parking) && (PIO1.minUPos))
             {
                 // Success!
+                Thread.Sleep(1000);
+                // Update the chart
+                PresentChart();
                 PassTest();
             }            
             
@@ -193,9 +205,11 @@ namespace HV9104_GUI
 
             runView.onOffAutoButton.isChecked = false;
             runView.onOffAutoButton.Invalidate();
-            
+
             // Update the chart
+            Thread.Sleep(2000);
             PresentChart();
+
         }
 
         // Failed test
@@ -257,6 +271,7 @@ namespace HV9104_GUI
             runView.testStatusLabel.Visible = true;
             runView.passFailLabel.Visible = false;
             runView.testStatusLabel.Invalidate();
+            runView.passFailLabel.Invalidate();
             runView.testDurationLabel.Text = "0";
 
             // Get user input and convert to usable values
@@ -446,21 +461,15 @@ namespace HV9104_GUI
 
         internal void FillChart()
         {
-     
-            //xArray[sampleNumber] = sampleNumber;
-            //yArray[sampleNumber] = actualVoltage;
-
-            xList.Add((double)sampleNumber);
-            yList.Add((double)actualVoltage);
             
-            sampleNumber += 1;
         }
         
         internal void PresentChart()
         {
+            xList.Add((double)sampleNumber);
+            yList.Add((double)actualVoltage);
 
-            //xArray = new double[xList.Count];
-            //yArray = new double[yList.Count];
+            sampleNumber += 1;
             xArray = (Double[])xList.ToArray(typeof(double));
             yArray = (Double[])yList.ToArray(typeof(double));
 

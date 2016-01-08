@@ -820,9 +820,9 @@
             this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.label20.Location = new System.Drawing.Point(87, 128);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(214, 29);
+            this.label20.Size = new System.Drawing.Size(248, 29);
             this.label20.TabIndex = 2;
-            this.label20.Text = "Disruptive Discharge";
+            this.label20.Text = "DISRUPTIVE DISCHARGE";
             // 
             // label23
             // 
@@ -842,9 +842,9 @@
             this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.label21.Location = new System.Drawing.Point(87, 72);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(116, 29);
+            this.label21.Size = new System.Drawing.Size(133, 29);
             this.label21.TabIndex = 2;
-            this.label21.Text = "Withstand";
+            this.label21.Text = "WITHSTAND";
             // 
             // DisruptiveRadioButton
             // 
