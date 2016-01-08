@@ -216,7 +216,8 @@ namespace HV9104_GUI
                     if (inputBox.Text.Length != 0)
                     {
 
-                        inputBox.Text = inputBox.Text.Replace('.', ',');
+                        inputBox.Text = inputBox.Text.Replace(',', '.');
+                      
                         float textValue = Single.Parse(inputBox.Text);
                         if (textValue >= min && textValue <= max)
                         {

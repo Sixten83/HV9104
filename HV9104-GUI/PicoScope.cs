@@ -571,10 +571,12 @@ namespace HV9104_GUI
         public void setupSignalGen(int index)
         {
             uint status;
-            status = Imports.SetSigGenBuiltIn(handle, 1000000, 2000000, Imports.WaveType.PS5000A_SQUARE, frequencys[index], frequencys[index], 0, 1, Imports.SweepType.PS5000A_UP, Imports.ExtraOperations.PS5000A_ES_OFF, 100, 0, Imports.SigGenTrigType.PS5000A_SIGGEN_RISING, Imports.SigGenTrigSource.PS5000A_SIGGEN_SOFT_TRIG, 0);
+            uint cycles = Convert.ToUInt32(frequencys[index] / 10) + 10;
+            status = Imports.SetSigGenBuiltIn(handle, 1000000, 2000000, Imports.WaveType.PS5000A_SQUARE, frequencys[index], frequencys[index], 0, 1, Imports.SweepType.PS5000A_UP, Imports.ExtraOperations.PS5000A_ES_OFF, cycles, 0, Imports.SigGenTrigType.PS5000A_SIGGEN_RISING, Imports.SigGenTrigSource.PS5000A_SIGGEN_SOFT_TRIG, 0);
             Console.WriteLine("SetSigGenBuiltIn Freq:" + frequencys[index]);
             Console.WriteLine("SetSigGenBuiltIn Status:" + status );
-        
+            Console.WriteLine("SetSigGenBuiltIn Cycles:" + cycles);
+
         }
 
         //Call this function to trigger the Signalgenerator

@@ -39,6 +39,7 @@ namespace HV9104_GUI
         public DashBoardView activeForm;
         public SerialPort serialPort1;
         public Updater guiUpdater;
+        public AutoTest autoTest;
 
         public NA9739Device PIO1;
         public PD1161Device HV9126;
@@ -71,6 +72,9 @@ namespace HV9104_GUI
             measuringForm = new MeasuringForm();
             controlForm = new ControlForm();            
             controlForm.startMeasuringForm(measuringForm);
+
+            // Instantiate the class for autorun procedures
+            autoTest = new AutoTest(controlForm.runView, PIO1, HV9126, HV9133);
 
             // Set up the primary measuring device
             SetupPicoscope();
@@ -550,11 +554,12 @@ namespace HV9104_GUI
             //Mode selection listeners
             this.controlForm.runView.WithstandRadioButton.Click += new System.EventHandler(testWithstandRadioButton_Click);
             this.controlForm.runView.DisruptiveRadioButton.Click += new System.EventHandler(testDisruptiveRadioButton_Click);
-           
-            //this.controlForm.runView.dcWithstandRadioButton.Click += new System.EventHandler(dcWithstandRadioButton_Click);
-            //this.controlForm.runView.dcDisruptiveRadioButton.Click += new System.EventHandler(dcDisruptiveRadioButton_Click);
-            //this.controlForm.runView.impulseWithstandRadioButton.Click += new System.EventHandler(impulseWithstandRadioButton_Click);
-            //this.controlForm.runView.impulseDisruptiveRadioButton.Click += new System.EventHandler(impulseDisruptiveRadioButton_Click);
+            this.controlForm.runView.onOffAutoButton.Click += new System.EventHandler(onOffAutoButton_Click);
+            this.controlForm.runView.testDurationTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(testDurationTextBox_valueChange);
+            this.controlForm.runView.testVoltageTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(testVoltageTextBox_valueChange);
+            this.controlForm.runView.voltageLevelsTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(voltageLevelsTextBox_valueChange);
+            this.controlForm.runView.impPerLevelTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impPerLevelTextBox_valueChange);
+            this.controlForm.runView.abortAutoTestButton.Click += new System.EventHandler(abortAutoTestButton_Click);
 
             //***********************************************************************************************************
             //***                                  MEASURING FORM EVENT LISTENERS                                   *****
@@ -585,7 +590,57 @@ namespace HV9104_GUI
 
         }
 
+       
 
+
+
+        //***********************************************************************************************************
+        //***                                  RUNVIEW EVENT HANDLERS                                          *****
+        //***********************************************************************************************************
+
+        // Experiment Start/Pause
+        private void onOffAutoButton_Click(object sender, EventArgs e)
+        {
+            if (controlForm.runView.onOffAutoButton.isChecked)
+            {
+
+                autoTest.StartTest();
+            }
+            else
+            {
+                autoTest.PauseTest();
+            }
+
+        }
+
+        // Stop experiment
+        private void abortAutoTestButton_Click(object sender, EventArgs e)
+        {
+            autoTest.AbortTest();
+        }
+
+        // Voltage to test at
+        private void testVoltageTextBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        // length of time at test voltage
+        private void testDurationTextBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Ammoint of impulse levels to run
+        private void voltageLevelsTextBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        // Impulses to run at each level
+        private void impPerLevelTextBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         //***********************************************************************************************************
         //***                                    CONTROL FORM EVENT HANDLERS                                  *****
@@ -859,7 +914,7 @@ namespace HV9104_GUI
 
         }
 
-        public int cnt = 0;
+
         //***********************************************************************************************************
         //***                                     DASHBOARD VIEW EVENT HANDLERS                                 *****
         //***********************************************************************************************************
@@ -867,8 +922,6 @@ namespace HV9104_GUI
         private void RunView_Load(object sender, EventArgs e)
         {
             InitializeUIStatus();
-            cnt += 1;
-            controlForm.runView.label1.Text = cnt.ToString();
         }
 
         private void acOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
@@ -1210,6 +1263,7 @@ namespace HV9104_GUI
             if (controlForm.dashboardView.choppingCheckBox.isChecked)
             {
                 int index = (int)((float)(1000 * controlForm.dashboardView.choppingTimeTextBox.Value) / 100);
+
                 picoScope.setupSignalGen(index);
             }
             else
@@ -1217,15 +1271,12 @@ namespace HV9104_GUI
                 picoScope.setupSignalGen(0);
             }            
             
-            
             //Start Block
             picoScope.startBlock();
             //Trigger Signal gen
             picoScope.triggerSignalGen();
             //Start watchDog
             triggerTimer.Start();
-            
-            
 
         }
 

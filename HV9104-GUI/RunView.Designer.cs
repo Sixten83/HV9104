@@ -31,54 +31,6 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            this.autoTestChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.customPanel1 = new HV9104_GUI.CustomPanel();
-            this.testStatusLabel = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.onOffAutoButton = new HV9104_GUI.CustomCheckBox();
-            this.abortAutoTestButton = new HV9104_GUI.CustomButton();
-            this.passStatusLabel = new System.Windows.Forms.Label();
-            this.passFailLabel = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.secondsUnitLabel = new System.Windows.Forms.Label();
-            this.testDurationLabel = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.createReportButton = new HV9104_GUI.CustomButton();
-            this.exportValuesButton = new HV9104_GUI.CustomButton();
-            this.testButton = new System.Windows.Forms.Button();
-            this.WithstandRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.DisruptiveRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.customPanel2 = new HV9104_GUI.CustomPanel();
-            this.voltageComboBox = new HV9104_GUI.CustomComboBox();
-            this.customPanel3 = new HV9104_GUI.CustomPanel();
-            this.otherTextBox = new System.Windows.Forms.TextBox();
-            this.otherLabel = new System.Windows.Forms.Label();
-            this.operatorTextBox = new System.Windows.Forms.TextBox();
-            this.testObjectTextBox = new System.Windows.Forms.TextBox();
-            this.operatorLabel = new System.Windows.Forms.Label();
-            this.testObjectLabel = new System.Windows.Forms.Label();
-            this.dateLabel = new System.Windows.Forms.Label();
-            this.dateTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.customPanel4 = new HV9104_GUI.CustomPanel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.testDurationTextBox = new HV9104_GUI.CustomTextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.customPanel5 = new HV9104_GUI.CustomPanel();
-            this.label16 = new System.Windows.Forms.Label();
-            this.testVoltageTextBox = new HV9104_GUI.CustomTextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.customPanel7 = new HV9104_GUI.CustomPanel();
-            this.impPerLevelTextBox = new HV9104_GUI.CustomTextBox();
-            this.voltageLevelsTextBox = new HV9104_GUI.CustomTextBox();
-            this.impPerLevelLabel = new System.Windows.Forms.Label();
-            this.voltLevelsLabel = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.customPanel8 = new HV9104_GUI.CustomPanel();
             this.label9 = new System.Windows.Forms.Label();
             this.impulseOutputComboBox = new HV9104_GUI.CustomComboBox();
@@ -94,667 +46,73 @@
             this.label10 = new System.Windows.Forms.Label();
             this.acTitleLabel = new System.Windows.Forms.Label();
             this.acValueLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).BeginInit();
-            this.customPanel1.SuspendLayout();
-            this.customPanel2.SuspendLayout();
-            this.customPanel3.SuspendLayout();
-            this.customPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.customPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            this.customPanel7.SuspendLayout();
+            this.customPanel7 = new HV9104_GUI.CustomPanel();
+            this.impPerLevelTextBox = new HV9104_GUI.CustomTextBox();
+            this.voltageLevelsTextBox = new HV9104_GUI.CustomTextBox();
+            this.impPerLevelLabel = new System.Windows.Forms.Label();
+            this.voltLevelsLabel = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.customPanel5 = new HV9104_GUI.CustomPanel();
+            this.testVoltageLevelLabel = new System.Windows.Forms.Label();
+            this.toleranceLabel = new System.Windows.Forms.Label();
+            this.toleranceTextBox = new HV9104_GUI.CustomTextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.testVoltageTextBox = new HV9104_GUI.CustomTextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.customPanel4 = new HV9104_GUI.CustomPanel();
+            this.testDurationSign = new System.Windows.Forms.Label();
+            this.sampleRateLabel = new System.Windows.Forms.Label();
+            this.sampleRateTextBox = new HV9104_GUI.CustomTextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.testDurationTextBox = new HV9104_GUI.CustomTextBox();
+            this.testTimeLabel = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.customPanel3 = new HV9104_GUI.CustomPanel();
+            this.otherTextBox = new System.Windows.Forms.TextBox();
+            this.otherLabel = new System.Windows.Forms.Label();
+            this.operatorTextBox = new System.Windows.Forms.TextBox();
+            this.createReportButton = new HV9104_GUI.CustomButton();
+            this.testObjectTextBox = new System.Windows.Forms.TextBox();
+            this.exportValuesButton = new HV9104_GUI.CustomButton();
+            this.operatorLabel = new System.Windows.Forms.Label();
+            this.testObjectLabel = new System.Windows.Forms.Label();
+            this.dateLabel = new System.Windows.Forms.Label();
+            this.dateTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.customPanel2 = new HV9104_GUI.CustomPanel();
+            this.voltageComboBox = new HV9104_GUI.CustomComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.DisruptiveRadioButton = new HV9104_GUI.CustomRadioButton();
+            this.WithstandRadioButton = new HV9104_GUI.CustomRadioButton();
+            this.customPanel1 = new HV9104_GUI.CustomPanel();
+            this.testStatusLabel = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.onOffAutoButton = new HV9104_GUI.CustomCheckBox();
+            this.abortAutoTestButton = new HV9104_GUI.CustomButton();
+            this.passStatusLabel = new System.Windows.Forms.Label();
+            this.testButton = new System.Windows.Forms.Button();
+            this.passFailLabel = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.secondsUnitLabel = new System.Windows.Forms.Label();
+            this.testDurationLabel = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.autoTestChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.customPanel8.SuspendLayout();
             this.customPanel9.SuspendLayout();
             this.customPanel10.SuspendLayout();
+            this.customPanel7.SuspendLayout();
+            this.customPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.customPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.customPanel3.SuspendLayout();
+            this.customPanel2.SuspendLayout();
+            this.customPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).BeginInit();
             this.SuspendLayout();
-            // 
-            // autoTestChart
-            // 
-            this.autoTestChart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            chartArea1.AxisX.LineColor = System.Drawing.Color.Transparent;
-            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
-            chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisX.MajorTickMark.Enabled = false;
-            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.Transparent;
-            chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisY.LineColor = System.Drawing.Color.Transparent;
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
-            chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisY.MajorTickMark.Enabled = false;
-            chartArea1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            chartArea1.BorderColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.autoTestChart.ChartAreas.Add(chartArea1);
-            this.autoTestChart.Location = new System.Drawing.Point(64, 50);
-            this.autoTestChart.Name = "autoTestChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Name = "Series1";
-            series1.Points.Add(dataPoint1);
-            this.autoTestChart.Series.Add(series1);
-            this.autoTestChart.Size = new System.Drawing.Size(756, 301);
-            this.autoTestChart.TabIndex = 0;
-            this.autoTestChart.Text = "chart1";
-            // 
-            // customPanel1
-            // 
-            this.customPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel1.Controls.Add(this.testStatusLabel);
-            this.customPanel1.Controls.Add(this.label15);
-            this.customPanel1.Controls.Add(this.onOffAutoButton);
-            this.customPanel1.Controls.Add(this.abortAutoTestButton);
-            this.customPanel1.Controls.Add(this.passStatusLabel);
-            this.customPanel1.Controls.Add(this.testButton);
-            this.customPanel1.Controls.Add(this.passFailLabel);
-            this.customPanel1.Controls.Add(this.label7);
-            this.customPanel1.Controls.Add(this.secondsUnitLabel);
-            this.customPanel1.Controls.Add(this.testDurationLabel);
-            this.customPanel1.Controls.Add(this.label5);
-            this.customPanel1.Controls.Add(this.autoTestChart);
-            this.customPanel1.CornerRadius = 40;
-            this.customPanel1.IsPopUp = false;
-            this.customPanel1.Location = new System.Drawing.Point(511, 266);
-            this.customPanel1.Name = "customPanel1";
-            this.customPanel1.Size = new System.Drawing.Size(886, 505);
-            this.customPanel1.TabIndex = 1;
-            // 
-            // testStatusLabel
-            // 
-            this.testStatusLabel.AutoSize = true;
-            this.testStatusLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.testStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.testStatusLabel.Location = new System.Drawing.Point(513, 454);
-            this.testStatusLabel.Name = "testStatusLabel";
-            this.testStatusLabel.Size = new System.Drawing.Size(103, 19);
-            this.testStatusLabel.TabIndex = 17;
-            this.testStatusLabel.Text = "EVALUATING...\r";
-            this.testStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.testStatusLabel.Visible = false;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label15.Location = new System.Drawing.Point(23, 421);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(124, 26);
-            this.label15.TabIndex = 9;
-            this.label15.Text = "START/PAUSE";
-            // 
-            // onOffAutoButton
-            // 
-            this.onOffAutoButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.onOffAutoButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
-            this.onOffAutoButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
-            this.onOffAutoButton.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
-            this.onOffAutoButton.isChecked = false;
-            this.onOffAutoButton.Location = new System.Drawing.Point(153, 406);
-            this.onOffAutoButton.Name = "onOffAutoButton";
-            this.onOffAutoButton.Size = new System.Drawing.Size(138, 56);
-            this.onOffAutoButton.TabIndex = 10;
-            this.onOffAutoButton.Text = "customCheckBox2";
-            this.onOffAutoButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
-            // 
-            // abortAutoTestButton
-            // 
-            this.abortAutoTestButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.abortAutoTestButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.abortAutoTestButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.abortAutoTestButton.ForeColor = System.Drawing.Color.White;
-            this.abortAutoTestButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.abortAutoTestButton.Location = new System.Drawing.Point(678, 406);
-            this.abortAutoTestButton.Name = "abortAutoTestButton";
-            this.abortAutoTestButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.abortAutoTestButton.Size = new System.Drawing.Size(158, 57);
-            this.abortAutoTestButton.TabIndex = 12;
-            this.abortAutoTestButton.Text = "ABORT";
-            // 
-            // passStatusLabel
-            // 
-            this.passStatusLabel.AutoSize = true;
-            this.passStatusLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.passStatusLabel.Location = new System.Drawing.Point(483, 367);
-            this.passStatusLabel.Name = "passStatusLabel";
-            this.passStatusLabel.Size = new System.Drawing.Size(162, 26);
-            this.passStatusLabel.TabIndex = 15;
-            this.passStatusLabel.Text = "PASS/FAIL STATUS";
-            // 
-            // passFailLabel
-            // 
-            this.passFailLabel.AutoSize = true;
-            this.passFailLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passFailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.passFailLabel.Location = new System.Drawing.Point(483, 385);
-            this.passFailLabel.Name = "passFailLabel";
-            this.passFailLabel.Size = new System.Drawing.Size(162, 78);
-            this.passFailLabel.TabIndex = 16;
-            this.passFailLabel.Text = "PASS";
-            this.passFailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.passFailLabel.Visible = false;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label7.Location = new System.Drawing.Point(321, 367);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(135, 26);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "ELAPSED TIME";
-            // 
-            // secondsUnitLabel
-            // 
-            this.secondsUnitLabel.AutoSize = true;
-            this.secondsUnitLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.secondsUnitLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.secondsUnitLabel.Location = new System.Drawing.Point(353, 454);
-            this.secondsUnitLabel.Name = "secondsUnitLabel";
-            this.secondsUnitLabel.Size = new System.Drawing.Size(71, 19);
-            this.secondsUnitLabel.TabIndex = 12;
-            this.secondsUnitLabel.Text = "SECONDS";
-            // 
-            // testDurationLabel
-            // 
-            this.testDurationLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.testDurationLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.testDurationLabel.Location = new System.Drawing.Point(339, 384);
-            this.testDurationLabel.Name = "testDurationLabel";
-            this.testDurationLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.testDurationLabel.Size = new System.Drawing.Size(99, 80);
-            this.testDurationLabel.TabIndex = 11;
-            this.testDurationLabel.Text = "50";
-            this.testDurationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label5.Location = new System.Drawing.Point(25, 17);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(136, 18);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "TEST CONTROL";
-            // 
-            // createReportButton
-            // 
-            this.createReportButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.createReportButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.createReportButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.createReportButton.ForeColor = System.Drawing.Color.White;
-            this.createReportButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.createReportButton.Location = new System.Drawing.Point(40, 406);
-            this.createReportButton.Name = "createReportButton";
-            this.createReportButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.createReportButton.Size = new System.Drawing.Size(158, 57);
-            this.createReportButton.TabIndex = 14;
-            this.createReportButton.Text = "CREATE REPORT";
-            // 
-            // exportValuesButton
-            // 
-            this.exportValuesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.exportValuesButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.exportValuesButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exportValuesButton.ForeColor = System.Drawing.Color.White;
-            this.exportValuesButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.exportValuesButton.Location = new System.Drawing.Point(236, 406);
-            this.exportValuesButton.Name = "exportValuesButton";
-            this.exportValuesButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.exportValuesButton.Size = new System.Drawing.Size(158, 57);
-            this.exportValuesButton.TabIndex = 13;
-            this.exportValuesButton.Text = "EXPORT VALUES";
-            // 
-            // testButton
-            // 
-            this.testButton.Location = new System.Drawing.Point(15, 366);
-            this.testButton.Name = "testButton";
-            this.testButton.Size = new System.Drawing.Size(118, 51);
-            this.testButton.TabIndex = 2;
-            this.testButton.Text = "addPoints";
-            this.testButton.UseVisualStyleBackColor = true;
-            // 
-            // WithstandRadioButton
-            // 
-            this.WithstandRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.WithstandRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.WithstandRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.WithstandRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.WithstandRadioButton.isChecked = true;
-            this.WithstandRadioButton.Location = new System.Drawing.Point(34, 63);
-            this.WithstandRadioButton.Name = "WithstandRadioButton";
-            this.WithstandRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.WithstandRadioButton.TabIndex = 2;
-            this.WithstandRadioButton.Text = "customRadioButton1";
-            this.WithstandRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            // 
-            // DisruptiveRadioButton
-            // 
-            this.DisruptiveRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.DisruptiveRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.DisruptiveRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.DisruptiveRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.DisruptiveRadioButton.isChecked = false;
-            this.DisruptiveRadioButton.Location = new System.Drawing.Point(34, 119);
-            this.DisruptiveRadioButton.Name = "DisruptiveRadioButton";
-            this.DisruptiveRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.DisruptiveRadioButton.TabIndex = 2;
-            this.DisruptiveRadioButton.Text = "customRadioButton1";
-            this.DisruptiveRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label21.Location = new System.Drawing.Point(87, 72);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(116, 29);
-            this.label21.TabIndex = 2;
-            this.label21.Text = "Withstand";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label23.Location = new System.Drawing.Point(21, 19);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(97, 18);
-            this.label23.TabIndex = 2;
-            this.label23.Text = "TEST TYPE";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label20.Location = new System.Drawing.Point(87, 128);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(214, 29);
-            this.label20.TabIndex = 2;
-            this.label20.Text = "Disruptive Discharge";
-            // 
-            // customPanel2
-            // 
-            this.customPanel2.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel2.Controls.Add(this.voltageComboBox);
-            this.customPanel2.Controls.Add(this.label20);
-            this.customPanel2.Controls.Add(this.label23);
-            this.customPanel2.Controls.Add(this.label21);
-            this.customPanel2.Controls.Add(this.DisruptiveRadioButton);
-            this.customPanel2.Controls.Add(this.WithstandRadioButton);
-            this.customPanel2.CornerRadius = 40;
-            this.customPanel2.IsPopUp = false;
-            this.customPanel2.Location = new System.Drawing.Point(10, 32);
-            this.customPanel2.Name = "customPanel2";
-            this.customPanel2.Size = new System.Drawing.Size(465, 200);
-            this.customPanel2.TabIndex = 3;
-            // 
-            // voltageComboBox
-            // 
-            this.voltageComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.voltageComboBox.Location = new System.Drawing.Point(292, 64);
-            this.voltageComboBox.MaximumSize = new System.Drawing.Size(400, 60);
-            this.voltageComboBox.MinimumSize = new System.Drawing.Size(120, 45);
-            this.voltageComboBox.Name = "voltageComboBox";
-            this.voltageComboBox.setCollection = new string[] {
-        "AC",
-        "DC",
-        "Imp"};
-            this.voltageComboBox.SetSelected = "AC";
-            this.voltageComboBox.Size = new System.Drawing.Size(139, 45);
-            this.voltageComboBox.TabIndex = 4;
-            this.voltageComboBox.Text = "customComboBox1";
-            this.voltageComboBox.TextBoxHint = "";
-            // 
-            // customPanel3
-            // 
-            this.customPanel3.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel3.Controls.Add(this.otherTextBox);
-            this.customPanel3.Controls.Add(this.otherLabel);
-            this.customPanel3.Controls.Add(this.operatorTextBox);
-            this.customPanel3.Controls.Add(this.createReportButton);
-            this.customPanel3.Controls.Add(this.testObjectTextBox);
-            this.customPanel3.Controls.Add(this.exportValuesButton);
-            this.customPanel3.Controls.Add(this.operatorLabel);
-            this.customPanel3.Controls.Add(this.testObjectLabel);
-            this.customPanel3.Controls.Add(this.dateLabel);
-            this.customPanel3.Controls.Add(this.dateTextBox);
-            this.customPanel3.Controls.Add(this.label1);
-            this.customPanel3.CornerRadius = 40;
-            this.customPanel3.IsPopUp = false;
-            this.customPanel3.Location = new System.Drawing.Point(1427, 266);
-            this.customPanel3.Name = "customPanel3";
-            this.customPanel3.Size = new System.Drawing.Size(432, 505);
-            this.customPanel3.TabIndex = 4;
-            // 
-            // otherTextBox
-            // 
-            this.otherTextBox.Location = new System.Drawing.Point(161, 245);
-            this.otherTextBox.Multiline = true;
-            this.otherTextBox.Name = "otherTextBox";
-            this.otherTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.otherTextBox.Size = new System.Drawing.Size(222, 135);
-            this.otherTextBox.TabIndex = 16;
-            // 
-            // otherLabel
-            // 
-            this.otherLabel.AutoSize = true;
-            this.otherLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.otherLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.otherLabel.Location = new System.Drawing.Point(35, 245);
-            this.otherLabel.Name = "otherLabel";
-            this.otherLabel.Size = new System.Drawing.Size(69, 26);
-            this.otherLabel.TabIndex = 15;
-            this.otherLabel.Text = "OTHER";
-            // 
-            // operatorTextBox
-            // 
-            this.operatorTextBox.Location = new System.Drawing.Point(161, 131);
-            this.operatorTextBox.Multiline = true;
-            this.operatorTextBox.Name = "operatorTextBox";
-            this.operatorTextBox.Size = new System.Drawing.Size(222, 26);
-            this.operatorTextBox.TabIndex = 14;
-            // 
-            // testObjectTextBox
-            // 
-            this.testObjectTextBox.Location = new System.Drawing.Point(161, 177);
-            this.testObjectTextBox.Multiline = true;
-            this.testObjectTextBox.Name = "testObjectTextBox";
-            this.testObjectTextBox.Size = new System.Drawing.Size(222, 48);
-            this.testObjectTextBox.TabIndex = 13;
-            // 
-            // operatorLabel
-            // 
-            this.operatorLabel.AutoSize = true;
-            this.operatorLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.operatorLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.operatorLabel.Location = new System.Drawing.Point(35, 131);
-            this.operatorLabel.Name = "operatorLabel";
-            this.operatorLabel.Size = new System.Drawing.Size(102, 26);
-            this.operatorLabel.TabIndex = 12;
-            this.operatorLabel.Text = "OPERATOR";
-            // 
-            // testObjectLabel
-            // 
-            this.testObjectLabel.AutoSize = true;
-            this.testObjectLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.testObjectLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.testObjectLabel.Location = new System.Drawing.Point(35, 177);
-            this.testObjectLabel.Name = "testObjectLabel";
-            this.testObjectLabel.Size = new System.Drawing.Size(120, 26);
-            this.testObjectLabel.TabIndex = 11;
-            this.testObjectLabel.Text = "TEST OBJECT";
-            // 
-            // dateLabel
-            // 
-            this.dateLabel.AutoSize = true;
-            this.dateLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.dateLabel.Location = new System.Drawing.Point(35, 85);
-            this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Size = new System.Drawing.Size(55, 26);
-            this.dateLabel.TabIndex = 10;
-            this.dateLabel.Text = "DATE";
-            // 
-            // dateTextBox
-            // 
-            this.dateTextBox.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTextBox.Location = new System.Drawing.Point(161, 85);
-            this.dateTextBox.Multiline = true;
-            this.dateTextBox.Name = "dateTextBox";
-            this.dateTextBox.Size = new System.Drawing.Size(222, 26);
-            this.dateTextBox.TabIndex = 7;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label1.Location = new System.Drawing.Point(23, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(121, 18);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "REPORT INFO";
-            // 
-            // customPanel4
-            // 
-            this.customPanel4.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel4.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel4.Controls.Add(this.label4);
-            this.customPanel4.Controls.Add(this.testDurationTextBox);
-            this.customPanel4.Controls.Add(this.label2);
-            this.customPanel4.Controls.Add(this.pictureBox2);
-            this.customPanel4.CornerRadius = 40;
-            this.customPanel4.IsPopUp = false;
-            this.customPanel4.Location = new System.Drawing.Point(3, 266);
-            this.customPanel4.Name = "customPanel4";
-            this.customPanel4.Size = new System.Drawing.Size(224, 254);
-            this.customPanel4.TabIndex = 5;
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Calibri", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.label4.Location = new System.Drawing.Point(156, 53);
-            this.label4.Margin = new System.Windows.Forms.Padding(0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(49, 41);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "s";
-            // 
-            // testDurationTextBox
-            // 
-            this.testDurationTextBox.AllowDecimals = true;
-            this.testDurationTextBox.AllowText = false;
-            this.testDurationTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.testDurationTextBox.BackgroundColor = System.Drawing.Color.White;
-            this.testDurationTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.testDurationTextBox.CornerRadius = 25;
-            this.testDurationTextBox.Decimals = 0;
-            this.testDurationTextBox.IsPopUp = false;
-            this.testDurationTextBox.Location = new System.Drawing.Point(21, 183);
-            this.testDurationTextBox.Max = 1800D;
-            this.testDurationTextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.testDurationTextBox.Min = 5D;
-            this.testDurationTextBox.MinimumSize = new System.Drawing.Size(170, 50);
-            this.testDurationTextBox.Name = "testDurationTextBox";
-            this.testDurationTextBox.Size = new System.Drawing.Size(170, 50);
-            this.testDurationTextBox.TabIndex = 4;
-            this.testDurationTextBox.TextBoxHint = "";
-            this.testDurationTextBox.Value = 60F;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label2.Location = new System.Drawing.Point(21, 18);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 18);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "TEST DURATION";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::HV9104_GUI.Properties.Resources.StopWatchGrey;
-            this.pictureBox2.Location = new System.Drawing.Point(51, 53);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(111, 115);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
-            // 
-            // customPanel5
-            // 
-            this.customPanel5.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel5.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel5.Controls.Add(this.label16);
-            this.customPanel5.Controls.Add(this.testVoltageTextBox);
-            this.customPanel5.Controls.Add(this.label3);
-            this.customPanel5.Controls.Add(this.pictureBox3);
-            this.customPanel5.CornerRadius = 40;
-            this.customPanel5.IsPopUp = false;
-            this.customPanel5.Location = new System.Drawing.Point(255, 266);
-            this.customPanel5.Name = "customPanel5";
-            this.customPanel5.Size = new System.Drawing.Size(224, 254);
-            this.customPanel5.TabIndex = 6;
-            // 
-            // label16
-            // 
-            this.label16.Font = new System.Drawing.Font("Calibri", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.label16.Location = new System.Drawing.Point(145, 53);
-            this.label16.Margin = new System.Windows.Forms.Padding(0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(49, 41);
-            this.label16.TabIndex = 6;
-            this.label16.Text = "kV";
-            // 
-            // testVoltageTextBox
-            // 
-            this.testVoltageTextBox.AllowDecimals = true;
-            this.testVoltageTextBox.AllowText = false;
-            this.testVoltageTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.testVoltageTextBox.BackgroundColor = System.Drawing.Color.White;
-            this.testVoltageTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.testVoltageTextBox.CornerRadius = 25;
-            this.testVoltageTextBox.Decimals = 2;
-            this.testVoltageTextBox.IsPopUp = false;
-            this.testVoltageTextBox.Location = new System.Drawing.Point(24, 183);
-            this.testVoltageTextBox.Max = 400D;
-            this.testVoltageTextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.testVoltageTextBox.Min = 5D;
-            this.testVoltageTextBox.MinimumSize = new System.Drawing.Size(170, 50);
-            this.testVoltageTextBox.Name = "testVoltageTextBox";
-            this.testVoltageTextBox.Size = new System.Drawing.Size(170, 50);
-            this.testVoltageTextBox.TabIndex = 5;
-            this.testVoltageTextBox.TextBoxHint = "";
-            this.testVoltageTextBox.Value = 33F;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label3.Location = new System.Drawing.Point(20, 18);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(131, 18);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "TEST VOLTAGE";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::HV9104_GUI.Properties.Resources.lightningBoltGrey;
-            this.pictureBox3.Location = new System.Drawing.Point(51, 53);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(111, 115);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 2;
-            this.pictureBox3.TabStop = false;
-            // 
-            // customPanel7
-            // 
-            this.customPanel7.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel7.Controls.Add(this.impPerLevelTextBox);
-            this.customPanel7.Controls.Add(this.voltageLevelsTextBox);
-            this.customPanel7.Controls.Add(this.impPerLevelLabel);
-            this.customPanel7.Controls.Add(this.voltLevelsLabel);
-            this.customPanel7.Controls.Add(this.label8);
-            this.customPanel7.CornerRadius = 40;
-            this.customPanel7.IsPopUp = false;
-            this.customPanel7.Location = new System.Drawing.Point(8, 542);
-            this.customPanel7.Name = "customPanel7";
-            this.customPanel7.Size = new System.Drawing.Size(471, 229);
-            this.customPanel7.TabIndex = 8;
-            // 
-            // impPerLevelTextBox
-            // 
-            this.impPerLevelTextBox.AllowDecimals = true;
-            this.impPerLevelTextBox.AllowText = false;
-            this.impPerLevelTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.impPerLevelTextBox.BackgroundColor = System.Drawing.Color.White;
-            this.impPerLevelTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.impPerLevelTextBox.CornerRadius = 25;
-            this.impPerLevelTextBox.Decimals = 0;
-            this.impPerLevelTextBox.IsPopUp = false;
-            this.impPerLevelTextBox.Location = new System.Drawing.Point(270, 147);
-            this.impPerLevelTextBox.Max = 50D;
-            this.impPerLevelTextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impPerLevelTextBox.Min = 1D;
-            this.impPerLevelTextBox.MinimumSize = new System.Drawing.Size(170, 50);
-            this.impPerLevelTextBox.Name = "impPerLevelTextBox";
-            this.impPerLevelTextBox.Size = new System.Drawing.Size(170, 50);
-            this.impPerLevelTextBox.TabIndex = 11;
-            this.impPerLevelTextBox.TextBoxHint = "";
-            this.impPerLevelTextBox.Value = 1F;
-            // 
-            // voltageLevelsTextBox
-            // 
-            this.voltageLevelsTextBox.AllowDecimals = true;
-            this.voltageLevelsTextBox.AllowText = false;
-            this.voltageLevelsTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.voltageLevelsTextBox.BackgroundColor = System.Drawing.Color.White;
-            this.voltageLevelsTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.voltageLevelsTextBox.CornerRadius = 25;
-            this.voltageLevelsTextBox.Decimals = 0;
-            this.voltageLevelsTextBox.IsPopUp = false;
-            this.voltageLevelsTextBox.Location = new System.Drawing.Point(270, 91);
-            this.voltageLevelsTextBox.Max = 20D;
-            this.voltageLevelsTextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.voltageLevelsTextBox.Min = 1D;
-            this.voltageLevelsTextBox.MinimumSize = new System.Drawing.Size(170, 50);
-            this.voltageLevelsTextBox.Name = "voltageLevelsTextBox";
-            this.voltageLevelsTextBox.Size = new System.Drawing.Size(170, 50);
-            this.voltageLevelsTextBox.TabIndex = 10;
-            this.voltageLevelsTextBox.TextBoxHint = "";
-            this.voltageLevelsTextBox.Value = 10F;
-            // 
-            // impPerLevelLabel
-            // 
-            this.impPerLevelLabel.AutoSize = true;
-            this.impPerLevelLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.impPerLevelLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.impPerLevelLabel.Location = new System.Drawing.Point(14, 159);
-            this.impPerLevelLabel.Name = "impPerLevelLabel";
-            this.impPerLevelLabel.Size = new System.Drawing.Size(188, 29);
-            this.impPerLevelLabel.TabIndex = 9;
-            this.impPerLevelLabel.Text = "IMPULSES / LEVEL";
-            // 
-            // voltLevelsLabel
-            // 
-            this.voltLevelsLabel.AutoSize = true;
-            this.voltLevelsLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.voltLevelsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.voltLevelsLabel.Location = new System.Drawing.Point(14, 101);
-            this.voltLevelsLabel.Name = "voltLevelsLabel";
-            this.voltLevelsLabel.Size = new System.Drawing.Size(241, 29);
-            this.voltLevelsLabel.TabIndex = 8;
-            this.voltLevelsLabel.Text = "TOTAL VOLTAGE LEVELS";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label8.Location = new System.Drawing.Point(16, 17);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(273, 18);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "IMPULSE TESTING PARAMETERS";
             // 
             // customPanel8
             // 
@@ -957,6 +315,746 @@
             this.acValueLabel.Text = "0.0";
             this.acValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // customPanel7
+            // 
+            this.customPanel7.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel7.Controls.Add(this.impPerLevelTextBox);
+            this.customPanel7.Controls.Add(this.voltageLevelsTextBox);
+            this.customPanel7.Controls.Add(this.impPerLevelLabel);
+            this.customPanel7.Controls.Add(this.voltLevelsLabel);
+            this.customPanel7.Controls.Add(this.label8);
+            this.customPanel7.CornerRadius = 40;
+            this.customPanel7.IsPopUp = false;
+            this.customPanel7.Location = new System.Drawing.Point(10, 611);
+            this.customPanel7.Name = "customPanel7";
+            this.customPanel7.Size = new System.Drawing.Size(471, 160);
+            this.customPanel7.TabIndex = 8;
+            // 
+            // impPerLevelTextBox
+            // 
+            this.impPerLevelTextBox.AllowDecimals = true;
+            this.impPerLevelTextBox.AllowText = false;
+            this.impPerLevelTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.impPerLevelTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.impPerLevelTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.impPerLevelTextBox.CornerRadius = 25;
+            this.impPerLevelTextBox.Decimals = 0;
+            this.impPerLevelTextBox.IsPopUp = false;
+            this.impPerLevelTextBox.Location = new System.Drawing.Point(271, 99);
+            this.impPerLevelTextBox.Max = 50D;
+            this.impPerLevelTextBox.MaximumSize = new System.Drawing.Size(400, 50);
+            this.impPerLevelTextBox.Min = 1D;
+            this.impPerLevelTextBox.MinimumSize = new System.Drawing.Size(170, 50);
+            this.impPerLevelTextBox.Name = "impPerLevelTextBox";
+            this.impPerLevelTextBox.Size = new System.Drawing.Size(170, 50);
+            this.impPerLevelTextBox.TabIndex = 11;
+            this.impPerLevelTextBox.TextBoxHint = "";
+            this.impPerLevelTextBox.Value = 1F;
+            // 
+            // voltageLevelsTextBox
+            // 
+            this.voltageLevelsTextBox.AllowDecimals = true;
+            this.voltageLevelsTextBox.AllowText = false;
+            this.voltageLevelsTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.voltageLevelsTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.voltageLevelsTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.voltageLevelsTextBox.CornerRadius = 25;
+            this.voltageLevelsTextBox.Decimals = 0;
+            this.voltageLevelsTextBox.IsPopUp = false;
+            this.voltageLevelsTextBox.Location = new System.Drawing.Point(271, 43);
+            this.voltageLevelsTextBox.Max = 20D;
+            this.voltageLevelsTextBox.MaximumSize = new System.Drawing.Size(400, 50);
+            this.voltageLevelsTextBox.Min = 1D;
+            this.voltageLevelsTextBox.MinimumSize = new System.Drawing.Size(170, 50);
+            this.voltageLevelsTextBox.Name = "voltageLevelsTextBox";
+            this.voltageLevelsTextBox.Size = new System.Drawing.Size(170, 50);
+            this.voltageLevelsTextBox.TabIndex = 10;
+            this.voltageLevelsTextBox.TextBoxHint = "";
+            this.voltageLevelsTextBox.Value = 10F;
+            // 
+            // impPerLevelLabel
+            // 
+            this.impPerLevelLabel.AutoSize = true;
+            this.impPerLevelLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.impPerLevelLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.impPerLevelLabel.Location = new System.Drawing.Point(15, 111);
+            this.impPerLevelLabel.Name = "impPerLevelLabel";
+            this.impPerLevelLabel.Size = new System.Drawing.Size(188, 29);
+            this.impPerLevelLabel.TabIndex = 9;
+            this.impPerLevelLabel.Text = "IMPULSES / LEVEL";
+            // 
+            // voltLevelsLabel
+            // 
+            this.voltLevelsLabel.AutoSize = true;
+            this.voltLevelsLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.voltLevelsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.voltLevelsLabel.Location = new System.Drawing.Point(15, 53);
+            this.voltLevelsLabel.Name = "voltLevelsLabel";
+            this.voltLevelsLabel.Size = new System.Drawing.Size(241, 29);
+            this.voltLevelsLabel.TabIndex = 8;
+            this.voltLevelsLabel.Text = "TOTAL VOLTAGE LEVELS";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label8.Location = new System.Drawing.Point(16, 17);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(273, 18);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "IMPULSE TESTING PARAMETERS";
+            // 
+            // customPanel5
+            // 
+            this.customPanel5.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel5.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel5.Controls.Add(this.testVoltageLevelLabel);
+            this.customPanel5.Controls.Add(this.toleranceLabel);
+            this.customPanel5.Controls.Add(this.toleranceTextBox);
+            this.customPanel5.Controls.Add(this.label16);
+            this.customPanel5.Controls.Add(this.testVoltageTextBox);
+            this.customPanel5.Controls.Add(this.label3);
+            this.customPanel5.Controls.Add(this.pictureBox3);
+            this.customPanel5.CornerRadius = 40;
+            this.customPanel5.IsPopUp = false;
+            this.customPanel5.Location = new System.Drawing.Point(255, 266);
+            this.customPanel5.Name = "customPanel5";
+            this.customPanel5.Size = new System.Drawing.Size(224, 325);
+            this.customPanel5.TabIndex = 6;
+            // 
+            // testVoltageLevelLabel
+            // 
+            this.testVoltageLevelLabel.AutoSize = true;
+            this.testVoltageLevelLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testVoltageLevelLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.testVoltageLevelLabel.Location = new System.Drawing.Point(69, 167);
+            this.testVoltageLevelLabel.Name = "testVoltageLevelLabel";
+            this.testVoltageLevelLabel.Size = new System.Drawing.Size(85, 15);
+            this.testVoltageLevelLabel.TabIndex = 14;
+            this.testVoltageLevelLabel.Text = "VOLTAGE LEVEL";
+            // 
+            // toleranceLabel
+            // 
+            this.toleranceLabel.AutoSize = true;
+            this.toleranceLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toleranceLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.toleranceLabel.Location = new System.Drawing.Point(67, 241);
+            this.toleranceLabel.Name = "toleranceLabel";
+            this.toleranceLabel.Size = new System.Drawing.Size(88, 15);
+            this.toleranceLabel.TabIndex = 13;
+            this.toleranceLabel.Text = "TOLERANCE (%)";
+            // 
+            // toleranceTextBox
+            // 
+            this.toleranceTextBox.AllowDecimals = true;
+            this.toleranceTextBox.AllowText = false;
+            this.toleranceTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.toleranceTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.toleranceTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.toleranceTextBox.CornerRadius = 25;
+            this.toleranceTextBox.Decimals = 2;
+            this.toleranceTextBox.IsPopUp = false;
+            this.toleranceTextBox.Location = new System.Drawing.Point(26, 258);
+            this.toleranceTextBox.Max = 30D;
+            this.toleranceTextBox.MaximumSize = new System.Drawing.Size(400, 50);
+            this.toleranceTextBox.Min = 0.1D;
+            this.toleranceTextBox.MinimumSize = new System.Drawing.Size(170, 50);
+            this.toleranceTextBox.Name = "toleranceTextBox";
+            this.toleranceTextBox.Size = new System.Drawing.Size(170, 50);
+            this.toleranceTextBox.TabIndex = 12;
+            this.toleranceTextBox.TextBoxHint = "";
+            this.toleranceTextBox.Value = 0.15F;
+            // 
+            // label16
+            // 
+            this.label16.Font = new System.Drawing.Font("Calibri", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.label16.Location = new System.Drawing.Point(141, 47);
+            this.label16.Margin = new System.Windows.Forms.Padding(0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(49, 41);
+            this.label16.TabIndex = 6;
+            this.label16.Text = "kV";
+            // 
+            // testVoltageTextBox
+            // 
+            this.testVoltageTextBox.AllowDecimals = true;
+            this.testVoltageTextBox.AllowText = false;
+            this.testVoltageTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.testVoltageTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.testVoltageTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.testVoltageTextBox.CornerRadius = 25;
+            this.testVoltageTextBox.Decimals = 2;
+            this.testVoltageTextBox.IsPopUp = false;
+            this.testVoltageTextBox.Location = new System.Drawing.Point(26, 185);
+            this.testVoltageTextBox.Max = 400D;
+            this.testVoltageTextBox.MaximumSize = new System.Drawing.Size(400, 50);
+            this.testVoltageTextBox.Min = 5D;
+            this.testVoltageTextBox.MinimumSize = new System.Drawing.Size(170, 50);
+            this.testVoltageTextBox.Name = "testVoltageTextBox";
+            this.testVoltageTextBox.Size = new System.Drawing.Size(170, 50);
+            this.testVoltageTextBox.TabIndex = 5;
+            this.testVoltageTextBox.TextBoxHint = "";
+            this.testVoltageTextBox.Value = 33F;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label3.Location = new System.Drawing.Point(20, 18);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(131, 18);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "TEST VOLTAGE";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::HV9104_GUI.Properties.Resources.lightningBoltGrey;
+            this.pictureBox3.Location = new System.Drawing.Point(47, 47);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(111, 115);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 2;
+            this.pictureBox3.TabStop = false;
+            // 
+            // customPanel4
+            // 
+            this.customPanel4.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel4.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel4.Controls.Add(this.testDurationSign);
+            this.customPanel4.Controls.Add(this.sampleRateLabel);
+            this.customPanel4.Controls.Add(this.sampleRateTextBox);
+            this.customPanel4.Controls.Add(this.label4);
+            this.customPanel4.Controls.Add(this.testDurationTextBox);
+            this.customPanel4.Controls.Add(this.testTimeLabel);
+            this.customPanel4.Controls.Add(this.pictureBox2);
+            this.customPanel4.CornerRadius = 40;
+            this.customPanel4.IsPopUp = false;
+            this.customPanel4.Location = new System.Drawing.Point(10, 266);
+            this.customPanel4.Name = "customPanel4";
+            this.customPanel4.Size = new System.Drawing.Size(217, 325);
+            this.customPanel4.TabIndex = 5;
+            // 
+            // testDurationSign
+            // 
+            this.testDurationSign.AutoSize = true;
+            this.testDurationSign.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testDurationSign.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.testDurationSign.Location = new System.Drawing.Point(78, 167);
+            this.testDurationSign.Name = "testDurationSign";
+            this.testDurationSign.Size = new System.Drawing.Size(63, 15);
+            this.testDurationSign.TabIndex = 12;
+            this.testDurationSign.Text = "DURATION";
+            // 
+            // sampleRateLabel
+            // 
+            this.sampleRateLabel.AutoSize = true;
+            this.sampleRateLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sampleRateLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.sampleRateLabel.Location = new System.Drawing.Point(59, 241);
+            this.sampleRateLabel.Name = "sampleRateLabel";
+            this.sampleRateLabel.Size = new System.Drawing.Size(94, 15);
+            this.sampleRateLabel.TabIndex = 11;
+            this.sampleRateLabel.Text = "SAMPLE RATE (s)";
+            // 
+            // sampleRateTextBox
+            // 
+            this.sampleRateTextBox.AllowDecimals = true;
+            this.sampleRateTextBox.AllowText = false;
+            this.sampleRateTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.sampleRateTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.sampleRateTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.sampleRateTextBox.CornerRadius = 25;
+            this.sampleRateTextBox.Decimals = 2;
+            this.sampleRateTextBox.IsPopUp = false;
+            this.sampleRateTextBox.Location = new System.Drawing.Point(21, 258);
+            this.sampleRateTextBox.Max = 600D;
+            this.sampleRateTextBox.MaximumSize = new System.Drawing.Size(400, 50);
+            this.sampleRateTextBox.Min = 0.02D;
+            this.sampleRateTextBox.MinimumSize = new System.Drawing.Size(170, 50);
+            this.sampleRateTextBox.Name = "sampleRateTextBox";
+            this.sampleRateTextBox.Size = new System.Drawing.Size(170, 50);
+            this.sampleRateTextBox.TabIndex = 8;
+            this.sampleRateTextBox.TextBoxHint = "";
+            this.sampleRateTextBox.Value = 0.5F;
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Calibri", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.label4.Location = new System.Drawing.Point(156, 53);
+            this.label4.Margin = new System.Windows.Forms.Padding(0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(49, 41);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "s";
+            // 
+            // testDurationTextBox
+            // 
+            this.testDurationTextBox.AllowDecimals = true;
+            this.testDurationTextBox.AllowText = false;
+            this.testDurationTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.testDurationTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.testDurationTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.testDurationTextBox.CornerRadius = 25;
+            this.testDurationTextBox.Decimals = 0;
+            this.testDurationTextBox.IsPopUp = false;
+            this.testDurationTextBox.Location = new System.Drawing.Point(24, 185);
+            this.testDurationTextBox.Max = 1800D;
+            this.testDurationTextBox.MaximumSize = new System.Drawing.Size(400, 50);
+            this.testDurationTextBox.Min = 5D;
+            this.testDurationTextBox.MinimumSize = new System.Drawing.Size(170, 50);
+            this.testDurationTextBox.Name = "testDurationTextBox";
+            this.testDurationTextBox.Size = new System.Drawing.Size(170, 50);
+            this.testDurationTextBox.TabIndex = 4;
+            this.testDurationTextBox.TextBoxHint = "";
+            this.testDurationTextBox.Value = 60F;
+            // 
+            // testTimeLabel
+            // 
+            this.testTimeLabel.AutoSize = true;
+            this.testTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testTimeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.testTimeLabel.Location = new System.Drawing.Point(21, 18);
+            this.testTimeLabel.Name = "testTimeLabel";
+            this.testTimeLabel.Size = new System.Drawing.Size(140, 18);
+            this.testTimeLabel.TabIndex = 3;
+            this.testTimeLabel.Text = "TEST DURATION";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::HV9104_GUI.Properties.Resources.StopWatchGrey;
+            this.pictureBox2.Location = new System.Drawing.Point(50, 47);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(111, 115);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // customPanel3
+            // 
+            this.customPanel3.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel3.Controls.Add(this.otherTextBox);
+            this.customPanel3.Controls.Add(this.otherLabel);
+            this.customPanel3.Controls.Add(this.operatorTextBox);
+            this.customPanel3.Controls.Add(this.createReportButton);
+            this.customPanel3.Controls.Add(this.testObjectTextBox);
+            this.customPanel3.Controls.Add(this.exportValuesButton);
+            this.customPanel3.Controls.Add(this.operatorLabel);
+            this.customPanel3.Controls.Add(this.testObjectLabel);
+            this.customPanel3.Controls.Add(this.dateLabel);
+            this.customPanel3.Controls.Add(this.dateTextBox);
+            this.customPanel3.Controls.Add(this.label1);
+            this.customPanel3.CornerRadius = 40;
+            this.customPanel3.IsPopUp = false;
+            this.customPanel3.Location = new System.Drawing.Point(1427, 266);
+            this.customPanel3.Name = "customPanel3";
+            this.customPanel3.Size = new System.Drawing.Size(432, 505);
+            this.customPanel3.TabIndex = 4;
+            // 
+            // otherTextBox
+            // 
+            this.otherTextBox.Location = new System.Drawing.Point(161, 245);
+            this.otherTextBox.Multiline = true;
+            this.otherTextBox.Name = "otherTextBox";
+            this.otherTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.otherTextBox.Size = new System.Drawing.Size(222, 135);
+            this.otherTextBox.TabIndex = 16;
+            // 
+            // otherLabel
+            // 
+            this.otherLabel.AutoSize = true;
+            this.otherLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.otherLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.otherLabel.Location = new System.Drawing.Point(35, 245);
+            this.otherLabel.Name = "otherLabel";
+            this.otherLabel.Size = new System.Drawing.Size(69, 26);
+            this.otherLabel.TabIndex = 15;
+            this.otherLabel.Text = "OTHER";
+            // 
+            // operatorTextBox
+            // 
+            this.operatorTextBox.Location = new System.Drawing.Point(161, 131);
+            this.operatorTextBox.Multiline = true;
+            this.operatorTextBox.Name = "operatorTextBox";
+            this.operatorTextBox.Size = new System.Drawing.Size(222, 26);
+            this.operatorTextBox.TabIndex = 14;
+            // 
+            // createReportButton
+            // 
+            this.createReportButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.createReportButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.createReportButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.createReportButton.ForeColor = System.Drawing.Color.White;
+            this.createReportButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.createReportButton.Location = new System.Drawing.Point(40, 406);
+            this.createReportButton.Name = "createReportButton";
+            this.createReportButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.createReportButton.Size = new System.Drawing.Size(158, 57);
+            this.createReportButton.TabIndex = 14;
+            this.createReportButton.Text = "CREATE REPORT";
+            // 
+            // testObjectTextBox
+            // 
+            this.testObjectTextBox.Location = new System.Drawing.Point(161, 177);
+            this.testObjectTextBox.Multiline = true;
+            this.testObjectTextBox.Name = "testObjectTextBox";
+            this.testObjectTextBox.Size = new System.Drawing.Size(222, 48);
+            this.testObjectTextBox.TabIndex = 13;
+            // 
+            // exportValuesButton
+            // 
+            this.exportValuesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.exportValuesButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.exportValuesButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exportValuesButton.ForeColor = System.Drawing.Color.White;
+            this.exportValuesButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.exportValuesButton.Location = new System.Drawing.Point(236, 406);
+            this.exportValuesButton.Name = "exportValuesButton";
+            this.exportValuesButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.exportValuesButton.Size = new System.Drawing.Size(158, 57);
+            this.exportValuesButton.TabIndex = 13;
+            this.exportValuesButton.Text = "EXPORT VALUES";
+            // 
+            // operatorLabel
+            // 
+            this.operatorLabel.AutoSize = true;
+            this.operatorLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.operatorLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.operatorLabel.Location = new System.Drawing.Point(35, 131);
+            this.operatorLabel.Name = "operatorLabel";
+            this.operatorLabel.Size = new System.Drawing.Size(102, 26);
+            this.operatorLabel.TabIndex = 12;
+            this.operatorLabel.Text = "OPERATOR";
+            // 
+            // testObjectLabel
+            // 
+            this.testObjectLabel.AutoSize = true;
+            this.testObjectLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testObjectLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.testObjectLabel.Location = new System.Drawing.Point(35, 177);
+            this.testObjectLabel.Name = "testObjectLabel";
+            this.testObjectLabel.Size = new System.Drawing.Size(120, 26);
+            this.testObjectLabel.TabIndex = 11;
+            this.testObjectLabel.Text = "TEST OBJECT";
+            // 
+            // dateLabel
+            // 
+            this.dateLabel.AutoSize = true;
+            this.dateLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.dateLabel.Location = new System.Drawing.Point(35, 85);
+            this.dateLabel.Name = "dateLabel";
+            this.dateLabel.Size = new System.Drawing.Size(55, 26);
+            this.dateLabel.TabIndex = 10;
+            this.dateLabel.Text = "DATE";
+            // 
+            // dateTextBox
+            // 
+            this.dateTextBox.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTextBox.Location = new System.Drawing.Point(161, 85);
+            this.dateTextBox.Multiline = true;
+            this.dateTextBox.Name = "dateTextBox";
+            this.dateTextBox.Size = new System.Drawing.Size(222, 26);
+            this.dateTextBox.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label1.Location = new System.Drawing.Point(23, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(121, 18);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "REPORT INFO";
+            // 
+            // customPanel2
+            // 
+            this.customPanel2.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel2.Controls.Add(this.voltageComboBox);
+            this.customPanel2.Controls.Add(this.label20);
+            this.customPanel2.Controls.Add(this.label23);
+            this.customPanel2.Controls.Add(this.label21);
+            this.customPanel2.Controls.Add(this.DisruptiveRadioButton);
+            this.customPanel2.Controls.Add(this.WithstandRadioButton);
+            this.customPanel2.CornerRadius = 40;
+            this.customPanel2.IsPopUp = false;
+            this.customPanel2.Location = new System.Drawing.Point(10, 32);
+            this.customPanel2.Name = "customPanel2";
+            this.customPanel2.Size = new System.Drawing.Size(465, 200);
+            this.customPanel2.TabIndex = 3;
+            // 
+            // voltageComboBox
+            // 
+            this.voltageComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.voltageComboBox.Location = new System.Drawing.Point(292, 64);
+            this.voltageComboBox.MaximumSize = new System.Drawing.Size(400, 60);
+            this.voltageComboBox.MinimumSize = new System.Drawing.Size(120, 45);
+            this.voltageComboBox.Name = "voltageComboBox";
+            this.voltageComboBox.setCollection = new string[] {
+        "AC",
+        "DC",
+        "Imp"};
+            this.voltageComboBox.SetSelected = "AC";
+            this.voltageComboBox.Size = new System.Drawing.Size(139, 45);
+            this.voltageComboBox.TabIndex = 4;
+            this.voltageComboBox.Text = "customComboBox1";
+            this.voltageComboBox.TextBoxHint = "";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label20.Location = new System.Drawing.Point(87, 128);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(214, 29);
+            this.label20.TabIndex = 2;
+            this.label20.Text = "Disruptive Discharge";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label23.Location = new System.Drawing.Point(21, 19);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(97, 18);
+            this.label23.TabIndex = 2;
+            this.label23.Text = "TEST TYPE";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label21.Location = new System.Drawing.Point(87, 72);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(116, 29);
+            this.label21.TabIndex = 2;
+            this.label21.Text = "Withstand";
+            // 
+            // DisruptiveRadioButton
+            // 
+            this.DisruptiveRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.DisruptiveRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.DisruptiveRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.DisruptiveRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.DisruptiveRadioButton.isChecked = false;
+            this.DisruptiveRadioButton.Location = new System.Drawing.Point(34, 119);
+            this.DisruptiveRadioButton.Name = "DisruptiveRadioButton";
+            this.DisruptiveRadioButton.Size = new System.Drawing.Size(47, 47);
+            this.DisruptiveRadioButton.TabIndex = 2;
+            this.DisruptiveRadioButton.Text = "customRadioButton1";
+            this.DisruptiveRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
+            // 
+            // WithstandRadioButton
+            // 
+            this.WithstandRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.WithstandRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.WithstandRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.WithstandRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.WithstandRadioButton.isChecked = true;
+            this.WithstandRadioButton.Location = new System.Drawing.Point(34, 63);
+            this.WithstandRadioButton.Name = "WithstandRadioButton";
+            this.WithstandRadioButton.Size = new System.Drawing.Size(47, 47);
+            this.WithstandRadioButton.TabIndex = 2;
+            this.WithstandRadioButton.Text = "customRadioButton1";
+            this.WithstandRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
+            // 
+            // customPanel1
+            // 
+            this.customPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel1.Controls.Add(this.testStatusLabel);
+            this.customPanel1.Controls.Add(this.label15);
+            this.customPanel1.Controls.Add(this.onOffAutoButton);
+            this.customPanel1.Controls.Add(this.abortAutoTestButton);
+            this.customPanel1.Controls.Add(this.passStatusLabel);
+            this.customPanel1.Controls.Add(this.testButton);
+            this.customPanel1.Controls.Add(this.passFailLabel);
+            this.customPanel1.Controls.Add(this.label7);
+            this.customPanel1.Controls.Add(this.secondsUnitLabel);
+            this.customPanel1.Controls.Add(this.testDurationLabel);
+            this.customPanel1.Controls.Add(this.label5);
+            this.customPanel1.Controls.Add(this.autoTestChart);
+            this.customPanel1.CornerRadius = 40;
+            this.customPanel1.IsPopUp = false;
+            this.customPanel1.Location = new System.Drawing.Point(511, 266);
+            this.customPanel1.Name = "customPanel1";
+            this.customPanel1.Size = new System.Drawing.Size(886, 505);
+            this.customPanel1.TabIndex = 1;
+            // 
+            // testStatusLabel
+            // 
+            this.testStatusLabel.AutoSize = true;
+            this.testStatusLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.testStatusLabel.Location = new System.Drawing.Point(513, 454);
+            this.testStatusLabel.Name = "testStatusLabel";
+            this.testStatusLabel.Size = new System.Drawing.Size(103, 19);
+            this.testStatusLabel.TabIndex = 17;
+            this.testStatusLabel.Text = "EVALUATING...\r";
+            this.testStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.testStatusLabel.Visible = false;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label15.Location = new System.Drawing.Point(23, 421);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(124, 26);
+            this.label15.TabIndex = 9;
+            this.label15.Text = "START/PAUSE";
+            // 
+            // onOffAutoButton
+            // 
+            this.onOffAutoButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.onOffAutoButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
+            this.onOffAutoButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
+            this.onOffAutoButton.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
+            this.onOffAutoButton.isChecked = false;
+            this.onOffAutoButton.Location = new System.Drawing.Point(153, 406);
+            this.onOffAutoButton.Name = "onOffAutoButton";
+            this.onOffAutoButton.Size = new System.Drawing.Size(138, 56);
+            this.onOffAutoButton.TabIndex = 10;
+            this.onOffAutoButton.Text = "customCheckBox2";
+            this.onOffAutoButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
+            // 
+            // abortAutoTestButton
+            // 
+            this.abortAutoTestButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.abortAutoTestButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.abortAutoTestButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.abortAutoTestButton.ForeColor = System.Drawing.Color.White;
+            this.abortAutoTestButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.abortAutoTestButton.Location = new System.Drawing.Point(678, 406);
+            this.abortAutoTestButton.Name = "abortAutoTestButton";
+            this.abortAutoTestButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.abortAutoTestButton.Size = new System.Drawing.Size(158, 57);
+            this.abortAutoTestButton.TabIndex = 12;
+            this.abortAutoTestButton.Text = "ABORT";
+            // 
+            // passStatusLabel
+            // 
+            this.passStatusLabel.AutoSize = true;
+            this.passStatusLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.passStatusLabel.Location = new System.Drawing.Point(483, 367);
+            this.passStatusLabel.Name = "passStatusLabel";
+            this.passStatusLabel.Size = new System.Drawing.Size(162, 26);
+            this.passStatusLabel.TabIndex = 15;
+            this.passStatusLabel.Text = "PASS/FAIL STATUS";
+            // 
+            // testButton
+            // 
+            this.testButton.Location = new System.Drawing.Point(15, 366);
+            this.testButton.Name = "testButton";
+            this.testButton.Size = new System.Drawing.Size(118, 51);
+            this.testButton.TabIndex = 2;
+            this.testButton.Text = "addPoints";
+            this.testButton.UseVisualStyleBackColor = true;
+            // 
+            // passFailLabel
+            // 
+            this.passFailLabel.AutoSize = true;
+            this.passFailLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passFailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.passFailLabel.Location = new System.Drawing.Point(483, 385);
+            this.passFailLabel.Name = "passFailLabel";
+            this.passFailLabel.Size = new System.Drawing.Size(162, 78);
+            this.passFailLabel.TabIndex = 16;
+            this.passFailLabel.Text = "PASS";
+            this.passFailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.passFailLabel.Visible = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label7.Location = new System.Drawing.Point(321, 367);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(135, 26);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "ELAPSED TIME";
+            // 
+            // secondsUnitLabel
+            // 
+            this.secondsUnitLabel.AutoSize = true;
+            this.secondsUnitLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.secondsUnitLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.secondsUnitLabel.Location = new System.Drawing.Point(353, 454);
+            this.secondsUnitLabel.Name = "secondsUnitLabel";
+            this.secondsUnitLabel.Size = new System.Drawing.Size(71, 19);
+            this.secondsUnitLabel.TabIndex = 12;
+            this.secondsUnitLabel.Text = "SECONDS";
+            // 
+            // testDurationLabel
+            // 
+            this.testDurationLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testDurationLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.testDurationLabel.Location = new System.Drawing.Point(339, 384);
+            this.testDurationLabel.Name = "testDurationLabel";
+            this.testDurationLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.testDurationLabel.Size = new System.Drawing.Size(99, 80);
+            this.testDurationLabel.TabIndex = 11;
+            this.testDurationLabel.Text = "50";
+            this.testDurationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label5.Location = new System.Drawing.Point(25, 17);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(136, 18);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "TEST CONTROL";
+            // 
+            // autoTestChart
+            // 
+            this.autoTestChart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            chartArea1.AxisX.LineColor = System.Drawing.Color.Transparent;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
+            chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.Transparent;
+            chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea1.AxisY.LineColor = System.Drawing.Color.Transparent;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
+            chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea1.AxisY.MajorTickMark.Enabled = false;
+            chartArea1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            chartArea1.BorderColor = System.Drawing.Color.Transparent;
+            chartArea1.Name = "ChartArea1";
+            this.autoTestChart.ChartAreas.Add(chartArea1);
+            this.autoTestChart.Location = new System.Drawing.Point(64, 50);
+            this.autoTestChart.Name = "autoTestChart";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Name = "Series1";
+            series1.Points.Add(dataPoint1);
+            this.autoTestChart.Series.Add(series1);
+            this.autoTestChart.Size = new System.Drawing.Size(756, 301);
+            this.autoTestChart.TabIndex = 0;
+            this.autoTestChart.Text = "chart1";
+            // 
             // RunView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -973,27 +1071,27 @@
             this.Controls.Add(this.customPanel1);
             this.Name = "RunView";
             this.Size = new System.Drawing.Size(1875, 800);
-            ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).EndInit();
-            this.customPanel1.ResumeLayout(false);
-            this.customPanel1.PerformLayout();
-            this.customPanel2.ResumeLayout(false);
-            this.customPanel2.PerformLayout();
-            this.customPanel3.ResumeLayout(false);
-            this.customPanel3.PerformLayout();
-            this.customPanel4.ResumeLayout(false);
-            this.customPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.customPanel5.ResumeLayout(false);
-            this.customPanel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            this.customPanel7.ResumeLayout(false);
-            this.customPanel7.PerformLayout();
             this.customPanel8.ResumeLayout(false);
             this.customPanel8.PerformLayout();
             this.customPanel9.ResumeLayout(false);
             this.customPanel9.PerformLayout();
             this.customPanel10.ResumeLayout(false);
             this.customPanel10.PerformLayout();
+            this.customPanel7.ResumeLayout(false);
+            this.customPanel7.PerformLayout();
+            this.customPanel5.ResumeLayout(false);
+            this.customPanel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.customPanel4.ResumeLayout(false);
+            this.customPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.customPanel3.ResumeLayout(false);
+            this.customPanel3.PerformLayout();
+            this.customPanel2.ResumeLayout(false);
+            this.customPanel2.PerformLayout();
+            this.customPanel1.ResumeLayout(false);
+            this.customPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1015,10 +1113,8 @@
         public System.Windows.Forms.Label label1;
         private CustomPanel customPanel4;
         private CustomPanel customPanel5;
-        private CustomTextBox testDurationTextBox;
-        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label testTimeLabel;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private CustomTextBox testVoltageTextBox;
         public System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pictureBox3;
         public System.Windows.Forms.Label label4;
@@ -1061,7 +1157,15 @@
         public System.Windows.Forms.Label passFailLabel;
         private System.Windows.Forms.TextBox otherTextBox;
         public System.Windows.Forms.Label otherLabel;
-        private CustomTextBox impPerLevelTextBox;
-        private CustomTextBox voltageLevelsTextBox;
+        public CustomTextBox voltageLevelsTextBox;
+        public CustomTextBox impPerLevelTextBox;
+        public CustomTextBox testVoltageTextBox;
+        public CustomTextBox testDurationTextBox;
+        public CustomTextBox sampleRateTextBox;
+        public System.Windows.Forms.Label toleranceLabel;
+        public CustomTextBox toleranceTextBox;
+        public System.Windows.Forms.Label sampleRateLabel;
+        public System.Windows.Forms.Label testDurationSign;
+        public System.Windows.Forms.Label testVoltageLevelLabel;
     }
 }
