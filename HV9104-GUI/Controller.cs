@@ -62,6 +62,7 @@ namespace HV9104_GUI
         public int trafSpeed = 600;
         public int maxVoltage = 235;
         private double targetVoltage;
+        private string cnt;
 
         public Controller()
         {
@@ -86,7 +87,7 @@ namespace HV9104_GUI
             InitializeDevices();
 
             // Instantiate the class for autorun procedures
-            autoTest = new AutoTest(controlForm.runView, controlForm.dashboardView, PIO1, HV9126, HV9133);
+            autoTest = new AutoTest(controlForm.runView, controlForm.dashboardView, PIO1, HV9126, HV9133, acChannel, dcChannel, impulseChannel);
 
             // If all devices are initialized have communication, start own loop for PLC, stepper motors and aux equipment.
             t = new Thread(CyclicRead);
@@ -489,7 +490,7 @@ namespace HV9104_GUI
             //***                                     DASHBOARD VIEW EVENT LISTENERS                                       ****
             //***********************************************************************************************************
             // 
-            //this.controlForm.runView.Load += new EventHandler(RunView_Load);
+           
             //Output Representation Listeners
             this.controlForm.dashboardView.acOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(acOutputComboBox_valueChange);
             this.controlForm.dashboardView.dcOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(dcOutputComboBox_valueChange);
@@ -546,9 +547,10 @@ namespace HV9104_GUI
             //***********************************************************************************************************
             //***                                  RUNVIEW EVENT LISTENERS                                          *****
             //***********************************************************************************************************
-           
-            
+
+
             //Mode selection listeners
+            this.controlForm.runView.Load += new EventHandler(RunView_Load);
             this.controlForm.runView.WithstandRadioButton.Click += new System.EventHandler(testWithstandRadioButton_Click);
             this.controlForm.runView.DisruptiveRadioButton.Click += new System.EventHandler(testDisruptiveRadioButton_Click);
             this.controlForm.runView.onOffAutoButton.Click += new System.EventHandler(onOffAutoButton_Click);
@@ -557,6 +559,11 @@ namespace HV9104_GUI
             this.controlForm.runView.voltageLevelsTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(voltageLevelsTextBox_valueChange);
             this.controlForm.runView.impPerLevelTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impPerLevelTextBox_valueChange);
             this.controlForm.runView.abortAutoTestButton.Click += new System.EventHandler(abortAutoTestButton_Click);
+            this.controlForm.runView.voltageComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(autoTestVoltageComboBox_valueChange);
+            this.controlForm.runView.acOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(acOutputAutoComboBox_valueChange);
+            this.controlForm.runView.dcOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(dcOutputAutoComboBox_valueChange);
+            this.controlForm.runView.impulseOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseOutputAutoComboBox_valueChange);
+            //this.controlForm.runView.measurementTypeComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(autoTestMeasTypeComboBox_valueChange);
 
             //***********************************************************************************************************
             //***                                  MEASURING FORM EVENT LISTENERS                                   *****
@@ -588,6 +595,23 @@ namespace HV9104_GUI
         }
 
        
+
+
+
+        // Voltage type has been changed in auto test page
+        private void autoTestVoltageComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            // Set the test norification text 
+            GetTestType(); 
+        }
+
+        // Voltage measurement type has been changed in auto test page
+        private void autoTestMeasTypeComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            // Set the test norification text 
+            GetTestType();
+
+        }
 
 
 
@@ -919,36 +943,21 @@ namespace HV9104_GUI
         //***********************************************************************************************************
         //***                                     DASHBOARD VIEW EVENT HANDLERS                                 *****
         //***********************************************************************************************************
-
-        private void RunView_Load(object sender, EventArgs e)
-        {
-            InitializeUIStatus();
-        }
-
+        
         private void acOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-             //representation index: 0 = Vmax, 1 = Vmin, 2 = Vrms, 3 = vpk-vpk, 4 = Vavg
-             int[] selection = { 2, 0, 1, 3 };  
-             acChannel.setRepresentationIndex(selection[(int)e.Value]);
-
+            SetACOutputType((int)e.Value);
         }
 
-          private void dcOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        private void dcOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            //representation index: 0 = Vmax, 1 = Vmin, 2 = Vrms, 3 = vpk-vpk, 4 = Vavg
-              int[] selection = {4,0,1,3};              
-              dcChannel.setRepresentationIndex(selection[(int)e.Value]);
-
+            SetDCOutputType((int)e.Value);
         }
 
-          private void impulseOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        private void impulseOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            //representation index: 0 = Vmax, 1 = Vmin, 2 = Vrms, 3 = vpk-vpk, 4 = Vavg
-            int[] selection = { 0, 1};
-            int[] polarity = { 1, -1 };  
-            impulseChannel.setRepresentationIndex(selection[(int)e.Value]);
-            impulseChannel.Polarity = polarity[(int)e.Value];
-        }
+            SetImpOutputType((int)e.Value);
+        }       
 
         // Update the transformer motor speed parameter
         private void trafSpeedTextBox_valueChange(object sender, ValueChangeEventArgs e)
@@ -1444,17 +1453,31 @@ namespace HV9104_GUI
             EnergizeCompressorOutputRequest();
         }
 
-         //***********************************************************************************************************
-         //***                                  RUNVIEW EVENT HANDLERS                                          *****
-         //***********************************************************************************************************   
-
-        private void voltageComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        //***********************************************************************************************************
+        //***                                  RUNVIEW EVENT HANDLERS                                          *****
+        //***********************************************************************************************************   
+        private void RunView_Load(object sender, EventArgs e)
         {
-            //representation index: 0 = AC, 1 = DC, 2 = Impulse
-            //int[] selection = { 2, 0, 1, 3 };
-            //acChannel.setRepresentationIndex(selection[(int)e.Value]);
-
+            InitializeUIStatus();
         }
+
+        private void impulseOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            SetImpOutputType((int)e.Value);
+        }
+
+        private void dcOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            SetDCOutputType((int)e.Value);
+        }
+
+        private void acOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            SetACOutputType((int)e.Value);
+        }
+
+
+
 
         //***********************************************************************************************************
         //***                                     SETUP VIEW EVENT HANDLERS                                     *****
@@ -2185,19 +2208,35 @@ namespace HV9104_GUI
 
             }
         }
-
-
+        
+        // A test type change has been fired by change or entering form
         public void GetTestType()
         {
             string selectedVoltage = controlForm.runView.voltageComboBox.SetSelected;
+            string selectedMeasType;
 
+            if (selectedVoltage == "AC")
+            {
+                selectedMeasType = "(" + controlForm.runView.acOutputComboBox.SetSelected + ")";
+            }
+            else if (selectedVoltage == "DC")
+            {
+                selectedMeasType = "(" + controlForm.runView.dcOutputComboBox.SetSelected + ")";
+                
+            }
+            else
+            {
+                selectedMeasType = "";
+            }
+
+            
             if (controlForm.runView.WithstandRadioButton.isChecked)
             {
-                this.controlForm.modeLabel.Text = selectedVoltage + " Withstand Voltage Test"; ;
+                this.controlForm.modeLabel.Text = selectedVoltage + selectedMeasType + " Withstand Voltage Test";
             }
             else if (controlForm.runView.DisruptiveRadioButton.isChecked)
             {
-                this.controlForm.modeLabel.Text = selectedVoltage + " Disruptive Discharge Voltage Test";
+                this.controlForm.modeLabel.Text = selectedVoltage + selectedMeasType  + " Disruptive Discharge Voltage Test";
             }
             else
             {
@@ -2205,7 +2244,31 @@ namespace HV9104_GUI
             }
         }
 
+        // Set the voltage type to call when asking for a value
+        private void SetACOutputType(int ind)
+        {
+            //representation index: 0 = Vmax, 1 = Vmin, 2 = Vrms, 3 = vpk-vpk, 4 = Vavg
+            int[] selection = { 2, 0, 1, 3 };
+            acChannel.setRepresentationIndex(selection[ind]);
+        }
 
+        // Set the voltage type to call when asking for a value
+        private void SetDCOutputType(int ind)
+        {
+            //representation index: 0 = Vmax, 1 = Vmin, 2 = Vrms, 3 = vpk-vpk, 4 = Vavg
+            int[] selection = { 4, 0, 1, 3 };
+            dcChannel.setRepresentationIndex(selection[ind]);
+        }
+
+        // Set the voltage type to call when asking for a value
+        private void SetImpOutputType(int ind)
+        {
+            //representation index: 0 = Vmax, 1 = Vmin, 2 = Vrms, 3 = vpk-vpk, 4 = Vavg
+            int[] selection = { 0, 1 };
+            int[] polarity = { 1, -1 };
+            impulseChannel.setRepresentationIndex(selection[ind]);
+            impulseChannel.Polarity = polarity[ind];
+        }
 
     }
 }

@@ -269,6 +269,7 @@
             this.runExperimentTab.TabIndex = 3;
             this.runExperimentTab.Text = "Run Experiment";
             this.runExperimentTab.UnselectedIcon = global::HV9104_GUI.Properties.Resources.playIcon;
+            this.runExperimentTab.Click += new System.EventHandler(this.runExperimentTab_Click);
             // 
             // setupTab
             // 

@@ -18,6 +18,7 @@ namespace HV9104_GUI
         public RunView runView;
         int formX, formY;
         bool moveForm;
+        private int cnt;
 
         public ControlForm()
         {
@@ -138,6 +139,13 @@ namespace HV9104_GUI
         // Dashboard selected
         private void customTab22_Click(object sender, EventArgs e)
         {
+            // Change the ComboBox value in dashboard view to mirror runView
+            dashboardView.acOutputComboBox.SetSelected = runView.acOutputComboBox.SetSelected;
+            dashboardView.acOutputComboBox.Invalidate();
+            dashboardView.dcOutputComboBox.SetSelected = runView.dcOutputComboBox.SetSelected;
+            dashboardView.dcOutputComboBox.Invalidate();
+            dashboardView.impulseOutputComboBox.SetSelected = runView.impulseOutputComboBox.SetSelected;
+            dashboardView.impulseOutputComboBox.Invalidate();
 
         }
 
@@ -145,6 +153,18 @@ namespace HV9104_GUI
         private void customTab21_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void runExperimentTab_Click(object sender, EventArgs e)
+        {
+
+            // Change the ComboBox value in dashboard view to mirror runView
+            runView.acOutputComboBox.SetSelected = dashboardView.acOutputComboBox.SetSelected;
+            runView.acOutputComboBox.Invalidate();
+            runView.dcOutputComboBox.SetSelected = dashboardView.dcOutputComboBox.SetSelected;
+            runView.dcOutputComboBox.Invalidate();
+            runView.impulseOutputComboBox.SetSelected = dashboardView.impulseOutputComboBox.SetSelected;
+            runView.impulseOutputComboBox.Invalidate();
         }
 
         private void restoreDownButton_Click(object sender, EventArgs e)

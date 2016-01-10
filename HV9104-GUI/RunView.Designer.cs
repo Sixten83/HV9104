@@ -82,6 +82,7 @@
             this.dateTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.customPanel2 = new HV9104_GUI.CustomPanel();
+            this.loadLabel = new System.Windows.Forms.Label();
             this.voltageComboBox = new HV9104_GUI.CustomComboBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
@@ -216,8 +217,8 @@
             this.dcOutputComboBox.Name = "dcOutputComboBox";
             this.dcOutputComboBox.setCollection = new string[] {
         "avg",
-        "max",
-        "min",
+        "pk",
+        "pk(-)",
         "pk-pk"};
             this.dcOutputComboBox.SetSelected = "avg";
             this.dcOutputComboBox.Size = new System.Drawing.Size(140, 45);
@@ -272,8 +273,8 @@
             this.acOutputComboBox.Name = "acOutputComboBox";
             this.acOutputComboBox.setCollection = new string[] {
         "rms",
-        "max",
-        "min",
+        "pk",
+        "pk(-)",
         "pk-pk"};
             this.acOutputComboBox.SetSelected = "rms";
             this.acOutputComboBox.Size = new System.Drawing.Size(140, 45);
@@ -330,7 +331,7 @@
             this.customPanel7.IsPopUp = false;
             this.customPanel7.Location = new System.Drawing.Point(10, 611);
             this.customPanel7.Name = "customPanel7";
-            this.customPanel7.Size = new System.Drawing.Size(471, 160);
+            this.customPanel7.Size = new System.Drawing.Size(462, 160);
             this.customPanel7.TabIndex = 8;
             // 
             // impPerLevelTextBox
@@ -422,9 +423,9 @@
             this.customPanel5.Controls.Add(this.pictureBox3);
             this.customPanel5.CornerRadius = 40;
             this.customPanel5.IsPopUp = false;
-            this.customPanel5.Location = new System.Drawing.Point(255, 266);
+            this.customPanel5.Location = new System.Drawing.Point(252, 266);
             this.customPanel5.Name = "customPanel5";
-            this.customPanel5.Size = new System.Drawing.Size(224, 325);
+            this.customPanel5.Size = new System.Drawing.Size(220, 325);
             this.customPanel5.TabIndex = 6;
             // 
             // testVoltageLevelLabel
@@ -558,7 +559,7 @@
             this.sampleRateLabel.AutoSize = true;
             this.sampleRateLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sampleRateLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.sampleRateLabel.Location = new System.Drawing.Point(59, 241);
+            this.sampleRateLabel.Location = new System.Drawing.Point(62, 241);
             this.sampleRateLabel.Name = "sampleRateLabel";
             this.sampleRateLabel.Size = new System.Drawing.Size(94, 15);
             this.sampleRateLabel.TabIndex = 11;
@@ -574,7 +575,7 @@
             this.sampleRateTextBox.CornerRadius = 25;
             this.sampleRateTextBox.Decimals = 2;
             this.sampleRateTextBox.IsPopUp = false;
-            this.sampleRateTextBox.Location = new System.Drawing.Point(21, 258);
+            this.sampleRateTextBox.Location = new System.Drawing.Point(24, 258);
             this.sampleRateTextBox.Max = 600D;
             this.sampleRateTextBox.MaximumSize = new System.Drawing.Size(400, 50);
             this.sampleRateTextBox.Min = 0.02D;
@@ -783,6 +784,7 @@
             this.customPanel2.BackColor = System.Drawing.Color.Transparent;
             this.customPanel2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel2.Controls.Add(this.loadLabel);
             this.customPanel2.Controls.Add(this.voltageComboBox);
             this.customPanel2.Controls.Add(this.label20);
             this.customPanel2.Controls.Add(this.label23);
@@ -795,6 +797,18 @@
             this.customPanel2.Name = "customPanel2";
             this.customPanel2.Size = new System.Drawing.Size(465, 200);
             this.customPanel2.TabIndex = 3;
+            // 
+            // loadLabel
+            // 
+            this.loadLabel.AutoSize = true;
+            this.loadLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loadLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.loadLabel.Location = new System.Drawing.Point(310, 141);
+            this.loadLabel.Name = "loadLabel";
+            this.loadLabel.Size = new System.Drawing.Size(94, 38);
+            this.loadLabel.TabIndex = 18;
+            this.loadLabel.Text = "EVALUATING\r\nPLEASE WAIT";
+            this.loadLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // voltageComboBox
             // 
@@ -818,11 +832,11 @@
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label20.Location = new System.Drawing.Point(87, 128);
+            this.label20.Location = new System.Drawing.Point(99, 121);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(248, 29);
+            this.label20.Size = new System.Drawing.Size(134, 58);
             this.label20.TabIndex = 2;
-            this.label20.Text = "DISRUPTIVE DISCHARGE";
+            this.label20.Text = "DISRUPTIVE \r\nDISCHARGE";
             // 
             // label23
             // 
@@ -840,7 +854,7 @@
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label21.Location = new System.Drawing.Point(87, 72);
+            this.label21.Location = new System.Drawing.Point(103, 71);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(133, 29);
             this.label21.TabIndex = 2;
@@ -853,7 +867,7 @@
             this.DisruptiveRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
             this.DisruptiveRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
             this.DisruptiveRadioButton.isChecked = false;
-            this.DisruptiveRadioButton.Location = new System.Drawing.Point(34, 119);
+            this.DisruptiveRadioButton.Location = new System.Drawing.Point(50, 127);
             this.DisruptiveRadioButton.Name = "DisruptiveRadioButton";
             this.DisruptiveRadioButton.Size = new System.Drawing.Size(47, 47);
             this.DisruptiveRadioButton.TabIndex = 2;
@@ -867,7 +881,7 @@
             this.WithstandRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
             this.WithstandRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
             this.WithstandRadioButton.isChecked = true;
-            this.WithstandRadioButton.Location = new System.Drawing.Point(34, 63);
+            this.WithstandRadioButton.Location = new System.Drawing.Point(50, 62);
             this.WithstandRadioButton.Name = "WithstandRadioButton";
             this.WithstandRadioButton.Size = new System.Drawing.Size(47, 47);
             this.WithstandRadioButton.TabIndex = 2;
@@ -893,9 +907,9 @@
             this.customPanel1.Controls.Add(this.passFailLabel);
             this.customPanel1.CornerRadius = 40;
             this.customPanel1.IsPopUp = false;
-            this.customPanel1.Location = new System.Drawing.Point(511, 266);
+            this.customPanel1.Location = new System.Drawing.Point(497, 266);
             this.customPanel1.Name = "customPanel1";
-            this.customPanel1.Size = new System.Drawing.Size(886, 505);
+            this.customPanel1.Size = new System.Drawing.Size(905, 505);
             this.customPanel1.TabIndex = 1;
             // 
             // passFailUnitlabel
@@ -1176,5 +1190,6 @@
         public System.Windows.Forms.Label testDurationSign;
         public System.Windows.Forms.Label testVoltageLevelLabel;
         public System.Windows.Forms.Label passFailUnitlabel;
+        public System.Windows.Forms.Label loadLabel;
     }
 }

@@ -30,14 +30,28 @@ namespace HV9104_GUI
         private DateTime pauseTime;
         public TimeSpan elapsedTime;
 
+        //Measurement Values
+        Channel acChannel;
+        Channel dcChannel;
+        Channel impChannel;
+        private double actualACVoltage;
+        private double actualDCVoltage;
+        private double actualImpVoltage;
+
         // Experiment variables
         public string testType;
         public string voltageType;
+        public int voltageTypeIndex = 0;
+        public string measurementType;
         public int duration = 60;
         public double testVoltage;
         public double actualVoltage;
         public double toleranceHigh;
         public double toleranceLow;
+
+        ArrayList list = new ArrayList();
+        private Timer updateValueTimer;
+        
 
         public int impulseLevels;
         public int impulsePerLevel;
@@ -66,9 +80,10 @@ namespace HV9104_GUI
         private int sampleNumber;
         ArrayList xList = new ArrayList();
         ArrayList yList = new ArrayList();
+        private Channel actualChannel;
 
         // Contructor
-        public AutoTest(RunView runViewIn, DashBoardView dashboardViewIn, NA9739Device PIO1In, PD1161Device HV9126In, PD1161Device HV9133In)
+        public AutoTest(RunView runViewIn, DashBoardView dashboardViewIn, NA9739Device PIO1In, PD1161Device HV9126In, PD1161Device HV9133In, Channel acChannelIn, Channel dcChannelIn, Channel impulseChannelIn)
         {
             runView = runViewIn;
             dashboardView = dashboardViewIn;
@@ -76,6 +91,10 @@ namespace HV9104_GUI
             PIO1 = PIO1In;
             HV9126 = HV9126In;
             HV9133 = HV9133In;
+            acChannel = acChannelIn;
+            dcChannel = dcChannelIn;
+            impChannel = impulseChannelIn;
+
             updateTimer = new Timer();
             updateTimer.Tick += new EventHandler(this.updateTimer_Tick);
 
@@ -88,27 +107,30 @@ namespace HV9104_GUI
             // Update the chart
             xList.Add((double)0);
             yList.Add((double)0);
-            PresentChart();
+            UpdateChart();
         }
 
         private void updateValueTimer_Tick(object sender, EventArgs e)
         {
-            // Get latest values
-            //runView.acValueLabel.Text = dashboardView.acValuelabel.Text;
-            actualVoltage = Convert.ToDouble(dashboardView.acValueLabel.Text);
-            runView.acValueLabel.Text = actualVoltage.ToString("0.0");
+
+            // Gets the value of the pre-set ac voltage type. 
+            runView.acValueLabel.Text = acChannel.getRepresentation().ToString("0.0");
+            runView.dcValueLabel.Text = dcChannel.getRepresentation().ToString("0.0");
+            runView.impulseValueLabel.Text = impChannel.getRepresentation().ToString("0.0");
+           
+            // Set the regulation value
+            if (runView.voltageComboBox.SetSelected == "AC") actualVoltage = Convert.ToDouble(runView.acValueLabel.Text);
+            else if (runView.voltageComboBox.SetSelected == "DC") actualVoltage = Convert.ToDouble(runView.dcValueLabel.Text);
+            else if (runView.voltageComboBox.SetSelected == "Imp") actualVoltage = Convert.ToDouble(runView.impulseValueLabel.Text);
+
         }
 
         // The timed event where everything is updated
         private void updateTimer_Tick(object sender, EventArgs e)
         {
-           
-            
-            // Add values to the chart
-           // FillChart();
-            
+
             // Update the chart
-            PresentChart();
+            UpdateChart();
 
             // In bounds
             if ((actualVoltage < maxTestVoltage) && (actualVoltage > minTestVoltage))
@@ -152,7 +174,6 @@ namespace HV9104_GUI
                         }
                     }                
                 }
-
             }
 
             // We are running the test but the voltage is too high
@@ -183,13 +204,9 @@ namespace HV9104_GUI
                 // Success!
                 Thread.Sleep(1000);
                 // Update the chart
-                PresentChart();
+                UpdateChart();
                 PassTest();
             }            
-            
-            // Evaluating label 
-           // runView.testStatusLabel.Visible = ((isRunning) && (!parking));
-            runView.testStatusLabel.Invalidate();
         }
 
         // Successfully completed test
@@ -208,7 +225,7 @@ namespace HV9104_GUI
 
             // Update the chart
             Thread.Sleep(2000);
-            PresentChart();
+            UpdateChart();
 
         }
 
@@ -284,23 +301,18 @@ namespace HV9104_GUI
             updateTimer.Interval = msSampleRate;
             updateTimer.Enabled = true;
             updateTimer.Start();
-
-            // Set up test voltage variables
+           
+            // Get test voltage parameters and set tolerances
             testVoltage = Convert.ToDouble(runView.testVoltageTextBox.Value);
             tolerance = testVoltage * (runView.toleranceTextBox.Value / 100);
             maxTestVoltage = testVoltage + tolerance;
             minTestVoltage = testVoltage - tolerance;
-
-            // Get the value to regulate agianst
-            voltageType = runView.voltageComboBox.SetSelected;
            
             // Sample rate[ms], test duration[s]. How many elements required?
             msDuration = duration * 1000;
             requiredElements = (int)(sampleRate * msDuration);
 
-            // Declare the new arrays and reset the sample counter
-            //xArray = new double[requiredElements];
-            //yArray = new double[requiredElements];
+            // Clear the arraylists and reset the sample counter
             xList.Clear();
             yList.Clear();
             sampleNumber = 0;
@@ -365,90 +377,86 @@ namespace HV9104_GUI
             int intCnt = 0;
             int styr = 30;
 
+            voltageType = runView.voltageComboBox.SetSelected;
+                
+            // Set tolerances
+            if (voltageType == "AC") 
+            {
+                toleranceHi = 0.2;
+                toleranceLo = -0.2;
+            }
+            else if (voltageType == "DC")
+            {
+                toleranceHi = 0.15;
+                toleranceLo = -0.15;
+            }
+            else if (voltageType == "Imp")
+            {
+                toleranceHi = 0.15;
+                toleranceLo = -0.15;
+            }
+            else
+            {
+                // Shut down, something is wrong
+                abortRegulation = true;
+                return;
+            }
+
             // Continue until found or precess aborted 
             while (((error <= toleranceLo) || (error >= toleranceHi)) && (runView.onOffAutoButton.isChecked) && (!abortRegulation))
             {
+                // Run only if we have connected the voltage
+                if (PIO1.K2Closed) { 
 
-                // Get the value to regulate agianst
-                if (voltageType == "AC") //&& (PIO1.K2Closed))
-                {
-                    uActual = Convert.ToDouble(runView.acValueLabel.Text);
-                    //uActual = picoScope.channels[0].RMS;
-                    toleranceHi = 0.2;
-                    toleranceLo = -0.2;
-                }
-                else if ((voltageType == "DC") && (PIO1.K2Closed))
-                {
-                    uActual = Convert.ToDouble(runView.dcValueLabel.Text);
-                    toleranceHi = 0.15;
-                    toleranceLo = -0.15;
-                }
-                else if ((voltageType == "Imp") && (PIO1.K2Closed))
-                {
-                    uActual = Convert.ToDouble(runView.impulseValueLabel.Text);
-                    toleranceHi = 0.15;
-                    toleranceLo = -0.15;
-                }
-                else
-                {
-                    // Shut down, something is wrong
-                    abortRegulation = true;
-                    return;
-                }
+                    error = actualVoltage - targetVoltage;
 
-                error = uActual - targetVoltage;
-
-                if (error == previousError)
-                {
-                    integral += 0.1;
-                }
-                else
-                {
-                    //if(integral >= 0.1)
-                    //{
-                    integral = 0;
-                    // }
-                }
-
-
-                // Call the appropriate instruction
-                if (error < toleranceHi)
-                {
-
-                    if ((error <= 3) && (error >= -3))
+                    if (error == previousError)
                     {
-                        styr = 57 + (int)integral;
+                        integral += 0.1;
                     }
                     else
                     {
-                        styr = (int)((error * -k) + 60 + integral);
+                        integral = 0;
                     }
-                    // Voltage low, increase
-                    PIO1.increaseVoltage(styr);
-                }
-                else if (error > toleranceLo)
-                {
 
-                    if ((error <= 3) && (error >= -3))
+                    // Call the appropriate instruction
+                    if (error < toleranceHi)
                     {
-                        styr = 57 + (int)integral;
+
+                        if ((error <= 3) && (error >= -3))
+                        {
+                            styr = 57 + (int)integral;
+                        }
+                        else
+                        {
+                            styr = (int)((error * -k) + 60 + integral);
+                        }
+                        // Voltage low, increase
+                        PIO1.increaseVoltage(styr);
+                    }
+                    else if (error > toleranceLo)
+                    {
+
+                        if ((error <= 3) && (error >= -3))
+                        {
+                            styr = 57 + (int)integral;
+                        }
+                        else
+                        {
+                            styr = (int)((error * k) + 60 + integral);
+                        }
+                        // Voltage high, decrease
+                        PIO1.decreaseVoltage(styr);
                     }
                     else
                     {
-                        styr = (int)((error * k) + 60 + integral);
+                        // In bounds. We should only make it here once
+                        PIO1.StopTransformerMotor();
                     }
-                    // Voltage high, decrease
-                    PIO1.decreaseVoltage(styr);
-                }
-                else
-                {
-                    // In bounds. We should only make it here once
-                    PIO1.StopTransformerMotor();
 
+                    Thread.Sleep(10);
+                    previousError = error;
                 }
-
-                Thread.Sleep(10);
-                previousError = error;
             }
 
             // In bounds. We should only make it here once
@@ -456,15 +464,7 @@ namespace HV9104_GUI
             abortRegulation = true;
         }
 
-        ArrayList list = new ArrayList();
-        private Timer updateValueTimer;
-
-        internal void FillChart()
-        {
-            
-        }
-        
-        internal void PresentChart()
+        internal void UpdateChart()
         {
             xList.Add((double)sampleNumber);
             yList.Add((double)actualVoltage);
@@ -472,10 +472,7 @@ namespace HV9104_GUI
             sampleNumber += 1;
             xArray = (Double[])xList.ToArray(typeof(double));
             yArray = (Double[])yList.ToArray(typeof(double));
-
-            //runView.autoTestChart.Series.ChartType = SeriesChartType.FastLine;
             autoTestChart.Series["Series1"].Points.Clear();
-            //runView.autoTestChart.Series["Series1"].ChartType = SeriesChartType.Line;
             //There are two ways to add points 
             //1) Add points one by one with the AddXY method 
             //runView.autoTestChart.Series["Series1"].Points.AddXY(x[r], y[r]);

@@ -65,6 +65,11 @@ namespace HV9104_GUI
             selectedMember.Text = listMembers[index];
         }
 
+        public int getSelected()
+        {
+            return listMembers.IndexOf(selectedMember.Text);
+        }
+
         public string SetSelected
         {
             set

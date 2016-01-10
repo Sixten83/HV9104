@@ -360,6 +360,7 @@ namespace HV9104_GUI
         {
             this.index = index;
         }
+
         public double getRepresentation()
         {
             return this.representation[index];
