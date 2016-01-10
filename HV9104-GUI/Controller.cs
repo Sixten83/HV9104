@@ -60,9 +60,26 @@ namespace HV9104_GUI
         public bool searchingGap = false;
         private bool abortRegulation = true;
         public int trafSpeed = 600;
-        public int maxVoltage = 235;
+        public double maxVoltage = 235;
         private double targetVoltage;
         private string cnt;
+        int setupNr = 0;
+
+        // Limits
+        public int acInputMax = 230;
+        public double acOutputMax = 140;
+        public double dcOutputMax = 140;
+        public double impOutputMax = 140;
+        private double qualifier;
+        private int acTypeIndex = 0;
+        private int dcTypeIndex = 0;
+        private int impTypeIndex = 0;
+        private int acAutoTypeIndex = 0;
+        private int acAutoOutputMax = 100;
+        private int dcAutoTypeIndex = 0;
+        private int dcAutoOutputMax = 140;
+        private int impAutoTypeIndex = 0;
+        private int impAutoOutputMax;
 
         public Controller()
         {
@@ -98,7 +115,7 @@ namespace HV9104_GUI
 
             // Get and present initial status info from PLC and motors
             Thread.Sleep(200);
-            InitializeUIStatus();
+            InitializeDbView();
 
             // Obligatory application command 
             Application.Run(controlForm); // Måste vara sist!!!
@@ -501,9 +518,9 @@ namespace HV9104_GUI
             this.controlForm.dashboardView.parkCheckBox.Click += new System.EventHandler(parkCheckBox_Click);
             this.controlForm.dashboardView.overrideCheckBox.Click += new System.EventHandler(overrideCheckBox_Click);
             //Regulated Voltage Type Listeners            
-            this.controlForm.dashboardView.inputVoltageRadioButton.Click += new System.EventHandler(inputVoltageRadioButton_Click);
+            this.controlForm.dashboardView.acInputRadioButton.Click += new System.EventHandler(inputVoltageRadioButton_Click);
             this.controlForm.dashboardView.acOutputRadioButton.Click += new System.EventHandler(acVoltageRadioButton_Click);
-            this.controlForm.dashboardView.dcVoltageRadioButton.Click += new System.EventHandler(dcVoltageRadioButton_Click);
+            this.controlForm.dashboardView.dcOutputRadioButton.Click += new System.EventHandler(dcVoltageRadioButton_Click);
             //Set Voltage Listeners            
             this.controlForm.dashboardView.decreaseRegulatedVoltageButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseRegulatedVoltageButton_Down);
             this.controlForm.dashboardView.decreaseRegulatedVoltageButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseRegulatedVoltageButton_Up);
@@ -550,7 +567,6 @@ namespace HV9104_GUI
 
 
             //Mode selection listeners
-            this.controlForm.runView.Load += new EventHandler(RunView_Load);
             this.controlForm.runView.WithstandRadioButton.Click += new System.EventHandler(testWithstandRadioButton_Click);
             this.controlForm.runView.DisruptiveRadioButton.Click += new System.EventHandler(testDisruptiveRadioButton_Click);
             this.controlForm.runView.onOffAutoButton.Click += new System.EventHandler(onOffAutoButton_Click);
@@ -598,12 +614,7 @@ namespace HV9104_GUI
 
 
 
-        // Voltage type has been changed in auto test page
-        private void autoTestVoltageComboBox_valueChange(object sender, ValueChangeEventArgs e)
-        {
-            // Set the test norification text 
-            GetTestType(); 
-        }
+       
 
         // Voltage measurement type has been changed in auto test page
         private void autoTestMeasTypeComboBox_valueChange(object sender, ValueChangeEventArgs e)
@@ -670,18 +681,22 @@ namespace HV9104_GUI
         //***********************************************************************************************************
         //***                                    CONTROL FORM EVENT HANDLERS                                  *****
         //***********************************************************************************************************
+
+        // DashboardView selected
         private void dashboardTab_Click(object sender, EventArgs e)
         {
-            controlForm.modeLabel.Text = "Manual Operation";
+            InitializeDbView();
+            
         }
 
-        // Run experiment selected
+        // RunView selected
         private void runExperimentTab_Click(object sender, EventArgs e)
         {
-            GetTestType();
+            InitializeRnView();
+           
         }
-        
-        // Run experiment selected
+
+        // SetupView selected
         private void setupTab_Click(object sender, EventArgs e)
         {
             controlForm.modeLabel.Text = "Setup/Config";
@@ -946,20 +961,22 @@ namespace HV9104_GUI
         
         private void acOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            SetACOutputType((int)e.Value);
-            GetTestType();
+            acTypeIndex = (int)e.Value;
+            SetACOutputType(acTypeIndex);
+            SetMaxAC();
         }
 
         private void dcOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            SetDCOutputType((int)e.Value);
-            GetTestType();
+            dcTypeIndex = (int)e.Value;
+            SetDCOutputType(dcTypeIndex);
+            SetMaxDC();
         }
 
         private void impulseOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            SetImpOutputType((int)e.Value);
-            GetTestType();
+            impTypeIndex = (int)e.Value;
+            SetImpOutputType(impTypeIndex);
         }       
 
         // Update the transformer motor speed parameter
@@ -1020,16 +1037,29 @@ namespace HV9104_GUI
         // The following event handlers should set variables/flags for later evaluation but to save time we check the control status isChecked property directly
         private void parkCheckBox_Click(object sender, EventArgs e) { }
         private void overrideCheckBox_Click(object sender, EventArgs e) { }
-        private void inputVoltageRadioButton_Click(object sender, EventArgs e) { }
+
+        // We want to regulate the AC input value
+        private void inputVoltageRadioButton_Click(object sender, EventArgs e)
+        {
+            // Set max regulation value
+            UpdateDbRegulatedVoltageMax();
+        }
 
         // We want to regulate the AC output value
         private void acVoltageRadioButton_Click(object sender, EventArgs e)
         {
-            // What type of AC output?
-
-
+            // Set max regulation value
+            SetMaxAC();
+            UpdateDbRegulatedVoltageMax();
         }
-        private void dcVoltageRadioButton_Click(object sender, EventArgs e) { }
+
+        // We want to regulate the DC output value
+        private void dcVoltageRadioButton_Click(object sender, EventArgs e)
+        {
+            // Set max regulation value
+            SetMaxDC();
+            UpdateDbRegulatedVoltageMax();
+        }
 
         // Manual voltage decrease
         private void decreaseRegulatedVoltageButton_Down(object sender, MouseEventArgs e)
@@ -1117,7 +1147,7 @@ namespace HV9104_GUI
             {
 
                 // Get the value to regulate agianst
-                if (controlForm.dashboardView.inputVoltageRadioButton.isChecked)
+                if (controlForm.dashboardView.acInputRadioButton.isChecked)
                 {
                     //uActual = (float)PIO1.regulatedVoltageValue;
                     uActual = Convert.ToDouble(controlForm.dashboardView.voltageInputLabel.Text);
@@ -1125,13 +1155,16 @@ namespace HV9104_GUI
                 else if ((controlForm.dashboardView.acOutputRadioButton.isChecked) && (PIO1.K2Closed))
                 {
                     uActual = Convert.ToDouble(controlForm.dashboardView.acValueLabel.Text);
-                    //uActual = picoScope.channels[0].RMS;
+                    //uActual = acChannel.getRepresentation();
+                    
                     toleranceHi = 0.2;
                     toleranceLo = -0.2;
                 }
-                else if ((controlForm.dashboardView.dcVoltageRadioButton.isChecked) && (PIO1.K2Closed))
+                else if ((controlForm.dashboardView.dcOutputRadioButton.isChecked) && (PIO1.K2Closed))
                 {
                     uActual = Convert.ToDouble(controlForm.dashboardView.dcValueLabel.Text);
+                    //uActual = dcChannel.getRepresentation();
+
                     toleranceHi = 0.15;
                     toleranceLo = -0.15;
                 }
@@ -1459,26 +1492,36 @@ namespace HV9104_GUI
         //***********************************************************************************************************
         //***                                  RUNVIEW EVENT HANDLERS                                          *****
         //***********************************************************************************************************   
-        private void RunView_Load(object sender, EventArgs e)
+        
+        // Voltage type has been changed in auto test page
+        private void autoTestVoltageComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            InitializeUIStatus();
+            // Set the test notification text
+            UpdateRnTestVoltageMax();
+            GetTestType();
         }
 
         private void impulseOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            SetImpOutputType((int)e.Value);
+            impAutoTypeIndex = (int)e.Value;
+            SetImpOutputType(impAutoTypeIndex);
+            UpdateRnTestVoltageMax();
             GetTestType();
         }
 
         private void dcOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            SetDCOutputType((int)e.Value);
+            dcAutoTypeIndex = (int)e.Value;
+            SetDCOutputType(dcAutoTypeIndex);
+            UpdateRnTestVoltageMax();
             GetTestType();
         }
 
         private void acOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            SetACOutputType((int)e.Value);
+            acAutoTypeIndex = (int)e.Value;
+            SetACOutputType(acAutoTypeIndex);
+            UpdateRnTestVoltageMax();
             GetTestType();
         }
 
@@ -1579,16 +1622,16 @@ namespace HV9104_GUI
         private void testWithstandRadioButton_Click(object sender, EventArgs e)
         {
             disableForControls();
+            UpdateRnTestVoltageMax();
             GetTestType();
         }
 
         private void testDisruptiveRadioButton_Click(object sender, EventArgs e)
         {
             disableForControls();
+            UpdateRnTestVoltageMax();
             GetTestType();
 
-            // Set the testVoltage to the current stage max value
-            runView.testVoltageTextBox = 
         }
 
 
@@ -1665,13 +1708,114 @@ namespace HV9104_GUI
         //        }
         //    }
         //}
-
-
-        // Before we start, make sure the UI correctly represents the PLC and Motor status. Called on startup and after change in SetupView
-        private void InitializeUIStatus()
+        
+        // Set the controls to the correct states and values. called on entry
+        private void InitializeRnView()
         {
 
             Thread.Sleep(200);
+            
+            // Top info strip notice
+            GetTestType();
+
+            // Set the voltage representations (rms, pk ....) for each voltage
+            SetACOutputType(acAutoTypeIndex);
+            SetDCOutputType(dcAutoTypeIndex);
+            SetImpOutputType(impAutoTypeIndex);
+
+            // Update the textbox max value
+            UpdateRnTestVoltageMax();  
+        }
+
+        private void UpdateRnTestVoltageMax()
+        {
+            if (controlForm.runView.voltageComboBox.SetSelected == "AC")
+            {
+                SetAutoMaxAC();
+
+            }
+            else if (controlForm.runView.voltageComboBox.SetSelected == "DC")
+            {
+                SetAutoMaxDC();
+
+            }
+            else if (controlForm.runView.voltageComboBox.SetSelected == "Imp")
+            {
+                SetAutoMaxImp();
+            }
+        }
+
+        public void SetAutoMaxAC()
+        {
+            // Limit values
+            if (acAutoTypeIndex == 0) acAutoOutputMax = (setupNr / 100) * 100;
+            if (acAutoTypeIndex == 1) acAutoOutputMax = (setupNr / 100) * 140;
+
+            if (controlForm.runView.voltageComboBox.SetSelected == "AC")
+            {
+                controlForm.runView.testVoltageTextBox.Max = acAutoOutputMax;
+                if (controlForm.runView.DisruptiveRadioButton.isChecked)
+                {
+                    controlForm.runView.testVoltageTextBox.Value = acAutoOutputMax;
+                }
+                else
+                {
+                    controlForm.runView.testVoltageTextBox.Value = 33;
+                }
+                controlForm.runView.testVoltageTextBox.Invalidate();
+            }
+        }
+
+        private void SetAutoMaxDC()
+        {
+            // Limit values
+            if (dcAutoTypeIndex == 0) dcAutoOutputMax = ((setupNr - 100) / 10) * 140;
+            if (dcAutoTypeIndex == 1) dcAutoOutputMax = ((setupNr - 100) / 10) * 140;
+
+            if (controlForm.runView.voltageComboBox.SetSelected == "DC")
+            {
+                controlForm.runView.testVoltageTextBox.Max = dcOutputMax;
+                if (controlForm.runView.DisruptiveRadioButton.isChecked)
+                {
+                    controlForm.runView.testVoltageTextBox.Value = dcAutoOutputMax;
+                }
+                else
+                {
+                    controlForm.runView.testVoltageTextBox.Value = 20;
+                }
+                controlForm.runView.testVoltageTextBox.Invalidate();
+            }
+        }
+
+        private void SetAutoMaxImp()
+        {
+            // Limit values
+            if (impAutoTypeIndex == 0) impAutoOutputMax = (setupNr - 110) * 140;
+            if (impAutoTypeIndex == 1) impAutoOutputMax = (setupNr - 110) * 140;
+
+            if (controlForm.runView.voltageComboBox.SetSelected == "Imp")
+            {
+                controlForm.runView.testVoltageTextBox.Max = impOutputMax;
+                if (controlForm.runView.DisruptiveRadioButton.isChecked)
+                {
+                    controlForm.runView.testVoltageTextBox.Value = impAutoOutputMax;
+                }
+                else
+                {
+                    controlForm.runView.testVoltageTextBox.Value = 67;
+                }
+                controlForm.runView.testVoltageTextBox.Invalidate();
+            }
+        }
+
+        // Before we start, make sure the UI correctly represents the PLC and Motor status. Called on startup and on entry
+        private void InitializeDbView()
+        {
+
+            Thread.Sleep(200);
+
+            // Top info strip notice
+            controlForm.modeLabel.Text = "Manual Operation";
 
             // Check K1 and K2 to see if they've been left open
             if (PIO1.K1Closed)
@@ -1687,14 +1831,64 @@ namespace HV9104_GUI
                 controlForm.dashboardView.onOffButton.Invalidate();
             }
 
-            // Set Regulated Voltage Control parameters based on selected setup and selected reference - TO BE ADDED!!!
+            // Set the voltage representations (rms, pk ....) for each voltage
+            SetACOutputType(acTypeIndex);
+            SetDCOutputType(dcTypeIndex);
+            SetImpOutputType(impTypeIndex);
 
-            controlForm.dashboardView.regulatedVoltageTextBox.Value = ;
-            controlForm.dashboardView.regulatedVoltageTextBox.Min = ;
-            controlForm.dashboardView.regulatedVoltageTextBox.Max = ;
+            // Get Regulated Voltage Control max based on selected setup and selected reference
 
+
+            // Update the textbox max value
+            UpdateDbRegulatedVoltageMax();
 
         }
+
+        private void UpdateDbRegulatedVoltageMax()
+        {
+            if (controlForm.dashboardView.acInputRadioButton.isChecked)
+            {
+                controlForm.dashboardView.regulatedVoltageTextBox.Max = acInputMax;
+            }
+            else if (controlForm.dashboardView.acOutputRadioButton.isChecked)
+            {
+                SetMaxAC();
+
+            }
+            else if (controlForm.dashboardView.dcOutputRadioButton.isChecked)
+            {
+                SetMaxDC();
+                controlForm.dashboardView.regulatedVoltageTextBox.Max = dcOutputMax;
+            }
+        }
+
+        public void SetMaxAC()
+        {
+            // Limit values
+            if (acTypeIndex == 0) acOutputMax = (setupNr / 100) * 100;
+            if (acTypeIndex == 1) acOutputMax = (setupNr / 100) * 140;
+
+            if (controlForm.dashboardView.acOutputRadioButton.isChecked)
+            {
+                controlForm.dashboardView.regulatedVoltageTextBox.Max = acOutputMax;
+                controlForm.dashboardView.regulatedVoltageTextBox.Invalidate();
+            }
+        }
+
+        private void SetMaxDC()
+        {
+            // Limit values
+            if (dcTypeIndex == 0) dcOutputMax = ((setupNr - 100) / 10) * 140;
+            if (dcTypeIndex == 1) dcOutputMax = ((setupNr - 100) / 10) * 140;
+
+            if (controlForm.dashboardView.dcOutputRadioButton.isChecked)
+            {
+                controlForm.dashboardView.regulatedVoltageTextBox.Max = dcOutputMax;
+                controlForm.dashboardView.regulatedVoltageTextBox.Invalidate();
+            }
+        }
+
+
 
         // Present all values in the UI
         public void UpdateGUI()
@@ -1759,7 +1953,7 @@ namespace HV9104_GUI
         // Evaluate the user input and present the current setup image
         private void GetActiveSetup()
         {
-            int setupNr = 0;
+            setupNr = 0;
 
             if (controlForm.setupView.acCheckBox.isChecked)
             {
@@ -1812,15 +2006,18 @@ namespace HV9104_GUI
 
             if(setupNr == 100)
             {
+                // Setup image
                 controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._1_stageAC;
                 controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 controlForm.dashboardView.activeSetupPictureBox.Refresh(); 
+
             }
             else if (setupNr == 200)
             {
                 controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._2_stageAC;
                 controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 controlForm.dashboardView.activeSetupPictureBox.Refresh();
+
             }
             else if (setupNr == 300)
             {
@@ -2205,29 +2402,32 @@ namespace HV9104_GUI
         }
 
         // Set the voltage type to call when asking for a value
-        private void SetACOutputType(int ind)
+        private void SetACOutputType(int indexIn)
         {
             //representation index: 0 = Vmax, 1 = Vmin, 2 = Vrms, 3 = vpk-vpk, 4 = Vavg
             int[] selection = { 2, 0, 1, 3 };
-            acChannel.setRepresentationIndex(selection[ind]);
+            acChannel.setRepresentationIndex(selection[indexIn]);
         }
 
         // Set the voltage type to call when asking for a value
-        private void SetDCOutputType(int ind)
+        private void SetDCOutputType(int indexIn)
         {
             //representation index: 0 = Vmax, 1 = Vmin, 2 = Vrms, 3 = vpk-vpk, 4 = Vavg
             int[] selection = { 4, 0, 1, 3 };
-            dcChannel.setRepresentationIndex(selection[ind]);
+            dcChannel.setRepresentationIndex(selection[indexIn]);  
         }
 
         // Set the voltage type to call when asking for a value
-        private void SetImpOutputType(int ind)
+        private void SetImpOutputType(int indexIn)
         {
             //representation index: 0 = Vmax, 1 = Vmin, 2 = Vrms, 3 = vpk-vpk, 4 = Vavg
             int[] selection = { 0, 1 };
             int[] polarity = { 1, -1 };
-            impulseChannel.setRepresentationIndex(selection[ind]);
-            impulseChannel.Polarity = polarity[ind];
+            impulseChannel.setRepresentationIndex(selection[indexIn]);
+            impulseChannel.Polarity = polarity[indexIn];
+
+            // Limit values
+           impOutputMax = (setupNr-110) * 140 * polarity[indexIn];
         }
 
     }

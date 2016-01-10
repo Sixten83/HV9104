@@ -84,7 +84,6 @@ namespace HV9104_GUI
         private int sampleNumber;
         ArrayList xList = new ArrayList();
         ArrayList yList = new ArrayList();
-        private Channel actualChannel;
 
         // Contructor
         public AutoTest(RunView runViewIn, DashBoardView dashboardViewIn, NA9739Device PIO1In, PD1161Device HV9126In, PD1161Device HV9133In, Channel acChannelIn, Channel dcChannelIn, Channel impulseChannelIn)
@@ -126,6 +125,7 @@ namespace HV9104_GUI
             if (runView.voltageComboBox.SetSelected == "AC") actualVoltage = Convert.ToDouble(runView.acValueLabel.Text);
             else if (runView.voltageComboBox.SetSelected == "DC") actualVoltage = Convert.ToDouble(runView.dcValueLabel.Text);
             else if (runView.voltageComboBox.SetSelected == "Imp") actualVoltage = Convert.ToDouble(runView.impulseValueLabel.Text);
+
 
         }
 
