@@ -22,7 +22,8 @@ namespace HV9104_GUI
         Chart autoTestChart;
 
         // Timer
-        Timer updateTimer;
+        Timer acDcSampleTimer;
+        //Timer impTestTimer;
         
         // 
         public DateTime startTime;
@@ -57,6 +58,9 @@ namespace HV9104_GUI
         public int impulsePerLevel;
         public bool isPaused;
         public double sampleRate = 0.5;
+        public int acMax = 100;
+        public int dcMax = 120;
+        public int impMax = 120;
 
         // Report variables
         public DateTime testDate;
@@ -95,8 +99,8 @@ namespace HV9104_GUI
             dcChannel = dcChannelIn;
             impChannel = impulseChannelIn;
 
-            updateTimer = new Timer();
-            updateTimer.Tick += new EventHandler(this.updateTimer_Tick);
+            acDcSampleTimer = new Timer();
+            acDcSampleTimer.Tick += new EventHandler(this.updateTimer_Tick);
 
             updateValueTimer = new Timer();
             updateValueTimer.Tick += new EventHandler(updateValueTimer_Tick);
@@ -161,8 +165,6 @@ namespace HV9104_GUI
                         runView.passFailLabel.Text = "PASS";
                         runView.passFailLabel.Visible = true;
 
-                        // runView.testStatusLabel.Invalidate();
-
                         // First park the transformer before we stop taking results
                         if (!PIO1.minUPos)
                         {
@@ -212,7 +214,7 @@ namespace HV9104_GUI
         // Successfully completed test
         private void PassTest()
         {
-            updateTimer.Stop();
+            acDcSampleTimer.Stop();
             isRunning = false;
             isPaused = false;
             parking = false;
@@ -232,7 +234,7 @@ namespace HV9104_GUI
         // Failed test
         private void FailTest()
         {
-            updateTimer.Stop();
+            acDcSampleTimer.Stop();
             isPaused = false;
             runView.onOffAutoButton.isChecked = false;
             runView.onOffAutoButton.Invalidate();
@@ -253,7 +255,7 @@ namespace HV9104_GUI
         // Aborted test. Stop the test and reset
         internal void AbortTest()
         {
-            updateTimer.Stop();
+            acDcSampleTimer.Stop();
             isRunning = false;
             isPaused = false;
             runView.onOffAutoButton.isChecked = false;
@@ -291,26 +293,80 @@ namespace HV9104_GUI
             runView.passFailLabel.Invalidate();
             runView.testDurationLabel.Text = "0";
 
-            // Get user input and convert to usable values
-            duration = Convert.ToInt32(runView.testDurationTextBox.Value);
-            sampleRate = Convert.ToDouble(runView.sampleRateTextBox.Value);
-            intSampleRate = sampleRate * 1000;
-            msSampleRate = Convert.ToInt32(intSampleRate);
+            // Get test type
+            if (runView.WithstandRadioButton.isChecked)
+            {
+                // Withstand test. Run normal routine
+               
+                // Get user input and convert to usable values
+                duration = Convert.ToInt32(runView.testDurationTextBox.Value);
+                sampleRate = Convert.ToDouble(runView.sampleRateTextBox.Value);
+                intSampleRate = sampleRate * 1000;
+                msSampleRate = Convert.ToInt32(intSampleRate);
 
-            // Set up timer parameters and start
-            updateTimer.Interval = msSampleRate;
-            updateTimer.Enabled = true;
-            updateTimer.Start();
-           
-            // Get test voltage parameters and set tolerances
-            testVoltage = Convert.ToDouble(runView.testVoltageTextBox.Value);
-            tolerance = testVoltage * (runView.toleranceTextBox.Value / 100);
-            maxTestVoltage = testVoltage + tolerance;
-            minTestVoltage = testVoltage - tolerance;
-           
-            // Sample rate[ms], test duration[s]. How many elements required?
-            msDuration = duration * 1000;
-            requiredElements = (int)(sampleRate * msDuration);
+                // Set up timer parameters and start
+                acDcSampleTimer.Interval = msSampleRate;
+                acDcSampleTimer.Enabled = true;
+                acDcSampleTimer.Start();
+
+                // Get test voltage parameters and set tolerances
+                testVoltage = Convert.ToDouble(runView.testVoltageTextBox.Value);
+                tolerance = testVoltage * (runView.toleranceTextBox.Value / 100);
+                maxTestVoltage = testVoltage + tolerance;
+                minTestVoltage = testVoltage - tolerance;
+
+            }
+            else
+            {
+                // Disruptive discharge
+                if(runView.voltageComboBox.SetSelected == "Imp")
+                {
+                    // Impulse disruptive discharge
+
+                    // Get setup info 1, 2, 3 stage. 
+
+                    // Set Max value
+
+                    // Get levels info
+
+                    // Get impulses/level info
+
+                    // Create level array
+
+                    // Run impulse disruptive routine
+                }
+                else
+                {
+                    // AC/DC disruptive discharge.
+
+                    // Get setup info 1, 2, 3 stage. 
+
+                    // Get user input and convert to usable values
+                    duration = 0;
+                    sampleRate = Convert.ToDouble(runView.sampleRateTextBox.Value);
+                    intSampleRate = sampleRate * 1000;
+                    msSampleRate = Convert.ToInt32(intSampleRate);
+
+                    // Set up timer parameters and start
+                    acDcSampleTimer.Interval = msSampleRate;
+                    acDcSampleTimer.Enabled = true;
+                    acDcSampleTimer.Start();
+
+                    // Set targetVoltage to Stage Max
+                    testVoltage = Convert.ToDouble(runView.testVoltageTextBox.Value);       // set to x-Stage max when disruptive discharge selected
+                    tolerance = testVoltage * (runView.toleranceTextBox.Value / 100);
+                    maxTestVoltage = testVoltage + tolerance;
+                    minTestVoltage = testVoltage - tolerance;
+
+                    // Set trafSpeed to quite slow
+
+                    // Run normal routine
+
+                }
+
+            }
+
+            
 
             // Clear the arraylists and reset the sample counter
             xList.Clear();
@@ -332,7 +388,7 @@ namespace HV9104_GUI
             // If we haven't found the voltage yet, stop searching
             if (!isRunning)
             {
-                updateTimer.Stop();
+                acDcSampleTimer.Stop();
                 isPaused = true;
                 abortRegulation = true;
                 PIO1.openSecondary();

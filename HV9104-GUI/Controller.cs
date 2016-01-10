@@ -947,16 +947,19 @@ namespace HV9104_GUI
         private void acOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             SetACOutputType((int)e.Value);
+            GetTestType();
         }
 
         private void dcOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             SetDCOutputType((int)e.Value);
+            GetTestType();
         }
 
         private void impulseOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             SetImpOutputType((int)e.Value);
+            GetTestType();
         }       
 
         // Update the transformer motor speed parameter
@@ -1464,16 +1467,19 @@ namespace HV9104_GUI
         private void impulseOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             SetImpOutputType((int)e.Value);
+            GetTestType();
         }
 
         private void dcOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             SetDCOutputType((int)e.Value);
+            GetTestType();
         }
 
         private void acOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             SetACOutputType((int)e.Value);
+            GetTestType();
         }
 
 
@@ -1580,6 +1586,9 @@ namespace HV9104_GUI
         {
             disableForControls();
             GetTestType();
+
+            // Set the testVoltage to the current stage max value
+            runView.testVoltageTextBox = 
         }
 
 
@@ -1661,56 +1670,6 @@ namespace HV9104_GUI
         // Before we start, make sure the UI correctly represents the PLC and Motor status. Called on startup and after change in SetupView
         private void InitializeUIStatus()
         {
-            //// Setup information
-            //if (controlForm.setupView.acStage1RadioButton.isChecked)
-            //{
-            //    controlForm.dashboardView.statusLabelHVACStage.Text = "1-Stage";
-            //}
-            //else if (controlForm.setupView.acStage2RadioButton.isChecked)
-            //{
-            //    controlForm.dashboardView.statusLabelHVACStage.Text = "2-Stage";
-            //}
-            //else if (controlForm.setupView.acStage3RadioButton.isChecked)
-            //{
-            //    controlForm.dashboardView.statusLabelHVACStage.Text = "3-Stage";
-            //}
-            //else
-            //{
-            //    controlForm.dashboardView.statusLabelHVACStage.Text = "Not Selected";
-            //}
-
-            //if (controlForm.setupView.dcStage1RadioButton.isChecked)
-            //{
-            //    controlForm.dashboardView.statusLabelHVDCStage.Text = "1-Stage";
-            //}
-            //else if (controlForm.setupView.dcStage2RadioButton.isChecked)
-            //{
-            //    controlForm.dashboardView.statusLabelHVDCStage.Text = "2-Stage";
-            //}
-            //else if (controlForm.setupView.dcStage3RadioButton.isChecked)
-            //{
-            //    controlForm.dashboardView.statusLabelHVDCStage.Text = "3-Stage";
-            //}
-            //else
-            //{
-            //    controlForm.dashboardView.statusLabelHVDCStage.Text = "Not Selected";
-            //}
-            //if (controlForm.setupView.impulseStage1RadioButton.isChecked)
-            //{
-            //    controlForm.dashboardView.statusLabelHVImpStage.Text = "1-Stage";
-            //}
-            //else if (controlForm.setupView.impulseStage2RadioButton.isChecked)
-            //{
-            //    controlForm.dashboardView.statusLabelHVImpStage.Text = "2-Stage";
-            //}
-            //else if (controlForm.setupView.impulseStage3RadioButton.isChecked)
-            //{
-            //    controlForm.dashboardView.statusLabelHVImpStage.Text = "3-Stage";
-            //}
-            //else
-            //{
-            //    controlForm.dashboardView.statusLabelHVImpStage.Text = "Not Selected";
-            //}
 
             Thread.Sleep(200);
 
@@ -1729,9 +1688,10 @@ namespace HV9104_GUI
             }
 
             // Set Regulated Voltage Control parameters based on selected setup and selected reference - TO BE ADDED!!!
-            //controlForm.runView.regulatedVoltageTextBox.Value = ;
-            //controlForm.runView.regulatedVoltageTextBox.Min = ;
-            //controlForm.runView.regulatedVoltageTextBox.Max = ;
+
+            controlForm.dashboardView.regulatedVoltageTextBox.Value = ;
+            controlForm.dashboardView.regulatedVoltageTextBox.Min = ;
+            controlForm.dashboardView.regulatedVoltageTextBox.Max = ;
 
 
         }
