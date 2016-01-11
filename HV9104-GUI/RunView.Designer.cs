@@ -89,9 +89,9 @@
             this.label21 = new System.Windows.Forms.Label();
             this.DisruptiveRadioButton = new HV9104_GUI.CustomRadioButton();
             this.WithstandRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.customPanel1 = new HV9104_GUI.CustomPanel();
+            this.testControlPanel = new HV9104_GUI.CustomPanel();
+            this.passFailLabel = new System.Windows.Forms.Label();
             this.passFailUnitlabel = new System.Windows.Forms.Label();
-            this.testStatusLabel = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.onOffAutoButton = new HV9104_GUI.CustomCheckBox();
             this.abortAutoTestButton = new HV9104_GUI.CustomButton();
@@ -101,7 +101,7 @@
             this.testDurationLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.autoTestChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.passFailLabel = new System.Windows.Forms.Label();
+            this.testStatusLabel = new System.Windows.Forms.Label();
             this.customPanel8.SuspendLayout();
             this.customPanel9.SuspendLayout();
             this.customPanel10.SuspendLayout();
@@ -112,7 +112,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.customPanel3.SuspendLayout();
             this.customPanel2.SuspendLayout();
-            this.customPanel1.SuspendLayout();
+            this.testControlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).BeginInit();
             this.SuspendLayout();
             // 
@@ -888,54 +888,55 @@
             this.WithstandRadioButton.Text = "customRadioButton1";
             this.WithstandRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
-            // customPanel1
+            // testControlPanel
             // 
-            this.customPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel1.Controls.Add(this.passFailUnitlabel);
-            this.customPanel1.Controls.Add(this.testStatusLabel);
-            this.customPanel1.Controls.Add(this.label15);
-            this.customPanel1.Controls.Add(this.onOffAutoButton);
-            this.customPanel1.Controls.Add(this.abortAutoTestButton);
-            this.customPanel1.Controls.Add(this.passStatusLabel);
-            this.customPanel1.Controls.Add(this.label7);
-            this.customPanel1.Controls.Add(this.secondsUnitLabel);
-            this.customPanel1.Controls.Add(this.testDurationLabel);
-            this.customPanel1.Controls.Add(this.label5);
-            this.customPanel1.Controls.Add(this.autoTestChart);
-            this.customPanel1.Controls.Add(this.passFailLabel);
-            this.customPanel1.CornerRadius = 40;
-            this.customPanel1.IsPopUp = false;
-            this.customPanel1.Location = new System.Drawing.Point(497, 266);
-            this.customPanel1.Name = "customPanel1";
-            this.customPanel1.Size = new System.Drawing.Size(905, 505);
-            this.customPanel1.TabIndex = 1;
+            this.testControlPanel.BackColor = System.Drawing.Color.Transparent;
+            this.testControlPanel.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.testControlPanel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.testControlPanel.Controls.Add(this.passFailLabel);
+            this.testControlPanel.Controls.Add(this.passFailUnitlabel);
+            this.testControlPanel.Controls.Add(this.label15);
+            this.testControlPanel.Controls.Add(this.onOffAutoButton);
+            this.testControlPanel.Controls.Add(this.abortAutoTestButton);
+            this.testControlPanel.Controls.Add(this.passStatusLabel);
+            this.testControlPanel.Controls.Add(this.label7);
+            this.testControlPanel.Controls.Add(this.secondsUnitLabel);
+            this.testControlPanel.Controls.Add(this.testDurationLabel);
+            this.testControlPanel.Controls.Add(this.label5);
+            this.testControlPanel.Controls.Add(this.autoTestChart);
+            this.testControlPanel.Controls.Add(this.testStatusLabel);
+            this.testControlPanel.CornerRadius = 40;
+            this.testControlPanel.IsPopUp = false;
+            this.testControlPanel.Location = new System.Drawing.Point(497, 266);
+            this.testControlPanel.Name = "testControlPanel";
+            this.testControlPanel.Size = new System.Drawing.Size(905, 505);
+            this.testControlPanel.TabIndex = 1;
+            // 
+            // passFailLabel
+            // 
+            this.passFailLabel.AutoSize = true;
+            this.passFailLabel.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passFailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.passFailLabel.Location = new System.Drawing.Point(503, 395);
+            this.passFailLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.passFailLabel.Name = "passFailLabel";
+            this.passFailLabel.Size = new System.Drawing.Size(123, 59);
+            this.passFailLabel.TabIndex = 16;
+            this.passFailLabel.Text = "PASS";
+            this.passFailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.passFailLabel.Visible = false;
             // 
             // passFailUnitlabel
             // 
             this.passFailUnitlabel.AutoSize = true;
             this.passFailUnitlabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passFailUnitlabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.passFailUnitlabel.Location = new System.Drawing.Point(525, 456);
+            this.passFailUnitlabel.Location = new System.Drawing.Point(524, 461);
             this.passFailUnitlabel.Name = "passFailUnitlabel";
             this.passFailUnitlabel.Size = new System.Drawing.Size(79, 19);
             this.passFailUnitlabel.TabIndex = 18;
             this.passFailUnitlabel.Text = "PASS / FAIL";
             this.passFailUnitlabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // testStatusLabel
-            // 
-            this.testStatusLabel.AutoSize = true;
-            this.testStatusLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.testStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.testStatusLabel.Location = new System.Drawing.Point(517, 406);
-            this.testStatusLabel.Name = "testStatusLabel";
-            this.testStatusLabel.Size = new System.Drawing.Size(94, 38);
-            this.testStatusLabel.TabIndex = 17;
-            this.testStatusLabel.Text = "EVALUATING\r\nPLEASE WAIT";
-            this.testStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.testStatusLabel.Visible = false;
             // 
             // label15
             // 
@@ -1003,7 +1004,7 @@
             this.secondsUnitLabel.AutoSize = true;
             this.secondsUnitLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.secondsUnitLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.secondsUnitLabel.Location = new System.Drawing.Point(353, 456);
+            this.secondsUnitLabel.Location = new System.Drawing.Point(353, 461);
             this.secondsUnitLabel.Name = "secondsUnitLabel";
             this.secondsUnitLabel.Size = new System.Drawing.Size(71, 19);
             this.secondsUnitLabel.TabIndex = 12;
@@ -1012,7 +1013,7 @@
             // 
             // testDurationLabel
             // 
-            this.testDurationLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testDurationLabel.Font = new System.Drawing.Font("Calibri", 44.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.testDurationLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.testDurationLabel.Location = new System.Drawing.Point(339, 384);
             this.testDurationLabel.Name = "testDurationLabel";
@@ -1065,18 +1066,19 @@
             title1.Name = "Title1";
             this.autoTestChart.Titles.Add(title1);
             // 
-            // passFailLabel
+            // testStatusLabel
             // 
-            this.passFailLabel.AutoSize = true;
-            this.passFailLabel.Font = new System.Drawing.Font("Calibri", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passFailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.passFailLabel.Location = new System.Drawing.Point(483, 385);
-            this.passFailLabel.Name = "passFailLabel";
-            this.passFailLabel.Size = new System.Drawing.Size(162, 78);
-            this.passFailLabel.TabIndex = 16;
-            this.passFailLabel.Text = "PASS";
-            this.passFailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.passFailLabel.Visible = false;
+            this.testStatusLabel.AutoSize = true;
+            this.testStatusLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.testStatusLabel.Location = new System.Drawing.Point(497, 393);
+            this.testStatusLabel.Name = "testStatusLabel";
+            this.testStatusLabel.Padding = new System.Windows.Forms.Padding(20, 10, 20, 10);
+            this.testStatusLabel.Size = new System.Drawing.Size(134, 58);
+            this.testStatusLabel.TabIndex = 17;
+            this.testStatusLabel.Text = "EVALUATING\r\nPLEASE WAIT";
+            this.testStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.testStatusLabel.Visible = false;
             // 
             // RunView
             // 
@@ -1091,7 +1093,7 @@
             this.Controls.Add(this.customPanel4);
             this.Controls.Add(this.customPanel3);
             this.Controls.Add(this.customPanel2);
-            this.Controls.Add(this.customPanel1);
+            this.Controls.Add(this.testControlPanel);
             this.Name = "RunView";
             this.Size = new System.Drawing.Size(1875, 800);
             this.customPanel8.ResumeLayout(false);
@@ -1112,8 +1114,8 @@
             this.customPanel3.PerformLayout();
             this.customPanel2.ResumeLayout(false);
             this.customPanel2.PerformLayout();
-            this.customPanel1.ResumeLayout(false);
-            this.customPanel1.PerformLayout();
+            this.testControlPanel.ResumeLayout(false);
+            this.testControlPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).EndInit();
             this.ResumeLayout(false);
 
@@ -1122,7 +1124,7 @@
         #endregion
 
         public System.Windows.Forms.DataVisualization.Charting.Chart autoTestChart;
-        public CustomPanel customPanel1;
+        public CustomPanel testControlPanel;
         public CustomRadioButton WithstandRadioButton;
         public CustomRadioButton DisruptiveRadioButton;
         public System.Windows.Forms.Label label21;
@@ -1131,7 +1133,6 @@
         public CustomPanel customPanel2;
         public CustomComboBox voltageComboBox;
         private CustomPanel customPanel3;
-        private System.Windows.Forms.TextBox dateTextBox;
         public System.Windows.Forms.Label label1;
         private CustomPanel customPanel4;
         private CustomPanel customPanel5;
@@ -1169,15 +1170,12 @@
         public System.Windows.Forms.Label label10;
         public System.Windows.Forms.Label acTitleLabel;
         public System.Windows.Forms.Label acValueLabel;
-        private System.Windows.Forms.TextBox testObjectTextBox;
         public System.Windows.Forms.Label operatorLabel;
         public System.Windows.Forms.Label testObjectLabel;
         public System.Windows.Forms.Label dateLabel;
-        private System.Windows.Forms.TextBox operatorTextBox;
         public System.Windows.Forms.Label testStatusLabel;
         public System.Windows.Forms.Label passStatusLabel;
         public System.Windows.Forms.Label passFailLabel;
-        private System.Windows.Forms.TextBox otherTextBox;
         public System.Windows.Forms.Label otherLabel;
         public CustomTextBox voltageLevelsTextBox;
         public CustomTextBox impPerLevelTextBox;
@@ -1191,5 +1189,9 @@
         public System.Windows.Forms.Label testVoltageLevelLabel;
         public System.Windows.Forms.Label passFailUnitlabel;
         public System.Windows.Forms.Label loadLabel;
+        public System.Windows.Forms.TextBox otherTextBox;
+        public System.Windows.Forms.TextBox operatorTextBox;
+        public System.Windows.Forms.TextBox testObjectTextBox;
+        public System.Windows.Forms.TextBox dateTextBox;
     }
 }

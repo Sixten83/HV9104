@@ -146,6 +146,7 @@ namespace HV9104_GUI
                     isRunning = true;
                     startTime = DateTime.Now;
                     runView.testStatusLabel.Text = "EVALUATING" + System.Environment.NewLine + "PLEASE WAIT";
+                    runView.testStatusLabel.Invalidate();
                 }
                 else
                 {
@@ -288,10 +289,13 @@ namespace HV9104_GUI
             abortRegulation = false;
 
             runView.testStatusLabel.Visible = true;
-            runView.passFailLabel.Visible = false;
             runView.testStatusLabel.Invalidate();
-            runView.passFailLabel.Invalidate();
+            runView.passFailLabel.Visible = false;
+            runView.testControlPanel.Invalidate();
+            //runView.passFailLabel.Invalidate();
+            
             runView.testDurationLabel.Text = "0";
+            runView.testDurationLabel.Invalidate();
 
             // Get test type
             if (runView.WithstandRadioButton.isChecked)
@@ -363,7 +367,6 @@ namespace HV9104_GUI
                     // Run normal routine
 
                 }
-
             }
 
             

@@ -108,6 +108,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ReportGen.cs" />
     <Compile Include="RunView.cs">
       <SubType>UserControl</SubType>
     </Compile>

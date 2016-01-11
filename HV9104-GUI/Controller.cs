@@ -81,6 +81,9 @@ namespace HV9104_GUI
         private int impAutoTypeIndex = 0;
         private int impAutoOutputMax;
 
+        // Output controls
+        ReportGen report;
+
         public Controller()
         {
             Application.EnableVisualStyles();
@@ -579,6 +582,8 @@ namespace HV9104_GUI
             this.controlForm.runView.acOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(acOutputAutoComboBox_valueChange);
             this.controlForm.runView.dcOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(dcOutputAutoComboBox_valueChange);
             this.controlForm.runView.impulseOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseOutputAutoComboBox_valueChange);
+            this.controlForm.runView.createReportButton.Click += new System.EventHandler(createReportButton_Click);
+           
             //this.controlForm.runView.measurementTypeComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(autoTestMeasTypeComboBox_valueChange);
 
             //***********************************************************************************************************
@@ -610,11 +615,22 @@ namespace HV9104_GUI
 
         }
 
-       
+        // Get relevant values and create a report 
+        private void createReportButton_Click(object sender, EventArgs e)
+        {
+            GenerateReport();
+        }
+
+
+        private void GenerateReport()
+        {
+            report.GenerateChartImage(controlForm.runView.autoTestChart); //chart --> .jpg
+            report.GenerateTex(controlForm.modeLabel.Text, controlForm.runView.dateTextBox.Text, controlForm.runView.operatorTextBox.Text, controlForm.runView.testObjectTextBox.Text, controlForm.runView.otherTextBox.Text, controlForm.runView.testDurationLabel.Text, controlForm.runView.testVoltageTextBox.Text, controlForm.runView.passFailLabel.Text); //Generate .Tex file
+            report.GeneratePdf(); //Generate final .pdf file.
+        }
 
 
 
-       
 
         // Voltage measurement type has been changed in auto test page
         private void autoTestMeasTypeComboBox_valueChange(object sender, ValueChangeEventArgs e)
@@ -1673,6 +1689,8 @@ namespace HV9104_GUI
             HV9133 = new PD1161Device(4, serialPort1);
             activeMotor = HV9126;
 
+            report = new ReportGen();
+
             //if (!activeMotor.initComplete)
             //{
             //    InitMotorRequest();
@@ -1731,17 +1749,57 @@ namespace HV9104_GUI
         {
             if (controlForm.runView.voltageComboBox.SetSelected == "AC")
             {
+                // Update the max value
                 SetAutoMaxAC();
+
+                // Update the textbox value
+                if (controlForm.runView.DisruptiveRadioButton.isChecked)
+                {
+                    controlForm.runView.testVoltageTextBox.Value = acAutoOutputMax;
+                }
+                else
+                {
+                    controlForm.runView.testVoltageTextBox.Value = 33;
+                }
+                controlForm.runView.testVoltageTextBox.Invalidate();
 
             }
             else if (controlForm.runView.voltageComboBox.SetSelected == "DC")
             {
+                // Update the max value
                 SetAutoMaxDC();
+
+                // Update the textbox value
+                if (controlForm.runView.DisruptiveRadioButton.isChecked)
+                {
+                    controlForm.runView.testVoltageTextBox.Value = dcAutoOutputMax;
+                }
+                else
+                {
+                    controlForm.runView.testVoltageTextBox.Value = 20;
+                }
+                controlForm.runView.testVoltageTextBox.Invalidate();
 
             }
             else if (controlForm.runView.voltageComboBox.SetSelected == "Imp")
             {
+                // Update the max value
                 SetAutoMaxImp();
+
+                // Update the textbox value
+                if (controlForm.runView.DisruptiveRadioButton.isChecked)
+                {
+                    controlForm.runView.testVoltageTextBox.Value = impAutoOutputMax;
+                    controlForm.runView.voltageLevelsTextBox.Value = 20;
+                    controlForm.runView.impPerLevelTextBox.Value = 1;
+                }
+                else
+                {
+                    controlForm.runView.testVoltageTextBox.Value = 67;
+                    controlForm.runView.voltageLevelsTextBox.Value = 1;
+                    controlForm.runView.impPerLevelTextBox.Value = 5;
+                }
+                controlForm.runView.testVoltageTextBox.Invalidate();
             }
         }
 
@@ -1753,16 +1811,7 @@ namespace HV9104_GUI
 
             if (controlForm.runView.voltageComboBox.SetSelected == "AC")
             {
-                controlForm.runView.testVoltageTextBox.Max = acAutoOutputMax;
-                if (controlForm.runView.DisruptiveRadioButton.isChecked)
-                {
-                    controlForm.runView.testVoltageTextBox.Value = acAutoOutputMax;
-                }
-                else
-                {
-                    controlForm.runView.testVoltageTextBox.Value = 33;
-                }
-                controlForm.runView.testVoltageTextBox.Invalidate();
+                controlForm.runView.testVoltageTextBox.Max = acAutoOutputMax;   
             }
         }
 
@@ -1774,16 +1823,7 @@ namespace HV9104_GUI
 
             if (controlForm.runView.voltageComboBox.SetSelected == "DC")
             {
-                controlForm.runView.testVoltageTextBox.Max = dcOutputMax;
-                if (controlForm.runView.DisruptiveRadioButton.isChecked)
-                {
-                    controlForm.runView.testVoltageTextBox.Value = dcAutoOutputMax;
-                }
-                else
-                {
-                    controlForm.runView.testVoltageTextBox.Value = 20;
-                }
-                controlForm.runView.testVoltageTextBox.Invalidate();
+                controlForm.runView.testVoltageTextBox.Max = dcOutputMax; 
             }
         }
 
@@ -1795,16 +1835,7 @@ namespace HV9104_GUI
 
             if (controlForm.runView.voltageComboBox.SetSelected == "Imp")
             {
-                controlForm.runView.testVoltageTextBox.Max = impOutputMax;
-                if (controlForm.runView.DisruptiveRadioButton.isChecked)
-                {
-                    controlForm.runView.testVoltageTextBox.Value = impAutoOutputMax;
-                }
-                else
-                {
-                    controlForm.runView.testVoltageTextBox.Value = 67;
-                }
-                controlForm.runView.testVoltageTextBox.Invalidate();
+                controlForm.runView.testVoltageTextBox.Max = impOutputMax;   
             }
         }
 
