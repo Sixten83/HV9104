@@ -9,6 +9,7 @@ namespace HV9104_GUI
     {
 
 
+        SaveFileDialog sfd;
 
         public void GenerateChartImage(Chart chartIn)
         {
@@ -25,11 +26,10 @@ namespace HV9104_GUI
             saveFileDialog1.Filter = "*.tex";
             saveFileDialog1.DefaultExt = "tex";
             */
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Text (*.tex)|*.tex";
-            sfd.ShowDialog();
 
-            string filename = "text.tex"; //Ska vi ha dynamiska filnamn?
+
+            string filename = sfd.FileName;//@"C:\Users\Terco\Desktop\text.tex"; 
+            //filename = filename.Replace(@"\", "/");
             Process p1 = new Process();
             p1.StartInfo.FileName = @"C:\Program Files (x86)\MiKTeX 2.9\miktex\bin\xelatex.exe"; //xelatex är typsättaren
             p1.StartInfo.Arguments = filename;
@@ -38,15 +38,26 @@ namespace HV9104_GUI
             p1.StartInfo.UseShellExecute = false;
 
             p1.Start();
-            var output = p1.StandardOutput.ReadToEnd();
+           // try
+            //{
+                var output = p1.StandardOutput.ReadToEnd();
+            //}
+            //catch (IOException e)
+            //{
+            //    string ex = e.ToString();
+            //}
+
             p1.WaitForExit();
 
         }
 
         public void GenerateTex(string testType, string date, string operatorName, string testObject, string otherInfo, string duration, string testVoltage, string statusPassFail)
         {
+            sfd = new SaveFileDialog();
+            sfd.Filter = "(*.tex)|*.tex";
+            sfd.ShowDialog();
 
-            string path = @"C:\Users\Terco\Desktop\WindowsFormsApplication2\WindowsFormsApplication2\bin\Debug\text.tex";
+            string path = sfd.FileName; //@"C:\Users\Terco\Desktop\WindowsFormsApplication2\WindowsFormsApplication2\bin\Debug\text.tex";
             //if (!File.Exists(path))
             // {
             using (StreamWriter sw = File.CreateText(path))
