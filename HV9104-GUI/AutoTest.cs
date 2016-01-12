@@ -47,7 +47,7 @@ namespace HV9104_GUI
         public int voltageTypeIndex = 0;
         public string measurementType;
         public int duration = 60;
-        public double testVoltage;
+        public double targetVoltage;
         public double actualVoltage;
         public double toleranceHigh;
         public double toleranceLow;
@@ -78,8 +78,8 @@ namespace HV9104_GUI
         double[] xArray;
         double[] yArray;
         private bool isRunning;
-        private double maxTestVoltage;
-        private double minTestVoltage;
+        private double testVoltageToleranceHigh;
+        private double testVoltageToleranceLow;
         private bool parking;
         private bool abortRegulation;
         private double tolerance;
@@ -199,7 +199,7 @@ namespace HV9104_GUI
             }
 
             // In bounds
-            if ((actualVoltage < maxTestVoltage) && (actualVoltage > minTestVoltage))
+            if ((actualVoltage < testVoltageToleranceHigh) && (actualVoltage > testVoltageToleranceLow))
             {
                 // First time here
                 if (!isRunning)
@@ -247,13 +247,13 @@ namespace HV9104_GUI
             }
 
             // We are running the test but the voltage is too high
-            if ((isRunning) && (actualVoltage > maxTestVoltage))
+            if ((isRunning) && (actualVoltage > testVoltageToleranceHigh))
             {
                 // Abort the test
                 AbortTest();
             }
             // We are running the test but the voltage is too low
-            else if ((isRunning) && (actualVoltage < minTestVoltage) && (!parking))
+            else if ((isRunning) && (actualVoltage < testVoltageToleranceLow) && (!parking))
             {
                 // Have we strayed or is it a flashover?
                 if (actualVoltage > 5)
@@ -346,6 +346,58 @@ namespace HV9104_GUI
             runView.testStatusLabel.Invalidate();
         }
 
+        // Stop but keep the chart running
+        internal void SoftAbortTest()
+        {
+            throw new NotImplementedException();
+        }
+        
+        // Temporarily stop the timer
+        internal void PauseTest()
+        {
+            // If we haven't found the voltage yet, stop searching
+            if (!isRunning)
+            {
+                // Stop updating chart and elapsed time
+                // Not needed -
+                // They only start after finding the targetVoltage
+                //sampleTimer.Stop();
+
+                // Set flag for resuming from  Start button
+                // Lets us skip all the initializing
+                isPaused = true;
+
+                // Exit regulation loop
+                abortRegulation = true;
+
+                // Disconnect the output to the HV
+                PIO1.openSecondary();
+
+            }
+            else
+            {
+                // Do not allow a pause (user must abort)
+                SoftAbortTest();
+            }
+
+        }
+
+        // Resume the test after pausing
+        internal bool ResumeTest()
+        {
+            // Clear previous flags
+            abortRegulation = false;
+
+            // Reset the flag to be able to pause again
+            isPaused = true;
+
+            // Connect the output power
+            PIO1.closeSecondary();
+
+            return true;
+
+        }
+
         // Run the test
         public bool StartTest()
         {
@@ -399,10 +451,10 @@ namespace HV9104_GUI
                 sampleTimer.Start();
 
                 // Get test voltage parameters and set tolerances
-                testVoltage = Convert.ToDouble(runView.testVoltageTextBox.Value);
-                tolerance = testVoltage * (runView.toleranceTextBox.Value / 100);
-                maxTestVoltage = testVoltage + tolerance;
-                minTestVoltage = testVoltage - tolerance;
+                targetVoltage = Convert.ToDouble(runView.testVoltageTextBox.Value);
+                tolerance = targetVoltage * (runView.toleranceTextBox.Value / 100);
+                testVoltageToleranceHigh = targetVoltage + tolerance;
+                testVoltageToleranceLow = targetVoltage - tolerance;
 
 
             }
@@ -443,10 +495,10 @@ namespace HV9104_GUI
                     sampleTimer.Start();
 
                     // Set targetVoltage to Stage Max
-                    testVoltage = Convert.ToDouble(runView.testVoltageTextBox.Value);       // already set to 1/2/3-Stage max when disruptive discharge selected
-                    tolerance = testVoltage * (runView.toleranceTextBox.Value / 100);
-                    maxTestVoltage = testVoltage + tolerance;
-                    minTestVoltage = testVoltage - tolerance;
+                    targetVoltage = Convert.ToDouble(runView.testVoltageTextBox.Value);       // already set to 1/2/3-Stage max when disruptive discharge selected
+                    tolerance = targetVoltage * (runView.toleranceTextBox.Value / 100);
+                    testVoltageToleranceHigh = targetVoltage + tolerance;
+                    testVoltageToleranceLow = targetVoltage - tolerance;
 
                     // Set trafSpeed to quite slow
               
@@ -478,24 +530,6 @@ namespace HV9104_GUI
             throw new NotImplementedException();
         }
 
-        // Temporarily stop the timer
-        internal void PauseTest()
-        {
-            // If we haven't found the voltage yet, stop searching
-            if (!isRunning)
-            {
-                sampleTimer.Stop();
-                isPaused = true;
-                abortRegulation = true;
-                PIO1.openSecondary();
-            }
-            else
-            {
-                // Do not allow a pause (user must abort)
-                runView.onOffAutoButton.isChecked = true;
-            }
-
-        }
 
         // Automated voltage set routine
         public void GoToVoltageAuto(double valueIn)
@@ -555,7 +589,7 @@ namespace HV9104_GUI
             }
 
             // Continue until found or precess aborted 
-            while (((error <= toleranceLo) || (error >= toleranceHi)) && (runView.onOffAutoButton.isChecked) && (!abortRegulation))
+            while (((error < toleranceLo) || (error > toleranceHi)) && (runView.onOffAutoButton.isChecked) && (!abortRegulation))
             {
                 // Run only if we have connected the voltage
                 if (PIO1.K2Closed) { 
@@ -600,11 +634,6 @@ namespace HV9104_GUI
                         }
                         // Voltage high, decrease
                         PIO1.decreaseVoltage(styr);
-                    }
-                    else
-                    {
-                        // In bounds. We should only make it here once
-                        PIO1.StopTransformerMotor();
                     }
 
                     Thread.Sleep(10);
@@ -703,5 +732,7 @@ namespace HV9104_GUI
                 logoGrowEffectTimer.Stop();
             }
         }
+
+        
     }
 }

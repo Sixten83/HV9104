@@ -650,16 +650,39 @@ namespace HV9104_GUI
         {
             if (controlForm.runView.onOffAutoButton.isChecked)
             {
-
-                bool ready = autoTest.StartTest();
-                if (ready)
+                // Start request and is not in paused state
+                if (!autoTest.isPaused)
                 {
-                    autoTest.GoToVoltageAuto(autoTest.testVoltage);
+                    // Initialize test parameters and connect power
+                    bool startReady = autoTest.StartTest();
+
+                    if (startReady)
+                    {   
+                        // Regulate to testVoltage
+                        autoTest.GoToVoltageAuto(autoTest.targetVoltage);
+                    }
                 }
+                // Start is On, but in paused state
+                else
+                {
+                    // Reset flags and reconnect power
+                    bool resumeReady = autoTest.StartTest(); autoTest.ResumeTest();
+
+                    if (resumeReady)
+                    {
+                        // Regulate to testVoltage
+                        autoTest.GoToVoltageAuto(autoTest.targetVoltage);
+                    }
+                }
+                
             }
             else
             {
+                // Search has been been started but targetVoltage not reached 
                 autoTest.PauseTest();
+
+                // Set label text to warn for trip on resume at high voltages
+                controlForm.messageLabel.Text = "Attention! Resuming at high voltages can cause overcurrent protection to trip.";
             }
 
         }
