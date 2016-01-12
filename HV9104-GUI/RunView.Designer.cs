@@ -89,23 +89,23 @@
             this.label21 = new System.Windows.Forms.Label();
             this.DisruptiveRadioButton = new HV9104_GUI.CustomRadioButton();
             this.WithstandRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.elapsedTimeLabel = new System.Windows.Forms.Label();
-            this.autoTestChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.label5 = new System.Windows.Forms.Label();
-            this.abortAutoTestButton = new HV9104_GUI.CustomButton();
-            this.onOffAutoButton = new HV9104_GUI.CustomCheckBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.passFailLabel = new System.Windows.Forms.Label();
-            this.dynamicLogoPictureBox = new System.Windows.Forms.PictureBox();
-            this.testStatusLabel = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.passStatusLabel = new System.Windows.Forms.Label();
-            this.elapsedTimeTitleLabel = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.secondsUnitLabel = new System.Windows.Forms.Label();
-            this.passFailUnitlabel = new System.Windows.Forms.Label();
             this.testControlPanel = new HV9104_GUI.CustomPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.elapsedTimeLabel = new System.Windows.Forms.Label();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.passFailUnitlabel = new System.Windows.Forms.Label();
+            this.secondsUnitLabel = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.elapsedTimeTitleLabel = new System.Windows.Forms.Label();
+            this.passStatusLabel = new System.Windows.Forms.Label();
+            this.testStatusLabel = new System.Windows.Forms.Label();
+            this.dynamicLogoPictureBox = new System.Windows.Forms.PictureBox();
+            this.passFailLabel = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.onOffAutoButton = new HV9104_GUI.CustomCheckBox();
+            this.abortAutoTestButton = new HV9104_GUI.CustomButton();
+            this.label5 = new System.Windows.Forms.Label();
+            this.autoTestChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.customPanel8.SuspendLayout();
             this.customPanel9.SuspendLayout();
             this.customPanel10.SuspendLayout();
@@ -117,12 +117,12 @@
             this.customPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.reportPictureBox)).BeginInit();
             this.customPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dynamicLogoPictureBox)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.testControlPanel.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dynamicLogoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).BeginInit();
             this.SuspendLayout();
             // 
             // customPanel8
@@ -895,6 +895,41 @@
             this.WithstandRadioButton.Text = "customRadioButton1";
             this.WithstandRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
+            // testControlPanel
+            // 
+            this.testControlPanel.BackColor = System.Drawing.Color.Transparent;
+            this.testControlPanel.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.testControlPanel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.testControlPanel.Controls.Add(this.tableLayoutPanel3);
+            this.testControlPanel.Controls.Add(this.tableLayoutPanel2);
+            this.testControlPanel.Controls.Add(this.tableLayoutPanel1);
+            this.testControlPanel.Controls.Add(this.dynamicLogoPictureBox);
+            this.testControlPanel.Controls.Add(this.passFailLabel);
+            this.testControlPanel.Controls.Add(this.label15);
+            this.testControlPanel.Controls.Add(this.onOffAutoButton);
+            this.testControlPanel.Controls.Add(this.abortAutoTestButton);
+            this.testControlPanel.Controls.Add(this.label5);
+            this.testControlPanel.Controls.Add(this.autoTestChart);
+            this.testControlPanel.Controls.Add(this.testStatusLabel);
+            this.testControlPanel.CornerRadius = 40;
+            this.testControlPanel.IsPopUp = false;
+            this.testControlPanel.Location = new System.Drawing.Point(497, 266);
+            this.testControlPanel.Name = "testControlPanel";
+            this.testControlPanel.Size = new System.Drawing.Size(905, 505);
+            this.testControlPanel.TabIndex = 1;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.elapsedTimeLabel, 0, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(305, 400);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(163, 65);
+            this.tableLayoutPanel3.TabIndex = 22;
+            // 
             // elapsedTimeLabel
             // 
             this.elapsedTimeLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -908,6 +943,174 @@
             this.elapsedTimeLabel.TabIndex = 11;
             this.elapsedTimeLabel.Text = "50";
             this.elapsedTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 163F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 163F));
+            this.tableLayoutPanel2.Controls.Add(this.passFailUnitlabel, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.secondsUnitLabel, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(305, 466);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(344, 19);
+            this.tableLayoutPanel2.TabIndex = 21;
+            // 
+            // passFailUnitlabel
+            // 
+            this.passFailUnitlabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.passFailUnitlabel.AutoSize = true;
+            this.passFailUnitlabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passFailUnitlabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.passFailUnitlabel.Location = new System.Drawing.Point(223, 0);
+            this.passFailUnitlabel.Name = "passFailUnitlabel";
+            this.passFailUnitlabel.Size = new System.Drawing.Size(79, 19);
+            this.passFailUnitlabel.TabIndex = 18;
+            this.passFailUnitlabel.Text = "PASS / FAIL";
+            this.passFailUnitlabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // secondsUnitLabel
+            // 
+            this.secondsUnitLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.secondsUnitLabel.AutoSize = true;
+            this.secondsUnitLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.secondsUnitLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.secondsUnitLabel.Location = new System.Drawing.Point(46, 0);
+            this.secondsUnitLabel.Name = "secondsUnitLabel";
+            this.secondsUnitLabel.Size = new System.Drawing.Size(71, 19);
+            this.secondsUnitLabel.TabIndex = 12;
+            this.secondsUnitLabel.Text = "SECONDS";
+            this.secondsUnitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 162F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 164F));
+            this.tableLayoutPanel1.Controls.Add(this.elapsedTimeTitleLabel, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.passStatusLabel, 2, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(305, 377);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.94737F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(344, 25);
+            this.tableLayoutPanel1.TabIndex = 20;
+            // 
+            // elapsedTimeTitleLabel
+            // 
+            this.elapsedTimeTitleLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.elapsedTimeTitleLabel.AutoSize = true;
+            this.elapsedTimeTitleLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.elapsedTimeTitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.elapsedTimeTitleLabel.Location = new System.Drawing.Point(13, 0);
+            this.elapsedTimeTitleLabel.Name = "elapsedTimeTitleLabel";
+            this.elapsedTimeTitleLabel.Size = new System.Drawing.Size(135, 25);
+            this.elapsedTimeTitleLabel.TabIndex = 10;
+            this.elapsedTimeTitleLabel.Text = "ELAPSED TIME";
+            // 
+            // passStatusLabel
+            // 
+            this.passStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.passStatusLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.passStatusLabel.Location = new System.Drawing.Point(203, 0);
+            this.passStatusLabel.Name = "passStatusLabel";
+            this.passStatusLabel.Size = new System.Drawing.Size(118, 25);
+            this.passStatusLabel.TabIndex = 15;
+            this.passStatusLabel.Text = "TEST STATUS";
+            // 
+            // testStatusLabel
+            // 
+            this.testStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.testStatusLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.testStatusLabel.Location = new System.Drawing.Point(502, 404);
+            this.testStatusLabel.Name = "testStatusLabel";
+            this.testStatusLabel.Padding = new System.Windows.Forms.Padding(20, 10, 20, 10);
+            this.testStatusLabel.Size = new System.Drawing.Size(134, 58);
+            this.testStatusLabel.TabIndex = 17;
+            this.testStatusLabel.Text = "EVALUATING\r\nPLEASE WAIT";
+            this.testStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.testStatusLabel.Visible = false;
+            // 
+            // dynamicLogoPictureBox
+            // 
+            this.dynamicLogoPictureBox.Image = global::HV9104_GUI.Properties.Resources.SplashlogoCropped;
+            this.dynamicLogoPictureBox.Location = new System.Drawing.Point(289, 50);
+            this.dynamicLogoPictureBox.Name = "dynamicLogoPictureBox";
+            this.dynamicLogoPictureBox.Size = new System.Drawing.Size(377, 295);
+            this.dynamicLogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.dynamicLogoPictureBox.TabIndex = 19;
+            this.dynamicLogoPictureBox.TabStop = false;
+            this.dynamicLogoPictureBox.Visible = false;
+            // 
+            // passFailLabel
+            // 
+            this.passFailLabel.AutoSize = true;
+            this.passFailLabel.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passFailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.passFailLabel.Location = new System.Drawing.Point(509, 404);
+            this.passFailLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.passFailLabel.Name = "passFailLabel";
+            this.passFailLabel.Size = new System.Drawing.Size(123, 59);
+            this.passFailLabel.TabIndex = 16;
+            this.passFailLabel.Text = "PASS";
+            this.passFailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.passFailLabel.Visible = false;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label15.Location = new System.Drawing.Point(23, 421);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(124, 26);
+            this.label15.TabIndex = 9;
+            this.label15.Text = "START/PAUSE";
+            // 
+            // onOffAutoButton
+            // 
+            this.onOffAutoButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.onOffAutoButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
+            this.onOffAutoButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
+            this.onOffAutoButton.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
+            this.onOffAutoButton.isChecked = false;
+            this.onOffAutoButton.Location = new System.Drawing.Point(153, 406);
+            this.onOffAutoButton.Name = "onOffAutoButton";
+            this.onOffAutoButton.Size = new System.Drawing.Size(138, 56);
+            this.onOffAutoButton.TabIndex = 10;
+            this.onOffAutoButton.Text = "customCheckBox2";
+            this.onOffAutoButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
+            // 
+            // abortAutoTestButton
+            // 
+            this.abortAutoTestButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.abortAutoTestButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.abortAutoTestButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.abortAutoTestButton.ForeColor = System.Drawing.Color.White;
+            this.abortAutoTestButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.abortAutoTestButton.Location = new System.Drawing.Point(678, 406);
+            this.abortAutoTestButton.Name = "abortAutoTestButton";
+            this.abortAutoTestButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.abortAutoTestButton.Size = new System.Drawing.Size(158, 57);
+            this.abortAutoTestButton.TabIndex = 12;
+            this.abortAutoTestButton.Text = "ABORT";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label5.Location = new System.Drawing.Point(25, 17);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(136, 18);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "TEST CONTROL";
             // 
             // autoTestChart
             // 
@@ -940,209 +1143,6 @@
             this.autoTestChart.Text = "chart1";
             title1.Name = "Title1";
             this.autoTestChart.Titles.Add(title1);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label5.Location = new System.Drawing.Point(25, 17);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(136, 18);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "TEST CONTROL";
-            // 
-            // abortAutoTestButton
-            // 
-            this.abortAutoTestButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.abortAutoTestButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.abortAutoTestButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.abortAutoTestButton.ForeColor = System.Drawing.Color.White;
-            this.abortAutoTestButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.abortAutoTestButton.Location = new System.Drawing.Point(678, 406);
-            this.abortAutoTestButton.Name = "abortAutoTestButton";
-            this.abortAutoTestButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.abortAutoTestButton.Size = new System.Drawing.Size(158, 57);
-            this.abortAutoTestButton.TabIndex = 12;
-            this.abortAutoTestButton.Text = "ABORT";
-            // 
-            // onOffAutoButton
-            // 
-            this.onOffAutoButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.onOffAutoButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.offButton;
-            this.onOffAutoButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.onButtonHover;
-            this.onOffAutoButton.CheckedImage = global::HV9104_GUI.Properties.Resources.onButton;
-            this.onOffAutoButton.isChecked = false;
-            this.onOffAutoButton.Location = new System.Drawing.Point(153, 406);
-            this.onOffAutoButton.Name = "onOffAutoButton";
-            this.onOffAutoButton.Size = new System.Drawing.Size(138, 56);
-            this.onOffAutoButton.TabIndex = 10;
-            this.onOffAutoButton.Text = "customCheckBox2";
-            this.onOffAutoButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label15.Location = new System.Drawing.Point(23, 421);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(124, 26);
-            this.label15.TabIndex = 9;
-            this.label15.Text = "START/PAUSE";
-            // 
-            // passFailLabel
-            // 
-            this.passFailLabel.AutoSize = true;
-            this.passFailLabel.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passFailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.passFailLabel.Location = new System.Drawing.Point(509, 404);
-            this.passFailLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.passFailLabel.Name = "passFailLabel";
-            this.passFailLabel.Size = new System.Drawing.Size(123, 59);
-            this.passFailLabel.TabIndex = 16;
-            this.passFailLabel.Text = "PASS";
-            this.passFailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.passFailLabel.Visible = false;
-            // 
-            // dynamicLogoPictureBox
-            // 
-            this.dynamicLogoPictureBox.Image = global::HV9104_GUI.Properties.Resources.SplashlogoCropped;
-            this.dynamicLogoPictureBox.Location = new System.Drawing.Point(289, 50);
-            this.dynamicLogoPictureBox.Name = "dynamicLogoPictureBox";
-            this.dynamicLogoPictureBox.Size = new System.Drawing.Size(377, 295);
-            this.dynamicLogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.dynamicLogoPictureBox.TabIndex = 19;
-            this.dynamicLogoPictureBox.TabStop = false;
-            this.dynamicLogoPictureBox.Visible = false;
-            // 
-            // testStatusLabel
-            // 
-            this.testStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.testStatusLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.testStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.testStatusLabel.Location = new System.Drawing.Point(502, 404);
-            this.testStatusLabel.Name = "testStatusLabel";
-            this.testStatusLabel.Padding = new System.Windows.Forms.Padding(20, 10, 20, 10);
-            this.testStatusLabel.Size = new System.Drawing.Size(134, 58);
-            this.testStatusLabel.TabIndex = 17;
-            this.testStatusLabel.Text = "EVALUATING\r\nPLEASE WAIT";
-            this.testStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.testStatusLabel.Visible = false;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 162F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
-            this.tableLayoutPanel1.Controls.Add(this.elapsedTimeTitleLabel, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.passStatusLabel, 2, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(305, 377);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.94737F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(344, 25);
-            this.tableLayoutPanel1.TabIndex = 20;
-            // 
-            // passStatusLabel
-            // 
-            this.passStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.passStatusLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.passStatusLabel.Location = new System.Drawing.Point(203, 0);
-            this.passStatusLabel.Name = "passStatusLabel";
-            this.passStatusLabel.Size = new System.Drawing.Size(118, 25);
-            this.passStatusLabel.TabIndex = 15;
-            this.passStatusLabel.Text = "TEST STATUS";
-            // 
-            // elapsedTimeTitleLabel
-            // 
-            this.elapsedTimeTitleLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.elapsedTimeTitleLabel.AutoSize = true;
-            this.elapsedTimeTitleLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.elapsedTimeTitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.elapsedTimeTitleLabel.Location = new System.Drawing.Point(13, 0);
-            this.elapsedTimeTitleLabel.Name = "elapsedTimeTitleLabel";
-            this.elapsedTimeTitleLabel.Size = new System.Drawing.Size(135, 25);
-            this.elapsedTimeTitleLabel.TabIndex = 10;
-            this.elapsedTimeTitleLabel.Text = "ELAPSED TIME";
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 163F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel2.Controls.Add(this.passFailUnitlabel, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.secondsUnitLabel, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(305, 466);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(344, 19);
-            this.tableLayoutPanel2.TabIndex = 21;
-            // 
-            // secondsUnitLabel
-            // 
-            this.secondsUnitLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.secondsUnitLabel.AutoSize = true;
-            this.secondsUnitLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.secondsUnitLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.secondsUnitLabel.Location = new System.Drawing.Point(46, 0);
-            this.secondsUnitLabel.Name = "secondsUnitLabel";
-            this.secondsUnitLabel.Size = new System.Drawing.Size(71, 19);
-            this.secondsUnitLabel.TabIndex = 12;
-            this.secondsUnitLabel.Text = "SECONDS";
-            this.secondsUnitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // passFailUnitlabel
-            // 
-            this.passFailUnitlabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.passFailUnitlabel.AutoSize = true;
-            this.passFailUnitlabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passFailUnitlabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.passFailUnitlabel.Location = new System.Drawing.Point(223, 0);
-            this.passFailUnitlabel.Name = "passFailUnitlabel";
-            this.passFailUnitlabel.Size = new System.Drawing.Size(79, 19);
-            this.passFailUnitlabel.TabIndex = 18;
-            this.passFailUnitlabel.Text = "PASS / FAIL";
-            this.passFailUnitlabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // testControlPanel
-            // 
-            this.testControlPanel.BackColor = System.Drawing.Color.Transparent;
-            this.testControlPanel.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.testControlPanel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.testControlPanel.Controls.Add(this.tableLayoutPanel3);
-            this.testControlPanel.Controls.Add(this.tableLayoutPanel2);
-            this.testControlPanel.Controls.Add(this.tableLayoutPanel1);
-            this.testControlPanel.Controls.Add(this.testStatusLabel);
-            this.testControlPanel.Controls.Add(this.dynamicLogoPictureBox);
-            this.testControlPanel.Controls.Add(this.passFailLabel);
-            this.testControlPanel.Controls.Add(this.label15);
-            this.testControlPanel.Controls.Add(this.onOffAutoButton);
-            this.testControlPanel.Controls.Add(this.abortAutoTestButton);
-            this.testControlPanel.Controls.Add(this.label5);
-            this.testControlPanel.Controls.Add(this.autoTestChart);
-            this.testControlPanel.CornerRadius = 40;
-            this.testControlPanel.IsPopUp = false;
-            this.testControlPanel.Location = new System.Drawing.Point(497, 266);
-            this.testControlPanel.Name = "testControlPanel";
-            this.testControlPanel.Size = new System.Drawing.Size(905, 505);
-            this.testControlPanel.TabIndex = 1;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.elapsedTimeLabel, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(305, 400);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(163, 65);
-            this.tableLayoutPanel3.TabIndex = 22;
             // 
             // RunView
             // 
@@ -1179,15 +1179,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.reportPictureBox)).EndInit();
             this.customPanel2.ResumeLayout(false);
             this.customPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dynamicLogoPictureBox)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.testControlPanel.ResumeLayout(false);
             this.testControlPanel.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dynamicLogoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).EndInit();
             this.ResumeLayout(false);
 
         }

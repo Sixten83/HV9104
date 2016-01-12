@@ -641,12 +641,7 @@ namespace HV9104_GUI
 
         public void GenerateReport()
         {
-            ReportForm reportForm = new ReportForm();
-            reportForm.autoTestChart = controlForm.runView.autoTestChart;
-            reportForm.elapsedTimeLabel.Text = controlForm.runView.elapsedTimeLabel.Text;
-            reportForm.panel1.Invalidate();
-
-            report.GenerateReportNow();
+            report.GenerateReportNow(controlForm.runView, controlForm.modeLabel.Text);
         }
 
 
@@ -1519,6 +1514,7 @@ namespace HV9104_GUI
             // Set the test notification text
             UpdateRnTestVoltageMax();
             GetTestType();
+            UpdateResultLabels();
         }
 
         private void impulseOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
@@ -1527,6 +1523,7 @@ namespace HV9104_GUI
             SetImpOutputType(impAutoTypeIndex);
             UpdateRnTestVoltageMax();
             GetTestType();
+            UpdateResultLabels();
         }
 
         private void dcOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
@@ -1535,6 +1532,7 @@ namespace HV9104_GUI
             SetDCOutputType(dcAutoTypeIndex);
             UpdateRnTestVoltageMax();
             GetTestType();
+            UpdateResultLabels();
         }
 
         private void acOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
@@ -1543,6 +1541,7 @@ namespace HV9104_GUI
             SetACOutputType(acAutoTypeIndex);
             UpdateRnTestVoltageMax();
             GetTestType();
+            UpdateResultLabels();
         }
 
 
@@ -1758,6 +1757,9 @@ namespace HV9104_GUI
             // Hide the chart temporarily
             controlForm.runView.autoTestChart.Visible = false;
             controlForm.runView.autoTestChart.Invalidate();
+
+            // Run in the cool Terco logo
+            autoTest.GrowLogo();
         }
 
         private void UpdateRnTestVoltageMax()
@@ -1816,7 +1818,7 @@ namespace HV9104_GUI
                 }
                 controlForm.runView.testVoltageTextBox.Invalidate();
             }
-            autoTest.GrowLogo();
+          
         }
 
         public void SetAutoMaxAC()
