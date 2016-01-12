@@ -599,6 +599,9 @@ namespace HV9104_GUI
             {
                 StopTransformerMotor();
                 T2.Stop();
+
+                // Disconnect the incoming voltage if still connected.
+                if(K1Closed)openPrimary();
             }
         }
 

@@ -1663,6 +1663,26 @@ namespace HV9104_GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Splashlogo {
+            get {
+                object obj = ResourceManager.GetObject("Splashlogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SplashlogoCropped {
+            get {
+                object obj = ResourceManager.GetObject("SplashlogoCropped", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Static_discharge {
             get {
                 object obj = ResourceManager.GetObject("Static discharge", resourceCulture);
