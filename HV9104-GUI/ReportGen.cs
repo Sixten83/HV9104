@@ -193,7 +193,7 @@ namespace HV9104_GUI
                 doc.Close();
             }
 
-
+            System.Diagnostics.Process.Start(pdfpath);
 
         }
         //private void GetInfo()

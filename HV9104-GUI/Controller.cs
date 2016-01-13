@@ -1966,13 +1966,15 @@ namespace HV9104_GUI
 
             if (autoTest.testIsWithstand)
             {
+                controlForm.runView.resultTestVoltageLabel.Text = "TEST VOLTAGE";
                 controlForm.runView.elapsedTimeTitleLabel.Text = "ELAPSED TIME";
-                controlForm.runView.secondsUnitLabel.Text = "SECONDS";
+                controlForm.runView.hvUnitLabel.Text = "SECONDS";
             }
             else
             {
-                controlForm.runView.elapsedTimeTitleLabel.Text = "INCEPTION";
-                controlForm.runView.secondsUnitLabel.Text = "kV" + selectedVoltage + selectedMeasType;
+                controlForm.runView.resultTestVoltageLabel.Text = "INCEPTION";
+                controlForm.runView.elapsedTimeTitleLabel.Text = "SAMPLE TIME";
+                controlForm.runView.hvUnitLabel.Text = "kV" + selectedVoltage + selectedMeasType;
             }
 
             controlForm.runView.elapsedTimeTitleLabel.Invalidate();

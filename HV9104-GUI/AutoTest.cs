@@ -165,7 +165,11 @@ namespace HV9104_GUI
             else if (runView.voltageComboBox.SetSelected == "Imp") actualVoltage = Convert.ToDouble(runView.impulseValueLabel.Text);
 
             // Update the max value if Disruptive Discharge test
-            if (!testIsWithstand) runView.elapsedTimeLabel.Text = actualVoltage.ToString();
+            if (!testIsWithstand)
+            {
+                runView.elapsedTimeLabel.Text = sampleRate.ToString();
+                runView.resultTestVoltageValue.Text = actualVoltage.ToString();
+            }
             
             // Calculate the voltage derivitive
             voltageDiff = actualVoltage - lastVoltage;
@@ -345,7 +349,7 @@ namespace HV9104_GUI
             runView.passFailLabel.Text = "PASS";
             runView.passFailLabel.Visible = true;
             runView.passFailLabel.Invalidate();
-            runView.testStatusLabel.Visible = false;
+            //runView.testStatusLabel.Visible = false;
 
 
             // Park the transformer
@@ -390,8 +394,8 @@ namespace HV9104_GUI
             // Present the status
             runView.passFailLabel.Text = "FAIL";
             runView.passFailLabel.Visible = true;
-            runView.testStatusLabel.Visible = false;
-            runView.testStatusLabel.Invalidate();
+            //runView.testStatusLabel.Visible = false;
+            runView.passFailLabel.Invalidate();
 
             Thread.Sleep(1000);
             
@@ -418,8 +422,8 @@ namespace HV9104_GUI
             // Present the status
             runView.passFailLabel.Text = "VOID";
             runView.passFailLabel.Visible = true;
-            runView.testStatusLabel.Visible = false;
-            runView.testStatusLabel.Invalidate();
+            //runView.testStatusLabel.Visible = false;
+            runView.passFailLabel.Invalidate();
 
             // Reset the start button
             runView.onOffAutoButton.isChecked = false;
@@ -501,10 +505,12 @@ namespace HV9104_GUI
             runView.onOffAutoButton.Enabled = false;
             runView.abortAutoTestButton.Enabled = true;
 
-            runView.testStatusLabel.Visible = true;
-            runView.testStatusLabel.Invalidate();
-            runView.passFailLabel.Visible = false;
-            runView.testControlPanel.Invalidate();
+            runView.passFailLabel.Text = "EVAL";
+            runView.passFailLabel.Visible = true;
+            runView.passFailLabel.Invalidate();
+            
+           // runView.testStatusLabel.Invalidate();
+            //runView.testControlPanel.Invalidate();
 
             simElapsedTime = 0;
             runView.elapsedTimeLabel.Text = "0";
