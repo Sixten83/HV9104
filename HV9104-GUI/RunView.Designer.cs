@@ -89,25 +89,22 @@
             this.DisruptiveRadioButton = new HV9104_GUI.CustomRadioButton();
             this.WithstandRadioButton = new HV9104_GUI.CustomRadioButton();
             this.testControlPanel = new HV9104_GUI.CustomPanel();
-            this.passFailLabel = new System.Windows.Forms.Label();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.resultTestVoltageValue = new System.Windows.Forms.Label();
             this.elapsedTimeLabel = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.passFailUnitlabel = new System.Windows.Forms.Label();
             this.secondsUnitLabel = new System.Windows.Forms.Label();
+            this.passFailUnitlabel = new System.Windows.Forms.Label();
+            this.hvUnitLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.resultTestVoltageLabel = new System.Windows.Forms.Label();
             this.elapsedTimeTitleLabel = new System.Windows.Forms.Label();
+            this.passStatusLabel = new System.Windows.Forms.Label();
             this.dynamicLogoPictureBox = new System.Windows.Forms.PictureBox();
             this.label15 = new System.Windows.Forms.Label();
             this.onOffAutoButton = new HV9104_GUI.CustomCheckBox();
             this.abortAutoTestButton = new HV9104_GUI.CustomButton();
             this.label5 = new System.Windows.Forms.Label();
             this.autoTestChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.testStatusLabel = new System.Windows.Forms.Label();
-            this.passStatusLabel = new System.Windows.Forms.Label();
-            this.resultTestVoltageLabel = new System.Windows.Forms.Label();
-            this.hvUnitLabel = new System.Windows.Forms.Label();
-            this.resultTestVoltageValue = new System.Windows.Forms.Label();
+            this.passFailLabel = new System.Windows.Forms.Label();
             this.customPanel8.SuspendLayout();
             this.customPanel9.SuspendLayout();
             this.customPanel10.SuspendLayout();
@@ -119,8 +116,6 @@
             this.customPanel3.SuspendLayout();
             this.customPanel2.SuspendLayout();
             this.testControlPanel.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dynamicLogoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).BeginInit();
@@ -890,9 +885,6 @@
             this.testControlPanel.BackColor = System.Drawing.Color.Transparent;
             this.testControlPanel.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.testControlPanel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.testControlPanel.Controls.Add(this.resultTestVoltageValue);
-            this.testControlPanel.Controls.Add(this.tableLayoutPanel3);
-            this.testControlPanel.Controls.Add(this.tableLayoutPanel2);
             this.testControlPanel.Controls.Add(this.tableLayoutPanel1);
             this.testControlPanel.Controls.Add(this.dynamicLogoPictureBox);
             this.testControlPanel.Controls.Add(this.label15);
@@ -900,8 +892,6 @@
             this.testControlPanel.Controls.Add(this.abortAutoTestButton);
             this.testControlPanel.Controls.Add(this.label5);
             this.testControlPanel.Controls.Add(this.autoTestChart);
-            this.testControlPanel.Controls.Add(this.testStatusLabel);
-            this.testControlPanel.Controls.Add(this.passFailLabel);
             this.testControlPanel.CornerRadius = 40;
             this.testControlPanel.IsPopUp = false;
             this.testControlPanel.Location = new System.Drawing.Point(497, 266);
@@ -909,76 +899,33 @@
             this.testControlPanel.Size = new System.Drawing.Size(905, 505);
             this.testControlPanel.TabIndex = 1;
             // 
-            // passFailLabel
+            // resultTestVoltageValue
             // 
-            this.passFailLabel.AutoSize = true;
-            this.passFailLabel.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passFailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.passFailLabel.Location = new System.Drawing.Point(567, 404);
-            this.passFailLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.passFailLabel.Name = "passFailLabel";
-            this.passFailLabel.Size = new System.Drawing.Size(123, 59);
-            this.passFailLabel.TabIndex = 16;
-            this.passFailLabel.Text = "PASS";
-            this.passFailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.passFailLabel.Visible = false;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.elapsedTimeLabel, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(200, 397);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(163, 65);
-            this.tableLayoutPanel3.TabIndex = 22;
+            this.resultTestVoltageValue.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.resultTestVoltageValue.Font = new System.Drawing.Font("Calibri", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resultTestVoltageValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.resultTestVoltageValue.Location = new System.Drawing.Point(165, 30);
+            this.resultTestVoltageValue.Margin = new System.Windows.Forms.Padding(0);
+            this.resultTestVoltageValue.Name = "resultTestVoltageValue";
+            this.resultTestVoltageValue.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.resultTestVoltageValue.Size = new System.Drawing.Size(165, 61);
+            this.resultTestVoltageValue.TabIndex = 23;
+            this.resultTestVoltageValue.Text = "33";
+            this.resultTestVoltageValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // elapsedTimeLabel
             // 
             this.elapsedTimeLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.elapsedTimeLabel.Font = new System.Drawing.Font("Calibri", 44.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.elapsedTimeLabel.Font = new System.Drawing.Font("Calibri", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.elapsedTimeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.elapsedTimeLabel.Location = new System.Drawing.Point(3, 0);
+            this.elapsedTimeLabel.Location = new System.Drawing.Point(0, 30);
             this.elapsedTimeLabel.Margin = new System.Windows.Forms.Padding(0);
             this.elapsedTimeLabel.Name = "elapsedTimeLabel";
             this.elapsedTimeLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.elapsedTimeLabel.Size = new System.Drawing.Size(156, 65);
+            this.elapsedTimeLabel.Size = new System.Drawing.Size(165, 61);
             this.elapsedTimeLabel.TabIndex = 11;
             this.elapsedTimeLabel.Text = "0";
             this.elapsedTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 5;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 163F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 163F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Controls.Add(this.secondsUnitLabel, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.passFailUnitlabel, 4, 0);
-            this.tableLayoutPanel2.Controls.Add(this.hvUnitLabel, 2, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(200, 468);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(498, 19);
-            this.tableLayoutPanel2.TabIndex = 21;
-            // 
-            // passFailUnitlabel
-            // 
-            this.passFailUnitlabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.passFailUnitlabel.AutoSize = true;
-            this.passFailUnitlabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passFailUnitlabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.passFailUnitlabel.Location = new System.Drawing.Point(391, 0);
-            this.passFailUnitlabel.Name = "passFailUnitlabel";
-            this.passFailUnitlabel.Size = new System.Drawing.Size(79, 19);
-            this.passFailUnitlabel.TabIndex = 18;
-            this.passFailUnitlabel.Text = "PASS / FAIL";
-            this.passFailUnitlabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // secondsUnitLabel
             // 
@@ -986,30 +933,76 @@
             this.secondsUnitLabel.AutoSize = true;
             this.secondsUnitLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.secondsUnitLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.secondsUnitLabel.Location = new System.Drawing.Point(46, 0);
+            this.secondsUnitLabel.Location = new System.Drawing.Point(47, 92);
             this.secondsUnitLabel.Name = "secondsUnitLabel";
             this.secondsUnitLabel.Size = new System.Drawing.Size(71, 19);
             this.secondsUnitLabel.TabIndex = 12;
             this.secondsUnitLabel.Text = "SECONDS";
             this.secondsUnitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // passFailUnitlabel
+            // 
+            this.passFailUnitlabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.passFailUnitlabel.AutoSize = true;
+            this.passFailUnitlabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passFailUnitlabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.passFailUnitlabel.Location = new System.Drawing.Point(374, 92);
+            this.passFailUnitlabel.Name = "passFailUnitlabel";
+            this.passFailUnitlabel.Size = new System.Drawing.Size(79, 19);
+            this.passFailUnitlabel.TabIndex = 18;
+            this.passFailUnitlabel.Text = "PASS / FAIL";
+            this.passFailUnitlabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // hvUnitLabel
+            // 
+            this.hvUnitLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.hvUnitLabel.AutoSize = true;
+            this.hvUnitLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hvUnitLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.hvUnitLabel.Location = new System.Drawing.Point(210, 92);
+            this.hvUnitLabel.Name = "hvUnitLabel";
+            this.hvUnitLabel.Size = new System.Drawing.Size(75, 19);
+            this.hvUnitLabel.TabIndex = 19;
+            this.hvUnitLabel.Text = "kV AC rms";
+            this.hvUnitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 162F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 164F));
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.resultTestVoltageLabel, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.passFailUnitlabel, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.resultTestVoltageLabel, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.hvUnitLabel, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.secondsUnitLabel, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.elapsedTimeTitleLabel, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.passStatusLabel, 4, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(200, 369);
+            this.tableLayoutPanel1.Controls.Add(this.passStatusLabel, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.elapsedTimeLabel, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.passFailLabel, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.resultTestVoltageValue, 1, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(200, 362);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.94737F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(498, 25);
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(498, 113);
             this.tableLayoutPanel1.TabIndex = 20;
+            // 
+            // resultTestVoltageLabel
+            // 
+            this.resultTestVoltageLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.resultTestVoltageLabel.AutoSize = true;
+            this.resultTestVoltageLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resultTestVoltageLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.resultTestVoltageLabel.Location = new System.Drawing.Point(181, 2);
+            this.resultTestVoltageLabel.Name = "resultTestVoltageLabel";
+            this.resultTestVoltageLabel.Size = new System.Drawing.Size(133, 26);
+            this.resultTestVoltageLabel.TabIndex = 23;
+            this.resultTestVoltageLabel.Text = "TEST VOLTAGE";
             // 
             // elapsedTimeTitleLabel
             // 
@@ -1017,11 +1010,22 @@
             this.elapsedTimeTitleLabel.AutoSize = true;
             this.elapsedTimeTitleLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.elapsedTimeTitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.elapsedTimeTitleLabel.Location = new System.Drawing.Point(13, 0);
+            this.elapsedTimeTitleLabel.Location = new System.Drawing.Point(15, 2);
             this.elapsedTimeTitleLabel.Name = "elapsedTimeTitleLabel";
-            this.elapsedTimeTitleLabel.Size = new System.Drawing.Size(135, 25);
+            this.elapsedTimeTitleLabel.Size = new System.Drawing.Size(135, 26);
             this.elapsedTimeTitleLabel.TabIndex = 10;
             this.elapsedTimeTitleLabel.Text = "ELAPSED TIME";
+            // 
+            // passStatusLabel
+            // 
+            this.passStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.passStatusLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.passStatusLabel.Location = new System.Drawing.Point(355, 2);
+            this.passStatusLabel.Name = "passStatusLabel";
+            this.passStatusLabel.Size = new System.Drawing.Size(118, 25);
+            this.passStatusLabel.TabIndex = 15;
+            this.passStatusLabel.Text = "TEST STATUS";
             // 
             // dynamicLogoPictureBox
             // 
@@ -1116,69 +1120,20 @@
             title1.Name = "Title1";
             this.autoTestChart.Titles.Add(title1);
             // 
-            // testStatusLabel
+            // passFailLabel
             // 
-            this.testStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.testStatusLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.testStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.testStatusLabel.Location = new System.Drawing.Point(566, 400);
-            this.testStatusLabel.Name = "testStatusLabel";
-            this.testStatusLabel.Padding = new System.Windows.Forms.Padding(20, 10, 20, 10);
-            this.testStatusLabel.Size = new System.Drawing.Size(132, 58);
-            this.testStatusLabel.TabIndex = 17;
-            this.testStatusLabel.Text = "EVALUATING\r\nPLEASE WAIT";
-            this.testStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.testStatusLabel.Visible = false;
-            // 
-            // passStatusLabel
-            // 
-            this.passStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.passStatusLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.passStatusLabel.Location = new System.Drawing.Point(372, 0);
-            this.passStatusLabel.Name = "passStatusLabel";
-            this.passStatusLabel.Size = new System.Drawing.Size(118, 25);
-            this.passStatusLabel.TabIndex = 15;
-            this.passStatusLabel.Text = "TEST STATUS";
-            // 
-            // resultTestVoltageLabel
-            // 
-            this.resultTestVoltageLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.resultTestVoltageLabel.AutoSize = true;
-            this.resultTestVoltageLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resultTestVoltageLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.resultTestVoltageLabel.Location = new System.Drawing.Point(195, 0);
-            this.resultTestVoltageLabel.Name = "resultTestVoltageLabel";
-            this.resultTestVoltageLabel.Size = new System.Drawing.Size(133, 25);
-            this.resultTestVoltageLabel.TabIndex = 23;
-            this.resultTestVoltageLabel.Text = "TEST VOLTAGE";
-            // 
-            // hvUnitLabel
-            // 
-            this.hvUnitLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.hvUnitLabel.AutoSize = true;
-            this.hvUnitLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hvUnitLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.hvUnitLabel.Location = new System.Drawing.Point(225, 0);
-            this.hvUnitLabel.Name = "hvUnitLabel";
-            this.hvUnitLabel.Size = new System.Drawing.Size(75, 19);
-            this.hvUnitLabel.TabIndex = 19;
-            this.hvUnitLabel.Text = "kV AC rms";
-            this.hvUnitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // resultTestVoltageValue
-            // 
-            this.resultTestVoltageValue.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.resultTestVoltageValue.Font = new System.Drawing.Font("Calibri", 44.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resultTestVoltageValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.resultTestVoltageValue.Location = new System.Drawing.Point(388, 397);
-            this.resultTestVoltageValue.Margin = new System.Windows.Forms.Padding(0);
-            this.resultTestVoltageValue.Name = "resultTestVoltageValue";
-            this.resultTestVoltageValue.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.resultTestVoltageValue.Size = new System.Drawing.Size(156, 65);
-            this.resultTestVoltageValue.TabIndex = 23;
-            this.resultTestVoltageValue.Text = "33";
-            this.resultTestVoltageValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.passFailLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.passFailLabel.AutoSize = true;
+            this.passFailLabel.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passFailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.passFailLabel.Location = new System.Drawing.Point(335, 31);
+            this.passFailLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.passFailLabel.Name = "passFailLabel";
+            this.passFailLabel.Size = new System.Drawing.Size(157, 59);
+            this.passFailLabel.TabIndex = 16;
+            this.passFailLabel.Text = "READY";
+            this.passFailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.passFailLabel.Visible = false;
             // 
             // RunView
             // 
@@ -1216,9 +1171,6 @@
             this.customPanel2.PerformLayout();
             this.testControlPanel.ResumeLayout(false);
             this.testControlPanel.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dynamicLogoPictureBox)).EndInit();
@@ -1285,13 +1237,10 @@
         public System.Windows.Forms.TextBox testObjectTextBox;
         public System.Windows.Forms.TextBox dateTextBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         public CustomPanel testControlPanel;
         public System.Windows.Forms.Label secondsUnitLabel;
         public System.Windows.Forms.Label passFailUnitlabel;
         public System.Windows.Forms.Label elapsedTimeTitleLabel;
-        public System.Windows.Forms.Label testStatusLabel;
         public System.Windows.Forms.PictureBox dynamicLogoPictureBox;
         public System.Windows.Forms.Label passFailLabel;
         public System.Windows.Forms.Label label15;
