@@ -581,7 +581,7 @@ namespace HV9104_GUI
             this.controlForm.runView.onOffAutoButton.Click += new System.EventHandler(onOffAutoButton_Click);
             this.controlForm.runView.testDurationTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(testDurationTextBox_valueChange);
             this.controlForm.runView.testVoltageTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(testVoltageTextBox_valueChange);
-            this.controlForm.runView.voltageLevelsTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(voltageLevelsTextBox_valueChange);
+            this.controlForm.runView.impulseVoltageLevelsTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(voltageLevelsTextBox_valueChange);
             this.controlForm.runView.impPerLevelTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impPerLevelTextBox_valueChange);
             this.controlForm.runView.abortAutoTestButton.Click += new System.EventHandler(abortAutoTestButton_Click);
             this.controlForm.runView.voltageComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(autoTestVoltageComboBox_valueChange);
@@ -1831,13 +1831,13 @@ namespace HV9104_GUI
                 if (controlForm.runView.DisruptiveRadioButton.isChecked)
                 {
                     controlForm.runView.testVoltageTextBox.Value = impAutoOutputMax;
-                    controlForm.runView.voltageLevelsTextBox.Value = 20;
+                    controlForm.runView.impulseVoltageLevelsTextBox.Value = 20;
                     controlForm.runView.impPerLevelTextBox.Value = 1;
                 }
                 else
                 {
                     controlForm.runView.testVoltageTextBox.Value = 67;
-                    controlForm.runView.voltageLevelsTextBox.Value = 1;
+                    controlForm.runView.impulseVoltageLevelsTextBox.Value = 1;
                     controlForm.runView.impPerLevelTextBox.Value = 5;
                 }
                 controlForm.runView.testVoltageTextBox.Invalidate();
@@ -1968,7 +1968,7 @@ namespace HV9104_GUI
             {
                 controlForm.runView.resultTestVoltageLabel.Text = "TEST VOLTAGE";
                 controlForm.runView.elapsedTimeTitleLabel.Text = "ELAPSED TIME";
-                controlForm.runView.hvUnitLabel.Text = "SECONDS";
+                controlForm.runView.hvUnitLabel.Text = "kV" + selectedVoltage + selectedMeasType;
             }
             else
             {

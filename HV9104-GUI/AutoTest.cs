@@ -37,9 +37,7 @@ namespace HV9104_GUI
         Channel acChannel;
         Channel dcChannel;
         Channel impChannel;
-        private double actualACVoltage;
-        private double actualDCVoltage;
-        private double actualImpVoltage;
+
 
         // Experiment variables
         public string testType;
@@ -48,7 +46,7 @@ namespace HV9104_GUI
         public string measurementType;
         public int duration = 60;
         public double targetVoltage;
-        public double actualVoltage;
+        public double actualTestVoltage;
         public double toleranceHigh;
         public double toleranceLow;
 
@@ -87,14 +85,13 @@ namespace HV9104_GUI
         ArrayList xList = new ArrayList();
         ArrayList yList = new ArrayList();
         private double simElapsedTime;
-        private Timer logoEffectTimer;
         private Timer logoGrowEffectTimer;
         private Timer logoShrinkEffectTimer;
 
         // Delta Voltage
-        private double acVal;
+        private double actualACVoltage;
         private double dcVal;
-        private double impVal;
+        private double actualImpulseVoltage;
         private double dvAC;
         private double acLast;
         private double dvDC;
@@ -118,6 +115,8 @@ namespace HV9104_GUI
         private double dVdt;
         private double dIdt;
         private bool aborting;
+        private double actualTestVoltageMax;
+        private double actualDCVoltage;
 
 
         // Contructor
@@ -133,49 +132,59 @@ namespace HV9104_GUI
             dcChannel = dcChannelIn;
             impChannel = impulseChannelIn;
 
+            // Timer to update the chart and hold the testVoltage in bounds
             sampleTimer = new Timer();
             sampleTimer.Tick += new EventHandler(this.sampleTimer_Tick);
 
+            // Timer to retreive the latest HV values
             updateVoltageOutputValuesTimer = new Timer();
             updateVoltageOutputValuesTimer.Tick += new EventHandler(updateVoltageOutputValuesTimer_Tick);
             updateVoltageOutputValuesTimer.Interval = 10;
             updateVoltageOutputValuesTimer.Enabled = true;
             updateVoltageOutputValuesTimer.Start();
 
-            // Update the chart
-            xList.Add((double)0);
-            yList.Add((double)0);
-            UpdateChart();
+            // Update the chart, but only if we are connected
+            if (PIO1.K2Closed)
+            { 
+                xList.Add((double)0);
+                yList.Add((double)0);
+                UpdateChart();
+            }
         }
 
         // Refresh the voltage output values (every 10ms)
         private void updateVoltageOutputValuesTimer_Tick(object sender, EventArgs e)
         {
             // Gets the value of the pre-set ac voltage type.
-            acVal = acChannel.getRepresentation();
-            runView.acValueLabel.Text = acVal.ToString("0.0");
-            dcVal = dcChannel.getRepresentation();
+            actualACVoltage = acChannel.getRepresentation();
+            runView.acValueLabel.Text = actualACVoltage.ToString("0.0");
+            actualDCVoltage = dcChannel.getRepresentation();
             runView.dcValueLabel.Text = dcVal.ToString("0.0");
-            impVal = impChannel.getRepresentation();
-            runView.impulseValueLabel.Text = impVal.ToString("0.0");
+            actualImpulseVoltage = impChannel.getRepresentation();
+            runView.impulseValueLabel.Text = actualImpulseVoltage.ToString("0.0");
            
             // Set the regulation value
-            if (runView.voltageComboBox.SetSelected == "AC") actualVoltage = Convert.ToDouble(runView.acValueLabel.Text);
-            else if (runView.voltageComboBox.SetSelected == "DC") actualVoltage = Convert.ToDouble(runView.dcValueLabel.Text);
-            else if (runView.voltageComboBox.SetSelected == "Imp") actualVoltage = Convert.ToDouble(runView.impulseValueLabel.Text);
+            if (runView.voltageComboBox.SetSelected == "AC") actualTestVoltage = Convert.ToDouble(runView.acValueLabel.Text);
+            else if (runView.voltageComboBox.SetSelected == "DC") actualTestVoltage = Convert.ToDouble(runView.dcValueLabel.Text);
+            else if (runView.voltageComboBox.SetSelected == "Imp") actualTestVoltage = Convert.ToDouble(runView.impulseValueLabel.Text);
 
             // Update the max value if Disruptive Discharge test
             if (!testIsWithstand)
             {
                 runView.elapsedTimeLabel.Text = sampleRate.ToString();
-                runView.resultTestVoltageValue.Text = actualVoltage.ToString();
+                if(actualTestVoltage > actualTestVoltageMax)
+                {
+                    actualTestVoltageMax = actualTestVoltage;
+                    runView.resultTestVoltageValueLabel.Text = actualTestVoltage.ToString();
+                }
+                    
             }
             
             // Calculate the voltage derivitive
-            voltageDiff = actualVoltage - lastVoltage;
-            dVdt = voltageDiff / sampleRate;
-            if (dVdt != 0) voltageList.Add(dVdt);
-            lastVoltage = actualVoltage;
+            //voltageDiff = actualVoltage - lastVoltage;
+            //dVdt = voltageDiff / sampleRate;
+            //if (dVdt != 0) voltageList.Add(dVdt);
+            //lastVoltage = actualVoltage;
 
             // Calculate the current derivitive
             actualCurrent = PIO1.regulatedCurrentValue;
@@ -184,6 +193,7 @@ namespace HV9104_GUI
             if(dIdt != 0)currentList.Add(dIdt);
             lastCurrent = actualCurrent;
 
+            // Compare with the preset limit
             if ((currentDiff > currentFlashoverLimit)) // (voltageDiff > voltageFlashoverLimit) || 
             {
                 flashoverDetected = true;
@@ -195,16 +205,13 @@ namespace HV9104_GUI
         {
 
             // Update the chart
-            if((!flashoverDetected)&&(!parking)) UpdateChart();
+            if((!flashoverDetected)&&(!parking)&&(PIO1.K2Closed)) UpdateChart();
 
             // Finished successfully, and parked.
             if ((aborting) && (PIO1.minUPos))
             {
                 // Success!
                 Thread.Sleep(1000);
-
-                // Update the chart
-                UpdateChart();
 
                 // Tidy up flags etc
                 CleanUpAfterTest();
@@ -228,36 +235,16 @@ namespace HV9104_GUI
                     // Abort the regulation routine
                     abortRegulation = true;
 
-                    // Park the transformer
-                    //PIO1.ParkTransformer();
-
                     // Call park, reset variables m.m.
                     FailTest();
                     
                     // Set a flag so we don't come back in next time
                     parking = true;
                 }
-
-                //// Finished unsuccessfully, and parked.
-                //if ((parking) && (PIO1.minUPos))
-                //{
-
-                //    // Tidy up flags etc
-                //    CleanUpAfterTest();
-
-                //    //// Success!
-                //    //Thread.Sleep(1000);
-
-                //    //// Update the chart
-                //    //UpdateChart();
-
-                //}
-                // Dont continue any further in this sampleTimer routine
-                //return;
             }
 
             // Ths is what we do when we have found the targetVoltage - In bounds
-            if ((actualVoltage < testVoltageToleranceHigh) && (actualVoltage > testVoltageToleranceLow))
+            if ((actualTestVoltage < testVoltageToleranceHigh) && (actualTestVoltage > testVoltageToleranceLow))
             {
                 // First time here
                 if (!isRunning)
@@ -265,8 +252,8 @@ namespace HV9104_GUI
                     // Set flag and start timer
                     isRunning = true;
                     startTime = DateTime.Now;
-                    runView.testStatusLabel.Text = "EVALUATING" + System.Environment.NewLine + "PLEASE WAIT";
-                    runView.testStatusLabel.Invalidate();
+                    runView.passFailLabel.Text = "EVAL";
+                    runView.passFailLabel.Invalidate();
                 }
                 else
                 {
@@ -302,7 +289,7 @@ namespace HV9104_GUI
             }
 
             // We found the testVoltage but now the voltage is too high
-            if ((isRunning) && (actualVoltage > testVoltageToleranceHigh))
+            if ((isRunning) && (actualTestVoltage > testVoltageToleranceHigh))
             {
                 // Drive the voltage down to zero
                 PIO1.ParkTransformer();
@@ -315,7 +302,7 @@ namespace HV9104_GUI
             }
             
             // We found the testVoltage but now the voltage is too low, and it's not beacuse we are parking
-            else if ((isRunning) && (actualVoltage < testVoltageToleranceLow) && (!parking))
+            else if ((isRunning) && (actualTestVoltage < testVoltageToleranceLow) && (!parking))
             {
                 // Drive the voltage down to zero
                 PIO1.ParkTransformer();
@@ -331,15 +318,18 @@ namespace HV9104_GUI
             // Finished successfully, and parked.
             if ((parking) && (PIO1.minUPos))
             {
-                // Success!
-                Thread.Sleep(1000);
-                
+
                 // Update the chart
-                UpdateChart();
+                if (PIO1.K2Closed) UpdateChart();
 
                 // Tidy up flags etc
                 CleanUpAfterTest();
-            }            
+            }
+            else if ((parking) && (!PIO1.minUPos))
+            {
+                // Update the chart
+                if(PIO1.K2Closed)UpdateChart();
+            }
         }
 
         // Successfully completed test
@@ -349,20 +339,84 @@ namespace HV9104_GUI
             runView.passFailLabel.Text = "PASS";
             runView.passFailLabel.Visible = true;
             runView.passFailLabel.Invalidate();
-            //runView.testStatusLabel.Visible = false;
-
-
+  
             // Park the transformer
             PIO1.ParkTransformer();
 
             // Reset the Start button
             runView.onOffAutoButton.isChecked = false;
             runView.onOffAutoButton.Invalidate();
+        }
 
-            // Update the chart
-            //Thread.Sleep(2000);
-            //UpdateChart();
+        // Failed test
+        private void FailTest()
+        {
+           
+            // Present the status
+            runView.passFailLabel.Text = "FAIL";
+            runView.passFailLabel.Visible = true;
+            runView.passFailLabel.Invalidate();
 
+            Thread.Sleep(1000);
+            
+            // Drive the voltage down to zero
+            PIO1.ParkTransformer();
+
+            // We have had breakdown, and opened the contactors, nothing to see here
+            // Dont stop the timer or we won't know when we have parked and we won't clean up
+            //sampleTimer.Stop();
+
+            // Reset the start button
+            runView.onOffAutoButton.isChecked = false;
+            runView.onOffAutoButton.Invalidate();
+        }
+
+        // Aborted test. Stop the test and reset
+        internal void AbortTest()
+        {
+            aborting = true;
+
+            // Drive the voltage down to zero
+            PIO1.ParkTransformer();
+
+            // Present the status
+            runView.passFailLabel.Text = "VOID";
+            runView.passFailLabel.Visible = true;
+            //runView.testStatusLabel.Visible = false;
+            runView.passFailLabel.Invalidate();
+
+            // Reset the start button
+            runView.onOffAutoButton.isChecked = false;
+            runView.onOffAutoButton.Invalidate();
+        }
+
+        // Stop but keep the chart running
+        internal void SoftAbortTest()
+        {
+        }
+        
+        // Temporarily stop the timer
+        internal void PauseTest()
+        {
+        }
+
+        // Resume the test after pausing
+        internal bool ResumeTest()
+        {
+            // Clear previous flags
+            abortRegulation = false;
+
+            // Reset the flag to be able to pause again
+            isPaused = false;
+
+            // Connect the output power
+            PIO1.overrideUMin = true;
+            PIO1.closeSecondary();
+            
+            // Resume updating chart
+            sampleTimer.Start();
+
+            return true;
         }
 
         // Finally
@@ -384,112 +438,6 @@ namespace HV9104_GUI
             // Enable/Disable buttons
             runView.onOffAutoButton.Enabled = true;
             runView.abortAutoTestButton.Enabled = false;
-
-        }
-
-        // Failed test
-        private void FailTest()
-        {
-           
-            // Present the status
-            runView.passFailLabel.Text = "FAIL";
-            runView.passFailLabel.Visible = true;
-            //runView.testStatusLabel.Visible = false;
-            runView.passFailLabel.Invalidate();
-
-            Thread.Sleep(1000);
-            
-            // Drive the voltage down to zero
-            PIO1.ParkTransformer();
-
-            // We have had breakdown, and opened the contactors, nothing to see here
-            //sampleTimer.Stop();
-
-            // Reset the start button
-            runView.onOffAutoButton.isChecked = false;
-            runView.onOffAutoButton.Invalidate();
-
-        }
-
-        // Aborted test. Stop the test and reset
-        internal void AbortTest()
-        {
-            aborting = true;
-
-            // Drive the voltage down to zero
-            PIO1.ParkTransformer();
-
-            // Present the status
-            runView.passFailLabel.Text = "VOID";
-            runView.passFailLabel.Visible = true;
-            //runView.testStatusLabel.Visible = false;
-            runView.passFailLabel.Invalidate();
-
-            // Reset the start button
-            runView.onOffAutoButton.isChecked = false;
-            runView.onOffAutoButton.Invalidate();
-
-        }
-
-        // Stop but keep the chart running
-        internal void SoftAbortTest()
-        {
-            AbortTest();
-            CleanUpAfterTest();
-
-        }
-        
-        // Temporarily stop the timer
-        internal void PauseTest()
-        {
-            // If we haven't found the voltage yet, stop searching
-            if (!isRunning)
-            {
-                // Stop updating chart
-                sampleTimer.Stop();
-
-                // Set flag for resuming from Start button. Lets us skip all the initializing
-                isPaused = true;
-
-                // Exit regulation loop
-                abortRegulation = true;
-
-                // Disconnect the output to the HV
-                PIO1.openSecondary();
-                //Thread.Sleep(1500);
-                //PIO1.openPrimary();
-                //Thread.Sleep(500);
-                //PIO1.closePrimary();
-                //Thread.Sleep(500);
-                //PIO1.openPrimary();
-
-            }
-            else
-            {
-                // Do not allow a pause (user must abort)
-                SoftAbortTest();
-            }
-
-        }
-
-        // Resume the test after pausing
-        internal bool ResumeTest()
-        {
-            // Clear previous flags
-            abortRegulation = false;
-
-            // Reset the flag to be able to pause again
-            isPaused = false;
-
-            // Connect the output power
-            PIO1.overrideUMin = true;
-            PIO1.closeSecondary();
-            
-            // Resume updating chart
-            sampleTimer.Start();
-
-            return true;
-
         }
 
         // Run the test
@@ -505,16 +453,19 @@ namespace HV9104_GUI
             runView.onOffAutoButton.Enabled = false;
             runView.abortAutoTestButton.Enabled = true;
 
+            // Set status label value
             runView.passFailLabel.Text = "EVAL";
             runView.passFailLabel.Visible = true;
             runView.passFailLabel.Invalidate();
-            
-           // runView.testStatusLabel.Invalidate();
-            //runView.testControlPanel.Invalidate();
 
+            // Set elapsed time and label value
             simElapsedTime = 0;
             runView.elapsedTimeLabel.Text = "0";
             runView.elapsedTimeLabel.Invalidate();
+
+            //Disruptive discharge
+            actualTestVoltageMax = 0;
+            //runView.resultTestVoltageValue.Text = maxActualVoltage.ToString();
 
             // Clear the derivitive logs
             voltageList.Clear();
@@ -534,7 +485,6 @@ namespace HV9104_GUI
                 
                 // Impulse Withstand: levels = 1(testVoltage), impulses per level = user defined (usually 1-5). Set gap distance to prevent spontaneous breakdown in gap. Run up to level[0] = testVoltage. 
                 // Trigger impulse. If impulsePeak < 20%, impulse generation is successful, if 0.95 x DC, then no breakdown has occurred. 
-
                 // Update graph. Set LineType to individual points. Blue = no breakdown Red = breakdown. Repeat (impulsesPerLevel).
 
                 // Impulse disruptive discharge: testVoltage = maxVoltage. Create array with levelsArray[levels] up to max.
@@ -566,13 +516,11 @@ namespace HV9104_GUI
                 {
                     // Impulse disruptive discharge
 
-                    // Get setup info 1, 2, 3 stage. 
-
-                    // Set Max value
-
                     // Get levels info
+                    impulseLevels = (int)runView.impulseVoltageLevelsTextBox.Value;
 
                     // Get impulses/level info
+                    impulsePerLevel = (int)runView.impPerLevelTextBox.Value;
 
                     // Create level array
 
@@ -581,7 +529,7 @@ namespace HV9104_GUI
                 else
                 {
                     // AC Disruptive, DC Disruptive discharge: testVoltage = maxVoltage, duration = 1s, trafSpeed = slow(180). 
-                    // Run up to testVoltage. Quit if flashover (inVoltage rising but output drops suddenly or inCurrent spikes).
+                    // Run up to testVoltage. Quit if flashover (inCurrent spikes).
                     // Note last voltage before flashover
 
                     // Get user input and convert to usable values
@@ -600,8 +548,6 @@ namespace HV9104_GUI
                     tolerance = targetVoltage * (runView.toleranceTextBox.Value / 100);
                     testVoltageToleranceHigh = targetVoltage + tolerance;
                     testVoltageToleranceLow = targetVoltage - tolerance;
-
-                    //RunACDCDisruptive();
                 }
             }
 
@@ -633,9 +579,7 @@ namespace HV9104_GUI
             
             Thread regUAutoThread = new Thread(RegulateVoltage);
             regUAutoThread.Start();
-            runView.testStatusLabel.Text = "SEARCHING" + Environment.NewLine + "PLEASE WAIT";
-            runView.testStatusLabel.Visible = true;
-            runView.testStatusLabel.Invalidate();
+           
         }
 
         // Set dynamic bounds from user input, then start the auto process
@@ -691,7 +635,7 @@ namespace HV9104_GUI
                 if (PIO1.K2Closed)
                 {
 
-                    error = actualVoltage - targetVoltage;
+                    error = actualTestVoltage - targetVoltage;
 
                     if (error == previousError)
                     {
@@ -776,7 +720,7 @@ namespace HV9104_GUI
         internal void UpdateChart()
         {
             xList.Add((double)sampleNumber);
-            yList.Add((double)actualVoltage);
+            yList.Add((double)actualTestVoltage);
 
             sampleNumber += 1;
             xArray = (Double[])xList.ToArray(typeof(double));
@@ -827,7 +771,7 @@ namespace HV9104_GUI
             if (runView.dynamicLogoPictureBox.Width > 1) runView.dynamicLogoPictureBox.Width -= 15;
             if (runView.dynamicLogoPictureBox.Height > 1) runView.dynamicLogoPictureBox.Height -= 10;
 
-            if (runView.dynamicLogoPictureBox.Location.X > 100) dx = 20;
+            if (runView.dynamicLogoPictureBox.Location.X > 62) dx = 20;
             if (runView.dynamicLogoPictureBox.Location.Y > 50) dy = 10;
 
             runView.dynamicLogoPictureBox.Location = new Point(runView.dynamicLogoPictureBox.Left -= dx, runView.dynamicLogoPictureBox.Top -= dy);
@@ -849,7 +793,7 @@ namespace HV9104_GUI
             if (runView.dynamicLogoPictureBox.Width < 756) runView.dynamicLogoPictureBox.Width += 8;
             if (runView.dynamicLogoPictureBox.Height < 301) runView.dynamicLogoPictureBox.Height += 6;
 
-            if (runView.dynamicLogoPictureBox.Location.X > 100) dx = 2;
+            if (runView.dynamicLogoPictureBox.Location.X > 62) dx = 2;
             if (runView.dynamicLogoPictureBox.Location.Y > 50) dy = 1;
 
             runView.dynamicLogoPictureBox.Location = new Point(runView.dynamicLogoPictureBox.Left -= dx, runView.dynamicLogoPictureBox.Top -= dy);
