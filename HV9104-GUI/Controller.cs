@@ -691,6 +691,7 @@ namespace HV9104_GUI
         private void abortAutoTestButton_Click(object sender, EventArgs e)
         {
             autoTest.AbortTest();
+            
         }
 
         // Voltage to test at

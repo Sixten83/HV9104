@@ -113,10 +113,11 @@ namespace HV9104_GUI
 
         // Breakdown
         private double voltageFlashoverLimit = 10;
-        private double currentFlashoverLimit = 1;
+        private double currentFlashoverLimit = 3;
         private bool flashoverDetected;
         private double dVdt;
         private double dIdt;
+        private bool aborting;
 
 
         // Contructor
@@ -179,7 +180,7 @@ namespace HV9104_GUI
             if(dIdt != 0)currentList.Add(dIdt);
             lastCurrent = actualCurrent;
 
-            if ((voltageDiff > voltageFlashoverLimit) || (currentDiff > currentFlashoverLimit))
+            if ((currentDiff > currentFlashoverLimit)) // (voltageDiff > voltageFlashoverLimit) || 
             {
                 flashoverDetected = true;
             }
@@ -190,15 +191,68 @@ namespace HV9104_GUI
         {
 
             // Update the chart
-            UpdateChart();
+            if((!flashoverDetected)&&(!parking)) UpdateChart();
 
-            if (flashoverDetected)
+            // Finished successfully, and parked.
+            if ((aborting) && (PIO1.minUPos))
             {
-                FailTest();
+                // Success!
+                Thread.Sleep(1000);
+
+                // Update the chart
+                UpdateChart();
+
+                // Tidy up flags etc
+                CleanUpAfterTest();
+
+                return;
+            }
+            else if ((aborting) && (!PIO1.minUPos))
+            {
+                // Drive the voltage down to zero
+                PIO1.ParkTransformer();
+
                 return;
             }
 
-            // In bounds
+            // The dVdt or dIdt calculations indicate a breakdown has occured
+            if (flashoverDetected)
+            {
+                // If first time here
+                if (!parking)
+                {
+                    // Abort the regulation routine
+                    abortRegulation = true;
+
+                    // Park the transformer
+                    //PIO1.ParkTransformer();
+
+                    // Call park, reset variables m.m.
+                    FailTest();
+                    
+                    // Set a flag so we don't come back in next time
+                    parking = true;
+                }
+
+                //// Finished unsuccessfully, and parked.
+                //if ((parking) && (PIO1.minUPos))
+                //{
+
+                //    // Tidy up flags etc
+                //    CleanUpAfterTest();
+
+                //    //// Success!
+                //    //Thread.Sleep(1000);
+
+                //    //// Update the chart
+                //    //UpdateChart();
+
+                //}
+                // Dont continue any further in this sampleTimer routine
+                //return;
+            }
+
+            // Ths is what we do when we have found the targetVoltage - In bounds
             if ((actualVoltage < testVoltageToleranceHigh) && (actualVoltage > testVoltageToleranceLow))
             {
                 // First time here
@@ -213,32 +267,29 @@ namespace HV9104_GUI
                 else
                 {
                     // Returning loop, normal test in progress
-                    // currentTime = DateTime.Now;
-                    // elapsedTime = currentTime - startTime;
-                    // runView.testDurationLabel.Text = elapsedTime.Seconds.ToString();
                     simElapsedTime += sampleRate;
 
                     // Update the UI label on whole numbers only
                     if((simElapsedTime - Math.Truncate(simElapsedTime)) == 0) runView.elapsedTimeLabel.Text = simElapsedTime.ToString();
 
                     // Time is up!
-                    //if (elapsedTime.Seconds > duration)
-                    if (simElapsedTime > duration)
+                     if (simElapsedTime > duration)
                     {
                         // Stop updating the timer
                         runView.elapsedTimeLabel.Text = duration.ToString();
-
-                        // Present the status
-                        runView.testStatusLabel.Visible = false;
-                        runView.passFailLabel.Text = "PASS";
-                        runView.passFailLabel.Visible = true;
-
+                        
                         // First park the transformer before we stop taking results
                         if (!PIO1.minUPos)
                         {
                             if (!parking)
                             {
+                                // Park the transformer
                                 PIO1.ParkTransformer();
+
+                                // Call park, reset variables m.m.
+                                PassTest();
+
+                                // Set a flag so we don't come back in next time
                                 parking = true;
                             }
                         }
@@ -246,26 +297,31 @@ namespace HV9104_GUI
                 }
             }
 
-            // We are running the test but the voltage is too high
+            // We found the testVoltage but now the voltage is too high
             if ((isRunning) && (actualVoltage > testVoltageToleranceHigh))
             {
+                // Drive the voltage down to zero
+                PIO1.ParkTransformer();
+
                 // Abort the test
                 AbortTest();
+
+                // Set aborting flag
+                aborting = true;
             }
-            // We are running the test but the voltage is too low
+            
+            // We found the testVoltage but now the voltage is too low, and it's not beacuse we are parking
             else if ((isRunning) && (actualVoltage < testVoltageToleranceLow) && (!parking))
             {
-                // Have we strayed or is it a flashover?
-                if (actualVoltage > 5)
-                {
-                    // Strayed low, abort the test
-                    AbortTest();
-                }
-                else
-                {
-                    // 
-                    FailTest();
-                }              
+                // Drive the voltage down to zero
+                PIO1.ParkTransformer();
+
+                // Abort the test
+                AbortTest();
+
+                // Set aborting flag
+                aborting = true;
+
             }
 
             // Finished successfully, and parked.
@@ -273,68 +329,88 @@ namespace HV9104_GUI
             {
                 // Success!
                 Thread.Sleep(1000);
+                
                 // Update the chart
                 UpdateChart();
-                PassTest();
+
+                // Tidy up flags etc
+                CleanUpAfterTest();
             }            
         }
 
         // Successfully completed test
         private void PassTest()
         {
-            sampleTimer.Stop();
-            isRunning = false;
-            isPaused = false;
-            parking = false;
+            // Present the status
+            runView.passFailLabel.Text = "PASS";
+            runView.passFailLabel.Visible = true;
+            runView.passFailLabel.Invalidate();
+            runView.testStatusLabel.Visible = false;
 
-            // Disconnect the power
-            PIO1.openPrimary();
 
+            // Park the transformer
+            PIO1.ParkTransformer();
+
+            // Reset the Start button
             runView.onOffAutoButton.isChecked = false;
             runView.onOffAutoButton.Invalidate();
 
             // Update the chart
-            Thread.Sleep(2000);
-            UpdateChart();
+            //Thread.Sleep(2000);
+            //UpdateChart();
+
+        }
+
+        // Finally
+        internal void CleanUpAfterTest()
+        {
+            sampleTimer.Stop();
+            isRunning = false;
+            isPaused = false;
+            parking = false;
+            flashoverDetected = false;
+            abortRegulation = false;
+            aborting = false;
+
+            // Disconnect the power
+            PIO1.openSecondary();
+            Thread.Sleep(1500);
+            PIO1.openPrimary();
+
+            // Enable/Disable buttons
+            runView.onOffAutoButton.Enabled = true;
+            runView.abortAutoTestButton.Enabled = false;
 
         }
 
         // Failed test
         private void FailTest()
         {
-            sampleTimer.Stop();
-            isRunning = false;
-            isPaused = false;
-            runView.onOffAutoButton.isChecked = false;
-            runView.onOffAutoButton.Invalidate();
-
-            // Disconnect the power
-            // PIO1.openPrimary();
-
-            // Drive the voltage down to zero
-            PIO1.ParkTransformer();
-
-            //double maxVoltageDiff = voltageList.Max();
-            //double maxCurrentDiff = currentList.Max();
-
+           
             // Present the status
             runView.passFailLabel.Text = "FAIL";
             runView.passFailLabel.Visible = true;
             runView.testStatusLabel.Visible = false;
             runView.testStatusLabel.Invalidate();
 
+            Thread.Sleep(1000);
+            
+            // Drive the voltage down to zero
+            PIO1.ParkTransformer();
+
+            // We have had breakdown, and opened the contactors, nothing to see here
+            //sampleTimer.Stop();
+
+            // Reset the start button
+            runView.onOffAutoButton.isChecked = false;
+            runView.onOffAutoButton.Invalidate();
+
         }
 
         // Aborted test. Stop the test and reset
         internal void AbortTest()
         {
-            sampleTimer.Stop();
-            isRunning = false;
-            isPaused = false;
-            runView.onOffAutoButton.isChecked = false;
-            runView.onOffAutoButton.Invalidate();
-
-            Thread.Sleep(200);
+            aborting = true;
 
             // Drive the voltage down to zero
             PIO1.ParkTransformer();
@@ -344,12 +420,19 @@ namespace HV9104_GUI
             runView.passFailLabel.Visible = true;
             runView.testStatusLabel.Visible = false;
             runView.testStatusLabel.Invalidate();
+
+            // Reset the start button
+            runView.onOffAutoButton.isChecked = false;
+            runView.onOffAutoButton.Invalidate();
+
         }
 
         // Stop but keep the chart running
         internal void SoftAbortTest()
         {
-            throw new NotImplementedException();
+            AbortTest();
+            CleanUpAfterTest();
+
         }
         
         // Temporarily stop the timer
@@ -358,13 +441,10 @@ namespace HV9104_GUI
             // If we haven't found the voltage yet, stop searching
             if (!isRunning)
             {
-                // Stop updating chart and elapsed time
-                // Not needed -
-                // They only start after finding the targetVoltage
-                //sampleTimer.Stop();
+                // Stop updating chart
+                sampleTimer.Stop();
 
-                // Set flag for resuming from  Start button
-                // Lets us skip all the initializing
+                // Set flag for resuming from Start button. Lets us skip all the initializing
                 isPaused = true;
 
                 // Exit regulation loop
@@ -372,6 +452,12 @@ namespace HV9104_GUI
 
                 // Disconnect the output to the HV
                 PIO1.openSecondary();
+                //Thread.Sleep(1500);
+                //PIO1.openPrimary();
+                //Thread.Sleep(500);
+                //PIO1.closePrimary();
+                //Thread.Sleep(500);
+                //PIO1.openPrimary();
 
             }
             else
@@ -389,10 +475,14 @@ namespace HV9104_GUI
             abortRegulation = false;
 
             // Reset the flag to be able to pause again
-            isPaused = true;
+            isPaused = false;
 
             // Connect the output power
+            PIO1.overrideUMin = true;
             PIO1.closeSecondary();
+            
+            // Resume updating chart
+            sampleTimer.Start();
 
             return true;
 
@@ -407,11 +497,16 @@ namespace HV9104_GUI
             // Clear previous flags
             abortRegulation = false;
 
+            // Enable/Disable buttons
+            runView.onOffAutoButton.Enabled = false;
+            runView.abortAutoTestButton.Enabled = true;
+
             runView.testStatusLabel.Visible = true;
             runView.testStatusLabel.Invalidate();
             runView.passFailLabel.Visible = false;
             runView.testControlPanel.Invalidate();
-            
+
+            simElapsedTime = 0;
             runView.elapsedTimeLabel.Text = "0";
             runView.elapsedTimeLabel.Invalidate();
 
@@ -500,12 +595,7 @@ namespace HV9104_GUI
                     testVoltageToleranceHigh = targetVoltage + tolerance;
                     testVoltageToleranceLow = targetVoltage - tolerance;
 
-                    // Set trafSpeed to quite slow
-              
-
                     //RunACDCDisruptive();
-                    
-
                 }
             }
 
@@ -587,12 +677,13 @@ namespace HV9104_GUI
                 abortRegulation = true;
                 return;
             }
-
+            Thread.Sleep(500);
             // Continue until found or precess aborted 
             while (((error < toleranceLo) || (error > toleranceHi)) && (runView.onOffAutoButton.isChecked) && (!abortRegulation))
             {
                 // Run only if we have connected the voltage
-                if (PIO1.K2Closed) { 
+                if (PIO1.K2Closed)
+                {
 
                     error = actualVoltage - targetVoltage;
 
@@ -639,6 +730,36 @@ namespace HV9104_GUI
                     Thread.Sleep(10);
                     previousError = error;
                 }
+                //else
+                //{F
+                //    // Stop transformer
+                //    PIO1.StopTransformerMotor();
+                   
+                //    // Try to close K2 by opening K1 to refresh
+                //    PIO1.openSecondary();
+                //    PIO1.openPrimary();
+                //    Thread.Sleep(1000);
+          
+                //    // Then attempt to close again
+                //    PIO1.closePrimary();
+                //    Thread.Sleep(1000);
+                //    PIO1.closeSecondary();
+                //    Thread.Sleep(1000);
+
+                //    //// If it worked
+                //    //if (PIO1.K2Closed)
+                //    //{
+                //    //    // Restart sampling
+                //    //    sampleTimer.Start();
+                //    //}
+                //    //// If it didn't work
+                //    //else
+                //    //{
+                //    //    // Give up
+                //    //    AbortTest();
+                //    //    CleanUpAfterTest();
+                //    //}
+                //}
             }
 
             // In bounds. We should only make it here once

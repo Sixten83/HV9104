@@ -116,6 +116,10 @@ namespace HV9104_GUI
                 jpg.Alignment = Element.ALIGN_CENTER;
                 doc.Add(jpg);
 
+                Paragraph paragraphTable2 = new Paragraph();
+                paragraphTable2.SpacingBefore = 200f;
+
+                doc.Add(paragraphTable2);
 
                 PdfPTable table2 = new PdfPTable(3);
                 PdfPCell cell9 = new PdfPCell(new Phrase("DURATION", Calibri16_Bold));
