@@ -1768,9 +1768,7 @@ namespace HV9104_GUI
         {
 
             Thread.Sleep(200);
-            // Limit textbox length
-      //      controlForm.runView.testObjectTextBox.MaxLines = 2;
-
+       
             // Top info strip notice
             GetTestType();
 
@@ -1782,6 +1780,11 @@ namespace HV9104_GUI
             // Update the textbox max value
             UpdateRnTestVoltageMax();
 
+            // Fill date textbox with today's date
+            DateTime todaysDateRaw = DateTime.Now;
+            string todaysDate = todaysDateRaw.ToString(" d MMMM yyyy, HH:mm");
+            controlForm.runView.dateTextBox.Text = todaysDate;
+            
             // Hide the chart temporarily
             controlForm.runView.autoTestChart.Visible = false;
             controlForm.runView.autoTestChart.Invalidate();

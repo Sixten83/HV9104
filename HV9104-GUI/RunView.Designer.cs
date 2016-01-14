@@ -135,7 +135,7 @@
             this.customPanel8.Location = new System.Drawing.Point(1414, 32);
             this.customPanel8.Name = "customPanel8";
             this.customPanel8.Size = new System.Drawing.Size(444, 200);
-            this.customPanel8.TabIndex = 9;
+            this.customPanel8.TabIndex = 56;
             // 
             // label9
             // 
@@ -160,7 +160,7 @@
         "Neg"};
             this.impulseOutputComboBox.SetSelected = "Pos";
             this.impulseOutputComboBox.Size = new System.Drawing.Size(140, 45);
-            this.impulseOutputComboBox.TabIndex = 3;
+            this.impulseOutputComboBox.TabIndex = 8;
             this.impulseOutputComboBox.Text = "customComboBox1";
             this.impulseOutputComboBox.TextBoxHint = "";
             // 
@@ -200,7 +200,7 @@
             this.customPanel9.Location = new System.Drawing.Point(953, 32);
             this.customPanel9.Name = "customPanel9";
             this.customPanel9.Size = new System.Drawing.Size(444, 200);
-            this.customPanel9.TabIndex = 10;
+            this.customPanel9.TabIndex = 57;
             // 
             // label17
             // 
@@ -227,7 +227,7 @@
         "pk-pk"};
             this.dcOutputComboBox.SetSelected = "avg";
             this.dcOutputComboBox.Size = new System.Drawing.Size(140, 45);
-            this.dcOutputComboBox.TabIndex = 3;
+            this.dcOutputComboBox.TabIndex = 7;
             this.dcOutputComboBox.Text = "z";
             this.dcOutputComboBox.TextBoxHint = "";
             // 
@@ -283,7 +283,7 @@
         "pk-pk"};
             this.acOutputComboBox.SetSelected = "rms";
             this.acOutputComboBox.Size = new System.Drawing.Size(140, 45);
-            this.acOutputComboBox.TabIndex = 3;
+            this.acOutputComboBox.TabIndex = 6;
             this.acOutputComboBox.Text = "customComboBox1";
             this.acOutputComboBox.TextBoxHint = "";
             // 
@@ -665,23 +665,26 @@
             this.customPanel3.Location = new System.Drawing.Point(1427, 266);
             this.customPanel3.Name = "customPanel3";
             this.customPanel3.Size = new System.Drawing.Size(432, 505);
-            this.customPanel3.TabIndex = 4;
+            this.customPanel3.TabIndex = 55;
             // 
             // otherTextBox
             // 
+            this.otherTextBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.otherTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.otherTextBox.Location = new System.Drawing.Point(161, 226);
             this.otherTextBox.MaxLength = 200;
             this.otherTextBox.Multiline = true;
             this.otherTextBox.Name = "otherTextBox";
             this.otherTextBox.Size = new System.Drawing.Size(222, 80);
-            this.otherTextBox.TabIndex = 16;
+            this.otherTextBox.TabIndex = 12;
+            this.otherTextBox.Text = "Additional information";
             // 
             // otherLabel
             // 
             this.otherLabel.AutoSize = true;
             this.otherLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.otherLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.otherLabel.Location = new System.Drawing.Point(35, 227);
+            this.otherLabel.Location = new System.Drawing.Point(35, 253);
             this.otherLabel.Name = "otherLabel";
             this.otherLabel.Size = new System.Drawing.Size(69, 26);
             this.otherLabel.TabIndex = 15;
@@ -689,11 +692,14 @@
             // 
             // operatorTextBox
             // 
+            this.operatorTextBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.operatorTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.operatorTextBox.Location = new System.Drawing.Point(161, 132);
             this.operatorTextBox.MaxLength = 41;
             this.operatorTextBox.Name = "operatorTextBox";
-            this.operatorTextBox.Size = new System.Drawing.Size(222, 20);
-            this.operatorTextBox.TabIndex = 14;
+            this.operatorTextBox.Size = new System.Drawing.Size(222, 27);
+            this.operatorTextBox.TabIndex = 10;
+            this.operatorTextBox.Text = " Authorized staff";
             // 
             // createReportButton
             // 
@@ -706,16 +712,19 @@
             this.createReportButton.Name = "createReportButton";
             this.createReportButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
             this.createReportButton.Size = new System.Drawing.Size(158, 57);
-            this.createReportButton.TabIndex = 14;
+            this.createReportButton.TabIndex = 13;
             this.createReportButton.Text = "CREATE REPORT";
             // 
             // testObjectTextBox
             // 
+            this.testObjectTextBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testObjectTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.testObjectTextBox.Location = new System.Drawing.Point(160, 179);
             this.testObjectTextBox.MaxLength = 50;
             this.testObjectTextBox.Name = "testObjectTextBox";
-            this.testObjectTextBox.Size = new System.Drawing.Size(222, 20);
-            this.testObjectTextBox.TabIndex = 13;
+            this.testObjectTextBox.Size = new System.Drawing.Size(222, 27);
+            this.testObjectTextBox.TabIndex = 11;
+            this.testObjectTextBox.Text = " HV Insulator";
             // 
             // exportValuesButton
             // 
@@ -728,7 +737,7 @@
             this.exportValuesButton.Name = "exportValuesButton";
             this.exportValuesButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
             this.exportValuesButton.Size = new System.Drawing.Size(158, 57);
-            this.exportValuesButton.TabIndex = 13;
+            this.exportValuesButton.TabIndex = 14;
             this.exportValuesButton.Text = "EXPORT VALUES";
             // 
             // operatorLabel
@@ -736,7 +745,7 @@
             this.operatorLabel.AutoSize = true;
             this.operatorLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.operatorLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.operatorLabel.Location = new System.Drawing.Point(35, 129);
+            this.operatorLabel.Location = new System.Drawing.Point(35, 132);
             this.operatorLabel.Name = "operatorLabel";
             this.operatorLabel.Size = new System.Drawing.Size(102, 26);
             this.operatorLabel.TabIndex = 12;
@@ -747,7 +756,7 @@
             this.testObjectLabel.AutoSize = true;
             this.testObjectLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.testObjectLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.testObjectLabel.Location = new System.Drawing.Point(35, 176);
+            this.testObjectLabel.Location = new System.Drawing.Point(35, 179);
             this.testObjectLabel.Name = "testObjectLabel";
             this.testObjectLabel.Size = new System.Drawing.Size(120, 26);
             this.testObjectLabel.TabIndex = 11;
@@ -758,7 +767,7 @@
             this.dateLabel.AutoSize = true;
             this.dateLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.dateLabel.Location = new System.Drawing.Point(35, 82);
+            this.dateLabel.Location = new System.Drawing.Point(35, 85);
             this.dateLabel.Name = "dateLabel";
             this.dateLabel.Size = new System.Drawing.Size(55, 26);
             this.dateLabel.TabIndex = 10;
@@ -766,11 +775,13 @@
             // 
             // dateTextBox
             // 
-            this.dateTextBox.Font = new System.Drawing.Font("Cambria", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTextBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.dateTextBox.Location = new System.Drawing.Point(161, 85);
             this.dateTextBox.Name = "dateTextBox";
-            this.dateTextBox.Size = new System.Drawing.Size(222, 20);
-            this.dateTextBox.TabIndex = 7;
+            this.dateTextBox.Size = new System.Drawing.Size(222, 27);
+            this.dateTextBox.TabIndex = 9;
+            this.dateTextBox.Text = " Todays date";
             // 
             // label1
             // 
@@ -814,7 +825,7 @@
         "Imp"};
             this.voltageComboBox.SetSelected = "AC";
             this.voltageComboBox.Size = new System.Drawing.Size(139, 45);
-            this.voltageComboBox.TabIndex = 4;
+            this.voltageComboBox.TabIndex = 5;
             this.voltageComboBox.Text = "customComboBox1";
             this.voltageComboBox.TextBoxHint = "";
             // 
@@ -861,7 +872,7 @@
             this.DisruptiveRadioButton.Location = new System.Drawing.Point(50, 127);
             this.DisruptiveRadioButton.Name = "DisruptiveRadioButton";
             this.DisruptiveRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.DisruptiveRadioButton.TabIndex = 2;
+            this.DisruptiveRadioButton.TabIndex = 4;
             this.DisruptiveRadioButton.Text = "customRadioButton1";
             this.DisruptiveRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
@@ -875,7 +886,7 @@
             this.WithstandRadioButton.Location = new System.Drawing.Point(50, 62);
             this.WithstandRadioButton.Name = "WithstandRadioButton";
             this.WithstandRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.WithstandRadioButton.TabIndex = 2;
+            this.WithstandRadioButton.TabIndex = 3;
             this.WithstandRadioButton.Text = "customRadioButton1";
             this.WithstandRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
@@ -945,7 +956,7 @@
             this.resultTestVoltageLabel.Location = new System.Drawing.Point(182, 2);
             this.resultTestVoltageLabel.Name = "resultTestVoltageLabel";
             this.resultTestVoltageLabel.Size = new System.Drawing.Size(133, 26);
-            this.resultTestVoltageLabel.TabIndex = 23;
+            this.resultTestVoltageLabel.TabIndex = 35;
             this.resultTestVoltageLabel.Text = "TEST VOLTAGE";
             // 
             // hvUnitLabel
@@ -968,7 +979,7 @@
             this.secondsUnitLabel.Location = new System.Drawing.Point(7, 92);
             this.secondsUnitLabel.Name = "secondsUnitLabel";
             this.secondsUnitLabel.Size = new System.Drawing.Size(152, 19);
-            this.secondsUnitLabel.TabIndex = 12;
+            this.secondsUnitLabel.TabIndex = 33;
             this.secondsUnitLabel.Text = "SECONDS";
             this.secondsUnitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -981,7 +992,7 @@
             this.elapsedTimeTitleLabel.Location = new System.Drawing.Point(15, 2);
             this.elapsedTimeTitleLabel.Name = "elapsedTimeTitleLabel";
             this.elapsedTimeTitleLabel.Size = new System.Drawing.Size(135, 26);
-            this.elapsedTimeTitleLabel.TabIndex = 10;
+            this.elapsedTimeTitleLabel.TabIndex = 34;
             this.elapsedTimeTitleLabel.Text = "ELAPSED TIME";
             // 
             // passStatusLabel
@@ -992,7 +1003,7 @@
             this.passStatusLabel.Location = new System.Drawing.Point(356, 2);
             this.passStatusLabel.Name = "passStatusLabel";
             this.passStatusLabel.Size = new System.Drawing.Size(118, 25);
-            this.passStatusLabel.TabIndex = 15;
+            this.passStatusLabel.TabIndex = 36;
             this.passStatusLabel.Text = "TEST STATUS";
             // 
             // elapsedTimeLabel
@@ -1068,7 +1079,7 @@
             this.onOffAutoButton.Location = new System.Drawing.Point(46, 409);
             this.onOffAutoButton.Name = "onOffAutoButton";
             this.onOffAutoButton.Size = new System.Drawing.Size(138, 56);
-            this.onOffAutoButton.TabIndex = 10;
+            this.onOffAutoButton.TabIndex = 1;
             this.onOffAutoButton.Text = "customCheckBox2";
             this.onOffAutoButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.offButtonHover;
             // 
@@ -1083,7 +1094,7 @@
             this.abortAutoTestButton.Name = "abortAutoTestButton";
             this.abortAutoTestButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
             this.abortAutoTestButton.Size = new System.Drawing.Size(158, 57);
-            this.abortAutoTestButton.TabIndex = 12;
+            this.abortAutoTestButton.TabIndex = 2;
             this.abortAutoTestButton.Text = "ABORT";
             // 
             // label5
