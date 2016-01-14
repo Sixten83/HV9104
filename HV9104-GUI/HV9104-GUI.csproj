@@ -422,6 +422,9 @@
     <Content Include="Resources\3-stageAC.png" />
     <Content Include="Resources\3-stageDC.png" />
     <Content Include="Resources\3-stageImp.png" />
+    <None Include="Resources\panelArrowHover.png" />
+    <None Include="Resources\panelArrowUnpressed.png" />
+    <None Include="Resources\panelArrow2.png" />
     <None Include="Resources\SplashlogoCropped.JPG" />
     <None Include="Resources\Splashlogo.JPG" />
     <None Include="Resources\StopWatchGrey.png" />

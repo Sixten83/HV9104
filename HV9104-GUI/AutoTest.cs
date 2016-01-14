@@ -474,21 +474,40 @@ namespace HV9104_GUI
             // Get rid of logo
             ShrinkLogo();
 
-            // Get test type
-            if (runView.WithstandRadioButton.isChecked)
+            // Disruptive discharge
+            if(runView.voltageComboBox.SetSelected == "Imp")
             {
-                // Withstand test.
-                // AC Withstand, DC Withstand: Run up to testVoltage, hold for duration, then park. Quit if flashover (voltage outside of bounds).
-                 
-
                 // Impulse testing - How to identify flashover?? Cycle each point in impulse curve (measurementForm)to get derivitive value. If dv/dt > breakdownLimit, we have had a breakdown.
-                
+
                 // Impulse Withstand: levels = 1(testVoltage), impulses per level = user defined (usually 1-5). Set gap distance to prevent spontaneous breakdown in gap. Run up to level[0] = testVoltage. 
                 // Trigger impulse. If impulsePeak < 20%, impulse generation is successful, if 0.95 x DC, then no breakdown has occurred. 
                 // Update graph. Set LineType to individual points. Blue = no breakdown Red = breakdown. Repeat (impulsesPerLevel).
 
                 // Impulse disruptive discharge: testVoltage = maxVoltage. Create array with levelsArray[levels] up to max.
-                // Check for stability at each level? *Do not stop regulation!
+                // Check for stability at each level? *Do not stop regulation!   
+                // Impulse disruptive discharge
+
+
+
+                // Get levels info
+                impulseLevels = (int)runView.impulseVoltageLevelsTextBox.Value;
+
+                // Get impulses/level info
+                impulsePerLevel = (int)runView.impPerLevelTextBox.Value;
+
+                // Get min/max levels
+
+                // Create level array
+
+                // Run impulse disruptive routine
+            }
+            else
+            {
+                
+                // AC Withstand, DC Withstand: Run up to testVoltage, hold for duration, then park. Quit if flashover (voltage outside of bounds).
+                // AC Disruptive, DC Disruptive discharge: testVoltage = maxVoltage, duration = 1s, trafSpeed = slow(180). 
+                // Run up to testVoltage. Quit if flashover (inCurrent spikes).
+                // Note last voltage before flashover
 
                 // Get user input and convert to usable values
                 duration = Convert.ToInt32(runView.testDurationTextBox.Value);
@@ -501,57 +520,13 @@ namespace HV9104_GUI
                 sampleTimer.Enabled = true;
                 sampleTimer.Start();
 
-                // Get test voltage parameters and set tolerances
-                targetVoltage = Convert.ToDouble(runView.testVoltageTextBox.Value);
+                // Set targetVoltage to Stage Max
+                targetVoltage = Convert.ToDouble(runView.testVoltageTextBox.Value);       // already set to 1/2/3-Stage max when disruptive discharge selected
                 tolerance = targetVoltage * (runView.toleranceTextBox.Value / 100);
                 testVoltageToleranceHigh = targetVoltage + tolerance;
                 testVoltageToleranceLow = targetVoltage - tolerance;
-
-
             }
-            else
-            {
-                // Disruptive discharge
-                if(runView.voltageComboBox.SetSelected == "Imp")
-                {
-                    // Impulse disruptive discharge
-
-                    // Get levels info
-                    impulseLevels = (int)runView.impulseVoltageLevelsTextBox.Value;
-
-                    // Get impulses/level info
-                    impulsePerLevel = (int)runView.impPerLevelTextBox.Value;
-
-                    // Get min/max levels
-
-                    // Create level array
-
-                    // Run impulse disruptive routine
-                }
-                else
-                {
-                    // AC Disruptive, DC Disruptive discharge: testVoltage = maxVoltage, duration = 1s, trafSpeed = slow(180). 
-                    // Run up to testVoltage. Quit if flashover (inCurrent spikes).
-                    // Note last voltage before flashover
-
-                    // Get user input and convert to usable values
-                    duration = Convert.ToInt32(runView.testDurationTextBox.Value);
-                    sampleRate = Convert.ToDouble(runView.sampleRateTextBox.Value);
-                    intSampleRate = sampleRate * 1000;
-                    msSampleRate = Convert.ToInt32(intSampleRate);
-
-                    // Set up timer parameters and start
-                    sampleTimer.Interval = msSampleRate;
-                    sampleTimer.Enabled = true;
-                    sampleTimer.Start();
-
-                    // Set targetVoltage to Stage Max
-                    targetVoltage = Convert.ToDouble(runView.testVoltageTextBox.Value);       // already set to 1/2/3-Stage max when disruptive discharge selected
-                    tolerance = targetVoltage * (runView.toleranceTextBox.Value / 100);
-                    testVoltageToleranceHigh = targetVoltage + tolerance;
-                    testVoltageToleranceLow = targetVoltage - tolerance;
-                }
-            }
+            
 
             
 

@@ -28,67 +28,61 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.customPanel8 = new HV9104_GUI.CustomPanel();
+            this.customPanel9 = new HV9104_GUI.CustomPanel();
+            this.customPanel10 = new HV9104_GUI.CustomPanel();
+            this.customPanel7 = new HV9104_GUI.CustomPanel();
+            this.customPanel5 = new HV9104_GUI.CustomPanel();
+            this.customPanel4 = new HV9104_GUI.CustomPanel();
+            this.customPanel3 = new HV9104_GUI.CustomPanel();
+            this.customPanel2 = new HV9104_GUI.CustomPanel();
+            this.testControlPanel = new HV9104_GUI.CustomPanel();
             this.label9 = new System.Windows.Forms.Label();
             this.impulseOutputComboBox = new HV9104_GUI.CustomComboBox();
             this.impulseTitleLabel = new System.Windows.Forms.Label();
             this.impulseValueLabel = new System.Windows.Forms.Label();
-            this.customPanel9 = new HV9104_GUI.CustomPanel();
             this.label17 = new System.Windows.Forms.Label();
             this.dcOutputComboBox = new HV9104_GUI.CustomComboBox();
             this.dcTitleLabel = new System.Windows.Forms.Label();
             this.dcValueLabel = new System.Windows.Forms.Label();
-            this.customPanel10 = new HV9104_GUI.CustomPanel();
             this.acOutputComboBox = new HV9104_GUI.CustomComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.acTitleLabel = new System.Windows.Forms.Label();
             this.acValueLabel = new System.Windows.Forms.Label();
-            this.customPanel7 = new HV9104_GUI.CustomPanel();
             this.impPerLevelTextBox = new HV9104_GUI.CustomTextBox();
             this.impulseVoltageLevelsTextBox = new HV9104_GUI.CustomTextBox();
             this.impPerLevelLabel = new System.Windows.Forms.Label();
             this.voltLevelsLabel = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.customPanel5 = new HV9104_GUI.CustomPanel();
             this.testVoltageLevelLabel = new System.Windows.Forms.Label();
             this.toleranceLabel = new System.Windows.Forms.Label();
             this.toleranceTextBox = new HV9104_GUI.CustomTextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.testVoltageTextBox = new HV9104_GUI.CustomTextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.customPanel4 = new HV9104_GUI.CustomPanel();
             this.testDurationSign = new System.Windows.Forms.Label();
             this.sampleRateLabel = new System.Windows.Forms.Label();
             this.sampleRateTextBox = new HV9104_GUI.CustomTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.testDurationTextBox = new HV9104_GUI.CustomTextBox();
             this.testTimeLabel = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.customPanel3 = new HV9104_GUI.CustomPanel();
             this.otherTextBox = new System.Windows.Forms.TextBox();
             this.otherLabel = new System.Windows.Forms.Label();
             this.operatorTextBox = new System.Windows.Forms.TextBox();
-            this.createReportButton = new HV9104_GUI.CustomButton();
             this.testObjectTextBox = new System.Windows.Forms.TextBox();
-            this.exportValuesButton = new HV9104_GUI.CustomButton();
             this.operatorLabel = new System.Windows.Forms.Label();
             this.testObjectLabel = new System.Windows.Forms.Label();
             this.dateLabel = new System.Windows.Forms.Label();
             this.dateTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.customPanel2 = new HV9104_GUI.CustomPanel();
             this.voltageComboBox = new HV9104_GUI.CustomComboBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
-            this.DisruptiveRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.WithstandRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.testControlPanel = new HV9104_GUI.CustomPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.passFailUnitlabel = new System.Windows.Forms.Label();
             this.resultTestVoltageLabel = new System.Windows.Forms.Label();
@@ -99,26 +93,23 @@
             this.elapsedTimeLabel = new System.Windows.Forms.Label();
             this.passFailLabel = new System.Windows.Forms.Label();
             this.resultTestVoltageValueLabel = new System.Windows.Forms.Label();
-            this.dynamicLogoPictureBox = new System.Windows.Forms.PictureBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.onOffAutoButton = new HV9104_GUI.CustomCheckBox();
-            this.abortAutoTestButton = new HV9104_GUI.CustomButton();
             this.label5 = new System.Windows.Forms.Label();
             this.autoTestChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.customPanel8.SuspendLayout();
-            this.customPanel9.SuspendLayout();
-            this.customPanel10.SuspendLayout();
-            this.customPanel7.SuspendLayout();
-            this.customPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            this.customPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.customPanel3.SuspendLayout();
-            this.customPanel2.SuspendLayout();
-            this.testControlPanel.SuspendLayout();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.createReportButton = new HV9104_GUI.CustomButton();
+            this.exportValuesButton = new HV9104_GUI.CustomButton();
+            this.DisruptiveRadioButton = new HV9104_GUI.CustomRadioButton();
+            this.WithstandRadioButton = new HV9104_GUI.CustomRadioButton();
+            this.dynamicLogoPictureBox = new System.Windows.Forms.PictureBox();
+            this.onOffAutoButton = new HV9104_GUI.CustomCheckBox();
+            this.abortAutoTestButton = new HV9104_GUI.CustomButton();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dynamicLogoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dynamicLogoPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // customPanel8
@@ -126,16 +117,108 @@
             this.customPanel8.BackColor = System.Drawing.Color.Transparent;
             this.customPanel8.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel8.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel8.Controls.Add(this.label9);
-            this.customPanel8.Controls.Add(this.impulseOutputComboBox);
-            this.customPanel8.Controls.Add(this.impulseTitleLabel);
-            this.customPanel8.Controls.Add(this.impulseValueLabel);
             this.customPanel8.CornerRadius = 40;
             this.customPanel8.IsPopUp = false;
             this.customPanel8.Location = new System.Drawing.Point(1414, 32);
             this.customPanel8.Name = "customPanel8";
             this.customPanel8.Size = new System.Drawing.Size(444, 200);
             this.customPanel8.TabIndex = 56;
+            // 
+            // customPanel9
+            // 
+            this.customPanel9.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel9.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel9.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel9.CornerRadius = 40;
+            this.customPanel9.IsPopUp = false;
+            this.customPanel9.Location = new System.Drawing.Point(953, 32);
+            this.customPanel9.Name = "customPanel9";
+            this.customPanel9.Size = new System.Drawing.Size(444, 200);
+            this.customPanel9.TabIndex = 57;
+            // 
+            // customPanel10
+            // 
+            this.customPanel10.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel10.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel10.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel10.CornerRadius = 40;
+            this.customPanel10.IsPopUp = false;
+            this.customPanel10.Location = new System.Drawing.Point(492, 32);
+            this.customPanel10.Name = "customPanel10";
+            this.customPanel10.Size = new System.Drawing.Size(444, 200);
+            this.customPanel10.TabIndex = 11;
+            // 
+            // customPanel7
+            // 
+            this.customPanel7.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel7.CornerRadius = 40;
+            this.customPanel7.IsPopUp = false;
+            this.customPanel7.Location = new System.Drawing.Point(10, 611);
+            this.customPanel7.Name = "customPanel7";
+            this.customPanel7.Size = new System.Drawing.Size(462, 160);
+            this.customPanel7.TabIndex = 8;
+            // 
+            // customPanel5
+            // 
+            this.customPanel5.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel5.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel5.CornerRadius = 40;
+            this.customPanel5.IsPopUp = false;
+            this.customPanel5.Location = new System.Drawing.Point(252, 266);
+            this.customPanel5.Name = "customPanel5";
+            this.customPanel5.Size = new System.Drawing.Size(220, 325);
+            this.customPanel5.TabIndex = 6;
+            // 
+            // customPanel4
+            // 
+            this.customPanel4.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel4.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel4.CornerRadius = 40;
+            this.customPanel4.IsPopUp = false;
+            this.customPanel4.Location = new System.Drawing.Point(10, 266);
+            this.customPanel4.Name = "customPanel4";
+            this.customPanel4.Size = new System.Drawing.Size(217, 325);
+            this.customPanel4.TabIndex = 5;
+            // 
+            // customPanel3
+            // 
+            this.customPanel3.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel3.CornerRadius = 40;
+            this.customPanel3.IsPopUp = false;
+            this.customPanel3.Location = new System.Drawing.Point(1427, 266);
+            this.customPanel3.Name = "customPanel3";
+            this.customPanel3.Size = new System.Drawing.Size(432, 505);
+            this.customPanel3.TabIndex = 55;
+            // 
+            // customPanel2
+            // 
+            this.customPanel2.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel2.CornerRadius = 40;
+            this.customPanel2.IsPopUp = false;
+            this.customPanel2.Location = new System.Drawing.Point(10, 32);
+            this.customPanel2.Name = "customPanel2";
+            this.customPanel2.Size = new System.Drawing.Size(465, 200);
+            this.customPanel2.TabIndex = 3;
+            // 
+            // testControlPanel
+            // 
+            this.testControlPanel.BackColor = System.Drawing.Color.Transparent;
+            this.testControlPanel.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.testControlPanel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.testControlPanel.CornerRadius = 40;
+            this.testControlPanel.IsPopUp = false;
+            this.testControlPanel.Location = new System.Drawing.Point(497, 266);
+            this.testControlPanel.Name = "testControlPanel";
+            this.testControlPanel.Size = new System.Drawing.Size(905, 505);
+            this.testControlPanel.TabIndex = 1;
             // 
             // label9
             // 
@@ -185,22 +268,6 @@
             this.impulseValueLabel.TabIndex = 1;
             this.impulseValueLabel.Text = "0.0";
             this.impulseValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // customPanel9
-            // 
-            this.customPanel9.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel9.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel9.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel9.Controls.Add(this.label17);
-            this.customPanel9.Controls.Add(this.dcOutputComboBox);
-            this.customPanel9.Controls.Add(this.dcTitleLabel);
-            this.customPanel9.Controls.Add(this.dcValueLabel);
-            this.customPanel9.CornerRadius = 40;
-            this.customPanel9.IsPopUp = false;
-            this.customPanel9.Location = new System.Drawing.Point(953, 32);
-            this.customPanel9.Name = "customPanel9";
-            this.customPanel9.Size = new System.Drawing.Size(444, 200);
-            this.customPanel9.TabIndex = 57;
             // 
             // label17
             // 
@@ -252,22 +319,6 @@
             this.dcValueLabel.TabIndex = 1;
             this.dcValueLabel.Text = "0.0";
             this.dcValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // customPanel10
-            // 
-            this.customPanel10.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel10.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel10.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel10.Controls.Add(this.acOutputComboBox);
-            this.customPanel10.Controls.Add(this.label10);
-            this.customPanel10.Controls.Add(this.acTitleLabel);
-            this.customPanel10.Controls.Add(this.acValueLabel);
-            this.customPanel10.CornerRadius = 40;
-            this.customPanel10.IsPopUp = false;
-            this.customPanel10.Location = new System.Drawing.Point(492, 32);
-            this.customPanel10.Name = "customPanel10";
-            this.customPanel10.Size = new System.Drawing.Size(444, 200);
-            this.customPanel10.TabIndex = 11;
             // 
             // acOutputComboBox
             // 
@@ -321,23 +372,6 @@
             this.acValueLabel.TabIndex = 1;
             this.acValueLabel.Text = "0.0";
             this.acValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // customPanel7
-            // 
-            this.customPanel7.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel7.Controls.Add(this.impPerLevelTextBox);
-            this.customPanel7.Controls.Add(this.impulseVoltageLevelsTextBox);
-            this.customPanel7.Controls.Add(this.impPerLevelLabel);
-            this.customPanel7.Controls.Add(this.voltLevelsLabel);
-            this.customPanel7.Controls.Add(this.label8);
-            this.customPanel7.CornerRadius = 40;
-            this.customPanel7.IsPopUp = false;
-            this.customPanel7.Location = new System.Drawing.Point(10, 611);
-            this.customPanel7.Name = "customPanel7";
-            this.customPanel7.Size = new System.Drawing.Size(462, 160);
-            this.customPanel7.TabIndex = 8;
             // 
             // impPerLevelTextBox
             // 
@@ -413,25 +447,6 @@
             this.label8.Size = new System.Drawing.Size(273, 18);
             this.label8.TabIndex = 5;
             this.label8.Text = "IMPULSE TESTING PARAMETERS";
-            // 
-            // customPanel5
-            // 
-            this.customPanel5.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel5.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel5.Controls.Add(this.testVoltageLevelLabel);
-            this.customPanel5.Controls.Add(this.toleranceLabel);
-            this.customPanel5.Controls.Add(this.toleranceTextBox);
-            this.customPanel5.Controls.Add(this.label16);
-            this.customPanel5.Controls.Add(this.testVoltageTextBox);
-            this.customPanel5.Controls.Add(this.label3);
-            this.customPanel5.Controls.Add(this.pictureBox3);
-            this.customPanel5.CornerRadius = 40;
-            this.customPanel5.IsPopUp = false;
-            this.customPanel5.Location = new System.Drawing.Point(252, 266);
-            this.customPanel5.Name = "customPanel5";
-            this.customPanel5.Size = new System.Drawing.Size(220, 325);
-            this.customPanel5.TabIndex = 6;
             // 
             // testVoltageLevelLabel
             // 
@@ -519,35 +534,6 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "TEST VOLTAGE";
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::HV9104_GUI.Properties.Resources.lightningBoltGrey;
-            this.pictureBox3.Location = new System.Drawing.Point(47, 47);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(111, 115);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 2;
-            this.pictureBox3.TabStop = false;
-            // 
-            // customPanel4
-            // 
-            this.customPanel4.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel4.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel4.Controls.Add(this.testDurationSign);
-            this.customPanel4.Controls.Add(this.sampleRateLabel);
-            this.customPanel4.Controls.Add(this.sampleRateTextBox);
-            this.customPanel4.Controls.Add(this.label4);
-            this.customPanel4.Controls.Add(this.testDurationTextBox);
-            this.customPanel4.Controls.Add(this.testTimeLabel);
-            this.customPanel4.Controls.Add(this.pictureBox2);
-            this.customPanel4.CornerRadius = 40;
-            this.customPanel4.IsPopUp = false;
-            this.customPanel4.Location = new System.Drawing.Point(10, 266);
-            this.customPanel4.Name = "customPanel4";
-            this.customPanel4.Size = new System.Drawing.Size(217, 325);
-            this.customPanel4.TabIndex = 5;
-            // 
             // testDurationSign
             // 
             this.testDurationSign.AutoSize = true;
@@ -634,39 +620,6 @@
             this.testTimeLabel.TabIndex = 3;
             this.testTimeLabel.Text = "TEST DURATION";
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::HV9104_GUI.Properties.Resources.StopWatchGrey;
-            this.pictureBox2.Location = new System.Drawing.Point(50, 47);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(111, 115);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
-            // 
-            // customPanel3
-            // 
-            this.customPanel3.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel3.Controls.Add(this.otherTextBox);
-            this.customPanel3.Controls.Add(this.otherLabel);
-            this.customPanel3.Controls.Add(this.operatorTextBox);
-            this.customPanel3.Controls.Add(this.createReportButton);
-            this.customPanel3.Controls.Add(this.testObjectTextBox);
-            this.customPanel3.Controls.Add(this.exportValuesButton);
-            this.customPanel3.Controls.Add(this.operatorLabel);
-            this.customPanel3.Controls.Add(this.testObjectLabel);
-            this.customPanel3.Controls.Add(this.dateLabel);
-            this.customPanel3.Controls.Add(this.dateTextBox);
-            this.customPanel3.Controls.Add(this.label1);
-            this.customPanel3.CornerRadius = 40;
-            this.customPanel3.IsPopUp = false;
-            this.customPanel3.Location = new System.Drawing.Point(1427, 266);
-            this.customPanel3.Name = "customPanel3";
-            this.customPanel3.Size = new System.Drawing.Size(432, 505);
-            this.customPanel3.TabIndex = 55;
-            // 
             // otherTextBox
             // 
             this.otherTextBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -701,20 +654,6 @@
             this.operatorTextBox.TabIndex = 10;
             this.operatorTextBox.Text = " Authorized staff";
             // 
-            // createReportButton
-            // 
-            this.createReportButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.createReportButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.createReportButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.createReportButton.ForeColor = System.Drawing.Color.White;
-            this.createReportButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.createReportButton.Location = new System.Drawing.Point(40, 406);
-            this.createReportButton.Name = "createReportButton";
-            this.createReportButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.createReportButton.Size = new System.Drawing.Size(158, 57);
-            this.createReportButton.TabIndex = 13;
-            this.createReportButton.Text = "CREATE REPORT";
-            // 
             // testObjectTextBox
             // 
             this.testObjectTextBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -725,20 +664,6 @@
             this.testObjectTextBox.Size = new System.Drawing.Size(222, 27);
             this.testObjectTextBox.TabIndex = 11;
             this.testObjectTextBox.Text = " HV Insulator";
-            // 
-            // exportValuesButton
-            // 
-            this.exportValuesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.exportValuesButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.exportValuesButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exportValuesButton.ForeColor = System.Drawing.Color.White;
-            this.exportValuesButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.exportValuesButton.Location = new System.Drawing.Point(236, 406);
-            this.exportValuesButton.Name = "exportValuesButton";
-            this.exportValuesButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.exportValuesButton.Size = new System.Drawing.Size(158, 57);
-            this.exportValuesButton.TabIndex = 14;
-            this.exportValuesButton.Text = "EXPORT VALUES";
             // 
             // operatorLabel
             // 
@@ -794,24 +719,6 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "REPORT INFO";
             // 
-            // customPanel2
-            // 
-            this.customPanel2.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel2.Controls.Add(this.voltageComboBox);
-            this.customPanel2.Controls.Add(this.label20);
-            this.customPanel2.Controls.Add(this.label23);
-            this.customPanel2.Controls.Add(this.label21);
-            this.customPanel2.Controls.Add(this.DisruptiveRadioButton);
-            this.customPanel2.Controls.Add(this.WithstandRadioButton);
-            this.customPanel2.CornerRadius = 40;
-            this.customPanel2.IsPopUp = false;
-            this.customPanel2.Location = new System.Drawing.Point(10, 32);
-            this.customPanel2.Name = "customPanel2";
-            this.customPanel2.Size = new System.Drawing.Size(465, 200);
-            this.customPanel2.TabIndex = 3;
-            // 
             // voltageComboBox
             // 
             this.voltageComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
@@ -861,53 +768,6 @@
             this.label21.Size = new System.Drawing.Size(133, 29);
             this.label21.TabIndex = 2;
             this.label21.Text = "WITHSTAND";
-            // 
-            // DisruptiveRadioButton
-            // 
-            this.DisruptiveRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.DisruptiveRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.DisruptiveRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.DisruptiveRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.DisruptiveRadioButton.isChecked = false;
-            this.DisruptiveRadioButton.Location = new System.Drawing.Point(50, 127);
-            this.DisruptiveRadioButton.Name = "DisruptiveRadioButton";
-            this.DisruptiveRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.DisruptiveRadioButton.TabIndex = 4;
-            this.DisruptiveRadioButton.Text = "customRadioButton1";
-            this.DisruptiveRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            // 
-            // WithstandRadioButton
-            // 
-            this.WithstandRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.WithstandRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.WithstandRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.WithstandRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.WithstandRadioButton.isChecked = true;
-            this.WithstandRadioButton.Location = new System.Drawing.Point(50, 62);
-            this.WithstandRadioButton.Name = "WithstandRadioButton";
-            this.WithstandRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.WithstandRadioButton.TabIndex = 3;
-            this.WithstandRadioButton.Text = "customRadioButton1";
-            this.WithstandRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            // 
-            // testControlPanel
-            // 
-            this.testControlPanel.BackColor = System.Drawing.Color.Transparent;
-            this.testControlPanel.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.testControlPanel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.testControlPanel.Controls.Add(this.tableLayoutPanel1);
-            this.testControlPanel.Controls.Add(this.dynamicLogoPictureBox);
-            this.testControlPanel.Controls.Add(this.label15);
-            this.testControlPanel.Controls.Add(this.onOffAutoButton);
-            this.testControlPanel.Controls.Add(this.abortAutoTestButton);
-            this.testControlPanel.Controls.Add(this.label5);
-            this.testControlPanel.Controls.Add(this.autoTestChart);
-            this.testControlPanel.CornerRadius = 40;
-            this.testControlPanel.IsPopUp = false;
-            this.testControlPanel.Location = new System.Drawing.Point(497, 266);
-            this.testControlPanel.Name = "testControlPanel";
-            this.testControlPanel.Size = new System.Drawing.Size(905, 505);
-            this.testControlPanel.TabIndex = 1;
             // 
             // tableLayoutPanel1
             // 
@@ -1047,17 +907,6 @@
             this.resultTestVoltageValueLabel.Text = "33";
             this.resultTestVoltageValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // dynamicLogoPictureBox
-            // 
-            this.dynamicLogoPictureBox.Image = global::HV9104_GUI.Properties.Resources.SplashlogoCropped;
-            this.dynamicLogoPictureBox.Location = new System.Drawing.Point(252, 50);
-            this.dynamicLogoPictureBox.Name = "dynamicLogoPictureBox";
-            this.dynamicLogoPictureBox.Size = new System.Drawing.Size(377, 295);
-            this.dynamicLogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.dynamicLogoPictureBox.TabIndex = 19;
-            this.dynamicLogoPictureBox.TabStop = false;
-            this.dynamicLogoPictureBox.Visible = false;
-            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -1068,6 +917,136 @@
             this.label15.Size = new System.Drawing.Size(63, 26);
             this.label15.TabIndex = 9;
             this.label15.Text = "START";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label5.Location = new System.Drawing.Point(25, 17);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(136, 18);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "TEST CONTROL";
+            // 
+            // autoTestChart
+            // 
+            this.autoTestChart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            chartArea2.AxisX.LineColor = System.Drawing.Color.Transparent;
+            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
+            chartArea2.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea2.AxisX.MajorTickMark.Enabled = false;
+            chartArea2.AxisX.MinorGrid.LineColor = System.Drawing.Color.Transparent;
+            chartArea2.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea2.AxisY.LineColor = System.Drawing.Color.Transparent;
+            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
+            chartArea2.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea2.AxisY.MajorTickMark.Enabled = false;
+            chartArea2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            chartArea2.BorderColor = System.Drawing.Color.Transparent;
+            chartArea2.Name = "ChartArea1";
+            this.autoTestChart.ChartAreas.Add(chartArea2);
+            this.autoTestChart.Location = new System.Drawing.Point(64, 50);
+            this.autoTestChart.Name = "autoTestChart";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Name = "Series1";
+            series2.Points.Add(dataPoint2);
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.autoTestChart.Series.Add(series2);
+            this.autoTestChart.Size = new System.Drawing.Size(756, 301);
+            this.autoTestChart.TabIndex = 0;
+            this.autoTestChart.Text = "chart1";
+            title2.Name = "Title1";
+            this.autoTestChart.Titles.Add(title2);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::HV9104_GUI.Properties.Resources.lightningBoltGrey;
+            this.pictureBox3.Location = new System.Drawing.Point(47, 47);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(111, 115);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 2;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::HV9104_GUI.Properties.Resources.StopWatchGrey;
+            this.pictureBox2.Location = new System.Drawing.Point(50, 47);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(111, 115);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // createReportButton
+            // 
+            this.createReportButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.createReportButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.createReportButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.createReportButton.ForeColor = System.Drawing.Color.White;
+            this.createReportButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.createReportButton.Location = new System.Drawing.Point(40, 406);
+            this.createReportButton.Name = "createReportButton";
+            this.createReportButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.createReportButton.Size = new System.Drawing.Size(158, 57);
+            this.createReportButton.TabIndex = 13;
+            this.createReportButton.Text = "CREATE REPORT";
+            // 
+            // exportValuesButton
+            // 
+            this.exportValuesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.exportValuesButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.exportValuesButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exportValuesButton.ForeColor = System.Drawing.Color.White;
+            this.exportValuesButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.exportValuesButton.Location = new System.Drawing.Point(236, 406);
+            this.exportValuesButton.Name = "exportValuesButton";
+            this.exportValuesButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.exportValuesButton.Size = new System.Drawing.Size(158, 57);
+            this.exportValuesButton.TabIndex = 14;
+            this.exportValuesButton.Text = "EXPORT VALUES";
+            // 
+            // DisruptiveRadioButton
+            // 
+            this.DisruptiveRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.DisruptiveRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.DisruptiveRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.DisruptiveRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.DisruptiveRadioButton.isChecked = false;
+            this.DisruptiveRadioButton.Location = new System.Drawing.Point(50, 127);
+            this.DisruptiveRadioButton.Name = "DisruptiveRadioButton";
+            this.DisruptiveRadioButton.Size = new System.Drawing.Size(47, 47);
+            this.DisruptiveRadioButton.TabIndex = 4;
+            this.DisruptiveRadioButton.Text = "customRadioButton1";
+            this.DisruptiveRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
+            // 
+            // WithstandRadioButton
+            // 
+            this.WithstandRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.WithstandRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.WithstandRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.WithstandRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.WithstandRadioButton.isChecked = true;
+            this.WithstandRadioButton.Location = new System.Drawing.Point(50, 62);
+            this.WithstandRadioButton.Name = "WithstandRadioButton";
+            this.WithstandRadioButton.Size = new System.Drawing.Size(47, 47);
+            this.WithstandRadioButton.TabIndex = 3;
+            this.WithstandRadioButton.Text = "customRadioButton1";
+            this.WithstandRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
+            // 
+            // dynamicLogoPictureBox
+            // 
+            this.dynamicLogoPictureBox.Image = global::HV9104_GUI.Properties.Resources.SplashlogoCropped;
+            this.dynamicLogoPictureBox.Location = new System.Drawing.Point(252, 50);
+            this.dynamicLogoPictureBox.Name = "dynamicLogoPictureBox";
+            this.dynamicLogoPictureBox.Size = new System.Drawing.Size(377, 295);
+            this.dynamicLogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.dynamicLogoPictureBox.TabIndex = 19;
+            this.dynamicLogoPictureBox.TabStop = false;
+            this.dynamicLogoPictureBox.Visible = false;
             // 
             // onOffAutoButton
             // 
@@ -1096,49 +1075,7 @@
             this.abortAutoTestButton.Size = new System.Drawing.Size(158, 57);
             this.abortAutoTestButton.TabIndex = 2;
             this.abortAutoTestButton.Text = "ABORT";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label5.Location = new System.Drawing.Point(25, 17);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(136, 18);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "TEST CONTROL";
-            // 
-            // autoTestChart
-            // 
-            this.autoTestChart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            chartArea1.AxisX.LineColor = System.Drawing.Color.Transparent;
-            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
-            chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisX.MajorTickMark.Enabled = false;
-            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.Transparent;
-            chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisY.LineColor = System.Drawing.Color.Transparent;
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
-            chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisY.MajorTickMark.Enabled = false;
-            chartArea1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            chartArea1.BorderColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.autoTestChart.ChartAreas.Add(chartArea1);
-            this.autoTestChart.Location = new System.Drawing.Point(64, 50);
-            this.autoTestChart.Name = "autoTestChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Name = "Series1";
-            series1.Points.Add(dataPoint1);
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            this.autoTestChart.Series.Add(series1);
-            this.autoTestChart.Size = new System.Drawing.Size(756, 301);
-            this.autoTestChart.TabIndex = 0;
-            this.autoTestChart.Text = "chart1";
-            title1.Name = "Title1";
-            this.autoTestChart.Titles.Add(title1);
+           
             // 
             // RunView
             // 
@@ -1156,30 +1093,12 @@
             this.Controls.Add(this.testControlPanel);
             this.Name = "RunView";
             this.Size = new System.Drawing.Size(1875, 800);
-            this.customPanel8.ResumeLayout(false);
-            this.customPanel8.PerformLayout();
-            this.customPanel9.ResumeLayout(false);
-            this.customPanel9.PerformLayout();
-            this.customPanel10.ResumeLayout(false);
-            this.customPanel10.PerformLayout();
-            this.customPanel7.ResumeLayout(false);
-            this.customPanel7.PerformLayout();
-            this.customPanel5.ResumeLayout(false);
-            this.customPanel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            this.customPanel4.ResumeLayout(false);
-            this.customPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.customPanel3.ResumeLayout(false);
-            this.customPanel3.PerformLayout();
-            this.customPanel2.ResumeLayout(false);
-            this.customPanel2.PerformLayout();
-            this.testControlPanel.ResumeLayout(false);
-            this.testControlPanel.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dynamicLogoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dynamicLogoPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1258,5 +1177,6 @@
         public System.Windows.Forms.Label hvUnitLabel;
         public System.Windows.Forms.Label resultTestVoltageLabel;
         public System.Windows.Forms.Label passStatusLabel;
+       
     }
 }
