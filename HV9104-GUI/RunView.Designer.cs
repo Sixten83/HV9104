@@ -1099,6 +1099,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dynamicLogoPictureBox)).EndInit();
+            this.customPanel10.ResumeLayout(false);
+            this.customPanel10.PerformLayout();
+            this.customPanel9.ResumeLayout(false);
+            this.customPanel9.PerformLayout();
+            this.customPanel7.ResumeLayout(false);
+            this.customPanel7.PerformLayout();
+            this.customPanel4.ResumeLayout(false);
+            this.customPanel4.PerformLayout();
+            this.customPanel3.ResumeLayout(false);
+            this.customPanel3.PerformLayout();
+            this.customPanel2.ResumeLayout(false);
+            this.customPanel2.PerformLayout();
+            this.customPanel8.ResumeLayout(false);
+            this.customPanel8.PerformLayout();
+            this.customPanel5.ResumeLayout(false);
+            this.customPanel5.PerformLayout();
             this.ResumeLayout(false);
 
         }
