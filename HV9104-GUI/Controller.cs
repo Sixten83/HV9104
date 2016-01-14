@@ -1,24 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing;
 //using Excel = Microsoft.Office.Interop.Excel; 
-using System.Timers;
-
-using Timer = System.Timers.Timer;
 using System.IO.Ports;
-using System.IO;
 using System.Threading;
-using System.Windows.Forms.DataVisualization.Charting;
-using System.Diagnostics;
 
 namespace HV9104_GUI
 {
 
-     class Controller
+    class Controller
     {
         MeasuringForm measuringForm;
         ControlForm controlForm;
@@ -1777,7 +1768,9 @@ namespace HV9104_GUI
         {
 
             Thread.Sleep(200);
-            
+            // Limit textbox length
+      //      controlForm.runView.testObjectTextBox.MaxLines = 2;
+
             // Top info strip notice
             GetTestType();
 

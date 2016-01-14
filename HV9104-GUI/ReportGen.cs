@@ -37,23 +37,24 @@ namespace HV9104_GUI
         public void GenerateReportNow()
         {
 
-            GenerateChartImage();
+            GenerateChartImage(); //Generate image to report.
 
+            //Open file dialog
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "Portable Document Format (.pdf)|*.pdf";
-            saveFileDialog1.Title = "Save an Image File";
+            saveFileDialog1.Title = "Export to PDF";
             saveFileDialog1.ShowDialog();
             string pdfpath = saveFileDialog1.FileName;
 
             //string imagepath = @"C:\Users\Terco\Desktop\"; //HEADER LOGO PATH.
-            Document doc = new Document(PageSize.A4 , 36f , 36f, 36f, 10f);
+            Document doc = new Document(PageSize.A4 , 36f , 36f,36f, 10f);
             try
             {
                 PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(pdfpath, FileMode.Create));
                 int totalfonts = FontFactory.RegisterDirectory("C:\\WINDOWS\\Fonts");
                 var FontColour = new BaseColor(127, 127, 127);
 
-                //FONTS
+                // DEFINE FONTS
                 var Calibri18 = FontFactory.GetFont("Calibri", 18, iTextSharp.text.Font.BOLD, FontColour);
                 var Calibri16 = FontFactory.GetFont("Calibri", 16, FontColour);
                 var Calibri16_Bold = FontFactory.GetFont("Calibri", 15, iTextSharp.text.Font.BOLD, FontColour);
@@ -74,13 +75,14 @@ namespace HV9104_GUI
                 doc.Add(gif);
                 
                 //TITLE
-                Paragraph heading = new Paragraph("EXPERIMENT REPORT", Calibri18);
-                heading.SpacingAfter = 20f;
+                Paragraph heading = new Paragraph("TEST REPORT", Calibri18);
+               // heading.SpacingAfter = 20f;
                 heading.Alignment = Element.ALIGN_CENTER;
                 doc.Add(heading);
 
                 //SUBTITLE
                 Paragraph heading2 = new Paragraph(SubTitle, Calibri16);
+                heading2.SpacingBefore = 10f;
                 heading2.SpacingAfter = 40f;
                 heading2.Alignment = Element.ALIGN_CENTER;
                 doc.Add(heading2);
@@ -100,6 +102,7 @@ namespace HV9104_GUI
                 PdfPCell cell7 = new PdfPCell(new Phrase("OTHER INFO:", Calibri14));
                 PdfPCell cell8 = new PdfPCell(new Phrase(OtherInfo, Calibri14));//dyn
 
+                //Remove table borders
                 cell1.Border = iTextSharp.text.Rectangle.NO_BORDER;
                 cell2.Border = iTextSharp.text.Rectangle.NO_BORDER;
                 cell3.Border = iTextSharp.text.Rectangle.NO_BORDER;
@@ -108,8 +111,13 @@ namespace HV9104_GUI
                 cell6.Border = iTextSharp.text.Rectangle.NO_BORDER;
                 cell7.Border = iTextSharp.text.Rectangle.NO_BORDER;
                 cell8.Border = iTextSharp.text.Rectangle.NO_BORDER;
+
+                //fixed sized cells
                 cell8.FixedHeight = 75f;
-              
+                cell6.FixedHeight = 25f;
+                cell4.FixedHeight = 14f;
+                cell2.FixedHeight = 14f;
+
                 table.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
                 table.AddCell(cell1);
                 table.AddCell(cell2);
@@ -120,8 +128,9 @@ namespace HV9104_GUI
                 table.AddCell(cell7);
                 table.AddCell(cell8);
                 doc.Add(table);
+
                 //Experiment results
-                Paragraph heading3 = new Paragraph("EXPERIMENT RESULTS", Calibri16_Bold);
+                Paragraph heading3 = new Paragraph("TEST RESULTS", Calibri16_Bold);
                 heading3.SpacingAfter = 20f;
                 heading3.SpacingBefore = 20f;
                 heading3.Alignment = Element.ALIGN_CENTER;
@@ -132,7 +141,6 @@ namespace HV9104_GUI
                 iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(@"C:\Users\Terco\Desktop\PDFgeneration\chart.jpg"); //CHART PATH.
                 jpg.ScaleToFit(420f, 500f);
                 jpg.Border = iTextSharp.text.Rectangle.BOX;
-                //jpg.BorderColor = Color.YELLOW;
                 jpg.BorderWidth = 0.5f;
                 jpg.Alignment = Element.ALIGN_CENTER;
                 doc.Add(jpg);
@@ -152,7 +160,7 @@ namespace HV9104_GUI
                 PdfPCell cell15 = new PdfPCell(new Phrase(secondsUnitLabel, Calibri12));
                 PdfPCell cell16 = new PdfPCell(new Phrase(hvUnitLabel, Calibri12));//dyn
                 PdfPCell cell17 = new PdfPCell(new Phrase(passFailUnitlabel, Calibri12));
-                PdfPCell cell18 = new PdfPCell(new Phrase("", Calibri12));//dyn
+                PdfPCell cell18 = new PdfPCell(new Phrase(" ", Calibri12));//dyn
                 PdfPCell cell19 = new PdfPCell(new Phrase(" ", Calibri12));
                 PdfPCell cell20 = new PdfPCell(new Phrase(" ", Calibri12));//dyn
 
@@ -202,36 +210,12 @@ namespace HV9104_GUI
 
                 doc.Add(table2);
 
-                //PdfPTable table3 = new PdfPTable(3);
-                //PdfPCell c0 = new PdfPCell(new Phrase(" ", Calibri14));
-                //PdfPCell c1 = new PdfPCell(new Phrase("APPROVED BY", Calibri14));
-                //PdfPCell c2 = new PdfPCell(new Phrase("DATE", Calibri14));
-                //PdfPCell c3 = new PdfPCell(new Phrase("STAMP", Calibri14));
-
-                //c1.HorizontalAlignment = 1;
-                //c2.HorizontalAlignment = 1;
-                //c3.HorizontalAlignment = 1;
-                //c0.HorizontalAlignment = 1;
-                //c0.FixedHeight = 75f;
-
-                //c1.Border = iTextSharp.text.Rectangle.NO_BORDER;
-                //c2.Border = iTextSharp.text.Rectangle.NO_BORDER;
-                //c3.Border = iTextSharp.text.Rectangle.NO_BORDER;
-
-                //table3.HorizontalAlignment = 1;
-                //table3.AddCell(c1);
-                //table3.AddCell(c2);
-                //table3.AddCell(c3);
-                //table3.AddCell(c0);
-                //table3.AddCell(" ");
-                //table3.AddCell(" ");
-                //table3.SpacingBefore = 30f;
-                //doc.Add(table3);
+                
 
                 Paragraph paragraphTable3 = new Paragraph();
-                paragraphTable3.SpacingBefore = 110f;
+                paragraphTable3.SpacingBefore = 146f;
 
-                doc.Add(paragraphTable2);
+               // doc.Add(paragraphTable3);
                 Chunk chunk1 = new Chunk("APPROVED BY:____________________________  DATE:______________________ ",Calibri10);
                 doc.Add(paragraphTable3);
                 doc.Add(chunk1);
@@ -249,7 +233,7 @@ namespace HV9104_GUI
                 cb.SetFontAndSize(bf,10);
                 cb.SetColorFill(FontColour);
 
-                cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, "OFFICIAL STAMP", doc.PageSize.Width - 125f, 160f, 0f);
+                cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, "OFFICIAL STAMP", doc.PageSize.Width - 125f, 90f, 0f);
                 cb.EndText();
 
             }
@@ -278,10 +262,10 @@ namespace HV9104_GUI
         public void ExportValues(double[] xIn, double[] yIn)
         {
 
-            double[] x = new double[xIn.Length-1];
-            double[] y = new double[yIn.Length - 1];
+            double[] x = new double[xIn.Length];
+            double[] y = new double[yIn.Length];
 
-            for(int i = 0; i<xIn.Length-1;i++)
+            for(int i = 0; i<xIn.Length;i++)
             {
                 x[i] = xIn[i];
                 y[i] = yIn[i];
@@ -297,17 +281,22 @@ namespace HV9104_GUI
             {
                 var myExport = new CsvExport();
                 myExport.AddRow();
+                myExport["X"] = x[0].ToString();
+                myExport["Y"] = y[0].ToString();
                 myExport["DATE"] = DatePerformed;
                 myExport["OPERATOR"] = Operator;
                 myExport["TEST OBJECT"] = TestObject;
                 myExport["OTHER INFO"] = OtherInfo;
-                for (int i = 0; i < 100; i++)
+                
+
+                for (int i = 1; i < xIn.Length; i++)
                 {
                     myExport.AddRow();
                     myExport["X"] = x[i].ToString();
                     myExport["Y"] = y[i].ToString();
 
                 }
+               
 
                 //var desiredPath =  @"C:\Users\Terco\Desktop\test.csv"; //ChooseFolder();
                 //var finalPath = UniqueFileName(desiredPath);

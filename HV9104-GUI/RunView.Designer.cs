@@ -669,7 +669,7 @@
             // 
             // otherTextBox
             // 
-            this.otherTextBox.Location = new System.Drawing.Point(161, 245);
+            this.otherTextBox.Location = new System.Drawing.Point(161, 226);
             this.otherTextBox.MaxLength = 200;
             this.otherTextBox.Multiline = true;
             this.otherTextBox.Name = "otherTextBox";
@@ -681,7 +681,7 @@
             this.otherLabel.AutoSize = true;
             this.otherLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.otherLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.otherLabel.Location = new System.Drawing.Point(35, 245);
+            this.otherLabel.Location = new System.Drawing.Point(35, 227);
             this.otherLabel.Name = "otherLabel";
             this.otherLabel.Size = new System.Drawing.Size(69, 26);
             this.otherLabel.TabIndex = 15;
@@ -689,7 +689,8 @@
             // 
             // operatorTextBox
             // 
-            this.operatorTextBox.Location = new System.Drawing.Point(161, 131);
+            this.operatorTextBox.Location = new System.Drawing.Point(161, 132);
+            this.operatorTextBox.MaxLength = 41;
             this.operatorTextBox.Name = "operatorTextBox";
             this.operatorTextBox.Size = new System.Drawing.Size(222, 20);
             this.operatorTextBox.TabIndex = 14;
@@ -710,11 +711,10 @@
             // 
             // testObjectTextBox
             // 
-            this.testObjectTextBox.Location = new System.Drawing.Point(161, 177);
-            this.testObjectTextBox.MaxLength = 80;
-            this.testObjectTextBox.Multiline = true;
+            this.testObjectTextBox.Location = new System.Drawing.Point(160, 179);
+            this.testObjectTextBox.MaxLength = 50;
             this.testObjectTextBox.Name = "testObjectTextBox";
-            this.testObjectTextBox.Size = new System.Drawing.Size(222, 48);
+            this.testObjectTextBox.Size = new System.Drawing.Size(222, 20);
             this.testObjectTextBox.TabIndex = 13;
             // 
             // exportValuesButton
@@ -736,7 +736,7 @@
             this.operatorLabel.AutoSize = true;
             this.operatorLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.operatorLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.operatorLabel.Location = new System.Drawing.Point(35, 131);
+            this.operatorLabel.Location = new System.Drawing.Point(35, 129);
             this.operatorLabel.Name = "operatorLabel";
             this.operatorLabel.Size = new System.Drawing.Size(102, 26);
             this.operatorLabel.TabIndex = 12;
@@ -747,7 +747,7 @@
             this.testObjectLabel.AutoSize = true;
             this.testObjectLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.testObjectLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.testObjectLabel.Location = new System.Drawing.Point(35, 177);
+            this.testObjectLabel.Location = new System.Drawing.Point(35, 176);
             this.testObjectLabel.Name = "testObjectLabel";
             this.testObjectLabel.Size = new System.Drawing.Size(120, 26);
             this.testObjectLabel.TabIndex = 11;
@@ -758,7 +758,7 @@
             this.dateLabel.AutoSize = true;
             this.dateLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.dateLabel.Location = new System.Drawing.Point(35, 85);
+            this.dateLabel.Location = new System.Drawing.Point(35, 82);
             this.dateLabel.Name = "dateLabel";
             this.dateLabel.Size = new System.Drawing.Size(55, 26);
             this.dateLabel.TabIndex = 10;
