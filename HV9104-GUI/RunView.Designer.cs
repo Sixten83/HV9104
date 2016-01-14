@@ -47,20 +47,14 @@
             this.label10 = new System.Windows.Forms.Label();
             this.acTitleLabel = new System.Windows.Forms.Label();
             this.acValueLabel = new System.Windows.Forms.Label();
-            this.customPanel7 = new HV9104_GUI.CustomPanel();
-            this.impPerLevelTextBox = new HV9104_GUI.CustomTextBox();
-            this.impulseVoltageLevelsTextBox = new HV9104_GUI.CustomTextBox();
-            this.impPerLevelLabel = new System.Windows.Forms.Label();
-            this.voltLevelsLabel = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.customPanel5 = new HV9104_GUI.CustomPanel();
-            this.testVoltageLevelLabel = new System.Windows.Forms.Label();
             this.toleranceLabel = new System.Windows.Forms.Label();
             this.toleranceTextBox = new HV9104_GUI.CustomTextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.testVoltageTextBox = new HV9104_GUI.CustomTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.testVoltageLevelLabel = new System.Windows.Forms.Label();
             this.customPanel4 = new HV9104_GUI.CustomPanel();
             this.testDurationSign = new System.Windows.Forms.Label();
             this.sampleRateLabel = new System.Windows.Forms.Label();
@@ -105,10 +99,24 @@
             this.abortAutoTestButton = new HV9104_GUI.CustomButton();
             this.label5 = new System.Windows.Forms.Label();
             this.autoTestChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.impulseLimitPanel = new HV9104_GUI.CustomPanel();
+            this.impulseLimitsButton = new System.Windows.Forms.Button();
+            this.minImpulseVoltageTextBox = new HV9104_GUI.CustomTextBox();
+            this.maxImpulseVoltageTextBox = new HV9104_GUI.CustomTextBox();
+            this.minImpulseVoltageLabel = new System.Windows.Forms.Label();
+            this.impulseVoltageMaxLabel = new System.Windows.Forms.Label();
+            this.impulseTestingLimitsLabel = new System.Windows.Forms.Label();
+            this.customPanel7 = new HV9104_GUI.CustomPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.impulseParametersButton = new System.Windows.Forms.Button();
+            this.impPerLevelTextBox = new HV9104_GUI.CustomTextBox();
+            this.impulseVoltageLevelsTextBox = new HV9104_GUI.CustomTextBox();
+            this.impPerLevelLabel = new System.Windows.Forms.Label();
+            this.voltLevelsLabel = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.customPanel8.SuspendLayout();
             this.customPanel9.SuspendLayout();
             this.customPanel10.SuspendLayout();
-            this.customPanel7.SuspendLayout();
             this.customPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.customPanel4.SuspendLayout();
@@ -119,6 +127,8 @@
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dynamicLogoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).BeginInit();
+            this.impulseLimitPanel.SuspendLayout();
+            this.customPanel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // customPanel8
@@ -322,127 +332,24 @@
             this.acValueLabel.Text = "0.0";
             this.acValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // customPanel7
-            // 
-            this.customPanel7.BackColor = System.Drawing.Color.Transparent;
-            this.customPanel7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.customPanel7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel7.Controls.Add(this.impPerLevelTextBox);
-            this.customPanel7.Controls.Add(this.impulseVoltageLevelsTextBox);
-            this.customPanel7.Controls.Add(this.impPerLevelLabel);
-            this.customPanel7.Controls.Add(this.voltLevelsLabel);
-            this.customPanel7.Controls.Add(this.label8);
-            this.customPanel7.CornerRadius = 40;
-            this.customPanel7.IsPopUp = false;
-            this.customPanel7.Location = new System.Drawing.Point(10, 611);
-            this.customPanel7.Name = "customPanel7";
-            this.customPanel7.Size = new System.Drawing.Size(462, 160);
-            this.customPanel7.TabIndex = 8;
-            // 
-            // impPerLevelTextBox
-            // 
-            this.impPerLevelTextBox.AllowDecimals = true;
-            this.impPerLevelTextBox.AllowText = false;
-            this.impPerLevelTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.impPerLevelTextBox.BackgroundColor = System.Drawing.Color.White;
-            this.impPerLevelTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.impPerLevelTextBox.CornerRadius = 25;
-            this.impPerLevelTextBox.Decimals = 0;
-            this.impPerLevelTextBox.IsPopUp = false;
-            this.impPerLevelTextBox.Location = new System.Drawing.Point(271, 99);
-            this.impPerLevelTextBox.Max = 50D;
-            this.impPerLevelTextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impPerLevelTextBox.Min = 1D;
-            this.impPerLevelTextBox.MinimumSize = new System.Drawing.Size(170, 50);
-            this.impPerLevelTextBox.Name = "impPerLevelTextBox";
-            this.impPerLevelTextBox.Size = new System.Drawing.Size(170, 50);
-            this.impPerLevelTextBox.TabIndex = 11;
-            this.impPerLevelTextBox.TextBoxHint = "";
-            this.impPerLevelTextBox.Value = 1F;
-            // 
-            // impulseVoltageLevelsTextBox
-            // 
-            this.impulseVoltageLevelsTextBox.AllowDecimals = true;
-            this.impulseVoltageLevelsTextBox.AllowText = false;
-            this.impulseVoltageLevelsTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.impulseVoltageLevelsTextBox.BackgroundColor = System.Drawing.Color.White;
-            this.impulseVoltageLevelsTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
-            this.impulseVoltageLevelsTextBox.CornerRadius = 25;
-            this.impulseVoltageLevelsTextBox.Decimals = 0;
-            this.impulseVoltageLevelsTextBox.IsPopUp = false;
-            this.impulseVoltageLevelsTextBox.Location = new System.Drawing.Point(271, 43);
-            this.impulseVoltageLevelsTextBox.Max = 20D;
-            this.impulseVoltageLevelsTextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impulseVoltageLevelsTextBox.Min = 1D;
-            this.impulseVoltageLevelsTextBox.MinimumSize = new System.Drawing.Size(170, 50);
-            this.impulseVoltageLevelsTextBox.Name = "impulseVoltageLevelsTextBox";
-            this.impulseVoltageLevelsTextBox.Size = new System.Drawing.Size(170, 50);
-            this.impulseVoltageLevelsTextBox.TabIndex = 10;
-            this.impulseVoltageLevelsTextBox.TextBoxHint = "";
-            this.impulseVoltageLevelsTextBox.Value = 10F;
-            // 
-            // impPerLevelLabel
-            // 
-            this.impPerLevelLabel.AutoSize = true;
-            this.impPerLevelLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.impPerLevelLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.impPerLevelLabel.Location = new System.Drawing.Point(15, 111);
-            this.impPerLevelLabel.Name = "impPerLevelLabel";
-            this.impPerLevelLabel.Size = new System.Drawing.Size(188, 29);
-            this.impPerLevelLabel.TabIndex = 9;
-            this.impPerLevelLabel.Text = "IMPULSES / LEVEL";
-            // 
-            // voltLevelsLabel
-            // 
-            this.voltLevelsLabel.AutoSize = true;
-            this.voltLevelsLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.voltLevelsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.voltLevelsLabel.Location = new System.Drawing.Point(15, 53);
-            this.voltLevelsLabel.Name = "voltLevelsLabel";
-            this.voltLevelsLabel.Size = new System.Drawing.Size(241, 29);
-            this.voltLevelsLabel.TabIndex = 8;
-            this.voltLevelsLabel.Text = "TOTAL VOLTAGE LEVELS";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label8.Location = new System.Drawing.Point(16, 17);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(273, 18);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "IMPULSE TESTING PARAMETERS";
-            // 
             // customPanel5
             // 
             this.customPanel5.BackColor = System.Drawing.Color.Transparent;
             this.customPanel5.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel5.Controls.Add(this.testVoltageLevelLabel);
             this.customPanel5.Controls.Add(this.toleranceLabel);
             this.customPanel5.Controls.Add(this.toleranceTextBox);
             this.customPanel5.Controls.Add(this.label16);
             this.customPanel5.Controls.Add(this.testVoltageTextBox);
             this.customPanel5.Controls.Add(this.label3);
             this.customPanel5.Controls.Add(this.pictureBox3);
+            this.customPanel5.Controls.Add(this.testVoltageLevelLabel);
             this.customPanel5.CornerRadius = 40;
             this.customPanel5.IsPopUp = false;
             this.customPanel5.Location = new System.Drawing.Point(252, 266);
             this.customPanel5.Name = "customPanel5";
             this.customPanel5.Size = new System.Drawing.Size(220, 325);
             this.customPanel5.TabIndex = 6;
-            // 
-            // testVoltageLevelLabel
-            // 
-            this.testVoltageLevelLabel.AutoSize = true;
-            this.testVoltageLevelLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.testVoltageLevelLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.testVoltageLevelLabel.Location = new System.Drawing.Point(69, 167);
-            this.testVoltageLevelLabel.Name = "testVoltageLevelLabel";
-            this.testVoltageLevelLabel.Size = new System.Drawing.Size(85, 15);
-            this.testVoltageLevelLabel.TabIndex = 14;
-            this.testVoltageLevelLabel.Text = "VOLTAGE LEVEL";
             // 
             // toleranceLabel
             // 
@@ -528,6 +435,17 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 2;
             this.pictureBox3.TabStop = false;
+            // 
+            // testVoltageLevelLabel
+            // 
+            this.testVoltageLevelLabel.AutoSize = true;
+            this.testVoltageLevelLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testVoltageLevelLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.testVoltageLevelLabel.Location = new System.Drawing.Point(69, 167);
+            this.testVoltageLevelLabel.Name = "testVoltageLevelLabel";
+            this.testVoltageLevelLabel.Size = new System.Drawing.Size(85, 15);
+            this.testVoltageLevelLabel.TabIndex = 14;
+            this.testVoltageLevelLabel.Text = "VOLTAGE LEVEL";
             // 
             // customPanel4
             // 
@@ -1140,6 +1058,225 @@
             title1.Name = "Title1";
             this.autoTestChart.Titles.Add(title1);
             // 
+            // impulseLimitPanel
+            // 
+            this.impulseLimitPanel.BackColor = System.Drawing.Color.Transparent;
+            this.impulseLimitPanel.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.impulseLimitPanel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.impulseLimitPanel.Controls.Add(this.impulseLimitsButton);
+            this.impulseLimitPanel.Controls.Add(this.minImpulseVoltageTextBox);
+            this.impulseLimitPanel.Controls.Add(this.maxImpulseVoltageTextBox);
+            this.impulseLimitPanel.Controls.Add(this.minImpulseVoltageLabel);
+            this.impulseLimitPanel.Controls.Add(this.impulseVoltageMaxLabel);
+            this.impulseLimitPanel.Controls.Add(this.impulseTestingLimitsLabel);
+            this.impulseLimitPanel.CornerRadius = 40;
+            this.impulseLimitPanel.IsPopUp = false;
+            this.impulseLimitPanel.Location = new System.Drawing.Point(10, 611);
+            this.impulseLimitPanel.Name = "impulseLimitPanel";
+            this.impulseLimitPanel.Size = new System.Drawing.Size(462, 160);
+            this.impulseLimitPanel.TabIndex = 12;
+            this.impulseLimitPanel.Visible = false;
+            // 
+            // impulseLimitsButton
+            // 
+            this.impulseLimitsButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.panelArrowUnpressed;
+            this.impulseLimitsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.impulseLimitsButton.Location = new System.Drawing.Point(421, 9);
+            this.impulseLimitsButton.Name = "impulseLimitsButton";
+            this.impulseLimitsButton.Size = new System.Drawing.Size(20, 25);
+            this.impulseLimitsButton.TabIndex = 17;
+            this.impulseLimitsButton.UseVisualStyleBackColor = true;
+            // 
+            // minImpulseVoltageTextBox
+            // 
+            this.minImpulseVoltageTextBox.AllowDecimals = true;
+            this.minImpulseVoltageTextBox.AllowText = false;
+            this.minImpulseVoltageTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.minImpulseVoltageTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.minImpulseVoltageTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.minImpulseVoltageTextBox.CornerRadius = 25;
+            this.minImpulseVoltageTextBox.Decimals = 0;
+            this.minImpulseVoltageTextBox.IsPopUp = false;
+            this.minImpulseVoltageTextBox.Location = new System.Drawing.Point(271, 100);
+            this.minImpulseVoltageTextBox.Max = 140D;
+            this.minImpulseVoltageTextBox.MaximumSize = new System.Drawing.Size(400, 50);
+            this.minImpulseVoltageTextBox.Min = 5D;
+            this.minImpulseVoltageTextBox.MinimumSize = new System.Drawing.Size(170, 50);
+            this.minImpulseVoltageTextBox.Name = "minImpulseVoltageTextBox";
+            this.minImpulseVoltageTextBox.Size = new System.Drawing.Size(170, 50);
+            this.minImpulseVoltageTextBox.TabIndex = 16;
+            this.minImpulseVoltageTextBox.TextBoxHint = "";
+            this.minImpulseVoltageTextBox.Value = 60F;
+            // 
+            // maxImpulseVoltageTextBox
+            // 
+            this.maxImpulseVoltageTextBox.AllowDecimals = true;
+            this.maxImpulseVoltageTextBox.AllowText = false;
+            this.maxImpulseVoltageTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.maxImpulseVoltageTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.maxImpulseVoltageTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.maxImpulseVoltageTextBox.CornerRadius = 25;
+            this.maxImpulseVoltageTextBox.Decimals = 0;
+            this.maxImpulseVoltageTextBox.IsPopUp = false;
+            this.maxImpulseVoltageTextBox.Location = new System.Drawing.Point(271, 43);
+            this.maxImpulseVoltageTextBox.Max = 140D;
+            this.maxImpulseVoltageTextBox.MaximumSize = new System.Drawing.Size(400, 50);
+            this.maxImpulseVoltageTextBox.Min = 5D;
+            this.maxImpulseVoltageTextBox.MinimumSize = new System.Drawing.Size(170, 50);
+            this.maxImpulseVoltageTextBox.Name = "maxImpulseVoltageTextBox";
+            this.maxImpulseVoltageTextBox.Size = new System.Drawing.Size(170, 50);
+            this.maxImpulseVoltageTextBox.TabIndex = 15;
+            this.maxImpulseVoltageTextBox.TextBoxHint = "";
+            this.maxImpulseVoltageTextBox.Value = 80F;
+            // 
+            // minImpulseVoltageLabel
+            // 
+            this.minImpulseVoltageLabel.AutoSize = true;
+            this.minImpulseVoltageLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.minImpulseVoltageLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.minImpulseVoltageLabel.Location = new System.Drawing.Point(15, 111);
+            this.minImpulseVoltageLabel.Name = "minImpulseVoltageLabel";
+            this.minImpulseVoltageLabel.Size = new System.Drawing.Size(213, 29);
+            this.minImpulseVoltageLabel.TabIndex = 14;
+            this.minImpulseVoltageLabel.Text = "MIN VOLTAGE LEVEL";
+            // 
+            // impulseVoltageMaxLabel
+            // 
+            this.impulseVoltageMaxLabel.AutoSize = true;
+            this.impulseVoltageMaxLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.impulseVoltageMaxLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.impulseVoltageMaxLabel.Location = new System.Drawing.Point(15, 53);
+            this.impulseVoltageMaxLabel.Name = "impulseVoltageMaxLabel";
+            this.impulseVoltageMaxLabel.Size = new System.Drawing.Size(217, 29);
+            this.impulseVoltageMaxLabel.TabIndex = 13;
+            this.impulseVoltageMaxLabel.Text = "MAX VOLTAGE LEVEL";
+            // 
+            // impulseTestingLimitsLabel
+            // 
+            this.impulseTestingLimitsLabel.AutoSize = true;
+            this.impulseTestingLimitsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.impulseTestingLimitsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.impulseTestingLimitsLabel.Location = new System.Drawing.Point(16, 17);
+            this.impulseTestingLimitsLabel.Name = "impulseTestingLimitsLabel";
+            this.impulseTestingLimitsLabel.Size = new System.Drawing.Size(213, 18);
+            this.impulseTestingLimitsLabel.TabIndex = 12;
+            this.impulseTestingLimitsLabel.Text = "IMPULSE TESTING LIMITS";
+            // 
+            // customPanel7
+            // 
+            this.customPanel7.BackColor = System.Drawing.Color.Transparent;
+            this.customPanel7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.customPanel7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel7.Controls.Add(this.label2);
+            this.customPanel7.Controls.Add(this.impulseParametersButton);
+            this.customPanel7.Controls.Add(this.impPerLevelTextBox);
+            this.customPanel7.Controls.Add(this.impulseVoltageLevelsTextBox);
+            this.customPanel7.Controls.Add(this.impPerLevelLabel);
+            this.customPanel7.Controls.Add(this.voltLevelsLabel);
+            this.customPanel7.Controls.Add(this.label8);
+            this.customPanel7.CornerRadius = 40;
+            this.customPanel7.IsPopUp = false;
+            this.customPanel7.Location = new System.Drawing.Point(10, 611);
+            this.customPanel7.Name = "customPanel7";
+            this.customPanel7.Size = new System.Drawing.Size(462, 160);
+            this.customPanel7.TabIndex = 8;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label2.Location = new System.Drawing.Point(350, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 15);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "(+1 more..)";
+            // 
+            // impulseParametersButton
+            // 
+            this.impulseParametersButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.panelArrowUnpressed;
+            this.impulseParametersButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.impulseParametersButton.Location = new System.Drawing.Point(421, 9);
+            this.impulseParametersButton.Name = "impulseParametersButton";
+            this.impulseParametersButton.Size = new System.Drawing.Size(20, 25);
+            this.impulseParametersButton.TabIndex = 13;
+            this.impulseParametersButton.UseVisualStyleBackColor = true;
+            // 
+            // impPerLevelTextBox
+            // 
+            this.impPerLevelTextBox.AllowDecimals = true;
+            this.impPerLevelTextBox.AllowText = false;
+            this.impPerLevelTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.impPerLevelTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.impPerLevelTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.impPerLevelTextBox.CornerRadius = 25;
+            this.impPerLevelTextBox.Decimals = 0;
+            this.impPerLevelTextBox.IsPopUp = false;
+            this.impPerLevelTextBox.Location = new System.Drawing.Point(271, 100);
+            this.impPerLevelTextBox.Max = 50D;
+            this.impPerLevelTextBox.MaximumSize = new System.Drawing.Size(400, 50);
+            this.impPerLevelTextBox.Min = 1D;
+            this.impPerLevelTextBox.MinimumSize = new System.Drawing.Size(170, 50);
+            this.impPerLevelTextBox.Name = "impPerLevelTextBox";
+            this.impPerLevelTextBox.Size = new System.Drawing.Size(170, 50);
+            this.impPerLevelTextBox.TabIndex = 11;
+            this.impPerLevelTextBox.TextBoxHint = "";
+            this.impPerLevelTextBox.Value = 1F;
+            // 
+            // impulseVoltageLevelsTextBox
+            // 
+            this.impulseVoltageLevelsTextBox.AllowDecimals = true;
+            this.impulseVoltageLevelsTextBox.AllowText = false;
+            this.impulseVoltageLevelsTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.impulseVoltageLevelsTextBox.BackgroundColor = System.Drawing.Color.White;
+            this.impulseVoltageLevelsTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
+            this.impulseVoltageLevelsTextBox.CornerRadius = 25;
+            this.impulseVoltageLevelsTextBox.Decimals = 0;
+            this.impulseVoltageLevelsTextBox.IsPopUp = false;
+            this.impulseVoltageLevelsTextBox.Location = new System.Drawing.Point(271, 43);
+            this.impulseVoltageLevelsTextBox.Max = 20D;
+            this.impulseVoltageLevelsTextBox.MaximumSize = new System.Drawing.Size(400, 50);
+            this.impulseVoltageLevelsTextBox.Min = 1D;
+            this.impulseVoltageLevelsTextBox.MinimumSize = new System.Drawing.Size(170, 50);
+            this.impulseVoltageLevelsTextBox.Name = "impulseVoltageLevelsTextBox";
+            this.impulseVoltageLevelsTextBox.Size = new System.Drawing.Size(170, 50);
+            this.impulseVoltageLevelsTextBox.TabIndex = 10;
+            this.impulseVoltageLevelsTextBox.TextBoxHint = "";
+            this.impulseVoltageLevelsTextBox.Value = 10F;
+            // 
+            // impPerLevelLabel
+            // 
+            this.impPerLevelLabel.AutoSize = true;
+            this.impPerLevelLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.impPerLevelLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.impPerLevelLabel.Location = new System.Drawing.Point(15, 111);
+            this.impPerLevelLabel.Name = "impPerLevelLabel";
+            this.impPerLevelLabel.Size = new System.Drawing.Size(188, 29);
+            this.impPerLevelLabel.TabIndex = 9;
+            this.impPerLevelLabel.Text = "IMPULSES / LEVEL";
+            // 
+            // voltLevelsLabel
+            // 
+            this.voltLevelsLabel.AutoSize = true;
+            this.voltLevelsLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.voltLevelsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.voltLevelsLabel.Location = new System.Drawing.Point(15, 53);
+            this.voltLevelsLabel.Name = "voltLevelsLabel";
+            this.voltLevelsLabel.Size = new System.Drawing.Size(241, 29);
+            this.voltLevelsLabel.TabIndex = 8;
+            this.voltLevelsLabel.Text = "TOTAL VOLTAGE LEVELS";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label8.Location = new System.Drawing.Point(16, 17);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(273, 18);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "IMPULSE TESTING PARAMETERS";
+            // 
             // RunView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1148,12 +1285,13 @@
             this.Controls.Add(this.customPanel8);
             this.Controls.Add(this.customPanel9);
             this.Controls.Add(this.customPanel10);
-            this.Controls.Add(this.customPanel7);
             this.Controls.Add(this.customPanel5);
             this.Controls.Add(this.customPanel4);
             this.Controls.Add(this.customPanel3);
             this.Controls.Add(this.customPanel2);
             this.Controls.Add(this.testControlPanel);
+            this.Controls.Add(this.impulseLimitPanel);
+            this.Controls.Add(this.customPanel7);
             this.Name = "RunView";
             this.Size = new System.Drawing.Size(1875, 800);
             this.customPanel8.ResumeLayout(false);
@@ -1162,8 +1300,6 @@
             this.customPanel9.PerformLayout();
             this.customPanel10.ResumeLayout(false);
             this.customPanel10.PerformLayout();
-            this.customPanel7.ResumeLayout(false);
-            this.customPanel7.PerformLayout();
             this.customPanel5.ResumeLayout(false);
             this.customPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -1180,6 +1316,10 @@
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dynamicLogoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.autoTestChart)).EndInit();
+            this.impulseLimitPanel.ResumeLayout(false);
+            this.impulseLimitPanel.PerformLayout();
+            this.customPanel7.ResumeLayout(false);
+            this.customPanel7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1258,5 +1398,14 @@
         public System.Windows.Forms.Label hvUnitLabel;
         public System.Windows.Forms.Label resultTestVoltageLabel;
         public System.Windows.Forms.Label passStatusLabel;
+        public CustomTextBox minImpulseVoltageTextBox;
+        public CustomTextBox maxImpulseVoltageTextBox;
+        public System.Windows.Forms.Label minImpulseVoltageLabel;
+        public System.Windows.Forms.Label impulseVoltageMaxLabel;
+        public System.Windows.Forms.Label impulseTestingLimitsLabel;
+        public System.Windows.Forms.Button impulseLimitsButton;
+        public CustomPanel impulseLimitPanel;
+        public System.Windows.Forms.Button impulseParametersButton;
+        public System.Windows.Forms.Label label2;
     }
 }

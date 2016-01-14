@@ -12,6 +12,8 @@ namespace HV9104_GUI
 {
     public partial class RunView : UserControl
     {
+        internal object impulseLimitButton;
+
         public RunView()
         {
             InitializeComponent();

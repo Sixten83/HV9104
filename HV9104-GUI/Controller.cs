@@ -581,6 +581,9 @@ namespace HV9104_GUI
             this.controlForm.runView.impulseOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseOutputAutoComboBox_valueChange);
             this.controlForm.runView.createReportButton.Click += new System.EventHandler(createReportButton_Click);
             this.controlForm.runView.exportValuesButton.Click += new System.EventHandler(exportValuesButton_Click);
+            this.controlForm.runView.impulseLimitsButton.Click += new System.EventHandler(impulseLimitsButton_Click);
+            this.controlForm.runView.impulseParametersButton.Click += new System.EventHandler(impulseParametersButton_Click);
+            //this.controlForm.runView.impulseLimitsButton.Enter += new System.EventHandler(impulseLimitsButton_Enter);
 
             //this.controlForm.runView.measurementTypeComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(autoTestMeasTypeComboBox_valueChange);
 
@@ -613,7 +616,19 @@ namespace HV9104_GUI
 
         }
 
-        
+        private void impulseParametersButton_Click(object sender, EventArgs e)
+        {
+            controlForm.runView.impulseLimitPanel.Visible = true;
+        }
+
+
+        // Impulse parameter control panel 
+        private void impulseLimitsButton_Click(object sender, EventArgs e)
+        {
+            controlForm.runView.impulseLimitPanel.Visible = false;
+        }
+
+
         // Voltage measurement type has been changed in auto test page
         private void autoTestMeasTypeComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
