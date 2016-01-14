@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.customPanel8 = new HV9104_GUI.CustomPanel();
             this.customPanel9 = new HV9104_GUI.CustomPanel();
             this.customPanel10 = new HV9104_GUI.CustomPanel();
@@ -41,7 +41,6 @@
             this.customPanel3 = new HV9104_GUI.CustomPanel();
             this.customPanel2 = new HV9104_GUI.CustomPanel();
             this.testControlPanel = new HV9104_GUI.CustomPanel();
-            this.label9 = new System.Windows.Forms.Label();
             this.impulseOutputComboBox = new HV9104_GUI.CustomComboBox();
             this.impulseTitleLabel = new System.Windows.Forms.Label();
             this.impulseValueLabel = new System.Windows.Forms.Label();
@@ -219,17 +218,6 @@
             this.testControlPanel.Name = "testControlPanel";
             this.testControlPanel.Size = new System.Drawing.Size(905, 505);
             this.testControlPanel.TabIndex = 1;
-            // 
-            // label9
-            // 
-            this.label9.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label9.Location = new System.Drawing.Point(217, 91);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(77, 58);
-            this.label9.TabIndex = 6;
-            this.label9.Text = "kV";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // impulseOutputComboBox
             // 
@@ -932,34 +920,34 @@
             // autoTestChart
             // 
             this.autoTestChart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            chartArea2.AxisX.LineColor = System.Drawing.Color.Transparent;
-            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
-            chartArea2.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea2.AxisX.MajorTickMark.Enabled = false;
-            chartArea2.AxisX.MinorGrid.LineColor = System.Drawing.Color.Transparent;
-            chartArea2.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea2.AxisY.LineColor = System.Drawing.Color.Transparent;
-            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
-            chartArea2.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea2.AxisY.MajorTickMark.Enabled = false;
-            chartArea2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            chartArea2.BorderColor = System.Drawing.Color.Transparent;
-            chartArea2.Name = "ChartArea1";
-            this.autoTestChart.ChartAreas.Add(chartArea2);
+            chartArea1.AxisX.LineColor = System.Drawing.Color.Transparent;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
+            chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.Transparent;
+            chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea1.AxisY.LineColor = System.Drawing.Color.Transparent;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(158)))), ((int)(((byte)(166)))));
+            chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea1.AxisY.MajorTickMark.Enabled = false;
+            chartArea1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            chartArea1.BorderColor = System.Drawing.Color.Transparent;
+            chartArea1.Name = "ChartArea1";
+            this.autoTestChart.ChartAreas.Add(chartArea1);
             this.autoTestChart.Location = new System.Drawing.Point(64, 50);
             this.autoTestChart.Name = "autoTestChart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Name = "Series1";
-            series2.Points.Add(dataPoint2);
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            this.autoTestChart.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Name = "Series1";
+            series1.Points.Add(dataPoint1);
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.autoTestChart.Series.Add(series1);
             this.autoTestChart.Size = new System.Drawing.Size(756, 301);
             this.autoTestChart.TabIndex = 0;
             this.autoTestChart.Text = "chart1";
-            title2.Name = "Title1";
-            this.autoTestChart.Titles.Add(title2);
+            title1.Name = "Title1";
+            this.autoTestChart.Titles.Add(title1);
             // 
             // pictureBox3
             // 
@@ -1075,7 +1063,6 @@
             this.abortAutoTestButton.Size = new System.Drawing.Size(158, 57);
             this.abortAutoTestButton.TabIndex = 2;
             this.abortAutoTestButton.Text = "ABORT";
-           
             // 
             // RunView
             // 
@@ -1144,7 +1131,7 @@
         public System.Windows.Forms.Label impPerLevelLabel;
         public System.Windows.Forms.Label voltLevelsLabel;
         public CustomPanel customPanel8;
-        public System.Windows.Forms.Label label9;
+        //public System.Windows.Forms.Label label9;
         public CustomComboBox impulseOutputComboBox;
         public System.Windows.Forms.Label impulseTitleLabel;
         public System.Windows.Forms.Label impulseValueLabel;
