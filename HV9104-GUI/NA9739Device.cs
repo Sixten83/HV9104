@@ -579,7 +579,7 @@ namespace HV9104_GUI
             AppendCRC(writeBuf, writeBuf.Length);
 
             // Send instruction to device
-            WriteToDevice();
+            // WriteToDevice();
         }
 
         // Automatically run the voltage down to 0.
@@ -601,7 +601,10 @@ namespace HV9104_GUI
                 T2.Stop();
 
                 // Disconnect the incoming voltage if still connected.
-                if(K1Closed)openPrimary();
+                if (K1Closed)
+                {
+                    openPrimary();
+                }
             }
         }
 

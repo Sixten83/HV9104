@@ -1044,6 +1044,9 @@ namespace HV9104_GUI
             }
         }
 
+        System.Timers.Timer parkTimer = new System.Timers.Timer(300);
+        //System.Timers.Timer T2 = new System.Timers.Timer(200);
+
         // Voltage ON/OFF Switch
         private void onOffButton_Click(object sender, EventArgs e)
         {
@@ -1059,19 +1062,43 @@ namespace HV9104_GUI
                 OpenSecondaryRequest();
                 this.controlForm.dashboardView.onOffSecButton.isChecked = false;
                 this.controlForm.dashboardView.onOffSecButton.Invalidate();
-                
-                // Now disconnect K1
-                OpenPrimaryRequest();
+
+
 
                 // If Park is selected
-                if (this.controlForm.dashboardView.parkCheckBox.isChecked)
+                if ((this.controlForm.dashboardView.parkCheckBox.isChecked) && (!PIO1.minUPos))
                 {
+                    this.controlForm.dashboardView.onOffButton.isChecked = true;
+                    this.controlForm.dashboardView.onOffButton.Invalidate();
+
                     // Drive the voltage down to zero
                     PIO1.ParkTransformer();
+
+                    // Monitor for zero position in timer
+                    parkTimer.Enabled = true;
+                    parkTimer.Start();
+                    parkTimer.Elapsed += ParkTimer_Elapsed;
                 }
+                else
+                {
+                    // Now disconnect K1
+                    OpenPrimaryRequest();
+                }
+
 
                 // Write a reminder to use discharge rod
                 this.controlForm.messageLabel.Text = "Important! Always use the Discharge Rod to discharge components when entering the HV area.";
+            }
+        }
+
+        // Used to clean up after park
+        private void ParkTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if(PIO1.minUPos)
+            {
+                this.controlForm.dashboardView.onOffButton.isChecked = false;
+                this.controlForm.dashboardView.onOffButton.Invalidate();
+                parkTimer.Stop();
             }
         }
 
@@ -1604,21 +1631,31 @@ namespace HV9104_GUI
         {
             this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[0];
             acChannel.DividerRatio = (double)((acHighDividerValues[0] + acLowDividerValue) / acHighDividerValues[0]) / 1000;
-            
 
+            controlForm.setupView.dcCheckBox.Enabled = true;
+            controlForm.setupView.impulseCheckBox.Enabled = true;
         }
 
         private void acStage2RadioButton_Click(object sender, EventArgs e)
         {
             this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[1];
             acChannel.DividerRatio = (double)((acHighDividerValues[1] + acLowDividerValue) / acHighDividerValues[1]) / 1000;
-           
+
+            controlForm.setupView.dcCheckBox.isChecked = false;
+            controlForm.setupView.dcCheckBox.Enabled = false;
+            controlForm.setupView.impulseCheckBox.isChecked = false;
+            controlForm.setupView.impulseCheckBox.Enabled = false;
+
         }
         private void acStage3RadioButton_Click(object sender, EventArgs e)
         {
             this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[1];
             acChannel.DividerRatio = (double)((acHighDividerValues[1] + acLowDividerValue) / acHighDividerValues[1]) / 1000;
-            
+
+            controlForm.setupView.dcCheckBox.isChecked = false;
+            controlForm.setupView.dcCheckBox.Enabled = false;
+            controlForm.setupView.impulseCheckBox.isChecked = false;
+            controlForm.setupView.impulseCheckBox.Enabled = false;
         }
 
         private void dcCheckBox_Click(object sender, EventArgs e)
@@ -1631,7 +1668,7 @@ namespace HV9104_GUI
         {
 
             dcChannel.DividerRatio = (double)((dcHighDividerValues[0] + dcLowDividerValue) / dcLowDividerValue) / 1000;
-           
+            controlForm.setupView.impulseCheckBox.Enabled = true;
 
         }
 
@@ -1639,12 +1676,16 @@ namespace HV9104_GUI
         {
             dcChannel.DividerRatio = (double)((dcHighDividerValues[0] + dcHighDividerValues[1] + dcLowDividerValue) / dcLowDividerValue) / 1000;
 
+            controlForm.setupView.impulseCheckBox.isChecked = false;
+            controlForm.setupView.impulseCheckBox.Enabled = false;
         }
 
         private void dcStage3RadioButton_Click(object sender, EventArgs e)
         {
 
             dcChannel.DividerRatio = (double)((dcHighDividerValues.Sum() + dcLowDividerValue) / dcLowDividerValue) / 1000;
+            controlForm.setupView.impulseCheckBox.isChecked = false;
+            controlForm.setupView.impulseCheckBox.Enabled = false;
         }
 
 
@@ -1666,6 +1707,7 @@ namespace HV9104_GUI
             this.controlForm.setupView.impulseLowDivderTextBox.Value = (float)impulseLowDividerValues[1];
             impulseChannel.DividerRatio = (double)(impulseAttenuatorRatio * (highDivider + impulseLowDividerValues[1]) / highDivider) / 1000;
         }
+
         private void impulseStage3RadioButton_Click(object sender, EventArgs e)
         {
             decimal highDivider = 1 / (1 / impulseHighDividerValues[0] + 1 / impulseHighDividerValues[1] + 1 / impulseHighDividerValues[2]);
@@ -1863,6 +1905,8 @@ namespace HV9104_GUI
                     controlForm.runView.impPerLevelTextBox.Value = 5;
                 }
                 controlForm.runView.testVoltageTextBox.Invalidate();
+                controlForm.runView.maxImpulseVoltageTextBox.Invalidate();
+                controlForm.runView.minImpulseVoltageTextBox.Invalidate();
             }
           
         }
@@ -1899,7 +1943,12 @@ namespace HV9104_GUI
 
             if (controlForm.runView.voltageComboBox.SetSelected == "Imp")
             {
-                controlForm.runView.testVoltageTextBox.Max = impOutputMax;   
+                if (controlForm.setupView.impulseCheckBox.isChecked)
+                {
+                    controlForm.runView.testVoltageTextBox.Max = impOutputMax;
+                    controlForm.runView.maxImpulseVoltageTextBox.Max = impOutputMax;
+                    controlForm.runView.minImpulseVoltageTextBox.Max = impOutputMax - 5;
+                } 
             }
         }
 

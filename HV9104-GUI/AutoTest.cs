@@ -117,6 +117,13 @@ namespace HV9104_GUI
         private bool aborting;
         private double actualTestVoltageMax;
         private double actualDCVoltage;
+        private double impulseLimitMax;
+        private double impulseLimitMin;
+        private double previousRegulatedVoltageValue;
+        private double previousTestVoltage;
+        private bool outputDead = false;
+        private DateTime outputDeadStartTime;
+        private TimeSpan outputDeadTimeSpan;
 
 
         // Contructor
@@ -496,6 +503,8 @@ namespace HV9104_GUI
                 impulsePerLevel = (int)runView.impPerLevelTextBox.Value;
 
                 // Get min/max levels
+                impulseLimitMax = runView.maxImpulseVoltageTextBox.Value;
+                impulseLimitMin = runView.minImpulseVoltageTextBox.Value;
 
                 // Create level array
 
@@ -580,9 +589,14 @@ namespace HV9104_GUI
             int intCnt = 0;
             int styr = 30;
 
-            voltageType = runView.voltageComboBox.SetSelected;
-                
+            // Protection setup
+            outputDead = false;
+            previousTestVoltage = actualTestVoltage;
+            previousRegulatedVoltageValue = PIO1.regulatedVoltageValue;
+
             // Set tolerances
+            voltageType = runView.voltageComboBox.SetSelected;
+
             if (voltageType == "AC") 
             {
                 toleranceHi = 0.2;
@@ -602,12 +616,49 @@ namespace HV9104_GUI
             {
                 // Shut down, something is wrong
                 abortRegulation = true;
+                AbortTest();
                 return;
             }
+
+            // wait here a bit for 
             Thread.Sleep(500);
-            // Continue until found or precess aborted 
+            
+            // Continue until targetVoltage found or process aborted 
             while (((error < toleranceLo) || (error > toleranceHi)) && (runView.onOffAutoButton.isChecked) && (!abortRegulation))
             {
+                // Firstly, some protection for when Input voltage is changing but output is not
+                if ((PIO1.regulatedVoltageValue != previousRegulatedVoltageValue) && (actualTestVoltage == previousTestVoltage))
+                {
+                    // Set flag and note time of first entry
+                    if (!outputDead)
+                    {
+                        // Do this once
+                        outputDeadStartTime = DateTime.Now;
+                        outputDead = true;
+                    }
+                    else
+                    {
+                        // Output still not following input
+                        outputDeadTimeSpan = DateTime.Now - outputDeadStartTime;
+
+                        // Have we waited long enough?
+                        if(outputDeadTimeSpan.Seconds >= 3)
+                        {
+                            // Shut down, something is wrong
+                            abortRegulation = true;
+                            AbortTest();
+                            return;
+                        }
+
+                    }
+                }
+                // Output is following input voltage
+                else
+                {
+                    // Make sure the flag is reset
+                    outputDead = false;
+                }
+
                 // Run only if we have connected the voltage
                 if (PIO1.K2Closed)
                 {
@@ -626,7 +677,7 @@ namespace HV9104_GUI
                     // Call the appropriate instruction
                     if (error < toleranceHi)
                     {
-
+                        // Voltage low, set the reaction
                         if ((error <= 3) && (error >= -3))
                         {
                             styr = 57 + (int)integral;
@@ -635,13 +686,14 @@ namespace HV9104_GUI
                         {
                             styr = (int)((error * -k) + 60 + integral);
                         }
-                        // Voltage low, increase
+                        // On Disruptive Discharge test, speed is set to slow
                         if (!testIsWithstand) styr = 120;
+                        // Increase
                         PIO1.increaseVoltage(styr);
                     }
                     else if (error > toleranceLo)
                     {
-
+                        // Voltage high, set the reaction
                         if ((error <= 3) && (error >= -3))
                         {
                             styr = 57 + (int)integral;
@@ -650,43 +702,18 @@ namespace HV9104_GUI
                         {
                             styr = (int)((error * k) + 60 + integral);
                         }
-                        // Voltage high, decrease
+                        // Decrease
                         PIO1.decreaseVoltage(styr);
                     }
 
                     Thread.Sleep(10);
                     previousError = error;
                 }
-                //else
-                //{F
-                //    // Stop transformer
-                //    PIO1.StopTransformerMotor();
-                   
-                //    // Try to close K2 by opening K1 to refresh
-                //    PIO1.openSecondary();
-                //    PIO1.openPrimary();
-                //    Thread.Sleep(1000);
-          
-                //    // Then attempt to close again
-                //    PIO1.closePrimary();
-                //    Thread.Sleep(1000);
-                //    PIO1.closeSecondary();
-                //    Thread.Sleep(1000);
-
-                //    //// If it worked
-                //    //if (PIO1.K2Closed)
-                //    //{
-                //    //    // Restart sampling
-                //    //    sampleTimer.Start();
-                //    //}
-                //    //// If it didn't work
-                //    //else
-                //    //{
-                //    //    // Give up
-                //    //    AbortTest();
-                //    //    CleanUpAfterTest();
-                //    //}
-                //}
+                else
+               {
+                    // K2 is not connected, Stop transformer but don't abort
+                    PIO1.StopTransformerMotor();
+               }
             }
 
             // In bounds. We should only make it here once

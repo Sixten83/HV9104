@@ -1290,8 +1290,8 @@
             this.Controls.Add(this.customPanel3);
             this.Controls.Add(this.customPanel2);
             this.Controls.Add(this.testControlPanel);
-            this.Controls.Add(this.impulseLimitPanel);
             this.Controls.Add(this.customPanel7);
+            this.Controls.Add(this.impulseLimitPanel);
             this.Name = "RunView";
             this.Size = new System.Drawing.Size(1875, 800);
             this.customPanel8.ResumeLayout(false);
