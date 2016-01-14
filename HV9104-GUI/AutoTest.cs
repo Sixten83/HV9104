@@ -82,8 +82,8 @@ namespace HV9104_GUI
         private bool abortRegulation;
         private double tolerance;
         private int sampleNumber;
-        ArrayList xList = new ArrayList();
-        ArrayList yList = new ArrayList();
+        public List<double> xList = new List<double>();
+        public List<double> yList = new List<double>();
         private double simElapsedTime;
         private Timer logoGrowEffectTimer;
         private Timer logoShrinkEffectTimer;
@@ -197,7 +197,7 @@ namespace HV9104_GUI
             if ((currentDiff > currentFlashoverLimit)) // (voltageDiff > voltageFlashoverLimit) || 
             {
                 flashoverDetected = true;
-            }
+            }         
         }
 
         // The timed event where everything is updated
@@ -522,6 +522,8 @@ namespace HV9104_GUI
                     // Get impulses/level info
                     impulsePerLevel = (int)runView.impPerLevelTextBox.Value;
 
+                    // Get min/max levels
+
                     // Create level array
 
                     // Run impulse disruptive routine
@@ -723,8 +725,8 @@ namespace HV9104_GUI
             yList.Add((double)actualTestVoltage);
 
             sampleNumber += 1;
-            xArray = (Double[])xList.ToArray(typeof(double));
-            yArray = (Double[])yList.ToArray(typeof(double));
+            xArray = (Double[])xList.ToArray();
+            yArray = (Double[])yList.ToArray();
             autoTestChart.Series["Series1"].Points.Clear();
             //There are two ways to add points 
             //1) Add points one by one with the AddXY method 

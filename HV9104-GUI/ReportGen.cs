@@ -3,15 +3,18 @@ using System.IO;
 using System.Windows.Forms;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Jitbit.Utils;
 
 namespace HV9104_GUI
 {
     class ReportGen
     {
         RunView runView;
-        public string DatePerformed, Operator, TestObject, OtherInfo, Duration, TestVoltage, PassFailStatus, SubTitle;
+        public string DatePerformed, Operator, TestObject, OtherInfo, Duration, TestVoltage, PassFailStatus, SubTitle, elapsedTimeTitleLabel, resultTestVoltageLabel, passStatusLabel, secondsUnitLabel, hvUnitLabel, passFailUnitlabel;
 
-        public void GenerateReportNow(RunView runViewIn, String modeLabelIn)
+
+        //Constructor
+        public ReportGen(RunView runViewIn, String modeLabelIn)
         {
             runView = runViewIn;
             DatePerformed = runView.dateTextBox.Text;
@@ -19,9 +22,20 @@ namespace HV9104_GUI
             TestObject = runView.testObjectTextBox.Text;
             OtherInfo = runView.otherTextBox.Text;
             Duration = runView.elapsedTimeLabel.Text;
-            TestVoltage = runView.testVoltageTextBox.Text;
+            TestVoltage = runView.resultTestVoltageValueLabel.Text;// runView.testVoltageTextBox.Text;
             PassFailStatus = runView.passFailLabel.Text;
             SubTitle = modeLabelIn;
+
+            elapsedTimeTitleLabel = runView.elapsedTimeTitleLabel.Text;
+            resultTestVoltageLabel = runView.resultTestVoltageLabel.Text;
+            passStatusLabel = runView.passStatusLabel.Text;
+            secondsUnitLabel = runView.secondsUnitLabel.Text;
+            hvUnitLabel = runView.hvUnitLabel.Text;
+            passFailUnitlabel = runView.passFailUnitlabel.Text;
+
+        }
+        public void GenerateReportNow()
+        {
 
             GenerateChartImage();
 
@@ -32,10 +46,10 @@ namespace HV9104_GUI
             string pdfpath = saveFileDialog1.FileName;
 
             //string imagepath = @"C:\Users\Terco\Desktop\"; //HEADER LOGO PATH.
-            Document doc = new Document();
+            Document doc = new Document(PageSize.A4 , 36f , 36f, 36f, 10f);
             try
             {
-                PdfWriter.GetInstance(doc, new FileStream(pdfpath, FileMode.Create));
+                PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(pdfpath, FileMode.Create));
                 int totalfonts = FontFactory.RegisterDirectory("C:\\WINDOWS\\Fonts");
                 var FontColour = new BaseColor(127, 127, 127);
 
@@ -46,12 +60,17 @@ namespace HV9104_GUI
                 var Calibri14 = FontFactory.GetFont("Calibri", 14, FontColour);
                 var Calibri48 = FontFactory.GetFont("Calibri", 48, iTextSharp.text.Font.BOLD, FontColour);
                 var Calibri12 = FontFactory.GetFont("Calibri", 12, FontColour);
+                var Calibri10 = FontFactory.GetFont("Calibri", 10, FontColour);
 
                 doc.Open();
+                //content byte
+                PdfContentByte cb = writer.DirectContent;
+
                 //HEADER IMAGE
-                iTextSharp.text.Image gif = iTextSharp.text.Image.GetInstance(@"C:\Users\Terco\Source\Repos\HV9104\HV9104-GUI\bin\Debug\Resources\tercoLogo.png");   //HEADER LOGO imagepath + "/tercoLogo.png"
-                gif.ScalePercent(50f);
-                gif.SetAbsolutePosition(36f, doc.PageSize.Height - 36f);
+                //C:\Users\Terco\Source\Repos\HV9104\HV9104-GUI\bin\Debug\Resources\tercoLogo.png
+                iTextSharp.text.Image gif = iTextSharp.text.Image.GetInstance(@"C:\Users\Terco\Source\Repos\HV9104\HV9104-GUI\Resources\SplashlogoCropped.JPG");   //HEADER LOGO imagepath + "/tercoLogo.png"
+                gif.ScalePercent(7.5f);
+                gif.SetAbsolutePosition(36f, doc.PageSize.Height - 46f);
                 doc.Add(gif);
                 
                 //TITLE
@@ -62,13 +81,15 @@ namespace HV9104_GUI
 
                 //SUBTITLE
                 Paragraph heading2 = new Paragraph(SubTitle, Calibri16);
-                heading2.SpacingAfter = 50f;
+                heading2.SpacingAfter = 40f;
                 heading2.Alignment = Element.ALIGN_CENTER;
                 doc.Add(heading2);
 
 
                 PdfPTable table = new PdfPTable(2);
                 table.DefaultCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+                float[] widths = new float[] { 1f, 2f };
+                table.SetWidths(widths);
 
                 PdfPCell cell1 = new PdfPCell(new Phrase("DATE PERFORMED:", Calibri14));
                 PdfPCell cell2 = new PdfPCell(new Phrase(DatePerformed, Calibri14)); //dyn
@@ -87,8 +108,8 @@ namespace HV9104_GUI
                 cell6.Border = iTextSharp.text.Rectangle.NO_BORDER;
                 cell7.Border = iTextSharp.text.Rectangle.NO_BORDER;
                 cell8.Border = iTextSharp.text.Rectangle.NO_BORDER;
-
-
+                cell8.FixedHeight = 75f;
+              
                 table.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
                 table.AddCell(cell1);
                 table.AddCell(cell2);
@@ -117,23 +138,23 @@ namespace HV9104_GUI
                 doc.Add(jpg);
 
                 Paragraph paragraphTable2 = new Paragraph();
-                paragraphTable2.SpacingBefore = 200f;
+                paragraphTable2.SpacingBefore = 35f;
 
                 doc.Add(paragraphTable2);
 
                 PdfPTable table2 = new PdfPTable(3);
-                PdfPCell cell9 = new PdfPCell(new Phrase("DURATION", Calibri16_Bold));
-                PdfPCell cell10 = new PdfPCell(new Phrase("TEST VOLTAGE", Calibri16_Bold)); //dyn
-                PdfPCell cell11 = new PdfPCell(new Phrase("PASS/FAIL STATUS", Calibri16_Bold));
+                PdfPCell cell9 = new PdfPCell(new Phrase(elapsedTimeTitleLabel, Calibri16_Bold));
+                PdfPCell cell10 = new PdfPCell(new Phrase(resultTestVoltageLabel, Calibri16_Bold)); //dyn
+                PdfPCell cell11 = new PdfPCell(new Phrase(passStatusLabel, Calibri16_Bold));
                 PdfPCell cell12 = new PdfPCell(new Phrase(Duration, Calibri48));//dyn
                 PdfPCell cell13 = new PdfPCell(new Phrase(TestVoltage, Calibri48));
                 PdfPCell cell14 = new PdfPCell(new Phrase(PassFailStatus, Calibri48));//dyn
-                PdfPCell cell15 = new PdfPCell(new Phrase("SECONDS", Calibri12));
-                PdfPCell cell16 = new PdfPCell(new Phrase("kV", Calibri12));//dyn
-                PdfPCell cell17 = new PdfPCell(new Phrase("", Calibri14));
+                PdfPCell cell15 = new PdfPCell(new Phrase(secondsUnitLabel, Calibri12));
+                PdfPCell cell16 = new PdfPCell(new Phrase(hvUnitLabel, Calibri12));//dyn
+                PdfPCell cell17 = new PdfPCell(new Phrase(passFailUnitlabel, Calibri12));
                 PdfPCell cell18 = new PdfPCell(new Phrase("", Calibri12));//dyn
-                PdfPCell cell19 = new PdfPCell(new Phrase("+/- 15%", Calibri12));
-                PdfPCell cell20 = new PdfPCell(new Phrase("e 46 seconds", Calibri12));//dyn
+                PdfPCell cell19 = new PdfPCell(new Phrase(" ", Calibri12));
+                PdfPCell cell20 = new PdfPCell(new Phrase(" ", Calibri12));//dyn
 
 
                 cell9.Border = iTextSharp.text.Rectangle.NO_BORDER;
@@ -181,6 +202,56 @@ namespace HV9104_GUI
 
                 doc.Add(table2);
 
+                //PdfPTable table3 = new PdfPTable(3);
+                //PdfPCell c0 = new PdfPCell(new Phrase(" ", Calibri14));
+                //PdfPCell c1 = new PdfPCell(new Phrase("APPROVED BY", Calibri14));
+                //PdfPCell c2 = new PdfPCell(new Phrase("DATE", Calibri14));
+                //PdfPCell c3 = new PdfPCell(new Phrase("STAMP", Calibri14));
+
+                //c1.HorizontalAlignment = 1;
+                //c2.HorizontalAlignment = 1;
+                //c3.HorizontalAlignment = 1;
+                //c0.HorizontalAlignment = 1;
+                //c0.FixedHeight = 75f;
+
+                //c1.Border = iTextSharp.text.Rectangle.NO_BORDER;
+                //c2.Border = iTextSharp.text.Rectangle.NO_BORDER;
+                //c3.Border = iTextSharp.text.Rectangle.NO_BORDER;
+
+                //table3.HorizontalAlignment = 1;
+                //table3.AddCell(c1);
+                //table3.AddCell(c2);
+                //table3.AddCell(c3);
+                //table3.AddCell(c0);
+                //table3.AddCell(" ");
+                //table3.AddCell(" ");
+                //table3.SpacingBefore = 30f;
+                //doc.Add(table3);
+
+                Paragraph paragraphTable3 = new Paragraph();
+                paragraphTable3.SpacingBefore = 110f;
+
+                doc.Add(paragraphTable2);
+                Chunk chunk1 = new Chunk("APPROVED BY:____________________________  DATE:______________________ ",Calibri10);
+                doc.Add(paragraphTable3);
+                doc.Add(chunk1);
+
+                //draw box
+                cb.Rectangle(doc.PageSize.Width - 200f, 24f, 150f, 150f);
+                cb.SetColorStroke(FontColour);
+                cb.Stroke();
+
+                //text box
+             
+                cb.BeginText();
+                BaseFont bf = BaseFont.CreateFont("C:\\windows\\fonts\\calibri.ttf", BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                
+                cb.SetFontAndSize(bf,10);
+                cb.SetColorFill(FontColour);
+
+                cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, "OFFICIAL STAMP", doc.PageSize.Width - 125f, 160f, 0f);
+                cb.EndText();
+
             }
 
             catch (Exception ex)
@@ -196,34 +267,55 @@ namespace HV9104_GUI
             System.Diagnostics.Process.Start(pdfpath);
 
         }
-        //private void GetInfo()
-        //{
-        //    DatePerformed = textBox1.Text;
-        //    Operator = textBox2.Text;
-        //    TestObject = textBox3.Text;
-        //    OtherInfo = textBox4.Text;
-        //    Duration = textBox5.Text;
-        //    TestVoltage = textBox6.Text;
-        //    PassFailStatus = textBox7.Text;
-        //    SubTitle = label8.Text;
-
-        //}
+        
 
         private void GenerateChartImage()
         {
             runView.autoTestChart.SaveImage(@"C:\Users\Terco\Desktop\PDFgeneration\chart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
         }
 
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    GenerateChartImage();
-        //    GetInfo();
-        //    GenerateReport();
 
-        //}
-
-        private void label2_Click(object sender, EventArgs e)
+        public void ExportValues(double[] xIn, double[] yIn)
         {
+
+            double[] x = new double[xIn.Length-1];
+            double[] y = new double[yIn.Length - 1];
+
+            for(int i = 0; i<xIn.Length-1;i++)
+            {
+                x[i] = xIn[i];
+                y[i] = yIn[i];
+            }
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Comma-Separated Value (.csv) | *.csv ";
+            saveFileDialog1.Title = "Save file";
+            saveFileDialog1.ShowDialog();
+            var finalPath = saveFileDialog1.FileName;
+
+            if (finalPath != "")
+            {
+                var myExport = new CsvExport();
+                myExport.AddRow();
+                myExport["DATE"] = DatePerformed;
+                myExport["OPERATOR"] = Operator;
+                myExport["TEST OBJECT"] = TestObject;
+                myExport["OTHER INFO"] = OtherInfo;
+                for (int i = 0; i < 100; i++)
+                {
+                    myExport.AddRow();
+                    myExport["X"] = x[i].ToString();
+                    myExport["Y"] = y[i].ToString();
+
+                }
+
+                //var desiredPath =  @"C:\Users\Terco\Desktop\test.csv"; //ChooseFolder();
+                //var finalPath = UniqueFileName(desiredPath);
+
+                myExport.ExportToFile(finalPath);
+            }
+
+
 
         }
 

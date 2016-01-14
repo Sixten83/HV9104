@@ -589,7 +589,8 @@ namespace HV9104_GUI
             this.controlForm.runView.dcOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(dcOutputAutoComboBox_valueChange);
             this.controlForm.runView.impulseOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseOutputAutoComboBox_valueChange);
             this.controlForm.runView.createReportButton.Click += new System.EventHandler(createReportButton_Click);
-           
+            this.controlForm.runView.exportValuesButton.Click += new System.EventHandler(exportValuesButton_Click);
+
             //this.controlForm.runView.measurementTypeComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(autoTestMeasTypeComboBox_valueChange);
 
             //***********************************************************************************************************
@@ -621,6 +622,7 @@ namespace HV9104_GUI
 
         }
 
+        
         // Voltage measurement type has been changed in auto test page
         private void autoTestMeasTypeComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
@@ -639,11 +641,20 @@ namespace HV9104_GUI
             GenerateReport();
         }
 
+        // Export report to pdf
         public void GenerateReport()
         {
-            report.GenerateReportNow(controlForm.runView, controlForm.modeLabel.Text);
+            ReportGen latestreport = new ReportGen(controlForm.runView, controlForm.modeLabel.Text);
+            latestreport.GenerateReportNow();
         }
 
+        // Export to CSV
+        private void exportValuesButton_Click(object sender, EventArgs e)
+        {
+            ReportGen latestreport = new ReportGen(controlForm.runView, controlForm.modeLabel.Text);
+            // Check for null list !!!!!!!!!!!!!!!!!!
+            latestreport.ExportValues(autoTest.xList.ToArray(), autoTest.yList.ToArray());
+        }
 
         // Experiment Start/Pause
         private void onOffAutoButton_Click(object sender, EventArgs e)
@@ -1723,7 +1734,7 @@ namespace HV9104_GUI
             HV9133 = new PD1161Device(4, serialPort1);
             activeMotor = HV9126;
 
-            report = new ReportGen();
+            report = new ReportGen(controlForm.runView, controlForm.modeLabel.Text);
 
             //if (!activeMotor.initComplete)
             //{
