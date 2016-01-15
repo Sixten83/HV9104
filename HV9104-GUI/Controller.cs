@@ -5,6 +5,7 @@ using System.Windows.Forms;
 //using Excel = Microsoft.Office.Interop.Excel; 
 using System.IO.Ports;
 using System.Threading;
+using System.ComponentModel;
 
 namespace HV9104_GUI
 {
@@ -584,7 +585,12 @@ namespace HV9104_GUI
             this.controlForm.runView.impulseLimitsButton.Click += new System.EventHandler(impulseLimitsButton_Click);
             this.controlForm.runView.impulseParametersButton.Click += new System.EventHandler(impulseParametersButton_Click);
             //this.controlForm.runView.impulseLimitsButton.Enter += new System.EventHandler(impulseLimitsButton_Enter);
+          
+           // this.autoTest.PropertyChanged += triggerRequest_PropertyChanged;
 
+            
+
+  
             //this.controlForm.runView.measurementTypeComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(autoTestMeasTypeComboBox_valueChange);
 
             //***********************************************************************************************************
@@ -614,6 +620,13 @@ namespace HV9104_GUI
             this.measuringForm.chart.cursorMenu.acChannelRadioButton.Click += new System.EventHandler(this.acChannelRadioButton_Click);
             this.measuringForm.chart.cursorMenu.dcChannelRadioButton.Click += new System.EventHandler(this.dcChannelRadioButton_Click);
 
+        }
+
+        // TriggerRequest has been received from autotest
+        private void triggerRequest_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // If triggerrequest = true, trigger an impulse. else ignore, we are just resetting
+            if (autoTest.TriggerRequest) TriggerImpulse();
         }
 
         private void impulseParametersButton_Click(object sender, EventArgs e)
@@ -1328,7 +1341,13 @@ namespace HV9104_GUI
         // Create a signal to trigger an impulse voltage
         private void triggerButton_Click(object sender, EventArgs e)
         {
-            
+
+            TriggerImpulse();
+
+        }
+
+        public void TriggerImpulse()
+        {
             //Stop streaming mode
             streamMode = false;
             fastStreamMode = false;
@@ -1340,14 +1359,13 @@ namespace HV9104_GUI
             picoScope.disableChannel(0);
             picoScope.disableChannel(1);
             picoScope.enableChannel(2);
-            picoScope.setDCoffset(2, -1 * (float)(impulseChannel.Polarity * impulseChannel.rangeToVolt()) * 0.8f);              
+            picoScope.setDCoffset(2, -1 * (float)(impulseChannel.Polarity * impulseChannel.rangeToVolt()) * 0.8f);
             //Set databuffer
-            picoScope.setBlockDataBuffer();            
+            picoScope.setBlockDataBuffer();
             //Set trigger Channel/Level/Type
             picoScope.setTriggerChannel(Imports.Channel.ChannelC);
 
-
-            //Setup Trigger / Chopping time - IF ENABLED!!! TO BE CHECKED!!!!
+            //Setup Trigger / Chopping time
             if (controlForm.dashboardView.choppingCheckBox.isChecked)
             {
                 int index = (int)((float)(1000 * controlForm.dashboardView.choppingTimeTextBox.Value) / 100);
@@ -1357,18 +1375,25 @@ namespace HV9104_GUI
             else
             {
                 picoScope.setupSignalGen(0);
-            }            
-            
+            }
+
             //Start Block
             picoScope.startBlock();
             //Trigger Signal gen
             picoScope.triggerSignalGen();
             //Start watchDog
             triggerTimer.Start();
-
         }
 
+        // Chopping checkbox clicked
         private void choppingCheckBox_Click(object sender, EventArgs e)
+        {
+            // Enable/disable chopping control buttons
+            InitChoppingButtons();
+        }
+
+        // Enable/disable chopping control buttons
+        private void InitChoppingButtons()
         {
             if (controlForm.dashboardView.choppingCheckBox.isChecked)
             {
@@ -1382,20 +1407,15 @@ namespace HV9104_GUI
                 controlForm.dashboardView.decreaseChoppingTimeButton.Enabled = false;
                 controlForm.dashboardView.increaseChoppingTimeButton.Enabled = false;
             }
-
-
-
         }
 
         private void decreaseChoppingTimeButton_Down(object sender, MouseEventArgs e)
         {
             // Verify the input value
-
             if (controlForm.dashboardView.choppingTimeTextBox.Value > controlForm.dashboardView.choppingTimeTextBox.Min)
             {
                 // Increase the delay time by one
-                controlForm.dashboardView.choppingTimeTextBox.Value -= 0.1F;
-                
+                controlForm.dashboardView.choppingTimeTextBox.Value -= 0.1F; 
             }
 
         }

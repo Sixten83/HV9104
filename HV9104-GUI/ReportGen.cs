@@ -137,8 +137,9 @@ namespace HV9104_GUI
                 doc.Add(heading3);
 
                 //chart image
-
-                iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(@"C:\Users\Terco\Desktop\PDFgeneration\chart.jpg"); //CHART PATH.
+                //@"C:\Users\Terco\Desktop\PDFgeneration\chart.jpg
+                //iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(@"C:\Users\Terco\Desktop\PDFgeneration\chart.jpg"); //CHART PATH.
+                iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(@".\chart.jpg"); //CHART PATH.
                 jpg.ScaleToFit(420f, 500f);
                 jpg.Border = iTextSharp.text.Rectangle.BOX;
                 jpg.BorderWidth = 0.5f;
@@ -255,7 +256,11 @@ namespace HV9104_GUI
 
         private void GenerateChartImage()
         {
-            runView.autoTestChart.SaveImage(@"C:\Users\Terco\Desktop\PDFgeneration\chart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+             runView.autoTestChart.SaveImage(@".\chart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            // runView.autoTestChart.SaveImage(@"C:\Users\Terco\Desktop\PDFgeneration\chart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            //Application.
+
         }
 
 

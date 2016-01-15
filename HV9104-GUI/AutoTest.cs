@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-    
+
 using System.Windows.Forms.DataVisualization.Charting;
 using Timer = System.Windows.Forms.Timer;
 
 
 namespace HV9104_GUI
 {
-    public class AutoTest
+    public class AutoTest : INotifyPropertyChanged
     {
+        
+
         // Source for the actual values + controls
         RunView runView;
         DashBoardView dashboardView;
@@ -136,6 +139,8 @@ namespace HV9104_GUI
         private bool inBounds;
         private bool noBreakdown;
         private bool breakdownOccurred;
+        internal bool triggerRequest = false;
+        private bool triggerRequestValue;
 
 
         // Contructor
@@ -165,6 +170,8 @@ namespace HV9104_GUI
             // Timer to update the chart and hold the testVoltage in bounds during impulse tests
             impulseRoutineTimer = new Timer();
             impulseRoutineTimer.Tick += new EventHandler(this.impulseRoutineTimer_Tick);
+            impulseRoutineTimer.Interval = 100;
+            impulseRoutineTimer.Enabled = true;
 
             // Update the chart, but only if we are connected
             if (PIO1.K2Closed)
@@ -262,8 +269,10 @@ namespace HV9104_GUI
                     if (!levelClear) 
                     {
                         //////// reset impulseVoltageValue
+                        actualImpulseVoltage = 0;
                         
                         //////// Trigger
+
 
                         //////// Check to see if there was an impulse received
 
@@ -340,6 +349,32 @@ namespace HV9104_GUI
             throw new NotImplementedException();
             // inputVoltage = -0.02*targetGap(power of 2) + 5.9 * targetGap - 23.2
         }
+
+        // Trigger request property in order to fire event in Controller Class
+        public bool TriggerRequest
+        {
+            get
+            {
+                return this.triggerRequestValue;
+            }
+
+            set
+            {
+                if (value != this.triggerRequestValue)
+                {
+                    this.triggerRequestValue = value;
+                    OnPropertyChanged("triggerRequest");
+                }
+            }
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
 
         // The timed event where everything is updated during AC/DC tests
@@ -656,8 +691,8 @@ namespace HV9104_GUI
                     nextImpulseVoltage += impulseVoltageStep;
                 }
 
-
                 // Run impulse disruptive routine
+                impulseRoutineTimer.Start();
             }
             else
             {
