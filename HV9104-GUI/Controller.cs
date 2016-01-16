@@ -627,7 +627,14 @@ namespace HV9104_GUI
         private void triggerRequest_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             // If triggerrequest = true, trigger an impulse. else ignore, we are just resetting
-            if (autoTest.TriggerRequest) TriggerImpulse();
+            if (autoTest.TriggerRequest)
+            {
+                //Set up the measuringForm chart INTERIM VALUES - TO BE SET DYNAMICALLY!!!!!!!
+                ImpulseDisplaySelected(0.5, 6502.4, 0.5, 4, "20 us/Div");
+
+                // Shoot
+                TriggerImpulse();
+            }
         }
 
         private void impulseParametersButton_Click(object sender, EventArgs e)
@@ -792,16 +799,27 @@ namespace HV9104_GUI
 
         private void impulseRadioButton_Click(object sender, EventArgs e)
         {
+            // Set the parameters
+            ImpulseDisplaySelected(0.5, 6502.4, 0.5, 4, "20 us/Div");
+        }   
+    
+        // Impulse selected to display in chart
+        public void ImpulseDisplaySelected(double timePerDivisionIn, double setVoltsPerDivIn, double setTimePerDivIn, int incrementIndex, string timeBaseIn)
+        {
+            // We dont always select impulse by clicking the radiobutton, show it as selected.
+            measuringForm.impulseRadioButton.isChecked = true;
+            measuringForm.impulseRadioButton.Invalidate();
+
             streamMode = false;
             picoScope.setFastStreamDataBuffer();
-            picoScope.TimePerDivision = 0.5;
-            this.measuringForm.chart.setVoltsPerDiv(6502.4);
-            this.measuringForm.chart.setTimePerDiv(0.5);
-            impulseChannel.IncrementIndex = 4;  
+            picoScope.TimePerDivision = timePerDivisionIn;
+            this.measuringForm.chart.setVoltsPerDiv(setVoltsPerDivIn);
+            this.measuringForm.chart.setTimePerDiv(setTimePerDivIn);
+            impulseChannel.IncrementIndex = incrementIndex;  
             this.measuringForm.acEnableCheckBox.isChecked = false;
             this.measuringForm.dcEnableCheckBox.isChecked = false;
-            this.measuringForm.chart.Series["acSeries"].Points.Clear();
-            this.measuringForm.chart.Series["dcSeries"].Points.Clear();
+            this.measuringForm.chart.Series ["acSeries"].Points.Clear();
+            this.measuringForm.chart.Series ["dcSeries"].Points.Clear();
             fastStreamMode = true;                          
             this.measuringForm.chart.cursorMenu.setScaleFactor(impulseChannel.getScaleFactor(), impulseChannel.DCOffset * impulseChannel.DividerRatio);
             this.measuringForm.chart.cursorMenu.resizeDown();
@@ -814,11 +832,11 @@ namespace HV9104_GUI
         "5 us/Div",
         "10 us/Div",
         "20 us/Div"};
-            this.measuringForm.timeBaseComboBox.SetSelected = "500 ns/Div";
-           
-        }   
-    
-       
+            this.measuringForm.timeBaseComboBox.SetSelected = timeBaseIn;
+        }
+
+
+
         private void acVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             pauseStream();

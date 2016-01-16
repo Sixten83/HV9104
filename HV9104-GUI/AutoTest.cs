@@ -188,7 +188,7 @@ namespace HV9104_GUI
             // Timer to update the chart and hold the testVoltage in bounds during impulse tests
             impulseRoutineTimer = new Timer();
             impulseRoutineTimer.Tick += new EventHandler(this.impulseRoutineTimer_Tick);
-            impulseRoutineTimer.Interval = 300;
+            impulseRoutineTimer.Interval = 800;
             //impulseRoutineTimer.Enabled = true;
 
             // Timer to timeout a trigger attempt
@@ -390,6 +390,7 @@ namespace HV9104_GUI
 
                                 //////// if so, Update list with x(index nr) and y(voltage value)
                                 xList.Add(xList.Count + 1);
+
                                 yList.Add(actualImpulseVoltage);
 
                                 //////// Analyse graph for breakdown - if so, Set breakdownOccurred = true;
@@ -574,7 +575,7 @@ namespace HV9104_GUI
 
             // Pd Variables - if needed?
             float P = 0;
-            float k = 7;
+            float k = 4;
             float d = 0;
             double error = 10;
             double previousError = 0;
@@ -670,7 +671,7 @@ namespace HV9104_GUI
                             if (error < toleranceHi)
                             {
                                 // Voltage low, set the reaction
-                                if ((error <= 3) && (error >= -3))
+                                if ((error <= 5) && (error >= -5))
                                 {
                                     styr = 57 + (int)integral;
                                 }
@@ -729,19 +730,22 @@ namespace HV9104_GUI
         // Look at the latest impulse curve values and determine if a breakdown has occurred
         private void AnalyzeImpulseCurve()
         {
+            
+            
+            // values from measuringForm.chart: (we may need to wait here until they arrive)
             dataX = impulseData.x;
             dataY = impulseData.y;
 
-            bla = measuringForm.chart.Series["impulseSeries"];
+            
 
-            for (int i = 0; i < dataY.Length-1; i++)
-            {
+            //for (int i = 0; i < dataY.Length-1; i++)
+            //{
 
-                // Calculate the rate of change for a block
+            //    // Calculate the rate of change for a block
 
                
 
-            }
+            //}
             //impulsechart.Series["impulseSeries"].Points.DataBindXY(data.x, data.y);
         }
 
