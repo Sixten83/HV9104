@@ -236,7 +236,6 @@ namespace HV9104_GUI
 
                 cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, "OFFICIAL STAMP", doc.PageSize.Width - 125f, 90f, 0f);
                 cb.EndText();
-
             }
 
             catch (Exception ex)

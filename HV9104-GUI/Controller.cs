@@ -95,17 +95,17 @@ namespace HV9104_GUI
             // Set up the primary measuring device
             SetupPicoscope();
 
-            // Connect some local event handlers to give access to the form controls
-            ConnectEventHandlers();
-
             // Find a suitable COM port and connect to it. Then add a Handler to catch any replies. 
             AutoConnect();
 
             // Initialize all devices and test communication
             InitializeDevices();
 
-            // Instantiate the class for autorun procedures
-            autoTest = new AutoTest(controlForm.runView, controlForm.dashboardView, PIO1, HV9126, HV9133, acChannel, dcChannel, impulseChannel);
+            // Instantiate the class for autorun procedures(after initializing the argument object)
+            autoTest = new AutoTest(controlForm.runView, controlForm.dashboardView, measuringForm, PIO1, HV9126, HV9133, acChannel, dcChannel, impulseChannel);
+
+            // Connect some local event handlers to give access to the form controls
+            ConnectEventHandlers();
 
             // If all devices are initialized have communication, start own loop for PLC, stepper motors and aux equipment.
             t = new Thread(CyclicRead);
@@ -381,6 +381,7 @@ namespace HV9104_GUI
                 {
                     this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
                     Channel.ScaledData data = impulseChannel.processData((int)picoScope.BlockSamples, 0, 2500);
+                    autoTest.impulseData = data;
                     this.measuringForm.chart.Series["impulseSeries"].Points.DataBindXY(data.x, data.y);
                     this.controlForm.dashboardView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                  
@@ -586,7 +587,7 @@ namespace HV9104_GUI
             this.controlForm.runView.impulseParametersButton.Click += new System.EventHandler(impulseParametersButton_Click);
             //this.controlForm.runView.impulseLimitsButton.Enter += new System.EventHandler(impulseLimitsButton_Enter);
           
-           // this.autoTest.PropertyChanged += triggerRequest_PropertyChanged;
+            this.autoTest.PropertyChanged += triggerRequest_PropertyChanged;
 
             
 
@@ -684,13 +685,7 @@ namespace HV9104_GUI
                 if (!autoTest.isPaused)
                 {
                     // Initialize test parameters and connect power
-                    bool startReady = autoTest.StartTest();
-
-                    if (startReady)
-                    {   
-                        // Regulate to testVoltage
-                        autoTest.GoToVoltageAuto(autoTest.targetVoltage);
-                    }
+                    autoTest.StartTest();
                 }
                 // Start is On, but in paused state
                 else
@@ -701,7 +696,7 @@ namespace HV9104_GUI
                     if (resumeReady)
                     {
                         // Regulate to testVoltage
-                        autoTest.GoToVoltageAuto(autoTest.targetVoltage);
+                        autoTest.GoToVoltageAuto();
                     }
                 }
                 
@@ -1333,17 +1328,13 @@ namespace HV9104_GUI
         // A voltage qualifier (rma, min, max) to regulate against has been selected  
         private void voltageRegulationRepresentationComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-
-            // *Not needed if we regulate against the already converted UI presentation value 
-
+            // *Not needed since we regulate against the already converted UI presentation value 
         }
  
         // Create a signal to trigger an impulse voltage
         private void triggerButton_Click(object sender, EventArgs e)
         {
-
             TriggerImpulse();
-
         }
 
         public void TriggerImpulse()
@@ -1383,6 +1374,8 @@ namespace HV9104_GUI
             picoScope.triggerSignalGen();
             //Start watchDog
             triggerTimer.Start();
+
+            autoTest.TriggerRequest = false;
         }
 
         // Chopping checkbox clicked
@@ -1788,8 +1781,15 @@ namespace HV9104_GUI
             loopTimer.Stop();
             loopTimer.Dispose();
             picoScope.closeDevice();
+            autoTest.impulseRoutineTimer.Stop();
+            autoTest.sampleTimer.Stop();
+            autoTest.triggerTimeoutTimer.Stop();
+            autoTest.impulseRoutineTimer.Dispose();
+            autoTest.sampleTimer.Dispose();
+            autoTest.triggerTimeoutTimer.Dispose();
             this.measuringForm.Close();
             this.controlForm.Close();
+      
         }
 
 
