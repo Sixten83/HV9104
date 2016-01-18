@@ -608,7 +608,7 @@ namespace HV9104_GUI
             this.measuringForm.dcEnableCheckBox.Click += new System.EventHandler(dcEnableCheckBox_Click);
             //Impulse Channel Listeners
             this.measuringForm.impulseVoltageRangeComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulseVoltageRangeComboBox_valueChange);
-            this.measuringForm.impulseEnableCheckBox.Click += new System.EventHandler(impulseEnableCheckBox_Click);
+            //this.measuringForm.impulseEnableCheckBox.Click += new System.EventHandler(impulseEnableCheckBox_Click);
             this.measuringForm.impulsePreTriggerTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(impulsePreTriggerTextBox_valueChange);
             //Common Controls Listeners
             this.measuringForm.resolutionComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(resolutionComboBox_valueChange);
@@ -629,7 +629,15 @@ namespace HV9104_GUI
             // If triggerrequest = true, trigger an impulse. else ignore, we are just resetting
             if (autoTest.TriggerRequest)
             {
+
+                measuringForm.chart.Series["impulseSeries"].Points.Clear();
+
                 //Set up the measuringForm chart INTERIM VALUES - TO BE SET DYNAMICALLY!!!!!!!
+                if (PIO1.regulatedVoltageValue < 25) SetImpulseChartVoltageRange(2);
+                else if ((PIO1.regulatedVoltageValue >= 25) && (PIO1.regulatedVoltageValue < 80)) SetImpulseChartVoltageRange(3);
+                else if ((PIO1.regulatedVoltageValue >= 80) && (PIO1.regulatedVoltageValue < 180)) SetImpulseChartVoltageRange(4);
+                else if ((PIO1.regulatedVoltageValue >= 25) && (PIO1.regulatedVoltageValue < 80)) SetImpulseChartVoltageRange(5);
+
                 ImpulseDisplaySelected(0.5, 6502.4, 0.5, 4, "20 us/Div");
 
                 // Shoot
@@ -691,6 +699,15 @@ namespace HV9104_GUI
                 // Start request and is not in paused state
                 if (!autoTest.isPaused)
                 {
+                    // Restarting after a failed test? - Reset osc so it doesn't get stuck at incorrect range
+                    if ((PIO1.minUPos) && (Convert.ToDouble(controlForm.runView.acValueLabel.Text) > 5))
+                    {
+                        SetACVoltageRange(2);
+                        Thread.Sleep(500);
+                        SetACVoltageRange(0);
+                    }
+                   
+
                     // Initialize test parameters and connect power
                     autoTest.StartTest();
                 }
@@ -839,14 +856,19 @@ namespace HV9104_GUI
 
         private void acVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
+            SetACVoltageRange(e.Value);
+        }
+
+        private void SetACVoltageRange(double acVoltageRangeIn)
+        {
             pauseStream();
-            if (e.Value == 0)
+            if (acVoltageRangeIn == 0)
                 acChannel.VoltageAutoRange = true;
             else
                 acChannel.VoltageAutoRange = false;
-            picoScope.setChannelVoltageRange(0, (Imports.Range)e.Value + 3);
+            picoScope.setChannelVoltageRange(0, (Imports.Range)acVoltageRangeIn + 3);
             rebootStream();
-           
+
 
             if (this.measuringForm.chart.cursorMenu.acChannelRadioButton.isChecked)
             {
@@ -854,7 +876,6 @@ namespace HV9104_GUI
                 this.measuringForm.chart.updateCursorMenu();
             }
         }
-
 
         private void acEnableCheckBox_Click(object sender, EventArgs e)
         {
@@ -914,20 +935,28 @@ namespace HV9104_GUI
           
         private void impulseVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            
+
+            SetImpulseChartVoltageRange(e.Value);
+        }
+
+
+        private void SetImpulseChartVoltageRange(double rawImpulseVoltageRange)
+        {
+
             pauseStream();
-            picoScope.setChannelVoltageRange(2, (Imports.Range)e.Value + 4);
+            picoScope.setChannelVoltageRange(2, (Imports.Range)rawImpulseVoltageRange + 4);
             picoScope.setDCoffset(2, (float)(-1 * impulseChannel.Polarity * impulseChannel.rangeToVolt() * 0.8f));
             rebootStream();
             this.measuringForm.chart.cursorMenu.setScaleFactor(impulseChannel.getScaleFactor(), impulseChannel.DCOffset * impulseChannel.DividerRatio);
             this.measuringForm.chart.updateCursorMenu();
-            
         }
+
 
         private void impulseEnableCheckBox_Click(object sender, EventArgs e)
         {
             
         }
+
 
          private void impulsePreTriggerTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
@@ -943,20 +972,27 @@ namespace HV9104_GUI
 
         private void timeBaseComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            if(this.measuringForm.acdcRadioButton.isChecked)
+ 
+
+            SetChartTimeBase(e.Text);
+        }
+
+        private void SetChartTimeBase(string timeBaseValueIn)
+        {
+            if (this.measuringForm.acdcRadioButton.isChecked)
             {
                 this.measuringForm.chart.Series["acSeries"].Points.Clear();
                 this.measuringForm.chart.Series["dcSeries"].Points.Clear();
-                if (e.Text.Equals("2 ms/Div"))
+                if (timeBaseValueIn.Equals("2 ms/Div"))
                 {
                     picoScope.StreamingInterval = 12500;
                     picoScope.TimePerDivision = 2;
                     acChannel.IncrementIndex = 0;
                     dcChannel.IncrementIndex = 0;
                     this.measuringForm.chart.setTimePerDiv(2);
-                   
+
                 }
-                else if(e.Text.Equals("5 ms/Div"))
+                else if (timeBaseValueIn.Equals("5 ms/Div"))
                 {
                     picoScope.StreamingInterval = 31250;
                     picoScope.TimePerDivision = 5;
@@ -971,55 +1007,55 @@ namespace HV9104_GUI
                     acChannel.IncrementIndex = 2;
                     dcChannel.IncrementIndex = 2;
                     this.measuringForm.chart.setTimePerDiv(10);
-                }               
-               
+                }
+
             }
             else
             {
-                if (e.Text.Equals("200 ns/Div"))
+                if (timeBaseValueIn.Equals("200 ns/Div"))
                 {
                     picoScope.BlockSamples = 1000;
                     picoScope.TimePerDivision = 0.2;
-                    impulseChannel.IncrementIndex = 3;                    
+                    impulseChannel.IncrementIndex = 3;
                     this.measuringForm.chart.setTimePerDiv(0.2);
-                   
+
                 }
-                else if(e.Text.Equals("500 ns/Div"))
+                else if (timeBaseValueIn.Equals("500 ns/Div"))
                 {
                     picoScope.BlockSamples = 2500;
                     picoScope.TimePerDivision = 0.5;
-                    impulseChannel.IncrementIndex = 4;  
+                    impulseChannel.IncrementIndex = 4;
                     this.measuringForm.chart.setTimePerDiv(0.5);
                 }
-                else if(e.Text.Equals("1 us/Div"))
+                else if (timeBaseValueIn.Equals("1 us/Div"))
                 {
                     picoScope.BlockSamples = 5000;
                     picoScope.TimePerDivision = 1;
-                    impulseChannel.IncrementIndex = 5;  
+                    impulseChannel.IncrementIndex = 5;
                     this.measuringForm.chart.setTimePerDiv(1);
                 }
-                else if(e.Text.Equals("2 us/Div"))
+                else if (timeBaseValueIn.Equals("2 us/Div"))
                 {
                     picoScope.BlockSamples = 10000;
                     picoScope.TimePerDivision = 2;
-                    impulseChannel.IncrementIndex = 6;  
+                    impulseChannel.IncrementIndex = 6;
                     this.measuringForm.chart.setTimePerDiv(2);
                 }
-                else if(e.Text.Equals("5 us/Div"))
+                else if (timeBaseValueIn.Equals("5 us/Div"))
                 {
                     picoScope.BlockSamples = 25000;
                     picoScope.TimePerDivision = 5;
-                    impulseChannel.IncrementIndex = 7;  
+                    impulseChannel.IncrementIndex = 7;
                     this.measuringForm.chart.setTimePerDiv(5);
                 }
-                else if(e.Text.Equals("10 us/Div"))
+                else if (timeBaseValueIn.Equals("10 us/Div"))
                 {
                     picoScope.BlockSamples = 50000;
                     picoScope.TimePerDivision = 10;
-                    impulseChannel.IncrementIndex = 8;  
+                    impulseChannel.IncrementIndex = 8;
                     this.measuringForm.chart.setTimePerDiv(10);
                 }
-                else if (e.Text.Equals("20 us/Div"))
+                else if (timeBaseValueIn.Equals("20 us/Div"))
                 {
                     picoScope.BlockSamples = 100000;
                     picoScope.TimePerDivision = 20;
@@ -1029,7 +1065,7 @@ namespace HV9104_GUI
             }
             this.measuringForm.chart.updateCursorMenu();
         }
-         
+
         private void triggerSetupButton_Click(object sender, EventArgs e)
         {
 
@@ -1352,6 +1388,7 @@ namespace HV9104_GUI
         // Create a signal to trigger an impulse voltage
         private void triggerButton_Click(object sender, EventArgs e)
         {
+
             TriggerImpulse();
         }
 
@@ -1943,8 +1980,8 @@ namespace HV9104_GUI
                     controlForm.runView.impPerLevelTextBox.Value = 5;
                 }
                 controlForm.runView.testVoltageTextBox.Invalidate();
-                controlForm.runView.maxImpulseVoltageTextBox.Invalidate();
-                controlForm.runView.minImpulseVoltageTextBox.Invalidate();
+                controlForm.runView.impulseStepSizeTextBox.Invalidate();
+                controlForm.runView.impulseStartVoltageTextBox.Invalidate();
             }
           
         }
@@ -1984,10 +2021,17 @@ namespace HV9104_GUI
                 if (controlForm.setupView.impulseCheckBox.isChecked)
                 {
                     controlForm.runView.testVoltageTextBox.Max = impOutputMax;
-                    controlForm.runView.maxImpulseVoltageTextBox.Max = impOutputMax;
-                    controlForm.runView.minImpulseVoltageTextBox.Max = impOutputMax - 5;
+                    controlForm.runView.impulseStepSizeTextBox.Max = impOutputMax;
+                    controlForm.runView.impulseStartVoltageTextBox.Max = impOutputMax - 5;
                 } 
             }
+
+            controlForm.runView.elapsedTimeTitleLabel.Text = "REMAINING";
+            controlForm.runView.elapsedTimeTitleLabel.Invalidate();
+            controlForm.runView.secondsUnitLabel.Text = "THIS LEVEL";
+            controlForm.runView.secondsUnitLabel.Invalidate();
+            controlForm.runView.resultTestVoltageLabel.Text = "NEXT TARGET";
+            controlForm.runView.resultTestVoltageLabel.Invalidate();
         }
 
         // Before we start, make sure the UI correctly represents the PLC and Motor status. Called on startup and on entry

@@ -88,7 +88,9 @@ namespace HV9104_GUI
         private int sampleNumber;
         public List<double> xList = new List<double>();
         public List<double> yList = new List<double>();
-        public List<bool> breakdownList = new List<bool>();
+        public List<bool> breakdownListResult = new List<bool>();
+        public List<double> breakdownListX = new List<double>();
+        public List<double> breakdownListY = new List<double>();
         private double simElapsedTime;
         private Timer logoGrowEffectTimer;
         private Timer logoShrinkEffectTimer;
@@ -122,8 +124,8 @@ namespace HV9104_GUI
         private bool aborting;
         private double actualTestVoltageMax;
         private double actualDCVoltage;
-        private double impulseLimitMax;
-        private double impulseLimitMin;
+        private double impulseStepsize;
+        private double impulseStartVoltage;
         private double previousRegulatedVoltageValue;
         private double previousTestVoltage;
         private bool outputDead = false;
@@ -158,6 +160,16 @@ namespace HV9104_GUI
         private int destination;
         private bool triggerAttempted;
         private object bla;
+        private double previousY;
+        private bool dcStable;
+        private DateTime gapAcquireStartTime;
+        private TimeSpan gapAcquireSpan;
+        private int gapStartPos;
+        private int moveTimeOutCounter;
+        private double[] yBreakdownArray;
+        private double[] xBreakdownArray;
+     
+
 
 
         // Contructor
@@ -194,7 +206,7 @@ namespace HV9104_GUI
             // Timer to timeout a trigger attempt
             triggerTimeoutTimer = new Timer();
             triggerTimeoutTimer.Tick += new EventHandler(this.triggerTimeoutTimer_Tick);
-            triggerTimeoutTimer.Interval = 2000;
+            triggerTimeoutTimer.Interval = 5000;
             //triggerTimeoutTimer.Enabled = true;
 
             // Update the chart, but only if we are connected
@@ -210,20 +222,12 @@ namespace HV9104_GUI
         private void triggerTimeoutTimer_Tick(object sender, EventArgs e)
         {
             //Stop me
+            triggerTimeoutTimer.Enabled = false;
             triggerTimeoutTimer.Stop();
 
             // Set flag to indicate failure to overseeing routine
             triggerFailed = true;
 
-            // Increment a counter 
-            failedTriggercount += 1;
-
-            if(failedTriggercount > 5)
-            {
-                // Notify of problem - Check Batteries?
-                abortRegulation = true;
-                AbortTest();
-            }
         }
 
         // Refresh the voltage output values (every 10ms)
@@ -245,19 +249,36 @@ namespace HV9104_GUI
             // Update the max value if Disruptive Discharge test
             if (!testIsWithstand)
             {
-                runView.elapsedTimeLabel.Text = sampleRate.ToString("0.0");
-  
                 actualTestVoltageMax = actualTestVoltage;
-                runView.resultTestVoltageValueLabel.Text = lastTestVoltageMax.ToString("0.0");
+
+                if (runView.voltageComboBox.SetSelected == "Imp")
+                {
+                    // Present impulses remaining
+                    runView.elapsedTimeLabel.Text = remainingImpulseThisLevel.ToString();
+                    runView.elapsedTimeLabel.Invalidate();
+
+                    // Present target voltage
+                    if((impulseTargetVoltageList != null) && (impulseTargetVoltageList.Count > 0)) runView.resultTestVoltageValueLabel.Text = impulseTargetVoltageList[0].ToString();
+                    runView.resultTestVoltageValueLabel.Invalidate();
+                }
+                else
+                {
+                    runView.elapsedTimeLabel.Text = sampleRate.ToString("0.0");
+                    runView.resultTestVoltageValueLabel.Text = lastTestVoltageMax.ToString("0.0");
+                }
+                
                 lastTestVoltageMax = actualTestVoltageMax;
        
             }
-            
+
+            dcStable = false;
+
             // Calculate the voltage derivitive
-            //voltageDiff = actualVoltage - lastVoltage;
-            //dVdt = voltageDiff / sampleRate;
-            //if (dVdt != 0) voltageList.Add(dVdt);
-            //lastVoltage = actualVoltage;
+            // Used to wait for stability before firing impulse
+            voltageDiff = actualDCVoltage - lastVoltage;
+            dVdt = voltageDiff / sampleRate;
+            if (dVdt <= 1) dcStable = true;
+            lastVoltage = actualDCVoltage;
 
             // Calculate the current derivitive
             actualCurrent = PIO1.regulatedCurrentValue;
@@ -270,60 +291,24 @@ namespace HV9104_GUI
             if ((currentDiff > currentFlashoverLimit)) // (voltageDiff > voltageFlashoverLimit) || 
             {
                 flashoverDetected = true;
-            }         
+            }
+
+            // Compare with the preset limit
+            if (currentDiff <= 0.001) dcStable = true; // (voltageDiff > voltageFlashoverLimit) || 
+      
+
         }
 
         // The timed event which controls impulse tests
         private void impulseRoutineTimer_Tick(object sender, EventArgs e)
         {
-            
-            // Do we have the resource? If not, then bail.
-           if (impulseTargetVoltageList == null) return;
-           else if (impulseTargetVoltageList.Count > 0) levelsFinished = false;
 
-
-            //////// GAP CALCULATION and ACQUIREMENT
-            // Calculate the next gap
-            destination = CalculateDestination(impulseTargetVoltageList[0]);
-
-            // Move sphere to correct gap
-            if ((!acquiringGap) && (HV9126.actualPosition != destination))
-            {
-                pauseRegulation = true;
-
-                // Mo to the position
-                HV9126.MoveToPosition((int)nextGap);
-
-                // set a flag so we don't call AcquireGap every time
-                acquiringGap = true;
-
-                return;
-            }
-    
-            // If gap has been acquired
-            if(HV9126.actualPosition == destination)
-            {
-                acquiringGap = false;
-                gapAcquired = true;
-
-
-                pauseRegulation = false;
-            }
-
-
-
-
-            UpdateChart();
-
-
-
-            //////// ABORT ROUTINES
             // Abort button has been clicked. VOID label and aborting flag was set in AbortTest()
             if ((aborting) && (!PIO1.minUPos))
             {
                 // Stop regulation the transformer
                 abortRegulation = true;
-                
+
                 // Do not continue in this method
                 return;
             }
@@ -336,7 +321,67 @@ namespace HV9104_GUI
                 return;
             }
 
+            // Do we have the resource? If not, then bail.
+            if (impulseTargetVoltageList == null) return;
+            else if (impulseTargetVoltageList.Count > 0)
+            {          
+                // GAP CALCULATION and ACQUIREMENT
+                destination = CalculateDestination(impulseTargetVoltageList[0]);
+                levelsFinished = false;
+            }
+            else if (impulseTargetVoltageList.Count == 0) levelsFinished = true;
 
+            // Move sphere to correct gap
+            if ((!acquiringGap) && (HV9126.actualPosition != destination))
+            {
+                pauseRegulation = true;
+
+                //Thread.Sleep(300);
+
+                // Move to the position
+                gapStartPos = HV9126.actualPosition;
+                HV9126.MoveToPosition((int)nextGap);
+                gapAcquireStartTime = DateTime.Now;
+
+                // set a flag so we don't call AcquireGap every time
+                acquiringGap = true;
+
+                return;
+            }
+            // If acquiring gap and not there yet, try again
+            else if ((acquiringGap) && (HV9126.actualPosition != destination))
+            {
+                gapAcquireSpan = DateTime.Now - gapAcquireStartTime;
+                pauseRegulation = true;
+
+                if ((gapAcquireSpan.Seconds > 2) && (HV9126.actualPosition == gapStartPos))
+                {
+                    acquiringGap = false;
+                    moveTimeOutCounter += 1;
+                    HV9126.MoveToPosition((int)nextGap);
+
+                    if (moveTimeOutCounter > 5) AbortTest();
+
+                    return;
+                }
+                else
+                {
+                    moveTimeOutCounter = 0;
+                }
+            }
+            
+            
+            // If gap has been acquired
+            if ((HV9126.actualPosition == destination)&&(!parking))
+            {
+                acquiringGap = false;
+                gapAcquired = true;
+
+                pauseRegulation = false;
+            }
+
+
+            if(!parking)UpdateImpulseChart();
 
 
             // Check for bounds - IN
@@ -348,25 +393,22 @@ namespace HV9104_GUI
                 if (!levelsFinished)
                 {
 
-                    // Set the new target voltage - regulation should occur automatically as the voltage is now out of bounds
-                    impulseTargetVoltage = impulseTargetVoltageList[0];
-                    remainingImpulseThisLevel = impulsePerLevel;
-                    levelClear = false;
-                    
-
                     if (!levelClear) 
                     {
-                        if (!triggerAttempted)
+                        // Only attempt an imulse when dc voltage is stable (after previous discharge)
+                        if ((!triggerAttempted) && (dcStable))
                         {
                             // reset impulseVoltageValue and previous failure flag
                             actualImpulseVoltage = 0;
                             triggerFailed = false;
+                            //picoScope.GetRepresentation;
 
                             // Trigger
                             TriggerRequest = true;
                             triggerAttempted = true;
 
                             // Start a timeouttimer
+                            triggerTimeoutTimer.Enabled = true;
                             triggerTimeoutTimer.Start();
 
                             // Update the status to show we are waiting for trigger result
@@ -376,6 +418,9 @@ namespace HV9104_GUI
                         else if ((triggerAttempted) && (!triggerFailed))
                         {
                             // Check to see if there was an impulse received - this may take > 2 seconds
+                            // Update the status to show we are waiting for trigger result
+                            runView.passFailLabel.Text = "WAIT";
+                            runView.passFailLabel.Invalidate();
 
                             // Still waiting, do we have a result?
                             if (actualImpulseVoltage > 0)
@@ -383,68 +428,106 @@ namespace HV9104_GUI
 
                                 // Result! Stop the timeouttimer
                                 triggerTimeoutTimer.Stop();
+                                triggerTimeoutTimer.Enabled = false;
 
                                 // update the status 
-                                //runView.passFailLabel.Text = "EVAL";
-                                //runView.passFailLabel.Invalidate();
+                                runView.passFailLabel.Text = "EVAL";
+                                runView.passFailLabel.Invalidate();
 
-                                //////// if so, Update list with x(index nr) and y(voltage value)
-                                xList.Add(xList.Count + 1);
-
-                                yList.Add(actualImpulseVoltage);
-
-                                //////// Analyse graph for breakdown - if so, Set breakdownOccurred = true;
+                                // Analyse graph for breakdown - if so, Set breakdownOccurred = true;
                                 AnalyzeImpulseCurve();
 
-                                //////// Update bool breakdownList = breakdownOccurred 
-                                breakdownList.Add(breakdownOccurred);
+                                // Update bool breakdownList = breakdownOccurred 
+                                breakdownListResult.Add(breakdownOccurred);
+                                breakdownListX.Add(sampleNumber);
+                                breakdownListY.Add(yList[yList.Count-2]);
 
-                                //////// Update graph - red or blue points - red for breakdown
-                                //UpdateImpulseChart();
+                                UpdateImpulseChart();
 
-                                //////// Decrement remainingImpulseThisLevel;
+                                // Prepare for the next attempt
+                                triggerAttempted = false;
+
+                                // Decrement remainingImpulseThisLevel; Evaluated outside of this loop
                                 remainingImpulseThisLevel -= 1;
 
+                                // Impulse complete, check for more on this level - if last, set levelClear flag
+                                if (remainingImpulseThisLevel == 0)
+                                {
+                                    levelClear = true;
+                                    // Reset the failed trigger counter
+                                    failedTriggercount = 0;
+                                }
                             }
                             else
                             {
                                 // No result yet, keep waiting
                             }
                         }
-                        else if ((TriggerRequest) && (triggerFailed))
-                        {                         
-                            // Finalization - call PASS/FAIL/VOID finishing routine - ADD CONDITIONS!!!
-                            VoidImpTest();
-                        }
-                        
-
-                        //////// Impulse complete, check for more on this level - if last, set levelClear flag
-                        if (remainingImpulseThisLevel == 0)
+                        else if ((triggerAttempted) && (triggerFailed))
                         {
-                            levelClear = true;
-                            // Reset the failed trigger counter
-                            failedTriggercount = 0;
+                            //triggerFailed set by timeout timer
+
+                            // Increment a counter 
+                            failedTriggercount += 1;
+
+                            if (failedTriggercount >= 5)
+                            {
+                                // Notify of problem - Check Batteries?
+                                abortRegulation = true;
+                                AbortTest();
+                            }
+                            else
+                            {
+                                // Have another go
+                                triggerAttempted = false;
+                                triggerFailed = false;
+                            }
                         }
+                        else if (!dcStable)
+                        {
+
+                            runView.passFailLabel.Text = "STAB";
+                            runView.passFailLabel.Invalidate();
+
+                        }
+
+                       
                         
                     }
                     else if (levelClear)
                     {
-                        // Level finished, check for more - if none, set levelsFinished flag, if some, Remove top element
-                        if (impulseTargetVoltageList.Count > 1)
+                        // Level is clear, throw away the old target
+                        impulseTargetVoltageList.RemoveAt(0);
+
+                        // Check for more levels - if none, set levelsFinished flag, if some, Remove top element
+                        if (impulseTargetVoltageList.Count > 0)
                         {
+                            // Set the new target voltage - regulation should occur automatically as the voltage is now out of bounds
+                            impulseTargetVoltage = impulseTargetVoltageList[0];
+                            remainingImpulseThisLevel = impulsePerLevel;
+                            
+                            levelClear = false;
                             gapAcquired = false;
-                            impulseTargetVoltageList.RemoveAt(0);
+                            pauseRegulation = false;
                         }
                         else
+                        {
                             levelsFinished = true;
+                        }
+                            
                     }
                                         
                 }
                 else if(levelsFinished)
                 {
                     // No breakdown means we don't have high enough voltage capability to test the test object
+                    // or we did not select a high enough test voltage
                     if (!breakdownOccurred) PassImpTest();
                     else if (breakdownOccurred) FailImpTest();
+                    abortRegulation = true;
+                    pauseRegulation = false;
+                    parking = true;
+                    inBounds = false;
                 }
             }
             else if (!inBounds)
@@ -453,7 +536,7 @@ namespace HV9104_GUI
                 if (!parking)
                 {
                     // Levels not finished, do nothing but wait to get inBounds
-                    pauseRegulation = false;
+                    if(gapAcquired == true) pauseRegulation = false;
                 }
                 // Out of bounds, Levels finished
                 else if (parking)
@@ -462,6 +545,8 @@ namespace HV9104_GUI
                     if (!PIO1.minUPos)
                     {
                         // Wait
+                        // Park the transformer
+                        PIO1.ParkTransformer();
                     }
                     // Finished, Parking and reached zero
                     else if (PIO1.minUPos)
@@ -471,6 +556,74 @@ namespace HV9104_GUI
                     }
                 }
             }
+        }
+
+        private void UpdateImpulseChart()
+        {
+            // Add latest values to array every time we enter
+            xList.Add(sampleNumber);
+            yList.Add(actualTestVoltage);
+            sampleNumber += 1;
+            int incr = 0;
+
+            // Breakdown list is only added to after impulse
+            //breakdownListY.Add(breakdownOccurred);
+            //breakdownListX.Add(sampleNumber);
+
+            // Convert lists to arrays
+            xArray = xList.ToArray();
+            yArray = yList.ToArray();
+            xBreakdownArray = breakdownListX.ToArray();
+
+            autoTestChart.Series.SuspendUpdates();
+
+            // Clear the old chart points before writing
+            autoTestChart.Series["Series1"].Points.Clear();
+            autoTestChart.Series["Series2"].Points.Clear();
+
+            //There are two ways to add points 
+            //1) Add points one by one with the AddXY method 
+            for (int i = 0; i < xArray.Length - 1; i++)
+            {
+                runView.autoTestChart.Series["Series1"].Points.AddXY(xArray[i], yArray[i]);
+
+                
+            }
+
+            // For each result
+            for (incr = 0; incr < breakdownListResult.Count; incr++)
+            {
+                
+                if (breakdownListResult[incr] == true)
+                {
+                    // Breakdown
+                    runView.autoTestChart.Series["Series2"].Points.AddXY(xBreakdownArray[incr], breakdownListY[incr]);
+                    runView.autoTestChart.Series["Series2"].Points[incr].Color = Color.Red;
+
+                }
+                else
+                {
+                    // No breakdown
+                    runView.autoTestChart.Series["Series2"].Points.AddXY(xBreakdownArray[incr], breakdownListY[incr]);
+                    runView.autoTestChart.Series["Series2"].Points[incr].Color = Color.CornflowerBlue;
+
+                }
+               
+            }
+
+            //2) by using databind and adding all the point at once
+            //autoTestChart.Series.SuspendUpdates();
+            //autoTestChart.Series["Series1"].Points.DataBindXY(xArray, yArray);
+            //autoTestChart.Series["Series2"].Points.DataBindXY(xBreakdownArray, yArray);
+
+            //If you want 10Div * 10Div
+            autoTestChart.ChartAreas[0].AxisX.Maximum = (int)xArray.Max() + 2;
+            autoTestChart.ChartAreas[0].AxisY.Maximum = (int)yArray.Max() + 2;
+            autoTestChart.ChartAreas[0].AxisX.Minimum = 0;
+            autoTestChart.ChartAreas[0].AxisY.Minimum = 0;
+            autoTestChart.ChartAreas[0].AxisX.Interval = (int)(((xArray.Max() - xArray.Min()) / 10));
+            autoTestChart.ChartAreas[0].AxisY.Interval = (int)(((yArray.Max() - yArray.Min()) / 10));
+            autoTestChart.Series.ResumeUpdates();
         }
 
         private void CleanUpAfterImpTest()
@@ -520,6 +673,7 @@ namespace HV9104_GUI
         private void PassImpTest()
         {
             abortRegulation = true;
+            parking = true;
 
             // Present the status
             runView.passFailLabel.Text = "PASS";
@@ -639,7 +793,17 @@ namespace HV9104_GUI
 
                     // actualTestVoltage is set in the output values timer as dc * 0.92
                     // Get the latest target voltage
-                    targetVoltage = impulseTargetVoltageList[0];
+                    // Check we have something to regulate against
+                    if (impulseTargetVoltageList.Count >= 1)
+                    {
+                        targetVoltage = impulseTargetVoltageList[0];
+                    }
+                    else
+                    {
+                        abortRegulation = true;
+                        return;
+                    }
+                    
 
                     // Calculate the error
                     error = actualTestVoltage - targetVoltage;
@@ -720,42 +884,64 @@ namespace HV9104_GUI
 
         }
 
-
-
-
-
-
-
-
         // Look at the latest impulse curve values and determine if a breakdown has occurred
         private void AnalyzeImpulseCurve()
         {
-            
-            
+            double voltageDifference = 0;
+            double lastFivesamples = 0;
+
+            // Reset previous brakdow falg
+            breakdownOccurred = false;
+
             // values from measuringForm.chart: (we may need to wait here until they arrive)
             dataX = impulseData.x;
             dataY = impulseData.y;
 
-            
+            // Prevent false positives on first read
+            previousY = dataY[50];
 
-            //for (int i = 0; i < dataY.Length-1; i++)
-            //{
+            // Start at 50 and cycle the results
+            for (int i = 50; i < dataY.Length-1; i++)
+            {
 
-            //    // Calculate the rate of change for a block
+                for (int j = 5; j < 0; j--)
+                {
+                    lastFivesamples += dataY[j];
+                }
 
-               
+                voltageDifference = lastFivesamples/5;
 
-            //}
-            //impulsechart.Series["impulseSeries"].Points.DataBindXY(data.x, data.y);
+                // Calculate the rate of change for a block
+                if (voltageDifference >= 5000)
+                {
+                    breakdownOccurred = true;
+                }
+                dataY[i] = previousY;
+
+                // Break out of the breakdown attempt breakdown
+                if (breakdownOccurred) break;
+            }
         }
+
+
+
+
 
         private int CalculateDestination(double impulseTargetVoltageIn)
         {
             //nextGap = (0.0001 * Math.Pow(impulseTargetVoltageIn, 2)  ) + (0.1824 * impulseTargetVoltageIn) + 3.5905;
-            nextGap = (0.0005 * Math.Pow(impulseTargetVoltageIn, 2)) + (0.326 * impulseTargetVoltageIn) + 3.9868;
-            nextGap += 10;
+            //nextGap = (0.0005 * Math.Pow(impulseTargetVoltageIn, 2)) + (0.326 * impulseTargetVoltageIn) + 3.9868;
+
+            double referenceVoltage = (1.9825 * impulseTargetVoltageIn) + 0.2708;
+            nextGap = (0.0006 * Math.Pow(referenceVoltage, 2)) + (0.1899 * referenceVoltage) + 4.9348;
+            //nextGap += 10;
             return (int)nextGap;
         }
+
+
+
+
+
 
         // Trigger request property in order to fire event in Controller Class
         public bool TriggerRequest
@@ -966,6 +1152,8 @@ namespace HV9104_GUI
             aborting = true;
             abortRegulation = true;
 
+            Thread.Sleep(1000);
+
             // Drive the voltage down to zero
             PIO1.ParkTransformer();
 
@@ -1080,34 +1268,67 @@ namespace HV9104_GUI
                 // Impulse disruptive discharge: testVoltage = maxVoltage. Create array with levelsArray[levels] up to max.
                 // Check for stability at each level? *Do not stop regulation!   
 
+                runView.elapsedTimeTitleLabel.Text = "REMAINING";
+                runView.elapsedTimeTitleLabel.Invalidate();
+                runView.secondsUnitLabel.Text = "THIS LEVEL";
+                runView.secondsUnitLabel.Invalidate();
+                runView.resultTestVoltageLabel.Text = "NEXT TARGET";
+                runView.resultTestVoltageLabel.Invalidate();
+                
+
+
+                // Reset flags
+                parking = false;
+                flashoverDetected = false;
+                abortRegulation = false;
+                inBounds = false;
+                pauseRegulation = false;
+                aborting = false;
+                breakdownOccurred = false;
+                levelClear = false;
+                levelsFinished = false;
+                breakdownOccurred = false;
+                TriggerRequest = false;
+                triggerFailed = false;
+                triggerRequest = false;
+                
                 // Disable any unwanted timers
                 sampleTimer.Enabled = false;
 
                 // Get levels info
                 impulseLevels = (int)runView.impulseVoltageLevelsTextBox.Value;
-
+                
                 // Get impulses/level info
                 impulsePerLevel = (int)runView.impPerLevelTextBox.Value;
+                remainingImpulseThisLevel = impulsePerLevel;
 
-                // Get min/max levels
-                impulseLimitMax = runView.maxImpulseVoltageTextBox.Value;
-                impulseLimitMin = runView.minImpulseVoltageTextBox.Value;
+                // Get start voltage and step size
+                impulseStepsize = runView.impulseStepSizeTextBox.Value;
+                impulseStartVoltage = runView.impulseStartVoltageTextBox.Value;
 
                 // Create level list and fill it
-                impulseRange = impulseLimitMax - impulseLimitMin;
-                impulseVoltageStep = impulseRange / impulseLevels;
+                //impulseRange = impulseStepsize - impulseStartVoltage;
+                //impulseVoltageStep = impulseRange / impulseLevels;
                 impulseTargetVoltageList = new List<double>();
 
-                nextImpulseVoltage = impulseLimitMin;
+                nextImpulseVoltage = impulseStartVoltage;
 
-                while (nextImpulseVoltage <= impulseLimitMax)
+                for(int ind = 0; ind < impulseLevels; ind++)
                 {
                     impulseTargetVoltageList.Add(nextImpulseVoltage);
-                    nextImpulseVoltage += impulseVoltageStep;
+                    nextImpulseVoltage += impulseStepsize;
                 }
 
+                // Present impulses remaining
+                runView.elapsedTimeLabel.Text = remainingImpulseThisLevel.ToString();
+                runView.elapsedTimeLabel.Invalidate();
+
+                // Present target voltage
+                runView.resultTestVoltageValueLabel.Text = impulseTargetVoltageList[0].ToString();
+                runView.resultTestVoltageValueLabel.Invalidate();
+
                 // Run impulse disruptive routine
-                triggerTimeoutTimer.Enabled = true;
+                // triggerTimeoutTimer.Enabled = true;
                 impulseRoutineTimer.Enabled = true;
                 impulseRoutineTimer.Start();
 
@@ -1118,12 +1339,13 @@ namespace HV9104_GUI
 
                 // Connect the power
                 PIO1.closePrimary();
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
                 PIO1.closeSecondary();
 
                 // Start regulation routine but Pause regulation untill the Gap is found
-                GoToImpulseVoltageAuto();
                 pauseRegulation = true;
+                GoToImpulseVoltageAuto();
+                
             }
             else
             {
@@ -1132,6 +1354,14 @@ namespace HV9104_GUI
                 // AC Disruptive, DC Disruptive discharge: testVoltage = maxVoltage, duration = 1s, trafSpeed = slow(180). 
                 // Run up to testVoltage. Quit if flashover (inCurrent spikes).
                 // Note last voltage before flashover
+
+                runView.elapsedTimeTitleLabel.Text = "ELAPSED TIME";
+                runView.elapsedTimeTitleLabel.Invalidate();
+                runView.secondsUnitLabel.Text = "SECONDS";
+                runView.secondsUnitLabel.Invalidate();
+                runView.resultTestVoltageLabel.Text = "TEST VOLTAGE";
+                runView.secondsUnitLabel.Invalidate();
+
 
                 // Disable any unwanted timers
                 triggerTimeoutTimer.Enabled = false;
@@ -1175,12 +1405,6 @@ namespace HV9104_GUI
             return true;
 
         }
-
-        private void RunACDCDisruptive()
-        {
-            throw new NotImplementedException();
-        }
-
 
         // Automated voltage set routine
         public void GoToVoltageAuto()

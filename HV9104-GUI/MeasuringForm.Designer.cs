@@ -49,15 +49,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MeasuringForm));
             this.titleBarPanel = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
             this.minimizeButton = new HV9104_GUI.CustomButton();
             this.maximizeButton = new HV9104_GUI.CustomButton();
             this.restoreDownButton = new HV9104_GUI.CustomButton();
             this.closeButton = new HV9104_GUI.CustomButton();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.acChannelPanel = new HV9104_GUI.CustomPanel();
             this.label10 = new System.Windows.Forms.Label();
             this.acEnableCheckBox = new HV9104_GUI.CustomCheckBox();
@@ -69,29 +67,31 @@
             this.impulseChannelPanel = new HV9104_GUI.CustomPanel();
             this.impulsePreTriggerTextBox = new HV9104_GUI.CustomTextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.impulseEnableCheckBox = new HV9104_GUI.CustomCheckBox();
             this.impulseVoltageRangeComboBox = new HV9104_GUI.CustomComboBox();
             this.customPanel5 = new HV9104_GUI.CustomPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.triggerSetupButton = new HV9104_GUI.CustomButton();
             this.timeBaseComboBox = new HV9104_GUI.CustomComboBox();
             this.resolutionComboBox = new HV9104_GUI.CustomComboBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.acdcRadioButton = new HV9104_GUI.CustomRadioButton();
+            this.impulseRadioButton = new HV9104_GUI.CustomRadioButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.customPanel1 = new HV9104_GUI.CustomPanel();
             this.chart = new HV9104_GUI.CustomChart();
             this.customPanel2 = new HV9104_GUI.CustomPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.acTitleLabel = new System.Windows.Forms.Label();
-            this.acdcRadioButton = new HV9104_GUI.CustomRadioButton();
-            this.impulseRadioButton = new HV9104_GUI.CustomRadioButton();
+            this.label25 = new System.Windows.Forms.Label();
             this.titleBarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.acChannelPanel.SuspendLayout();
             this.dcChannelPanel.SuspendLayout();
             this.impulseChannelPanel.SuspendLayout();
             this.customPanel5.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.customPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.customPanel2.SuspendLayout();
@@ -120,44 +120,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(68, 56);
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
-            // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.panel6.Location = new System.Drawing.Point(1800, 10);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(2, 80);
-            this.panel6.TabIndex = 2;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.panel2.Location = new System.Drawing.Point(0, 98);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1920, 2);
-            this.panel2.TabIndex = 0;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.acChannelPanel);
-            this.flowLayoutPanel1.Controls.Add(this.dcChannelPanel);
-            this.flowLayoutPanel1.Controls.Add(this.impulseChannelPanel);
-            this.flowLayoutPanel1.Controls.Add(this.customPanel5);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(1601, 170);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(317, 786);
-            this.flowLayoutPanel1.TabIndex = 21;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.flowLayoutPanel1);
-            this.panel1.Controls.Add(this.customPanel1);
-            this.panel1.Controls.Add(this.customPanel2);
-            this.panel1.Location = new System.Drawing.Point(1, 101);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1918, 978);
-            this.panel1.TabIndex = 22;
             // 
             // minimizeButton
             // 
@@ -214,6 +176,33 @@
             this.closeButton.Size = new System.Drawing.Size(13, 13);
             this.closeButton.TabIndex = 4;
             this.toolTip1.SetToolTip(this.closeButton, "Close");
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.panel6.Location = new System.Drawing.Point(1800, 10);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(2, 80);
+            this.panel6.TabIndex = 2;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.panel2.Location = new System.Drawing.Point(0, 98);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1920, 2);
+            this.panel2.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.acChannelPanel);
+            this.flowLayoutPanel1.Controls.Add(this.dcChannelPanel);
+            this.flowLayoutPanel1.Controls.Add(this.impulseChannelPanel);
+            this.flowLayoutPanel1.Controls.Add(this.customPanel5);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(1601, 170);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(317, 786);
+            this.flowLayoutPanel1.TabIndex = 21;
             // 
             // acChannelPanel
             // 
@@ -347,16 +336,16 @@
             this.impulseChannelPanel.BackColor = System.Drawing.Color.Transparent;
             this.impulseChannelPanel.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.impulseChannelPanel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.impulseChannelPanel.Controls.Add(this.label25);
             this.impulseChannelPanel.Controls.Add(this.impulsePreTriggerTextBox);
             this.impulseChannelPanel.Controls.Add(this.label2);
-            this.impulseChannelPanel.Controls.Add(this.impulseEnableCheckBox);
             this.impulseChannelPanel.Controls.Add(this.impulseVoltageRangeComboBox);
             this.impulseChannelPanel.CornerRadius = 20;
             this.impulseChannelPanel.IsPopUp = false;
             this.impulseChannelPanel.Location = new System.Drawing.Point(3, 313);
             this.impulseChannelPanel.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.impulseChannelPanel.Name = "impulseChannelPanel";
-            this.impulseChannelPanel.Size = new System.Drawing.Size(302, 195);
+            this.impulseChannelPanel.Size = new System.Drawing.Size(302, 215);
             this.impulseChannelPanel.TabIndex = 20;
             this.impulseChannelPanel.Visible = false;
             // 
@@ -370,10 +359,10 @@
             this.impulsePreTriggerTextBox.CornerRadius = 25;
             this.impulsePreTriggerTextBox.Decimals = 0;
             this.impulsePreTriggerTextBox.IsPopUp = false;
-            this.impulsePreTriggerTextBox.Location = new System.Drawing.Point(69, 130);
-            this.impulsePreTriggerTextBox.Max = 100;
+            this.impulsePreTriggerTextBox.Location = new System.Drawing.Point(65, 146);
+            this.impulsePreTriggerTextBox.Max = 100D;
             this.impulsePreTriggerTextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impulsePreTriggerTextBox.Min = 0;
+            this.impulsePreTriggerTextBox.Min = 0D;
             this.impulsePreTriggerTextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulsePreTriggerTextBox.Name = "impulsePreTriggerTextBox";
             this.impulsePreTriggerTextBox.Size = new System.Drawing.Size(170, 50);
@@ -392,25 +381,10 @@
             this.label2.TabIndex = 17;
             this.label2.Text = "IMPULSE CHANNEL";
             // 
-            // impulseEnableCheckBox
-            // 
-            this.impulseEnableCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.impulseEnableCheckBox.BackgroundImage = global::HV9104_GUI.Properties.Resources.checkBox;
-            this.impulseEnableCheckBox.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxCheckedHover;
-            this.impulseEnableCheckBox.CheckedImage = global::HV9104_GUI.Properties.Resources.checkBoxChecked;
-            this.impulseEnableCheckBox.isChecked = false;
-            this.impulseEnableCheckBox.Location = new System.Drawing.Point(242, 62);
-            this.impulseEnableCheckBox.Name = "impulseEnableCheckBox";
-            this.impulseEnableCheckBox.Size = new System.Drawing.Size(48, 43);
-            this.impulseEnableCheckBox.TabIndex = 19;
-            this.impulseEnableCheckBox.Text = "customCheckBox1";
-            this.toolTip1.SetToolTip(this.impulseEnableCheckBox, "Enable impulse channel");
-            this.impulseEnableCheckBox.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.checkBoxHover;
-            // 
             // impulseVoltageRangeComboBox
             // 
             this.impulseVoltageRangeComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.impulseVoltageRangeComboBox.Location = new System.Drawing.Point(13, 51);
+            this.impulseVoltageRangeComboBox.Location = new System.Drawing.Point(46, 49);
             this.impulseVoltageRangeComboBox.MaximumSize = new System.Drawing.Size(400, 60);
             this.impulseVoltageRangeComboBox.MinimumSize = new System.Drawing.Size(145, 45);
             this.impulseVoltageRangeComboBox.Name = "impulseVoltageRangeComboBox";
@@ -439,7 +413,7 @@
             this.customPanel5.Controls.Add(this.resolutionComboBox);
             this.customPanel5.CornerRadius = 20;
             this.customPanel5.IsPopUp = false;
-            this.customPanel5.Location = new System.Drawing.Point(3, 521);
+            this.customPanel5.Location = new System.Drawing.Point(3, 541);
             this.customPanel5.Name = "customPanel5";
             this.customPanel5.Size = new System.Drawing.Size(302, 297);
             this.customPanel5.TabIndex = 20;
@@ -462,7 +436,7 @@
             this.triggerSetupButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.triggerSetupButton.ForeColor = System.Drawing.Color.White;
             this.triggerSetupButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.triggerSetupButton.Location = new System.Drawing.Point(66, 227);
+            this.triggerSetupButton.Location = new System.Drawing.Point(71, 227);
             this.triggerSetupButton.Name = "triggerSetupButton";
             this.triggerSetupButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
             this.triggerSetupButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -475,7 +449,7 @@
             // timeBaseComboBox
             // 
             this.timeBaseComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.timeBaseComboBox.Location = new System.Drawing.Point(35, 136);
+            this.timeBaseComboBox.Location = new System.Drawing.Point(46, 136);
             this.timeBaseComboBox.MaximumSize = new System.Drawing.Size(400, 60);
             this.timeBaseComboBox.MinimumSize = new System.Drawing.Size(145, 45);
             this.timeBaseComboBox.Name = "timeBaseComboBox";
@@ -492,7 +466,7 @@
             // resolutionComboBox
             // 
             this.resolutionComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.resolutionComboBox.Location = new System.Drawing.Point(35, 53);
+            this.resolutionComboBox.Location = new System.Drawing.Point(46, 53);
             this.resolutionComboBox.MaximumSize = new System.Drawing.Size(400, 60);
             this.resolutionComboBox.MinimumSize = new System.Drawing.Size(145, 45);
             this.resolutionComboBox.Name = "resolutionComboBox";
@@ -504,6 +478,47 @@
             this.resolutionComboBox.TabIndex = 18;
             this.resolutionComboBox.Text = "z";
             this.resolutionComboBox.TextBoxHint = "";
+            // 
+            // acdcRadioButton
+            // 
+            this.acdcRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.acdcRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.acdcRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.acdcRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.acdcRadioButton.isChecked = true;
+            this.acdcRadioButton.Location = new System.Drawing.Point(60, 79);
+            this.acdcRadioButton.Name = "acdcRadioButton";
+            this.acdcRadioButton.Size = new System.Drawing.Size(47, 47);
+            this.acdcRadioButton.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.acdcRadioButton, "Use ac and dc channels as input");
+            this.acdcRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
+            this.acdcRadioButton.Click += new System.EventHandler(this.acdcRadioButton_Click);
+            // 
+            // impulseRadioButton
+            // 
+            this.impulseRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.impulseRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.impulseRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.impulseRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.impulseRadioButton.isChecked = false;
+            this.impulseRadioButton.Location = new System.Drawing.Point(175, 79);
+            this.impulseRadioButton.Name = "impulseRadioButton";
+            this.impulseRadioButton.Size = new System.Drawing.Size(47, 47);
+            this.impulseRadioButton.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.impulseRadioButton, "Use impulse channel as input");
+            this.impulseRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
+            this.impulseRadioButton.Click += new System.EventHandler(this.impulseRadioButton_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.flowLayoutPanel1);
+            this.panel1.Controls.Add(this.customPanel1);
+            this.panel1.Controls.Add(this.customPanel2);
+            this.panel1.Location = new System.Drawing.Point(1, 101);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1918, 978);
+            this.panel1.TabIndex = 22;
             // 
             // customPanel1
             // 
@@ -656,35 +671,16 @@
             this.acTitleLabel.TabIndex = 17;
             this.acTitleLabel.Text = "INPUT";
             // 
-            // acdcRadioButton
+            // label25
             // 
-            this.acdcRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.acdcRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.acdcRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.acdcRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.acdcRadioButton.isChecked = true;
-            this.acdcRadioButton.Location = new System.Drawing.Point(60, 79);
-            this.acdcRadioButton.Name = "acdcRadioButton";
-            this.acdcRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.acdcRadioButton.TabIndex = 15;
-            this.toolTip1.SetToolTip(this.acdcRadioButton, "Use ac and dc channels as input");
-            this.acdcRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            this.acdcRadioButton.Click += new System.EventHandler(this.acdcRadioButton_Click);
-            // 
-            // impulseRadioButton
-            // 
-            this.impulseRadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.impulseRadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.impulseRadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.impulseRadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.impulseRadioButton.isChecked = false;
-            this.impulseRadioButton.Location = new System.Drawing.Point(175, 79);
-            this.impulseRadioButton.Name = "impulseRadioButton";
-            this.impulseRadioButton.Size = new System.Drawing.Size(47, 47);
-            this.impulseRadioButton.TabIndex = 16;
-            this.toolTip1.SetToolTip(this.impulseRadioButton, "Use impulse channel as input");
-            this.impulseRadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
-            this.impulseRadioButton.Click += new System.EventHandler(this.impulseRadioButton_Click);
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label25.Location = new System.Drawing.Point(70, 128);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(161, 15);
+            this.label25.TabIndex = 21;
+            this.label25.Text = "PRE-TRIGGER TIME DELAY (%)";
             // 
             // MeasuringForm
             // 
@@ -703,7 +699,6 @@
             this.titleBarPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.acChannelPanel.ResumeLayout(false);
             this.acChannelPanel.PerformLayout();
             this.dcChannelPanel.ResumeLayout(false);
@@ -712,6 +707,7 @@
             this.impulseChannelPanel.PerformLayout();
             this.customPanel5.ResumeLayout(false);
             this.customPanel5.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.customPanel1.ResumeLayout(false);
             this.customPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
@@ -754,11 +750,11 @@
         public CustomComboBox dcVoltageRangeComboBox;
         public CustomPanel impulseChannelPanel;
         public System.Windows.Forms.Label label2;
-        public CustomCheckBox impulseEnableCheckBox;
         public CustomComboBox impulseVoltageRangeComboBox;
         public System.Windows.Forms.ToolTip toolTip1;
         public CustomChart chart;
         private System.Windows.Forms.Panel panel1;
         public CustomTextBox impulsePreTriggerTextBox;
+        public System.Windows.Forms.Label label25;
     }
 }
