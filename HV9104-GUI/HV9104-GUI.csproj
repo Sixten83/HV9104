@@ -437,6 +437,7 @@
     <Content Include="Resources\3-stageAC.png" />
     <Content Include="Resources\3-stageDC.png" />
     <Content Include="Resources\3-stageImp.png" />
+    <None Include="Resources\tercologoTransp.png" />
     <None Include="Resources\panelArrowHover1.png" />
     <None Include="Resources\panelArrowUnpressed2.png" />
     <None Include="Resources\panelArrowUnpressed1.png" />

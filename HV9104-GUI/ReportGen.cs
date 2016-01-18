@@ -69,7 +69,7 @@ namespace HV9104_GUI
 
                 //HEADER IMAGE
                 //C:\Users\Terco\Source\Repos\HV9104\HV9104-GUI\bin\Debug\Resources\tercoLogo.png
-                iTextSharp.text.Image gif = iTextSharp.text.Image.GetInstance(@"C:\Users\Terco\Source\Repos\HV9104\HV9104-GUI\Resources\SplashlogoCropped.JPG");   //HEADER LOGO imagepath + "/tercoLogo.png"
+                iTextSharp.text.Image gif = iTextSharp.text.Image.GetInstance(@"C:\Users\Terco\Source\Repos\HV9104\HV9104-GUI\Resources\tercologoTransp.JPG");   //HEADER LOGO imagepath + "/tercoLogo.png"
                 gif.ScalePercent(7.5f);
                 gif.SetAbsolutePosition(36f, doc.PageSize.Height - 46f);
                 doc.Add(gif);

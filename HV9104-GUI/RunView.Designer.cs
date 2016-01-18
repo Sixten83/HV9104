@@ -969,7 +969,7 @@
             // 
             // dynamicLogoPictureBox
             // 
-            this.dynamicLogoPictureBox.Image = global::HV9104_GUI.Properties.Resources.SplashlogoCropped;
+            this.dynamicLogoPictureBox.Image = global::HV9104_GUI.Properties.Resources.tercologoTransp;
             this.dynamicLogoPictureBox.Location = new System.Drawing.Point(252, 50);
             this.dynamicLogoPictureBox.Name = "dynamicLogoPictureBox";
             this.dynamicLogoPictureBox.Size = new System.Drawing.Size(377, 295);
