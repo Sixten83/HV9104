@@ -136,22 +136,12 @@ namespace HV9104_GUI
 
         private void acdcRadioButton_Click(object sender, EventArgs e)
         {
-            if(acdcRadioButton.isChecked)
-            {
-                acChannelPanel.Visible = true;
-                dcChannelPanel.Visible = true;
-                impulseChannelPanel.Visible = false;
-            }
+            
         }
 
         private void impulseRadioButton_Click(object sender, EventArgs e)
         {
-            if (impulseRadioButton.isChecked)
-            {
-                acChannelPanel.Visible = false;
-                dcChannelPanel.Visible = false;
-                impulseChannelPanel.Visible = true;
-            }
+            
         }
 
         private void triggerSetupButton_Click(object sender, EventArgs e)

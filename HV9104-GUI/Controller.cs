@@ -638,7 +638,7 @@ namespace HV9104_GUI
                 else if ((PIO1.regulatedVoltageValue >= 80) && (PIO1.regulatedVoltageValue < 180)) SetImpulseChartVoltageRange(4);
                 else if ((PIO1.regulatedVoltageValue >= 25) && (PIO1.regulatedVoltageValue < 80)) SetImpulseChartVoltageRange(5);
 
-                ImpulseDisplaySelected(0.5, 6502.4, 0.5, 4, "20 us/Div");
+                
 
                 // Shoot
                 TriggerImpulse();
@@ -796,11 +796,39 @@ namespace HV9104_GUI
         //***********************************************************************************************************
         private void acdcRadioButton_Click(object sender, EventArgs e)
         {
+            if (this.measuringForm.acdcRadioButton.isChecked)
+            {
+                // Set the parameters
+                acdcDisplaySelected(0.5, 6502.4, 0.5, 4, "20 us/Div");
+            }
+        }
+
+        private void impulseRadioButton_Click(object sender, EventArgs e)
+        {
+            
+            if (this.measuringForm.impulseRadioButton.isChecked)
+            {
+                // Set the parameters
+                ImpulseDisplaySelected(0.5, 6502.4, 0.5, 4, "20 us/Div");
+            }
+           
+        }
+
+        // AC/DC selected to display in chart
+        public void acdcDisplaySelected(double timePerDivisionIn, double setVoltsPerDivIn, double setTimePerDivIn, int incrementIndex, string timeBaseIn)
+        {
+            this.measuringForm.acdcRadioButton.isChecked = true;
+            this.measuringForm.impulseRadioButton.isChecked = false;
+            measuringForm.impulseRadioButton.Invalidate();
+            measuringForm.acdcRadioButton.Invalidate();
             picoScope.TimePerDivision = 5;
             this.measuringForm.chart.setVoltsPerDiv(6502.4);
             this.measuringForm.chart.setTimePerDiv(5);
             acChannel.IncrementIndex = 1;
-            dcChannel.IncrementIndex = 1;  
+            dcChannel.IncrementIndex = 1;
+            this.measuringForm.acChannelPanel.Visible = true;
+            this.measuringForm.dcChannelPanel.Visible = true;
+            this.measuringForm.impulseChannelPanel.Visible = false;            
             this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
             this.measuringForm.chart.cursorMenu.acChannelRadioButton.isChecked = true;
             this.measuringForm.chart.cursorMenu.dcChannelRadioButton.isChecked = false;
@@ -814,22 +842,20 @@ namespace HV9104_GUI
             this.measuringForm.timeBaseComboBox.SetSelected = "5 ms/Div";
         }
 
-        private void impulseRadioButton_Click(object sender, EventArgs e)
-        {
-            // Set the parameters
-            ImpulseDisplaySelected(0.5, 6502.4, 0.5, 4, "20 us/Div");
-        }   
-    
         // Impulse selected to display in chart
         public void ImpulseDisplaySelected(double timePerDivisionIn, double setVoltsPerDivIn, double setTimePerDivIn, int incrementIndex, string timeBaseIn)
         {
             // We dont always select impulse by clicking the radiobutton, show it as selected.
-            measuringForm.impulseRadioButton.isChecked = true;
+            this.measuringForm.acdcRadioButton.isChecked = false;
+            this.measuringForm.impulseRadioButton.isChecked = true;
             measuringForm.impulseRadioButton.Invalidate();
-
+            measuringForm.acdcRadioButton.Invalidate();
+            this.measuringForm.acChannelPanel.Visible = false;
+            this.measuringForm.dcChannelPanel.Visible = false;
+            this.measuringForm.impulseChannelPanel.Visible = true;
             streamMode = false;
             picoScope.setFastStreamDataBuffer();
-            picoScope.TimePerDivision = timePerDivisionIn;
+            picoScope.TimePerDivision = timePerDivisionIn;            
             this.measuringForm.chart.setVoltsPerDiv(setVoltsPerDivIn);
             this.measuringForm.chart.setTimePerDiv(setTimePerDivIn);
             impulseChannel.IncrementIndex = incrementIndex;  
@@ -1651,6 +1677,12 @@ namespace HV9104_GUI
             UpdateRnTestVoltageMax();
             GetTestType();
             UpdateResultLabels();
+            if(e.Text == "Imp")
+            {
+                ImpulseDisplaySelected(0.5, 6502.4, 0.5, 4, "20 us/Div");
+            }
+            else
+                acdcDisplaySelected(0.5, 6502.4, 0.5, 4, "20 us/Div");
         }
 
         private void impulseOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)

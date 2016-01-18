@@ -621,8 +621,11 @@ namespace HV9104_GUI
             for (incr = 0; incr < xBreakdownArray.Length; incr++)
             {
                 if (breakdownListResult[incr] == true)
-                    autoTestChart.Series["Series2"].Points[incr].Color = Color.Red;
+                    autoTestChart.Series["Series2"].Points[incr].MarkerColor = Color.Red;
+                else
+                    autoTestChart.Series["Series2"].Points[incr].MarkerColor = Color.SteelBlue;
             }
+            
 
             //If you want 10Div * 10Div
             autoTestChart.ChartAreas[0].AxisX.Maximum = (int)xArray.Max() + 2;
@@ -925,7 +928,7 @@ namespace HV9104_GUI
                 if (voltageDifference < vdMax) vdMax = voltageDifference;
                 
                 // Calculate the rate of change for a block
-                if (vdMax <= -5000)
+                if (vdMax <= -4000)
                 {
                     breakdownOccurred = true;
                 }
