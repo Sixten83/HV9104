@@ -2117,19 +2117,31 @@ namespace HV9104_GUI
         private void UpdateResultLabels()
         {
 
-            if (autoTest.testIsWithstand)
+            if ((autoTest.testIsWithstand) && (controlForm.runView.voltageComboBox.SetSelected != "Imp"))
             {
                 controlForm.runView.resultTestVoltageLabel.Text = "TEST VOLTAGE";
                 controlForm.runView.elapsedTimeTitleLabel.Text = "ELAPSED TIME";
                 controlForm.runView.hvUnitLabel.Text = "kV" + selectedVoltage + selectedMeasType;
+                controlForm.runView.secondsUnitLabel.Text = "SECONDS";
+
             }
-            else
+            else if ((!autoTest.testIsWithstand) && (controlForm.runView.voltageComboBox.SetSelected != "Imp"))
             {
                 controlForm.runView.resultTestVoltageLabel.Text = "INCEPTION";
                 controlForm.runView.elapsedTimeTitleLabel.Text = "SAMPLE TIME";
                 controlForm.runView.hvUnitLabel.Text = "kV" + selectedVoltage + selectedMeasType;
+                controlForm.runView.secondsUnitLabel.Text = "SECONDS";
+            }
+            else if (controlForm.runView.voltageComboBox.SetSelected == "Imp")
+            {
+                controlForm.runView.resultTestVoltageLabel.Text = "NEXT TARGET";
+                controlForm.runView.elapsedTimeTitleLabel.Text = "REMAINING";
+                controlForm.runView.hvUnitLabel.Text = "kV" + selectedVoltage + selectedMeasType;
+                controlForm.runView.secondsUnitLabel.Text = "THIS LEVEL";
             }
 
+            controlForm.runView.resultTestVoltageLabel.Invalidate();
+            controlForm.runView.elapsedTimeTitleLabel.Invalidate();
             controlForm.runView.elapsedTimeTitleLabel.Invalidate();
             controlForm.runView.secondsUnitLabel.Invalidate();
         }

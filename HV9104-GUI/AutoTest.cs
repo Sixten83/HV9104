@@ -168,7 +168,9 @@ namespace HV9104_GUI
         private int moveTimeOutCounter;
         private double[] yBreakdownArray;
         private double[] xBreakdownArray;
-     
+        private double vdMax;
+        private double diff;
+
 
 
 
@@ -435,6 +437,7 @@ namespace HV9104_GUI
                                 runView.passFailLabel.Invalidate();
 
                                 // Analyse graph for breakdown - if so, Set breakdownOccurred = true;
+                                //Thread.Sleep(500);
                                 AnalyzeImpulseCurve();
 
                                 // Update bool breakdownList = breakdownOccurred 
@@ -574,55 +577,62 @@ namespace HV9104_GUI
             xArray = xList.ToArray();
             yArray = yList.ToArray();
             xBreakdownArray = breakdownListX.ToArray();
+            yBreakdownArray = breakdownListY.ToArray();
 
             autoTestChart.Series.SuspendUpdates();
 
             // Clear the old chart points before writing
             autoTestChart.Series["Series1"].Points.Clear();
             autoTestChart.Series["Series2"].Points.Clear();
+            //autoTestChart.Series["Series3"].Points.Clear();
 
             //There are two ways to add points 
             //1) Add points one by one with the AddXY method 
-            for (int i = 0; i < xArray.Length - 1; i++)
-            {
-                runView.autoTestChart.Series["Series1"].Points.AddXY(xArray[i], yArray[i]);
-
-                
-            }
+            //for (int i = 0; i < xArray.Length - 1; i++)
+            //{
+            //    runView.autoTestChart.Series["Series1"].Points.AddXY(xArray[i], yArray[i]);  
+            //}
 
             // For each result
-            for (incr = 0; incr < breakdownListResult.Count; incr++)
-            {
+            //for (incr = 0; incr < breakdownListResult.Count; incr++)
+            //{
                 
-                if (breakdownListResult[incr] == true)
-                {
-                    // Breakdown
-                    runView.autoTestChart.Series["Series2"].Points.AddXY(xBreakdownArray[incr], breakdownListY[incr]);
-                    runView.autoTestChart.Series["Series2"].Points[incr].Color = Color.Red;
+            //    if (breakdownListResult[incr] == true)
+            //    {
+            //        // Breakdown
+            //        runView.autoTestChart.Series["Series2"].Points.AddXY(xBreakdownArray[incr], breakdownListY[incr]);
+            //        runView.autoTestChart.Series["Series2"].Points[incr].Color = Color.Red;
+            //    }
+            //    else
+            //    {
+            //        // No breakdown
+            //        runView.autoTestChart.Series["Series2"].Points.AddXY(xBreakdownArray[incr], breakdownListY[incr]);
+            //        runView.autoTestChart.Series["Series2"].Points[incr].Color = Color.CornflowerBlue;
 
-                }
-                else
-                {
-                    // No breakdown
-                    runView.autoTestChart.Series["Series2"].Points.AddXY(xBreakdownArray[incr], breakdownListY[incr]);
-                    runView.autoTestChart.Series["Series2"].Points[incr].Color = Color.CornflowerBlue;
-
-                }
+            //    }
                
-            }
+            //}
 
             //2) by using databind and adding all the point at once
             //autoTestChart.Series.SuspendUpdates();
-            //autoTestChart.Series["Series1"].Points.DataBindXY(xArray, yArray);
-            //autoTestChart.Series["Series2"].Points.DataBindXY(xBreakdownArray, yArray);
+            autoTestChart.Series["Series1"].Points.DataBindXY(xArray, yArray);
+            autoTestChart.Series["Series2"].Points.DataBindXY(xBreakdownArray, yBreakdownArray);
+
+            for (incr = 0; incr < xBreakdownArray.Length; incr++)
+            {
+                if (breakdownListResult[incr] == true)
+                    autoTestChart.Series["Series2"].Points[incr].Color = Color.Red;
+            }
 
             //If you want 10Div * 10Div
             autoTestChart.ChartAreas[0].AxisX.Maximum = (int)xArray.Max() + 2;
             autoTestChart.ChartAreas[0].AxisY.Maximum = (int)yArray.Max() + 2;
             autoTestChart.ChartAreas[0].AxisX.Minimum = 0;
             autoTestChart.ChartAreas[0].AxisY.Minimum = 0;
-            autoTestChart.ChartAreas[0].AxisX.Interval = (int)(((xArray.Max() - xArray.Min()) / 10));
-            autoTestChart.ChartAreas[0].AxisY.Interval = (int)(((yArray.Max() - yArray.Min()) / 10));
+            autoTestChart.ChartAreas[0].AxisX.Interval = (int)(xArray.Max() / 10) + 2;
+            autoTestChart.ChartAreas[0].AxisY.Interval = (int)(yArray.Max() / 10 + 2);
+            //autoTestChart.ChartAreas[0].AxisX.Interval = (int)(((xArray.Max() - xArray.Min()) / 10));
+            //autoTestChart.ChartAreas[0].AxisY.Interval = (int)(((yArray.Max() - yArray.Min()) / 10));
             autoTestChart.Series.ResumeUpdates();
         }
 
@@ -889,34 +899,39 @@ namespace HV9104_GUI
         {
             double voltageDifference = 0;
             double lastFivesamples = 0;
+            vdMax = 0;
 
             // Reset previous brakdow falg
             breakdownOccurred = false;
 
+            //Thread.Sleep(1000);
             // values from measuringForm.chart: (we may need to wait here until they arrive)
             dataX = impulseData.x;
             dataY = impulseData.y;
 
             // Prevent false positives on first read
-            previousY = dataY[50];
+            //previousY = dataY[50];
 
             // Start at 50 and cycle the results
             for (int i = 50; i < dataY.Length-1; i++)
             {
 
-                for (int j = 5; j < 0; j--)
+                for (int j = 6; j > 1; j--)
                 {
-                    lastFivesamples += dataY[j];
+                    diff =  dataY[i - (j-1)] - dataY[i - j];
+                    voltageDifference += diff;
                 }
 
-                voltageDifference = lastFivesamples/5;
-
+                if (voltageDifference < vdMax) vdMax = voltageDifference;
+                
                 // Calculate the rate of change for a block
-                if (voltageDifference >= 5000)
+                if (vdMax <= -5000)
                 {
                     breakdownOccurred = true;
                 }
-                dataY[i] = previousY;
+                 //previousY = dataY[i];
+
+                lastFivesamples = 0;
 
                 // Break out of the breakdown attempt breakdown
                 if (breakdownOccurred) break;
@@ -1333,6 +1348,9 @@ namespace HV9104_GUI
                 impulseRoutineTimer.Start();
 
                 // Clear the arraylists and reset the sample counter
+                breakdownListResult.Clear();
+                breakdownListX.Clear();
+                breakdownListY.Clear();
                 xList.Clear();
                 yList.Clear();
                 sampleNumber = 0;
