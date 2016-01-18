@@ -128,6 +128,7 @@ namespace HV9104_GUI
         // sets the mouse capture automatically. 
         protected override void OnMouseDown(MouseEventArgs e)
         {
+            this.Focus();
             showDropDownlist();
             base.OnMouseDown(e);
         }
@@ -136,7 +137,7 @@ namespace HV9104_GUI
 
         private void _OnMouseDown(object sender, MouseEventArgs e)
         {
-
+            this.Focus();
             showDropDownlist();
             base.OnMouseDown(e);
         }

@@ -129,7 +129,7 @@ namespace HV9104_GUI
                       radiButton.Invalidate();               
                   }                  
               }
-
+              this.Focus();
               this.check = true;
               this.Invalidate();
               base.OnMouseDown(e);

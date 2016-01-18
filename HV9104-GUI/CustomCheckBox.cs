@@ -123,6 +123,7 @@ namespace HV9104_GUI
             else
                 this.check = true;
             this.Invalidate();
+            this.Focus();
             base.OnMouseDown(e);
 
         }

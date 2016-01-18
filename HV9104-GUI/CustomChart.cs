@@ -183,10 +183,12 @@ namespace HV9104_GUI
 
         private void chart_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-          
-            if (x1InPos || x2InPos || y1InPos || y2InPos)
-                pressed = true;
 
+            if (x1InPos || x2InPos || y1InPos || y2InPos)
+            {
+                pressed = true;
+                this.Focus();
+            }
             if (pressed && !cursorMenuDisplayed)
             {
                 Point startPoint = this.PointToScreen(new Point());

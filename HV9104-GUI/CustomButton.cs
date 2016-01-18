@@ -104,6 +104,7 @@ namespace HV9104_GUI
         protected override void OnMouseDown(MouseEventArgs e)
         {
             this.pressed = true;
+            this.Focus();
             this.Invalidate();
             base.OnMouseDown(e);
         }

@@ -26,6 +26,7 @@ namespace HV9104_GUI
             InitializeComponent();
             toolTip = new ToolTip();
             this.SizeChanged += new System.EventHandler(textBox_SizeChanged);
+            this.inputBox.LostFocus += new System.EventHandler(this.lostFocus);
         }
 
         private void textBox_SizeChanged(object sender, EventArgs e)
@@ -34,6 +35,29 @@ namespace HV9104_GUI
             inputBox.Location = new System.Drawing.Point((int)(CornerRadius * 1.5F), (this.Height - 30) / 2);
             this.maxValueBox.Location = new System.Drawing.Point((int)(this.Width - maxValueBox.Width - cornerRadius / 2), (this.Height - 11) / 2);
 
+        }
+
+        private void lostFocus(object sender, EventArgs e)
+        {
+          
+            if (inputBox.Text.Length != 0)
+            {
+
+                inputBox.Text = inputBox.Text.Replace('.', ',');
+
+                float textValue = Single.Parse(inputBox.Text);
+                if (textValue >= min && textValue <= max)
+                {
+                    value = textValue;
+                    reportValueChange(inputBox.Text, (double)value);
+                    inputBox.Text = inputBox.Text.Replace(',', '.');
+
+                    this.FindForm().ActiveControl = null;
+                }
+                else
+                    inputBox.Text = "" + value.ToString().Replace(',', '.');
+                inputBox.SelectionStart = inputBox.Text.Length;
+            }
         }
 
         public bool AllowDecimals
@@ -216,7 +240,7 @@ namespace HV9104_GUI
                     if (inputBox.Text.Length != 0)
                     {
 
-                        inputBox.Text = inputBox.Text.Replace(',', '.');
+                        inputBox.Text = inputBox.Text.Replace('.', ',');
                       
                         float textValue = Single.Parse(inputBox.Text);
                         if (textValue >= min && textValue <= max)
@@ -247,8 +271,7 @@ namespace HV9104_GUI
                 {
                     if (e.KeyChar == '\r')
                     {
-                        reportValueChange(inputBox.Text, (double)value);
-                        Console.WriteLine(inputBox.Text);
+                        reportValueChange(inputBox.Text, (double)value);                      
                         this.FindForm().ActiveControl = null;
                     }
                 }

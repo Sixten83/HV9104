@@ -143,6 +143,7 @@ namespace HV9104_GUI
         private void trackBar_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             int mousePos = x * e.X + y * e.Y;
+            this.Focus();
             if (mousePos >= start && mousePos <= end)
             {
                 pictureBox.Location = new Point(x * (mousePos - buttonRadius), y * (mousePos - buttonRadius));
@@ -175,6 +176,7 @@ namespace HV9104_GUI
         private void pictureBox_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             pressed = true;
+            this.Focus();
             if (pressedImage != null)
                 pictureBox.BackgroundImage = pressedImage[y];
         }

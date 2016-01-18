@@ -86,7 +86,7 @@ namespace HV9104_GUI
                     tab.Invalidate();
                 }
             }
-
+            this.Focus();
             this.selected = true;
             this.Invalidate();
             this.Parent.Invalidate();
