@@ -23,7 +23,7 @@ namespace HV9104_GUI
         {
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(209, 287);
+            
             StartPosition = FormStartPosition.Manual;
             ControlBox = false;
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

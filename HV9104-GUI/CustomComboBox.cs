@@ -177,6 +177,7 @@ namespace HV9104_GUI
             selectedMember.ForeColor = focusColor;
             Point startPoint = this.PointToScreen(new Point());
             CustomDropDownList list = new CustomDropDownList();
+            list.ClientSize = new System.Drawing.Size(this.Width, 287);
             list.Location = new Point(startPoint.X, startPoint.Y + this.Height);
             list.LostFocus += new System.EventHandler(this.lostFocus);
             list.addListMembers(listMembers);
