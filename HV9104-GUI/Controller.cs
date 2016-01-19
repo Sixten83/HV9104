@@ -845,6 +845,7 @@ namespace HV9104_GUI
         // Impulse selected to display in chart
         public void ImpulseDisplaySelected(double timePerDivisionIn, double setVoltsPerDivIn, double setTimePerDivIn, int incrementIndex, string timeBaseIn)
         {
+            
             // We dont always select impulse by clicking the radiobutton, show it as selected.
             this.measuringForm.acdcRadioButton.isChecked = false;
             this.measuringForm.impulseRadioButton.isChecked = true;
@@ -876,9 +877,8 @@ namespace HV9104_GUI
         "10 us/Div",
         "20 us/Div"};
             this.measuringForm.timeBaseComboBox.SetSelected = timeBaseIn;
+            
         }
-
-
 
         private void acVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
@@ -1673,6 +1673,7 @@ namespace HV9104_GUI
         // Voltage type has been changed in auto test page
         private void autoTestVoltageComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
+
             // Set the test notification text
             UpdateRnTestVoltageMax();
             GetTestType();
@@ -1815,7 +1816,6 @@ namespace HV9104_GUI
             impulseChannel.DividerRatio = (double)(impulseAttenuatorRatio * (highDivider + impulseLowDividerValues[2]) / highDivider) / 1000;
         }
 
-
         private void disableForControls()
         {
 
@@ -1829,10 +1829,6 @@ namespace HV9104_GUI
             GetTestType();
             UpdateResultLabels();
         }
-
-
-
-        
 
         private void testDisruptiveRadioButton_Click(object sender, EventArgs e)
         {
