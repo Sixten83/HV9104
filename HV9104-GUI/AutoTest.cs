@@ -154,7 +154,7 @@ namespace HV9104_GUI
        
         private bool pauseRegulation;
         private double lastTestVoltageMax = 0;
-        private bool acquiringGap;
+        private bool distAcquired;
         private bool gapAcquired;
         private double targetGap;
         private int destination;
@@ -170,6 +170,14 @@ namespace HV9104_GUI
         private double[] xBreakdownArray;
         private double vdMax;
         private double diff;
+        private string irState;
+        private bool acquiringGap;
+        private DateTime triggerTimeoutWatch;
+        private TimeSpan triggerTimeoutSpan;
+        private DateTime parkingTimeoutWatch;
+        private TimeSpan parkingTimeoutSpan;
+        private int gapStartParkPos;
+        List<double> actualImpulseList = new List<double>();
 
 
 
@@ -202,13 +210,13 @@ namespace HV9104_GUI
             // Timer to update the chart and hold the testVoltage in bounds during impulse tests
             impulseRoutineTimer = new Timer();
             impulseRoutineTimer.Tick += new EventHandler(this.impulseRoutineTimer_Tick);
-            impulseRoutineTimer.Interval = 800;
+            impulseRoutineTimer.Interval = 100;
             //impulseRoutineTimer.Enabled = true;
 
             // Timer to timeout a trigger attempt
             triggerTimeoutTimer = new Timer();
             triggerTimeoutTimer.Tick += new EventHandler(this.triggerTimeoutTimer_Tick);
-            triggerTimeoutTimer.Interval = 5000;
+            triggerTimeoutTimer.Interval = 300;
             //triggerTimeoutTimer.Enabled = true;
 
             // Update the chart, but only if we are connected
@@ -223,13 +231,13 @@ namespace HV9104_GUI
         // Impulse has been triggered, but no response after 2 seconds
         private void triggerTimeoutTimer_Tick(object sender, EventArgs e)
         {
-            //Stop me
-            triggerTimeoutTimer.Enabled = false;
-            triggerTimeoutTimer.Stop();
+            ////Stop me
+            //triggerTimeoutTimer.Enabled = false;
+            //triggerTimeoutTimer.Stop();
 
-            // Set flag to indicate failure to overseeing routine
-            triggerFailed = true;
-
+            //// Set flag to indicate failure to overseeing routine
+            //triggerFailed = true;
+            //UpdateImpulseChart();
         }
 
         // Refresh the voltage output values (every 10ms)
@@ -242,11 +250,12 @@ namespace HV9104_GUI
             runView.dcValueLabel.Text = actualDCVoltage.ToString("0.0");
             actualImpulseVoltage = impChannel.getRepresentation();
             runView.impulseValueLabel.Text = actualImpulseVoltage.ToString("0.0");
-           
-            // Set the regulation value
+  
+            // Set the regulation value (AC or DC only)
             if (runView.voltageComboBox.SetSelected == "AC") actualTestVoltage = Convert.ToDouble(runView.acValueLabel.Text);
-            else if (runView.voltageComboBox.SetSelected == "DC") actualTestVoltage = Convert.ToDouble(runView.dcValueLabel.Text);
-            else if (runView.voltageComboBox.SetSelected == "Imp") actualTestVoltage = Convert.ToDouble(runView.dcValueLabel.Text)*0.93;
+            else actualTestVoltage = Convert.ToDouble(runView.dcValueLabel.Text);
+            //else if (runView.voltageComboBox.SetSelected == "DC") 
+            //else if (runView.voltageComboBox.SetSelected == "Imp") actualTestVoltage = Convert.ToDouble(runView.impulseValueLabel.Text);
 
             // Update the max value if Disruptive Discharge test
             if (!testIsWithstand)
@@ -305,278 +314,672 @@ namespace HV9104_GUI
         private void impulseRoutineTimer_Tick(object sender, EventArgs e)
         {
 
-            // Abort button has been clicked. VOID label and aborting flag was set in AbortTest()
-            if ((aborting) && (!PIO1.minUPos))
+            if (irState == "Init")
             {
-                // Stop regulation the transformer
-                abortRegulation = true;
+                // Prepare all variables for a fresh start
+                // Wait here untill the start button is pressed
+                // Reset flags
 
-                // Do not continue in this method
-                return;
+                // Disable any unwanted AC/DC test timers
+                sampleTimer.Enabled = false;
+
+                // Get levels info
+                impulseLevels = (int)runView.impulseVoltageLevelsTextBox.Value;
+
+                // Get impulses/level info
+                impulsePerLevel = (int)runView.impPerLevelTextBox.Value;
+                remainingImpulseThisLevel = impulsePerLevel;
+
+                // Get start voltage and step size
+                impulseStepsize = runView.impulseStepSizeTextBox.Value;
+                impulseStartVoltage = runView.impulseStartVoltageTextBox.Value;
+
+                // Create level list and fill it
+                impulseTargetVoltageList = new List<double>();
+                nextImpulseVoltage = impulseStartVoltage;
+                for (int ind = 0; ind < impulseLevels; ind++)
+                {
+                    impulseTargetVoltageList.Add(nextImpulseVoltage);
+                    nextImpulseVoltage += impulseStepsize;
+                }
+
+                // Present impulses remaining
+                runView.elapsedTimeLabel.Text = remainingImpulseThisLevel.ToString();
+                runView.elapsedTimeLabel.Invalidate();
+
+                // Present target voltage
+                runView.resultTestVoltageValueLabel.Text = impulseTargetVoltageList[0].ToString();
+                runView.resultTestVoltageValueLabel.Invalidate();
+
+                // Clear the arraylists and reset the sample counter
+                breakdownListResult.Clear();
+                breakdownListX.Clear();
+                breakdownListY.Clear();
+                xList.Clear();
+                yList.Clear();
+                sampleNumber = 0;
+
+                // Connect the power
+                PIO1.closePrimary();
+                Thread.Sleep(1600);
+                PIO1.closeSecondary();
+
+                // Start regulation routine but Pause regulation untill the Gap is found
+                pauseRegulation = true;
+                GoToImpulseVoltageAuto();
+
+                //UpdateGraph timer
+                triggerTimeoutTimer.Enabled = true;
+                triggerTimeoutTimer.Start();
+
+                irState = "InitNextLevel";
             }
-            else if ((aborting) && (PIO1.minUPos))
+            else if (irState == "InitNextLevel")
             {
-                // Tidy up flags etc
-                CleanUpAfterTest();
+                // Do we have the resource? If not, then bail.
+                if (impulseTargetVoltageList == null)
+                {
+                    irState = "Aborting";
+                }
+                else if (impulseTargetVoltageList.Count > 0)
+                {
+                    // Set the new target voltage - regulation should occur automatically as the voltage is now out of bounds
+                    impulseTargetVoltage = impulseTargetVoltageList[0];
+                    remainingImpulseThisLevel = impulsePerLevel;
 
-                // Do not continue in this method
-                return;
+                    // Voltage regulation flags
+                    inBounds = false;
+                    pauseRegulation = false;
+                    abortRegulation = false;
+
+                    // State triggers
+                    distAcquired = false;
+                    aborting = false;
+                    parking = false;
+                    levelClear = false;
+                    levelsFinished = false;
+                    levelClear = false;
+                    gapAcquired = false;
+                    pauseRegulation = true;
+
+                    // Reset failed trigger attempts on previous level
+                    failedTriggercount = 0;
+
+                    irState = "AcquiringDistInit";
+                }
             }
 
-            // Do we have the resource? If not, then bail.
-            if (impulseTargetVoltageList == null) return;
-            else if (impulseTargetVoltageList.Count > 0)
-            {          
+            else if (irState == "AcquiringDistInit")
+            {
                 // GAP CALCULATION and ACQUIREMENT
                 destination = CalculateDestination(impulseTargetVoltageList[0]);
                 levelsFinished = false;
-            }
-            else if (impulseTargetVoltageList.Count == 0) levelsFinished = true;
-
-            // Move sphere to correct gap
-            if ((!acquiringGap) && (HV9126.actualPosition != destination))
-            {
                 pauseRegulation = true;
-
-                //Thread.Sleep(300);
 
                 // Move to the position
                 gapStartPos = HV9126.actualPosition;
                 HV9126.MoveToPosition((int)nextGap);
                 gapAcquireStartTime = DateTime.Now;
+                irState = "AcquiringDist";
 
-                // set a flag so we don't call AcquireGap every time
-                acquiringGap = true;
-
-                return;
-            }
-            // If acquiring gap and not there yet, try again
-            else if ((acquiringGap) && (HV9126.actualPosition != destination))
-            {
-                gapAcquireSpan = DateTime.Now - gapAcquireStartTime;
-                pauseRegulation = true;
-
-                if ((gapAcquireSpan.Seconds > 2) && (HV9126.actualPosition == gapStartPos))
-                {
-                    acquiringGap = false;
-                    moveTimeOutCounter += 1;
-                    HV9126.MoveToPosition((int)nextGap);
-
-                    if (moveTimeOutCounter > 5) AbortTest();
-
-                    return;
-                }
-                else
-                {
-                    moveTimeOutCounter = 0;
-                }
-            }
-            
-            
-            // If gap has been acquired
-            if ((HV9126.actualPosition == destination)&&(!parking))
-            {
-                acquiringGap = false;
-                gapAcquired = true;
-
-                pauseRegulation = false;
             }
 
-
-            if(!parking)UpdateImpulseChart();
-
-
-            // Check for bounds - IN
-            if (inBounds)
+            else if (irState == "AcquiringDist")
             {
-                pauseRegulation = true;
-                
-                //Check for levelsFinished
-                if (!levelsFinished)
+                // Are we there yet?
+                if (HV9126.actualPosition != destination)
                 {
+                    // not yet, how long has this taken?
+                    gapAcquireSpan = DateTime.Now - gapAcquireStartTime;
 
-                    if (!levelClear) 
+                    // Still in the same place after 2 seconds?
+                    if ((gapAcquireSpan.Seconds > 2) && (HV9126.actualPosition == gapStartPos))
                     {
-                        // Only attempt an imulse when dc voltage is stable (after previous discharge)
-                        if ((!triggerAttempted) && (dcStable))
-                        {
-                            // reset impulseVoltageValue and previous failure flag
-                            actualImpulseVoltage = 0;
-                            triggerFailed = false;
-                            //picoScope.GetRepresentation;
+                        // Try again but note the failure
+                        pauseRegulation = true;
+                        moveTimeOutCounter += 1;
+                        HV9126.MoveToPosition((int)nextGap);
 
-                            // Trigger
-                            TriggerRequest = true;
-                            triggerAttempted = true;
-
-                            // Start a timeouttimer
-                            triggerTimeoutTimer.Enabled = true;
-                            triggerTimeoutTimer.Start();
-
-                            // Update the status to show we are waiting for trigger result
-                            runView.passFailLabel.Text = "TRIG";
-                            runView.passFailLabel.Invalidate();
-                        }
-                        else if ((triggerAttempted) && (!triggerFailed))
-                        {
-                            // Check to see if there was an impulse received - this may take > 2 seconds
-                            // Update the status to show we are waiting for trigger result
-                            runView.passFailLabel.Text = "WAIT";
-                            runView.passFailLabel.Invalidate();
-
-                            // Still waiting, do we have a result?
-                            if (actualImpulseVoltage > 0)
-                            {
-
-                                // Result! Stop the timeouttimer
-                                triggerTimeoutTimer.Stop();
-                                triggerTimeoutTimer.Enabled = false;
-
-                                // update the status 
-                                runView.passFailLabel.Text = "EVAL";
-                                runView.passFailLabel.Invalidate();
-
-                                // Analyse graph for breakdown - if so, Set breakdownOccurred = true;
-                                //Thread.Sleep(500);
-                                AnalyzeImpulseCurve();
-
-                                // Update bool breakdownList = breakdownOccurred 
-                                breakdownListResult.Add(breakdownOccurred);
-                                breakdownListX.Add(sampleNumber);
-                                breakdownListY.Add(yList[yList.Count-2]);
-
-                                UpdateImpulseChart();
-
-                                // Prepare for the next attempt
-                                triggerAttempted = false;
-
-                                // Decrement remainingImpulseThisLevel; Evaluated outside of this loop
-                                remainingImpulseThisLevel -= 1;
-
-                                // Impulse complete, check for more on this level - if last, set levelClear flag
-                                if (remainingImpulseThisLevel == 0)
-                                {
-                                    levelClear = true;
-                                    // Reset the failed trigger counter
-                                    failedTriggercount = 0;
-                                }
-                            }
-                            else
-                            {
-                                // No result yet, keep waiting
-                            }
-                        }
-                        else if ((triggerAttempted) && (triggerFailed))
-                        {
-                            //triggerFailed set by timeout timer
-
-                            // Increment a counter 
-                            failedTriggercount += 1;
-
-                            if (failedTriggercount >= 5)
-                            {
-                                // Notify of problem - Check Batteries?
-                                abortRegulation = true;
-                                AbortTest();
-                            }
-                            else
-                            {
-                                // Have another go
-                                triggerAttempted = false;
-                                triggerFailed = false;
-                            }
-                        }
-                        else if (!dcStable)
-                        {
-
-                            runView.passFailLabel.Text = "STAB";
-                            runView.passFailLabel.Invalidate();
-
-                        }
-
-                       
-                        
+                        // if failed too many times, abort
+                        if (moveTimeOutCounter > 5)
+                            irState = "Aborting";
                     }
-                    else if (levelClear)
+                    else
                     {
-                        // Level is clear, throw away the old target
-                        impulseTargetVoltageList.RemoveAt(0);
+                        // There has been some progress, reset the counter
+                        moveTimeOutCounter = 0;
+                    }
+                }
+                // If gap has been acquired
+                else if (HV9126.actualPosition == destination)
+                {
+                    irState = "AcquiringVolt";
+                }
+            }
 
-                        // Check for more levels - if none, set levelsFinished flag, if some, Remove top element
-                        if (impulseTargetVoltageList.Count > 0)
+            else if (irState == "AcquiringVolt")
+            {
+                // Waiting for next voltage target to be found (control happens in stand-alone timed loop)
+                pauseRegulation = false;
+
+                if (inBounds)
+                {
+                    pauseRegulation = true;
+                    irState = "InitTrigger";
+                }
+
+            }
+
+            else if (irState == "InitTrigger")
+            {
+                // Only attempt an imulse when dc voltage is stable (after previous discharge)
+                if ((dcStable)&&(inBounds))
+                {
+                    // reset impulseVoltageValue and previous failure flag
+                    actualImpulseVoltage = 0;
+
+                    // Monitored event trigger variable for controller class
+                    TriggerRequest = false;
+
+                    // Trigger variables - impulse created correctly?
+                    triggerAttempted = false;
+                    triggerRequest = false;
+                    triggerFailed = false;
+
+                    // Impulse result on test object 
+                    breakdownOccurred = false;
+
+                    irState = "TriggerNow";
+                }
+                else if (!dcStable)
+                {
+                    runView.passFailLabel.Text = "STAB";
+                    runView.passFailLabel.Invalidate();
+                }
+            }
+            else if (irState == "TriggerNow")
+            {
+                // Trigger the impulse via monitored variable and set a watchdog timer
+                TriggerRequest = true;
+                triggerAttempted = true;
+                Thread.Sleep(1000);
+                // Start a timeouttimer
+                triggerTimeoutWatch = DateTime.Now;
+
+                // Update the status to show we are waiting for trigger result
+                runView.passFailLabel.Text = "TRIG";
+                runView.passFailLabel.Invalidate();
+
+                if (inBounds)
+                {
+                    irState = "TriggerWaiting";
+                }
+                
+            }
+            else if (irState == "TriggerWaiting")
+            {
+                // Check to see if there was an impulse received
+                if (actualImpulseVoltage > 0)
+                {
+                    actualImpulseList.Add(actualImpulseVoltage);
+
+                    // First entry, or any entry that is not the same as the previous entry (double with many d.p.) 
+                    if ((actualImpulseList.Count == 1) || ((actualImpulseList.Count > 1) && ((actualImpulseList[actualImpulseList.Count - 1] != actualImpulseList[actualImpulseList.Count - 2]))))
+                    {
+                       
+                        // update the status 
+                        runView.passFailLabel.Text = "EVAL";
+                        runView.passFailLabel.Invalidate();
+
+                        // Analyse graph for breakdown - if so, Set breakdownOccurred = true;
+                        AnalyzeImpulseCurve();
+
+                        // Update bool breakdownList = breakdownOccurred 
+                        breakdownListResult.Add(breakdownOccurred);
+                        breakdownListX.Add(sampleNumber);
+                        breakdownListY.Add(actualImpulseVoltage);
+                        //breakdownListY.Add(yList[yList.Count - 2]);
+
+                        UpdateImpulseChart();
+
+                    
+
+                        // Decrement remainingImpulseThisLevel; Evaluated outside of this loop
+                        remainingImpulseThisLevel -= 1;
+
+                        // Impulse complete, check for more on this level - if last, set levelClear flag
+                        if (remainingImpulseThisLevel == 0)
                         {
-                            // Set the new target voltage - regulation should occur automatically as the voltage is now out of bounds
-                            impulseTargetVoltage = impulseTargetVoltageList[0];
-                            remainingImpulseThisLevel = impulsePerLevel;
-                            
-                            levelClear = false;
-                            gapAcquired = false;
-                            pauseRegulation = false;
+                            // Level is clear, throw away the old target
+                            impulseTargetVoltageList.RemoveAt(0);
+
+                            // Check for more levels - if none, set levelsFinished flag, if some, Remove top element
+                            if (impulseTargetVoltageList.Count > 0)
+                            {
+                                irState = "InitNextLevel";
+                            }
+                            else
+                            {
+                                irState = "Finished";
+                            }
                         }
                         else
                         {
-                            levelsFinished = true;
+                            // We have some remaining on this level
+                            irState = "Init Trigger";
                         }
-                            
+
                     }
-                                        
                 }
-                else if(levelsFinished)
+                // No output, or a duplicate output
+                else if((actualImpulseVoltage == 0)||((actualImpulseList.Count > 1) && (actualImpulseList[actualImpulseList.Count - 1] == actualImpulseList[actualImpulseList.Count - 1])))
                 {
-                    // No breakdown means we don't have high enough voltage capability to test the test object
-                    // or we did not select a high enough test voltage
-                    if (!breakdownOccurred) PassImpTest();
-                    else if (breakdownOccurred) FailImpTest();
-                    abortRegulation = true;
-                    pauseRegulation = false;
-                    parking = true;
-                    inBounds = false;
+                    // No result yet, keep waiting
+                    // Update the status to show we are waiting for trigger result
+                    runView.passFailLabel.Text = "WAIT";
+                    runView.passFailLabel.Invalidate();
+
+                    triggerTimeoutSpan = DateTime.Now - triggerTimeoutWatch;
+                    if (triggerTimeoutSpan.Seconds > 2)
+                    {
+                        // No output
+                        irState = "TriggerFailed";
+                    }
                 }
             }
-            else if (!inBounds)
+
+            // No impulse has been created
+            else if (irState == "TriggerFailed")
             {
-                // Out of bounds but still working
-                if (!parking)
+                // Increment a counter 
+                failedTriggercount += 1;
+
+                if (failedTriggercount >= 5)
+                    // Notify of problem - Check Batteries?
+                    irState = "Aborting";
+                else
+                    // Have another go
+                    irState = "InitTrigger";
+
+            }
+
+            // Abort button pressed or a timeout has occurred
+            else if (irState == "Aborting")
+            {
+                // Stop the voltage regulation transformer
+                pauseRegulation = false;
+                abortRegulation = true;
+
+                // Present the status
+                runView.passFailLabel.Text = "VOID";
+                runView.passFailLabel.Visible = true;
+                runView.passFailLabel.Invalidate();
+
+                irState = "Finished";
+
+            }
+            // All triggers have been made - levelsFinished.
+            else if (irState == "Finishing")
+            {
+                // Stop the voltage regulation transformer
+                pauseRegulation = false;
+                abortRegulation = true;
+
+                // Set pass/fail
+                if (!breakdownOccurred)
                 {
-                    // Levels not finished, do nothing but wait to get inBounds
-                    if(gapAcquired == true) pauseRegulation = false;
+                    // Present the status
+                    runView.passFailLabel.Text = "PASS";
                 }
-                // Out of bounds, Levels finished
-                else if (parking)
+                else if (breakdownOccurred)
                 {
-                    // Finished and Parking
-                    if (!PIO1.minUPos)
-                    {
-                        // Wait
-                        // Park the transformer
-                        PIO1.ParkTransformer();
-                    }
-                    // Finished, Parking and reached zero
-                    else if (PIO1.minUPos)
-                    {
-                        // Tidy up flags etc
-                        CleanUpAfterImpTest();
-                    }
+                    // Present the status
+                    runView.passFailLabel.Text = "FAIL";
+                }
+                runView.passFailLabel.Visible = true;
+                runView.passFailLabel.Invalidate();
+                irState = "Finished";
+
+            }
+            else if (irState == "Finished")
+            {
+
+                //UpdateGraph timer
+                triggerTimeoutTimer.Enabled = false;
+                triggerTimeoutTimer.Stop();
+
+                // Park the transformer if voltage regulation has stopped.
+                if (abortRegulation)
+                {
+                    PIO1.ParkTransformer();
+                    parkingTimeoutWatch = DateTime.Now;
+
+                    irState = "Parking";
+                }
+                else
+                {
+                    pauseRegulation = false;
+                    abortRegulation = true;
                 }
             }
+            else if (irState == "Parking")
+            {
+                // Set a timeout timer and Wait for the transformer to hit zero
+                abortRegulation = true;
+
+                // If the transformer isn't moving, try again
+                parkingTimeoutSpan = DateTime.Now - parkingTimeoutWatch;
+
+                if (!PIO1.minUPos)
+                {
+                    if (gapAcquireSpan.Seconds > 5) PIO1.ParkTransformer();
+                }
+                else
+                {
+                    // Disconnect the power
+                    PIO1.openSecondary();
+                    Thread.Sleep(1500);
+                    PIO1.openPrimary();
+
+                    // Enable/Disable buttons
+                    runView.onOffAutoButton.Enabled = true;
+                    runView.abortAutoTestButton.Enabled = false;
+                    
+                    // Reset the Start button
+                    runView.onOffAutoButton.isChecked = false;
+                    runView.onOffAutoButton.Invalidate();
+
+                    irState = "";
+                    impulseRoutineTimer.Enabled = false;
+                    impulseRoutineTimer.Stop();
+
+                }
+
+            }
+            else
+            {
+                // Default/Error state 
+                // Wait here for Init to be started by Start button 
+
+            }
+
+
+
+
+
+
+
+
+
+
+            //    // Abort button has been clicked. VOID label and aborting flag was set in AbortTest()
+            //    if ((aborting) && (!PIO1.minUPos))
+            //    {
+            //        // Stop regulation the transformer
+            //        abortRegulation = true;
+
+            //        // Do not continue in this method
+            //        return;
+            //    }
+            //    else if ((aborting) && (PIO1.minUPos))
+            //    {
+            //        // Tidy up flags etc
+            //        CleanUpAfterTest();
+
+            //        // Do not continue in this method
+            //        return;
+            //    }
+
+            //    // Do we have the resource? If not, then bail.
+            //    if (impulseTargetVoltageList == null) return;
+            //    else if (impulseTargetVoltageList.Count > 0)
+            //    {          
+            //        // GAP CALCULATION and ACQUIREMENT
+            //        destination = CalculateDestination(impulseTargetVoltageList[0]);
+            //        levelsFinished = false;
+            //    }
+            //    else if (impulseTargetVoltageList.Count == 0) levelsFinished = true;
+
+            //    // Move sphere to correct gap
+            //    if ((!acquiringGap) && (HV9126.actualPosition != destination))
+            //    {
+            //        pauseRegulation = true;
+
+            //        //Thread.Sleep(300);
+
+            //        // Move to the position
+            //        gapStartPos = HV9126.actualPosition;
+            //        HV9126.MoveToPosition((int)nextGap);
+            //        gapAcquireStartTime = DateTime.Now;
+
+            //        // set a flag so we don't call AcquireGap every time
+            //        acquiringGap = true;
+
+            //        return;
+            //    }
+            //    // If acquiring gap and not there yet, try again
+            //    else if ((acquiringGap) && (HV9126.actualPosition != destination))
+            //    {
+            //        gapAcquireSpan = DateTime.Now - gapAcquireStartTime;
+            //        pauseRegulation = true;
+
+            //        if ((gapAcquireSpan.Seconds > 2) && (HV9126.actualPosition == gapStartPos))
+            //        {
+            //            acquiringGap = false;
+            //            moveTimeOutCounter += 1;
+            //            HV9126.MoveToPosition((int)nextGap);
+
+            //            if (moveTimeOutCounter > 5) AbortTest();
+
+            //            return;
+            //        }
+            //        else
+            //        {
+            //            moveTimeOutCounter = 0;
+            //        }
+            //    }
+
+
+            //    // If gap has been acquired
+            //    if ((HV9126.actualPosition == destination)&&(!parking))
+            //    {
+            //        acquiringGap = false;
+            //        gapAcquired = true;
+
+            //        pauseRegulation = false;
+            //    }
+
+
+            //    if(!parking)UpdateImpulseChart();
+
+
+            //    // Check for bounds - IN
+            //    if (inBounds)
+            //    {
+            //        pauseRegulation = true;
+
+            //        //Check for levelsFinished
+            //        if (!levelsFinished)
+            //        {
+
+            //            if (!levelClear) 
+            //            {
+            //                // Only attempt an imulse when dc voltage is stable (after previous discharge)
+            //                if ((!triggerAttempted) && (dcStable))
+            //                {
+            //                    // reset impulseVoltageValue and previous failure flag
+            //                    actualImpulseVoltage = 0;
+            //                    triggerFailed = false;
+            //                    //picoScope.GetRepresentation;
+
+            //                    // Trigger
+            //                    TriggerRequest = true;
+            //                    triggerAttempted = true;
+
+            //                    // Start a timeouttimer
+            //                    triggerTimeoutTimer.Enabled = true;
+            //                    triggerTimeoutTimer.Start();
+
+            //                    // Update the status to show we are waiting for trigger result
+            //                    runView.passFailLabel.Text = "TRIG";
+            //                    runView.passFailLabel.Invalidate();
+            //                }
+            //                else if ((triggerAttempted) && (!triggerFailed))
+            //                {
+            //                    // Check to see if there was an impulse received - this may take > 2 seconds
+            //                    // Update the status to show we are waiting for trigger result
+            //                    runView.passFailLabel.Text = "WAIT";
+            //                    runView.passFailLabel.Invalidate();
+
+            //                    // Still waiting, do we have a result?
+            //                    if (actualImpulseVoltage > 0)
+            //                    {
+
+            //                        // Result! Stop the timeouttimer
+            //                        triggerTimeoutTimer.Stop();
+            //                        triggerTimeoutTimer.Enabled = false;
+
+            //                        // update the status 
+            //                        runView.passFailLabel.Text = "EVAL";
+            //                        runView.passFailLabel.Invalidate();
+
+            //                        // Analyse graph for breakdown - if so, Set breakdownOccurred = true;
+            //                        //Thread.Sleep(500);
+            //                        AnalyzeImpulseCurve();
+
+            //                        // Update bool breakdownList = breakdownOccurred 
+            //                        breakdownListResult.Add(breakdownOccurred);
+            //                        breakdownListX.Add(sampleNumber);
+            //                        breakdownListY.Add(yList[yList.Count-2]);
+
+            //                        UpdateImpulseChart();
+
+            //                        // Prepare for the next attempt
+            //                        triggerAttempted = false;
+
+            //                        // Decrement remainingImpulseThisLevel; Evaluated outside of this loop
+            //                        remainingImpulseThisLevel -= 1;
+
+            //                        // Impulse complete, check for more on this level - if last, set levelClear flag
+            //                        if (remainingImpulseThisLevel == 0)
+            //                        {
+            //                            levelClear = true;
+            //                            // Reset the failed trigger counter
+            //                            failedTriggercount = 0;
+            //                        }
+            //                    }
+            //                    else
+            //                    {
+            //                        // No result yet, keep waiting
+            //                    }
+            //                }
+            //                else if ((triggerAttempted) && (triggerFailed))
+            //                {
+            //                    //triggerFailed set by timeout timer
+
+            //                    // Increment a counter 
+            //                    failedTriggercount += 1;
+
+            //                    if (failedTriggercount >= 5)
+            //                    {
+            //                        // Notify of problem - Check Batteries?
+            //                        abortRegulation = true;
+            //                        AbortTest();
+            //                    }
+            //                    else
+            //                    {
+            //                        // Have another go
+            //                        triggerAttempted = false;
+            //                        triggerFailed = false;
+            //                    }
+            //                }
+            //                else if (!dcStable)
+            //                {
+
+            //                    runView.passFailLabel.Text = "STAB";
+            //                    runView.passFailLabel.Invalidate();
+
+            //                }
+
+
+
+            //            }
+            //            else if (levelClear)
+            //            {
+            //                // Level is clear, throw away the old target
+            //                impulseTargetVoltageList.RemoveAt(0);
+
+            //                // Check for more levels - if none, set levelsFinished flag, if some, Remove top element
+            //                if (impulseTargetVoltageList.Count > 0)
+            //                {
+            //                    // Set the new target voltage - regulation should occur automatically as the voltage is now out of bounds
+            //                    impulseTargetVoltage = impulseTargetVoltageList[0];
+            //                    remainingImpulseThisLevel = impulsePerLevel;
+
+            //                    levelClear = false;
+            //                    gapAcquired = false;
+            //                    pauseRegulation = false;
+            //                }
+            //                else
+            //                {
+            //                    levelsFinished = true;
+            //                }
+
+            //            }
+
+            //        }
+            //        else if(levelsFinished)
+            //        {
+            //            // No breakdown means we don't have high enough voltage capability to test the test object
+            //            // or we did not select a high enough test voltage
+            //            if (!breakdownOccurred) PassImpTest();
+            //            else if (breakdownOccurred) FailImpTest();
+            //            abortRegulation = true;
+            //            pauseRegulation = false;
+            //            parking = true;
+            //            inBounds = false;
+            //        }
+            //    }
+            //    else if (!inBounds)
+            //    {
+            //        // Out of bounds but still working
+            //        if (!parking)
+            //        {
+            //            // Levels not finished, do nothing but wait to get inBounds
+            //            if(gapAcquired == true) pauseRegulation = false;
+            //        }
+            //        // Out of bounds, Levels finished
+            //        else if (parking)
+            //        {
+            //            // Finished and Parking
+            //            if (!PIO1.minUPos)
+            //            {
+            //                // Wait
+            //                // Park the transformer
+            //                PIO1.ParkTransformer();
+            //            }
+            //            // Finished, Parking and reached zero
+            //            else if (PIO1.minUPos)
+            //            {
+            //                // Tidy up flags etc
+            //                CleanUpAfterImpTest();
+            //            }
+            //        }
+            //    }
         }
 
         private void UpdateImpulseChart()
         {
             // Add latest values to array every time we enter
-            if(actualTestVoltage < 1.6)
-            {
-                return; 
-            }
+            //if(actualTestVoltage < 1.6)
+            //{
+            //    return; 
+            //}
 
-            xList.Add(sampleNumber);
-            yList.Add(actualTestVoltage);
-            sampleNumber += 1;
+            //xList.Add(sampleNumber);
+            //yList.Add(actualTestVoltage);
+            //sampleNumber += 1;
             int incr = 0;
-
-            // Breakdown list is only added to after impulse
-            //breakdownListY.Add(breakdownOccurred);
-            //breakdownListX.Add(sampleNumber);
 
             // Convert lists to arrays
             xArray = xList.ToArray();
@@ -589,38 +992,17 @@ namespace HV9104_GUI
             // Clear the old chart points before writing
             autoTestChart.Series["Series1"].Points.Clear();
             autoTestChart.Series["Series2"].Points.Clear();
-            //autoTestChart.Series["Series3"].Points.Clear();
-
+           
             //There are two ways to add points 
             //1) Add points one by one with the AddXY method 
             //for (int i = 0; i < xArray.Length - 1; i++)
             //{
-            //    runView.autoTestChart.Series["Series1"].Points.AddXY(xArray[i], yArray[i]);  
-            //}
-
-            // For each result
-            //for (incr = 0; incr < breakdownListResult.Count; incr++)
-            //{
-
-            //    if (breakdownListResult[incr] == true)
-            //    {
-            //        // Breakdown
-            //        runView.autoTestChart.Series["Series2"].Points.AddXY(xBreakdownArray[incr], breakdownListY[incr]);
-            //        runView.autoTestChart.Series["Series2"].Points[incr].Color = Color.Red;
-            //    }
-            //    else
-            //    {
-            //        // No breakdown
-            //        runView.autoTestChart.Series["Series2"].Points.AddXY(xBreakdownArray[incr], breakdownListY[incr]);
-            //        runView.autoTestChart.Series["Series2"].Points[incr].Color = Color.CornflowerBlue;
-
-            //    }
-
-            //}
-
+            // runView.autoTestChart.Series["Series1"].Points.AddXY(xArray[i], yArray[i]);  
             //2) by using databind and adding all the point at once
             //autoTestChart.Series.SuspendUpdates();
-            autoTestChart.Series["Series1"].Points.DataBindXY(xArray, yArray);
+
+
+            //autoTestChart.Series["Series1"].Points.DataBindXY(xArray, yArray);
             autoTestChart.Series["Series2"].Points.DataBindXY(xBreakdownArray, yBreakdownArray);
 
             for (incr = 0; incr < xBreakdownArray.Length; incr++)
@@ -634,22 +1016,24 @@ namespace HV9104_GUI
             int chartXMax = 10;
             int chartYMax;
 
-            if ((int)(xArray.Max() + 10) > 10) chartXMax = ((int)(xArray.Max() + 10));
+            chartXMax = (impulseLevels * impulsePerLevel) + 1;
+
+
             if (impulseTargetVoltageList.Count > 0)
             {
                 chartYMax = (int)(impulseTargetVoltageList.Max() + 11);
             }
             else
             {
-                chartYMax = (int)yArray.Max() + 11;
+                chartYMax = (int)yBreakdownArray.Max() + 11;
             }
             
             autoTestChart.ChartAreas[0].AxisX.Maximum = chartXMax;
             autoTestChart.ChartAreas[0].AxisY.Maximum = chartYMax;
             autoTestChart.ChartAreas[0].AxisX.Minimum = 0;
             autoTestChart.ChartAreas[0].AxisY.Minimum = 0;
-            autoTestChart.ChartAreas[0].AxisX.Interval = (int)(xArray.Max() / 10);
-            autoTestChart.ChartAreas[0].AxisY.Interval = (int)(chartYMax / 10);
+            autoTestChart.ChartAreas[0].AxisX.Interval = ();
+            autoTestChart.ChartAreas[0].AxisY.Interval = 10;
             //If you want 10Div * 10Div
             //autoTestChart.ChartAreas[0].AxisX.Interval = (int)(((xArray.Max() - xArray.Min()) / 10));
             //autoTestChart.ChartAreas[0].AxisY.Interval = (int)(((yArray.Max() - yArray.Min()) / 10));
@@ -776,70 +1160,38 @@ namespace HV9104_GUI
             Thread.Sleep(500);
 
             // Continue until targetVoltage found or process aborted 
-            while ((runView.onOffAutoButton.isChecked) && (!abortRegulation)) // ((error < toleranceLo) || (error > toleranceHi)) && 
+            while ((runView.onOffAutoButton.isChecked) && (!abortRegulation) && (impulseTargetVoltageList.Count > 0)) // ((error < toleranceLo) || (error > toleranceHi)) && 
             {
+                // Calculate the error
+                error = actualTestVoltage - impulseTargetVoltageList[0];
+
+                // If we are in bounds, stop the transformer and set a flag for the trigger routine
+                if ((error > toleranceLo) && (error < toleranceHi))
+                {
+                    inBounds = true;
+                }
+                else
+                {
+                    // Not in bounds, do your thing
+                    inBounds = false;
+                }
 
                 // Pause station if needed
-               if (pauseRegulation)
+                if (pauseRegulation)
                 {
-                    PIO1.StopTransformerMotor();
-                    Thread.Sleep(300);
+                    Thread.Sleep(100);
+                    //break;
                 }
-               else if(!pauseRegulation)
-               {
+                else if(!pauseRegulation)
+                {
                     // Firstly, some protection for when Input voltage is changing but output is not
-                    if ((PIO1.regulatedVoltageValue != previousRegulatedVoltageValue) && (actualTestVoltage == previousTestVoltage))
-                    {
-                        // Set flag and note time of first entry
-                        if (!outputDead)
-                        {
-                            // Do this once
-                            outputDeadStartTime = DateTime.Now;
-                            outputDead = true;
-                        }
-                        else
-                        {
-                            // Output still not following input
-                            outputDeadTimeSpan = DateTime.Now - outputDeadStartTime;
-
-                            // Have we waited long enough?
-                            if (outputDeadTimeSpan.Seconds >= 8)
-                            {
-                                // Shut down, something is wrong
-                                abortRegulation = true;
-                                //AbortTest();
-                                return;
-                            }
-
-                        }
-                    }
-                    // Output is following input voltage
-                    else
-                    {
-                        // Make sure the flag is reset
-                        outputDead = false;
-                    }
-
-
-                    // actualTestVoltage is set in the output values timer as dc * 0.92
-                    // Get the latest target voltage
-                    // Check we have something to regulate against
-                    if (impulseTargetVoltageList.Count >= 1)
-                    {
-                        targetVoltage = impulseTargetVoltageList[0];
-                    }
-                    else
-                    {
-                        abortRegulation = true;
-                        return;
-                    }
+                    //EvaluateOutputResponse();
                     
-
                     // Calculate the error
-                    error = actualTestVoltage - targetVoltage;
+                    error = actualTestVoltage - impulseTargetVoltageList[0];
                 
                     // If we are in bounds, stop the transformer and set a flag for the trigger routine
-                    if ((error > toleranceLo) && (error < toleranceHi))
+                    if (inBounds)
                     {
                         PIO1.StopTransformerMotor();
                         inBounds = true;
@@ -912,6 +1264,41 @@ namespace HV9104_GUI
             PIO1.StopTransformerMotor();
             abortRegulation = true;
 
+        }
+
+        private void EvaluateOutputResponse()
+        {
+            if ((PIO1.regulatedVoltageValue != previousRegulatedVoltageValue) && (actualTestVoltage == previousTestVoltage))
+            {
+                // Set flag and note time of first entry
+                if (!outputDead)
+                {
+                    // Do this once
+                    outputDeadStartTime = DateTime.Now;
+                    outputDead = true;
+                }
+                else
+                {
+                    // Output still not following input
+                    outputDeadTimeSpan = DateTime.Now - outputDeadStartTime;
+
+                    // Have we waited long enough?
+                    if (outputDeadTimeSpan.Seconds >= 8)
+                    {
+                        // Shut down, something is wrong
+                        abortRegulation = true;
+                        //AbortTest();
+                        return;
+                    }
+
+                }
+            }
+            // Output is following input voltage
+            else
+            {
+                // Make sure the flag is reset
+                outputDead = false;
+            }
         }
 
         // Look at the latest impulse curve values and determine if a breakdown has occurred
@@ -1184,23 +1571,24 @@ namespace HV9104_GUI
         // Aborted test. Stop the test and reset
         internal void AbortTest()
         {
-            aborting = true;
-            abortRegulation = true;
+            irState = "Aborting";
+            //aborting = true;
+            //abortRegulation = true;
 
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
 
-            // Drive the voltage down to zero
-            PIO1.ParkTransformer();
+            //// Drive the voltage down to zero
+            //PIO1.ParkTransformer();
 
-            // Present the status
-            runView.passFailLabel.Text = "VOID";
-            runView.passFailLabel.Visible = true;
-            //runView.testStatusLabel.Visible = false;
-            runView.passFailLabel.Invalidate();
+            //// Present the status
+            //runView.passFailLabel.Text = "VOID";
+            //runView.passFailLabel.Visible = true;
+            ////runView.testStatusLabel.Visible = false;
+            //runView.passFailLabel.Invalidate();
 
-            // Reset the start button
-            runView.onOffAutoButton.isChecked = false;
-            runView.onOffAutoButton.Invalidate();
+            //// Reset the start button
+            //runView.onOffAutoButton.isChecked = false;
+            //runView.onOffAutoButton.Invalidate();
         }
 
         // Stop but keep the chart running
@@ -1304,87 +1692,20 @@ namespace HV9104_GUI
                 // Impulse disruptive discharge: testVoltage = maxVoltage. Create array with levelsArray[levels] up to max.
                 // Check for stability at each level? *Do not stop regulation!   
 
-                runView.elapsedTimeTitleLabel.Text = "REMAINING";
-                runView.elapsedTimeTitleLabel.Invalidate();
-                runView.secondsUnitLabel.Text = "THIS LEVEL";
-                runView.secondsUnitLabel.Invalidate();
-                runView.resultTestVoltageLabel.Text = "NEXT TARGET";
-                runView.resultTestVoltageLabel.Invalidate();
-                
+                //runView.elapsedTimeTitleLabel.Text = "REMAINING";
+                //runView.elapsedTimeTitleLabel.Invalidate();
+                //runView.secondsUnitLabel.Text = "THIS LEVEL";
+                //runView.secondsUnitLabel.Invalidate();
+                //runView.resultTestVoltageLabel.Text = "NEXT TARGET";
+                //runView.resultTestVoltageLabel.Invalidate();
 
+                irState = "Init";
 
-                // Reset flags
-                parking = false;
-                flashoverDetected = false;
-                abortRegulation = false;
-                inBounds = false;
-                pauseRegulation = false;
-                aborting = false;
-                breakdownOccurred = false;
-                levelClear = false;
-                levelsFinished = false;
-                breakdownOccurred = false;
-                TriggerRequest = false;
-                triggerFailed = false;
-                triggerRequest = false;
-                
-                // Disable any unwanted timers
-                sampleTimer.Enabled = false;
-
-                // Get levels info
-                impulseLevels = (int)runView.impulseVoltageLevelsTextBox.Value;
-                
-                // Get impulses/level info
-                impulsePerLevel = (int)runView.impPerLevelTextBox.Value;
-                remainingImpulseThisLevel = impulsePerLevel;
-
-                // Get start voltage and step size
-                impulseStepsize = runView.impulseStepSizeTextBox.Value;
-                impulseStartVoltage = runView.impulseStartVoltageTextBox.Value;
-
-                // Create level list and fill it
-                //impulseRange = impulseStepsize - impulseStartVoltage;
-                //impulseVoltageStep = impulseRange / impulseLevels;
-                impulseTargetVoltageList = new List<double>();
-
-                nextImpulseVoltage = impulseStartVoltage;
-
-                for(int ind = 0; ind < impulseLevels; ind++)
-                {
-                    impulseTargetVoltageList.Add(nextImpulseVoltage);
-                    nextImpulseVoltage += impulseStepsize;
-                }
-
-                // Present impulses remaining
-                runView.elapsedTimeLabel.Text = remainingImpulseThisLevel.ToString();
-                runView.elapsedTimeLabel.Invalidate();
-
-                // Present target voltage
-                runView.resultTestVoltageValueLabel.Text = impulseTargetVoltageList[0].ToString();
-                runView.resultTestVoltageValueLabel.Invalidate();
-
-                // Run impulse disruptive routine
-                // triggerTimeoutTimer.Enabled = true;
+                // Run impulse routine
                 impulseRoutineTimer.Enabled = true;
                 impulseRoutineTimer.Start();
 
-                // Clear the arraylists and reset the sample counter
-                breakdownListResult.Clear();
-                breakdownListX.Clear();
-                breakdownListY.Clear();
-                xList.Clear();
-                yList.Clear();
-                sampleNumber = 0;
 
-                // Connect the power
-                PIO1.closePrimary();
-                Thread.Sleep(1000);
-                PIO1.closeSecondary();
-
-                // Start regulation routine but Pause regulation untill the Gap is found
-                pauseRegulation = true;
-                GoToImpulseVoltageAuto();
-                
             }
             else
             {
