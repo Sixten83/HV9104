@@ -564,6 +564,11 @@ namespace HV9104_GUI
         private void UpdateImpulseChart()
         {
             // Add latest values to array every time we enter
+            if(actualTestVoltage < 1.6)
+            {
+                return; 
+            }
+
             xList.Add(sampleNumber);
             yList.Add(actualTestVoltage);
             sampleNumber += 1;
@@ -596,7 +601,7 @@ namespace HV9104_GUI
             // For each result
             //for (incr = 0; incr < breakdownListResult.Count; incr++)
             //{
-                
+
             //    if (breakdownListResult[incr] == true)
             //    {
             //        // Breakdown
@@ -610,7 +615,7 @@ namespace HV9104_GUI
             //        runView.autoTestChart.Series["Series2"].Points[incr].Color = Color.CornflowerBlue;
 
             //    }
-               
+
             //}
 
             //2) by using databind and adding all the point at once
@@ -625,15 +630,27 @@ namespace HV9104_GUI
                 else
                     autoTestChart.Series["Series2"].Points[incr].MarkerColor = Color.SteelBlue;
             }
-            
 
-            //If you want 10Div * 10Div
-            autoTestChart.ChartAreas[0].AxisX.Maximum = (int)xArray.Max() + 2;
-            autoTestChart.ChartAreas[0].AxisY.Maximum = (int)yArray.Max() + 2;
+            int chartXMax = 10;
+            int chartYMax;
+
+            if ((int)(xArray.Max() + 10) > 10) chartXMax = ((int)(xArray.Max() + 10));
+            if (impulseTargetVoltageList.Count > 0)
+            {
+                chartYMax = (int)(impulseTargetVoltageList.Max() + 11);
+            }
+            else
+            {
+                chartYMax = (int)yArray.Max() + 11;
+            }
+            
+            autoTestChart.ChartAreas[0].AxisX.Maximum = chartXMax;
+            autoTestChart.ChartAreas[0].AxisY.Maximum = chartYMax;
             autoTestChart.ChartAreas[0].AxisX.Minimum = 0;
             autoTestChart.ChartAreas[0].AxisY.Minimum = 0;
-            autoTestChart.ChartAreas[0].AxisX.Interval = (int)(xArray.Max() / 10) + 2;
-            autoTestChart.ChartAreas[0].AxisY.Interval = (int)(yArray.Max() / 10 + 2);
+            autoTestChart.ChartAreas[0].AxisX.Interval = (int)(xArray.Max() / 10);
+            autoTestChart.ChartAreas[0].AxisY.Interval = (int)(chartYMax / 10);
+            //If you want 10Div * 10Div
             //autoTestChart.ChartAreas[0].AxisX.Interval = (int)(((xArray.Max() - xArray.Min()) / 10));
             //autoTestChart.ChartAreas[0].AxisY.Interval = (int)(((yArray.Max() - yArray.Min()) / 10));
             autoTestChart.Series.ResumeUpdates();
@@ -1273,9 +1290,10 @@ namespace HV9104_GUI
 
             // Get rid of logo
             ShrinkLogo();
+            //runView.dynamicLogoPictureBox.Visible = false;
 
             // Disruptive discharge
-            if(runView.voltageComboBox.SetSelected == "Imp")
+            if (runView.voltageComboBox.SetSelected == "Imp")
             {
                 // Impulse testing - How to identify flashover?? Cycle each point in impulse curve (measurementForm)to get derivitive value. If dv/dt > breakdownLimit, we have had a breakdown.
 
@@ -1647,8 +1665,8 @@ namespace HV9104_GUI
             int dx = 0;
             int dy = 0;
 
-            if (runView.dynamicLogoPictureBox.Width > 1) runView.dynamicLogoPictureBox.Width -= 15;
-            if (runView.dynamicLogoPictureBox.Height > 1) runView.dynamicLogoPictureBox.Height -= 10;
+            if (runView.dynamicLogoPictureBox.Width > 1) runView.dynamicLogoPictureBox.Width -= 30;
+            if (runView.dynamicLogoPictureBox.Height > 1) runView.dynamicLogoPictureBox.Height -= 25;
 
             if (runView.dynamicLogoPictureBox.Location.X > 62) dx = 20;
             if (runView.dynamicLogoPictureBox.Location.Y > 50) dy = 10;
@@ -1680,6 +1698,7 @@ namespace HV9104_GUI
             if ((runView.dynamicLogoPictureBox.Width >= 756) && (runView.dynamicLogoPictureBox.Height >= 301) && (runView.dynamicLogoPictureBox.Location.X <= 100) && (runView.dynamicLogoPictureBox.Location.Y <= 50))
             {
                 logoGrowEffectTimer.Stop();
+                logoGrowEffectTimer.Enabled = false;
             }
         }
 

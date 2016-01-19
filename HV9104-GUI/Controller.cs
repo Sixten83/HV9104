@@ -57,6 +57,9 @@ namespace HV9104_GUI
         private double targetVoltage;
         private string cnt;
         int setupNr = 0;
+        System.Timers.Timer parkTimer = new System.Timers.Timer(300);
+        private bool initializeMotor;
+        private string motorState = "NOT INITIALIZED";
 
         // presentation
         string selectedVoltage;
@@ -80,7 +83,7 @@ namespace HV9104_GUI
 
         // Output controls
         ReportGen report;
-       
+        private bool upDownRequest;
 
         public Controller()
         {
@@ -585,8 +588,9 @@ namespace HV9104_GUI
             this.controlForm.runView.exportValuesButton.Click += new System.EventHandler(exportValuesButton_Click);
             this.controlForm.runView.impulseLimitsButton.Click += new System.EventHandler(impulseLimitsButton_Click);
             this.controlForm.runView.impulseParametersButton.Click += new System.EventHandler(impulseParametersButton_Click);
+            this.controlForm.runView.dynamicLogoPictureBox.Click += new System.EventHandler(dynamicLogoPictureBox_Click);
             //this.controlForm.runView.impulseLimitsButton.Enter += new System.EventHandler(impulseLimitsButton_Enter);
-          
+
             this.autoTest.PropertyChanged += triggerRequest_PropertyChanged;
 
             
@@ -621,6 +625,11 @@ namespace HV9104_GUI
             this.measuringForm.chart.cursorMenu.acChannelRadioButton.Click += new System.EventHandler(this.acChannelRadioButton_Click);
             this.measuringForm.chart.cursorMenu.dcChannelRadioButton.Click += new System.EventHandler(this.dcChannelRadioButton_Click);
 
+        }
+
+        private void dynamicLogoPictureBox_Click(object sender, EventArgs e)
+        {
+            controlForm.runView.dynamicLogoPictureBox.Visible = false;
         }
 
         // TriggerRequest has been received from autotest
@@ -670,28 +679,70 @@ namespace HV9104_GUI
         //***                                  RUNVIEW EVENT HANDLERS                                          *****
         //***********************************************************************************************************
         
-        // Get relevant values and create a report 
-        private void createReportButton_Click(object sender, EventArgs e)
+
+        // Withstand test type selected
+        private void testWithstandRadioButton_Click(object sender, EventArgs e)
         {
-            GenerateReport();
+            disableForControls();
+            autoTest.testIsWithstand = true;
+            UpdateRnTestVoltageMax();
+            GetTestType();
+            UpdateResultLabels();
         }
 
-        // Export report to pdf
-        public void GenerateReport()
+        // Disruptive Discharge test type selected
+        private void testDisruptiveRadioButton_Click(object sender, EventArgs e)
         {
-            ReportGen latestreport = new ReportGen(controlForm.runView, controlForm.modeLabel.Text);
-            latestreport.GenerateReportNow();
+            disableForControls();
+            autoTest.testIsWithstand = false;
+            UpdateRnTestVoltageMax();
+            GetTestType();
+            UpdateResultLabels();
+        }
+       
+        // Voltage type has been changed in auto test page
+        private void autoTestVoltageComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            // Set the test notification text
+            UpdateRnTestVoltageMax();
+            GetTestType();
+            UpdateResultLabels();
+            if (e.Text == "Imp")
+            {
+                ImpulseDisplaySelected();
+            }
+            else
+                acdcDisplaySelected();
         }
 
-        // Export to CSV
-        private void exportValuesButton_Click(object sender, EventArgs e)
+        private void impulseOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            ReportGen latestreport = new ReportGen(controlForm.runView, controlForm.modeLabel.Text);
-            // Check for null list !!!!!!!!!!!!!!!!!!
-            latestreport.ExportValues(autoTest.xList.ToArray(), autoTest.yList.ToArray());
+            impAutoTypeIndex = (int)e.Value;
+            SetImpOutputType(impAutoTypeIndex);
+            UpdateRnTestVoltageMax();
+            GetTestType();
+            UpdateResultLabels();
         }
 
-        // Experiment Start/Pause
+        private void dcOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            dcAutoTypeIndex = (int)e.Value;
+            SetDCOutputType(dcAutoTypeIndex);
+            UpdateRnTestVoltageMax();
+            GetTestType();
+            UpdateResultLabels();
+        }
+
+        private void acOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            acAutoTypeIndex = (int)e.Value;
+            SetACOutputType(acAutoTypeIndex);
+            UpdateRnTestVoltageMax();
+            GetTestType();
+            UpdateResultLabels();
+        }
+        
+        // Experiment Start button
         private void onOffAutoButton_Click(object sender, EventArgs e)
         {
             if (controlForm.runView.onOffAutoButton.isChecked)
@@ -765,6 +816,28 @@ namespace HV9104_GUI
         {
  
         }
+
+        // Get relevant values and create a report 
+        private void createReportButton_Click(object sender, EventArgs e)
+        {
+            GenerateReport();
+        }
+
+        // Export report to pdf
+        public void GenerateReport()
+        {
+            ReportGen latestreport = new ReportGen(controlForm.runView, controlForm.modeLabel.Text);
+            latestreport.GenerateReportNow();
+        }
+
+        // Export to CSV
+        private void exportValuesButton_Click(object sender, EventArgs e)
+        {
+            ReportGen latestreport = new ReportGen(controlForm.runView, controlForm.modeLabel.Text);
+            // Check for null list !!!!!!!!!!!!!!!!!!
+            latestreport.ExportValues(autoTest.xList.ToArray(), autoTest.yList.ToArray());
+        }
+
 
         //***********************************************************************************************************
         //***                                    CONTROL FORM EVENT HANDLERS                                  *****
@@ -1136,7 +1209,8 @@ namespace HV9104_GUI
             }
         }
 
-        System.Timers.Timer parkTimer = new System.Timers.Timer(300);
+
+
         //System.Timers.Timer T2 = new System.Timers.Timer(200);
 
         // Voltage ON/OFF Switch
@@ -1589,7 +1663,6 @@ namespace HV9104_GUI
         {
 
             RunToPosRequest(this.controlForm.dashboardView.impulseGapTextBox.Text);
-            searchingGap = true;
 
         }
 
@@ -1669,55 +1742,6 @@ namespace HV9104_GUI
         {
             EnergizeCompressorOutputRequest();
         }
-
-        //***********************************************************************************************************
-        //***                                  RUNVIEW EVENT HANDLERS                                          *****
-        //***********************************************************************************************************   
-        
-        // Voltage type has been changed in auto test page
-        private void autoTestVoltageComboBox_valueChange(object sender, ValueChangeEventArgs e)
-        {
-
-            // Set the test notification text
-            UpdateRnTestVoltageMax();
-            GetTestType();
-            UpdateResultLabels();
-            if(e.Text == "Imp")
-            {
-                ImpulseDisplaySelected();
-            }
-            else
-                acdcDisplaySelected();
-        }
-
-        private void impulseOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
-        {
-            impAutoTypeIndex = (int)e.Value;
-            SetImpOutputType(impAutoTypeIndex);
-            UpdateRnTestVoltageMax();
-            GetTestType();
-            UpdateResultLabels();
-        }
-
-        private void dcOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
-        {
-            dcAutoTypeIndex = (int)e.Value;
-            SetDCOutputType(dcAutoTypeIndex);
-            UpdateRnTestVoltageMax();
-            GetTestType();
-            UpdateResultLabels();
-        }
-
-        private void acOutputAutoComboBox_valueChange(object sender, ValueChangeEventArgs e)
-        {
-            acAutoTypeIndex = (int)e.Value;
-            SetACOutputType(acAutoTypeIndex);
-            UpdateRnTestVoltageMax();
-            GetTestType();
-            UpdateResultLabels();
-        }
-
-
 
 
         //***********************************************************************************************************
@@ -1825,25 +1849,6 @@ namespace HV9104_GUI
 
         }
 
-        private void testWithstandRadioButton_Click(object sender, EventArgs e)
-        {
-            disableForControls();
-            autoTest.testIsWithstand = true;
-            UpdateRnTestVoltageMax();
-            GetTestType();
-            UpdateResultLabels();
-        }
-
-        private void testDisruptiveRadioButton_Click(object sender, EventArgs e)
-        {
-            disableForControls();
-            autoTest.testIsWithstand = false;
-            UpdateRnTestVoltageMax();
-            GetTestType();
-            UpdateResultLabels();
-        }
-
-
         private void acChannelRadioButton_Click(object sender, EventArgs e)
         {
             this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
@@ -1891,13 +1896,7 @@ namespace HV9104_GUI
 
             report = new ReportGen(controlForm.runView, controlForm.modeLabel.Text);
 
-            //if (!activeMotor.initComplete)
-            //{
-            //    InitMotorRequest();
-            //}
-
-
-            //// Check communication - see who is connected 
+            //// Check communication - see who is connected (Not Implemented)
             //FindDevices();
         }
 
@@ -2218,14 +2217,12 @@ namespace HV9104_GUI
             if ((PIO1.regulatedVoltageValue >= 1) && (PIO1.K2Closed))
             {
                 controlForm.dashboardView.statusPictureBoxHVPresent.Visible = true;
-                controlForm.dashboardView.dischargePictureBox.Visible = false;
-               
+                controlForm.dashboardView.dischargePictureBox.Visible = false;  
             }
             else
             {
                 controlForm.dashboardView.statusPictureBoxHVPresent.Visible = false;
-                controlForm.dashboardView.dischargePictureBox.Visible = true;
-              
+                controlForm.dashboardView.dischargePictureBox.Visible = true; 
             }
 
             // Active motor info
@@ -2234,7 +2231,6 @@ namespace HV9104_GUI
 
             // Active setup presentation
             GetActiveSetup();
-
 
         }
 
@@ -2355,8 +2351,6 @@ namespace HV9104_GUI
                 controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
                 controlForm.dashboardView.activeSetupPictureBox.Refresh();
             }
-           
-           
 
         }
 
@@ -2381,35 +2375,65 @@ namespace HV9104_GUI
         // Return a status text string for the active motor
         private string GetMotorStatus()
         {
+            if (motorState == "READY")
+            {
+                
+                // How to get out of here?
+                if ((activeMotor.initComplete) && (searchingGap))
+                {
+                    motorState = "SEARCHING";
+                }
+                else if(!activeMotor.initComplete)
+                {
+                    motorState = "NOT INITIALIZED";
+                }
+               
+                return "       READY     ";
+            }
 
-            if (!searchingGap)
+            else if (motorState == "SEARCHING")
+            {
+                if ((activeMotor.actualPosition == controlForm.dashboardView.impulseGapTextBox.Value)|| (upDownRequest))
+                {
+                    searchingGap = false;
+                    upDownRequest = false;
+                    motorState = "READY";
+                }
+
+                return "   SEARCHING...";
+            }
+
+            else if (motorState == "INITIALIZING")
             {
                 if (activeMotor.initComplete)
                 {
-                    // At rest and 
-                    return "       READY     ";
+                    motorState = "READY";
+                    initializeMotor = false;
                 }
-                else
-                {
-                           
-                    return "NOT INITIALIZED";
-                }
+
+                return "  INITIALIZING   ";
+               
             }
+
+            else if (motorState == "NOT INITIALIZED")
+            {
+                if (initializeMotor)
+                {
+                    motorState = "INITIALIZING";
+                }
+                else if (activeMotor.initComplete)
+                {
+                    motorState = "READY";
+                }
+
+                return "NOT INITIALIZED";
+            }
+            
             else
-            { 
-                int presentedValue = Convert.ToInt16(controlForm.dashboardView.impulseGapLabel.Text);
-
-                if ((controlForm.dashboardView.impulseGapTextBox.Value != presentedValue) && (presentedValue != 90))
-                {
-                    return "   SEARCHING...";
-
-                }
-                else
-                {
-                    searchingGap = false;
-                    return "       READY     ";
-                }
+            {
+                return "       ERROR      ";
             }
+          
         }
 
         // Voltage connection control
@@ -2484,12 +2508,14 @@ namespace HV9104_GUI
         {
             //activeMotor.DecreaseGap();
             commandPending = 1;
+            upDownRequest = true;
         }
 
         public void IncreaseGapRequest()
         {
             //activeMotor.IncreaseGap();
             commandPending = 2;
+            upDownRequest = true;
         }
 
         // 
@@ -2504,7 +2530,7 @@ namespace HV9104_GUI
         {
             //activeMotor.StartInit();
             commandPending = 4;
-            searchingGap = true;
+            initializeMotor = true;
 
         }
 
@@ -2516,7 +2542,7 @@ namespace HV9104_GUI
             }
 
             commandPending = 5;
-
+            searchingGap = true;
         }
 
         //
