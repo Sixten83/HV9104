@@ -178,6 +178,9 @@ namespace HV9104_GUI
         private TimeSpan parkingTimeoutSpan;
         private int gapStartParkPos;
         List<double> actualImpulseList = new List<double>();
+        private bool repeatImpulse;
+        private DateTime triggerRepeatDelayTimerStart;
+        private TimeSpan triggerRepeatDelaySpan;
 
 
 
@@ -359,6 +362,9 @@ namespace HV9104_GUI
                 yList.Clear();
                 sampleNumber = 0;
 
+                // Init chart
+                InitImpulseChart();
+
                 // Connect the power
                 PIO1.closePrimary();
                 Thread.Sleep(1600);
@@ -371,6 +377,8 @@ namespace HV9104_GUI
                 //UpdateGraph timer
                 triggerTimeoutTimer.Enabled = true;
                 triggerTimeoutTimer.Start();
+
+      
 
                 irState = "InitNextLevel";
             }
@@ -404,6 +412,9 @@ namespace HV9104_GUI
 
                     // Reset failed trigger attempts on previous level
                     failedTriggercount = 0;
+                    
+                    // deactivate delay on same level
+                    repeatImpulse = false;
 
                     irState = "AcquiringDistInit";
                 }
@@ -459,6 +470,16 @@ namespace HV9104_GUI
 
             else if (irState == "AcquiringVolt")
             {
+
+                // Give the capacitor time to charge before trying to regulate the voltage - prevents oscillations
+                if (repeatImpulse)
+                {
+                    triggerRepeatDelaySpan = DateTime.Now - triggerRepeatDelayTimerStart;
+                    if (triggerRepeatDelaySpan.Seconds < 6) return;
+                }
+                    
+                //Thread.Sleep(10);
+
                 // Waiting for next voltage target to be found (control happens in stand-alone timed loop)
                 pauseRegulation = false;
 
@@ -491,6 +512,10 @@ namespace HV9104_GUI
 
                     irState = "TriggerNow";
                 }
+                else if (dcStable && !inBounds)
+                {
+                    irState = "AcquiringVolt";
+                }
                 else if (!dcStable)
                 {
                     runView.passFailLabel.Text = "STAB";
@@ -502,7 +527,9 @@ namespace HV9104_GUI
                 // Trigger the impulse via monitored variable and set a watchdog timer
                 TriggerRequest = true;
                 triggerAttempted = true;
+
                 Thread.Sleep(1000);
+                
                 // Start a timeouttimer
                 triggerTimeoutWatch = DateTime.Now;
 
@@ -514,6 +541,10 @@ namespace HV9104_GUI
                 {
                     irState = "TriggerWaiting";
                 }
+                else
+                {
+                    irState = "AcquiringVolt";
+                }
                 
             }
             else if (irState == "TriggerWaiting")
@@ -522,6 +553,9 @@ namespace HV9104_GUI
                 if (actualImpulseVoltage > 0)
                 {
                     actualImpulseList.Add(actualImpulseVoltage);
+
+                    triggerRepeatDelayTimerStart = DateTime.Now;
+                    
 
                     // First entry, or any entry that is not the same as the previous entry (double with many d.p.) 
                     if ((actualImpulseList.Count == 1) || ((actualImpulseList.Count > 1) && ((actualImpulseList[actualImpulseList.Count - 1] != actualImpulseList[actualImpulseList.Count - 2]))))
@@ -536,7 +570,7 @@ namespace HV9104_GUI
 
                         // Update bool breakdownList = breakdownOccurred 
                         breakdownListResult.Add(breakdownOccurred);
-                        breakdownListX.Add(sampleNumber);
+                        breakdownListX.Add(sampleNumber + 1);
                         breakdownListY.Add(actualImpulseVoltage);
                         //breakdownListY.Add(yList[yList.Count - 2]);
 
@@ -560,13 +594,14 @@ namespace HV9104_GUI
                             }
                             else
                             {
-                                irState = "Finished";
+                                irState = "Finishing";
                             }
                         }
                         else
                         {
                             // We have some remaining on this level
-                            irState = "Init Trigger";
+                            repeatImpulse = true;
+                            irState = "AcquiringVolt";
                         }
 
                     }
@@ -599,7 +634,7 @@ namespace HV9104_GUI
                     irState = "Aborting";
                 else
                     // Have another go
-                    irState = "InitTrigger";
+                    irState = "AcquiringVolt";
 
             }
 
@@ -968,6 +1003,33 @@ namespace HV9104_GUI
             //    }
         }
 
+
+        private void InitImpulseChart()
+        {
+            int chartXMax = 10;
+            int chartYMax;
+
+            autoTestChart.Series.SuspendUpdates();
+            autoTestChart.Series["Series1"].Points.Clear();
+            autoTestChart.Series["Series2"].Points.Clear();
+            breakdownListX.Add(-1);
+            breakdownListY.Add(-1);
+            autoTestChart.Series["Series2"].Points.DataBindXY(breakdownListX, breakdownListY);
+            chartXMax = (int)(impulseLevels * impulsePerLevel) + 2;
+            chartYMax = (int)(impulseStartVoltage + (impulseStepsize * impulseLevels));
+
+            autoTestChart.ChartAreas[0].AxisX.Maximum = (int)chartXMax;
+            autoTestChart.ChartAreas[0].AxisY.Maximum = (int)chartYMax;
+            autoTestChart.ChartAreas[0].AxisX.Minimum = (int)0;
+            autoTestChart.ChartAreas[0].AxisY.Minimum = (int)0;
+            autoTestChart.ChartAreas[0].AxisX.Interval = (int)1;
+            autoTestChart.ChartAreas[0].AxisY.Interval = (int)10;
+            autoTestChart.Series.ResumeUpdates();
+            breakdownListX.Clear();
+            breakdownListY.Clear();
+
+        }
+
         private void UpdateImpulseChart()
         {
             // Add latest values to array every time we enter
@@ -978,7 +1040,7 @@ namespace HV9104_GUI
 
             //xList.Add(sampleNumber);
             //yList.Add(actualTestVoltage);
-            //sampleNumber += 1;
+            sampleNumber += 1;
             int incr = 0;
 
             // Convert lists to arrays
@@ -993,15 +1055,6 @@ namespace HV9104_GUI
             autoTestChart.Series["Series1"].Points.Clear();
             autoTestChart.Series["Series2"].Points.Clear();
            
-            //There are two ways to add points 
-            //1) Add points one by one with the AddXY method 
-            //for (int i = 0; i < xArray.Length - 1; i++)
-            //{
-            // runView.autoTestChart.Series["Series1"].Points.AddXY(xArray[i], yArray[i]);  
-            //2) by using databind and adding all the point at once
-            //autoTestChart.Series.SuspendUpdates();
-
-
             //autoTestChart.Series["Series1"].Points.DataBindXY(xArray, yArray);
             autoTestChart.Series["Series2"].Points.DataBindXY(xBreakdownArray, yBreakdownArray);
 
@@ -1016,28 +1069,20 @@ namespace HV9104_GUI
             int chartXMax = 10;
             int chartYMax;
 
-            chartXMax = (impulseLevels * impulsePerLevel) + 1;
+            chartXMax = (int)(impulseLevels * impulsePerLevel) + 2;
+            chartYMax = (int)(impulseStartVoltage + (impulseStepsize * impulseLevels));
 
-
-            if (impulseTargetVoltageList.Count > 0)
-            {
-                chartYMax = (int)(impulseTargetVoltageList.Max() + 11);
-            }
-            else
-            {
-                chartYMax = (int)yBreakdownArray.Max() + 11;
-            }
-            
-            autoTestChart.ChartAreas[0].AxisX.Maximum = chartXMax;
-            autoTestChart.ChartAreas[0].AxisY.Maximum = chartYMax;
-            autoTestChart.ChartAreas[0].AxisX.Minimum = 0;
-            autoTestChart.ChartAreas[0].AxisY.Minimum = 0;
-            autoTestChart.ChartAreas[0].AxisX.Interval = ();
-            autoTestChart.ChartAreas[0].AxisY.Interval = 10;
+            autoTestChart.ChartAreas[0].AxisX.Maximum = (int)chartXMax;
+            autoTestChart.ChartAreas[0].AxisY.Maximum = (int)chartYMax;
+            autoTestChart.ChartAreas[0].AxisX.Minimum = (int)0;
+            autoTestChart.ChartAreas[0].AxisY.Minimum = (int)0;
+            autoTestChart.ChartAreas[0].AxisX.Interval = (int)1;
+            autoTestChart.ChartAreas[0].AxisY.Interval = (int)10;
             //If you want 10Div * 10Div
             //autoTestChart.ChartAreas[0].AxisX.Interval = (int)(((xArray.Max() - xArray.Min()) / 10));
             //autoTestChart.ChartAreas[0].AxisY.Interval = (int)(((yArray.Max() - yArray.Min()) / 10));
             autoTestChart.Series.ResumeUpdates();
+            autoTestChart.Invalidate();
         }
 
         private void CleanUpAfterImpTest()
@@ -1571,24 +1616,31 @@ namespace HV9104_GUI
         // Aborted test. Stop the test and reset
         internal void AbortTest()
         {
-            irState = "Aborting";
-            //aborting = true;
-            //abortRegulation = true;
 
-            //Thread.Sleep(1000);
+            if(runView.voltageComboBox.SetSelected == "Imp")
+            {
+                irState = "Aborting";
+            }
+            else
+            {
+                aborting = true;
+                abortRegulation = true;
 
-            //// Drive the voltage down to zero
-            //PIO1.ParkTransformer();
+                Thread.Sleep(1000);
 
-            //// Present the status
-            //runView.passFailLabel.Text = "VOID";
-            //runView.passFailLabel.Visible = true;
-            ////runView.testStatusLabel.Visible = false;
-            //runView.passFailLabel.Invalidate();
+                // Drive the voltage down to zero
+                PIO1.ParkTransformer();
 
-            //// Reset the start button
-            //runView.onOffAutoButton.isChecked = false;
-            //runView.onOffAutoButton.Invalidate();
+                // Present the status
+                runView.passFailLabel.Text = "VOID";
+                runView.passFailLabel.Visible = true;
+                //runView.testStatusLabel.Visible = false;
+                runView.passFailLabel.Invalidate();
+
+                // Reset the start button
+                runView.onOffAutoButton.isChecked = false;
+                runView.onOffAutoButton.Invalidate();
+            }
         }
 
         // Stop but keep the chart running
@@ -1678,8 +1730,9 @@ namespace HV9104_GUI
 
             // Get rid of logo
             ShrinkLogo();
-            //runView.dynamicLogoPictureBox.Visible = false;
-
+            runView.dynamicLogoPictureBox.Visible = false;
+            runView.autoTestChart.Visible = true;
+            
             // Disruptive discharge
             if (runView.voltageComboBox.SetSelected == "Imp")
             {

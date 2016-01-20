@@ -643,8 +643,8 @@ namespace HV9104_GUI
 
                 //Set up the measuringForm chart INTERIM VALUES - TO BE SET DYNAMICALLY!!!!!!!
                 if (PIO1.regulatedVoltageValue < 25) SetImpulseChartVoltageRange(2);
-                else if ((PIO1.regulatedVoltageValue >= 25) && (PIO1.regulatedVoltageValue < 80)) SetImpulseChartVoltageRange(3);
-                else if ((PIO1.regulatedVoltageValue >= 80) && (PIO1.regulatedVoltageValue < 180)) SetImpulseChartVoltageRange(4);
+                else if ((PIO1.regulatedVoltageValue >= 25) && (PIO1.regulatedVoltageValue < 70)) SetImpulseChartVoltageRange(3);
+                else if ((PIO1.regulatedVoltageValue >= 70) && (PIO1.regulatedVoltageValue < 180)) SetImpulseChartVoltageRange(4);
                 else if ((PIO1.regulatedVoltageValue >= 25) && (PIO1.regulatedVoltageValue < 80)) SetImpulseChartVoltageRange(5);
 
                 

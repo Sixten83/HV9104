@@ -10,13 +10,15 @@ namespace HV9104_GUI
     class ReportGen
     {
         RunView runView;
+        MeasuringForm measuringForm;
         public string DatePerformed, Operator, TestObject, OtherInfo, Duration, TestVoltage, PassFailStatus, SubTitle, elapsedTimeTitleLabel, resultTestVoltageLabel, passStatusLabel, secondsUnitLabel, hvUnitLabel, passFailUnitlabel;
 
 
         //Constructor
-        public ReportGen(RunView runViewIn, String modeLabelIn)
+        public ReportGen(RunView runViewIn, MeasuringForm measuringFormIn, String modeLabelIn)
         {
             runView = runViewIn;
+            measuringForm = measuringFormIn;
             DatePerformed = runView.dateTextBox.Text;
             Operator = runView.operatorTextBox.Text;
             TestObject = runView.testObjectTextBox.Text;
@@ -268,6 +270,14 @@ namespace HV9104_GUI
 
         }
 
+        private void GenerateMeasuringChartImage()
+        {
+            measuringForm.chart.SaveImage(@".\chartMeas.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            // runView.autoTestChart.SaveImage(@"C:\Users\Terco\Desktop\PDFgeneration\chart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            //Application.
+
+        }
 
         public void ExportValues(double[] xIn, double[] yIn)
         {
