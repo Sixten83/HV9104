@@ -16,6 +16,7 @@ namespace HV9104_GUI
         ControlForm controlForm;
         PicoScope picoScope;
         Channel acChannel, dcChannel, impulseChannel;
+        Channel.ScaledData data;
         System.Windows.Forms.Timer loopTimer, triggerTimer;
         bool fastStreamMode, streamMode;
         bool blockCaptureMode;
@@ -383,7 +384,7 @@ namespace HV9104_GUI
                 if (this.measuringForm.impulseRadioButton.isChecked)
                 {
                     this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
-                    Channel.ScaledData data = impulseChannel.processData((int)picoScope.BlockSamples, 0, 2500);
+                    data = impulseChannel.processData((int)picoScope.BlockSamples, 0, 2500);
                     autoTest.impulseData = data;
                     this.measuringForm.chart.Series["impulseSeries"].Points.DataBindXY(data.x, data.y);
                     this.controlForm.dashboardView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
@@ -546,6 +547,7 @@ namespace HV9104_GUI
             // this.controlForm.runView.decreaseMeasuringGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(decreaseMeasureeGap_Down);
             //this.controlForm.runView.decreaseMeasuringGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(decreaseMeasureGap_Up);
             this.controlForm.dashboardView.trafSpeedTextBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(trafSpeedTextBox_valueChange);
+            this.controlForm.dashboardView.trafSpeedTrackBar.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(trafSpeedTrackBar_valueChange);
             //this.controlForm.runView.increaseMeasuringGapButton.MouseDown += new System.Windows.Forms.MouseEventHandler(increaseMeasureGapButton_Down);
             //this.controlForm.runView.increaseMeasuringGapButton.MouseUp += new System.Windows.Forms.MouseEventHandler(increaseMeasureGapButton_Up);
             //Sphere Gap Listeners
@@ -627,6 +629,14 @@ namespace HV9104_GUI
 
         }
 
+
+        // 
+        private void trafSpeedTrackBar_valueChange(object sender, ValueChangeEventArgs e)
+        {
+            controlForm.dashboardView.trafSpeedTextBox.Value = (float)e.Value;
+            controlForm.dashboardView.trafSpeedTextBox.Invalidate();
+        }
+
         private void dynamicLogoPictureBox_Click(object sender, EventArgs e)
         {
             controlForm.runView.dynamicLogoPictureBox.Visible = false;
@@ -642,7 +652,7 @@ namespace HV9104_GUI
                 measuringForm.chart.Series["impulseSeries"].Points.Clear();
 
                 // Make sure we can see the whole puls
-                SetChartTimeBase("20 us/Div");
+                SetChartTimeBase("2 us/Div");
 
                 //Set up the measuringForm chart INTERIM VALUES - TO BE SET DYNAMICALLY!!!!!!!
                 if (PIO1.regulatedVoltageValue < 25) SetImpulseChartVoltageRange(2);
@@ -842,7 +852,18 @@ namespace HV9104_GUI
         {
             ReportGen latestreport = new ReportGen(controlForm.runView, measuringForm, controlForm.modeLabel.Text);
             // Check for null list !!!!!!!!!!!!!!!!!!
-            latestreport.ExportValues(autoTest.xList.ToArray(), autoTest.yList.ToArray());
+
+            if (controlForm.runView.voltageComboBox.SetSelected == "Imp")
+            {
+                
+                autoTest.impulseData = data;
+                latestreport.ExportValues(autoTest.impulseData.x, autoTest.impulseData.y);
+            }
+            else
+            {
+                latestreport.ExportValues(autoTest.xList.ToArray(), autoTest.yList.ToArray());
+            }
+           
         }
 
 
@@ -957,7 +978,7 @@ namespace HV9104_GUI
         "5 us/Div",
         "10 us/Div",
         "20 us/Div"};
-            this.measuringForm.timeBaseComboBox.SetSelected = "20 us/Div";
+            this.measuringForm.timeBaseComboBox.SetSelected = "2 us/Div";
             picoScope.streamStarted = false;
             picoScope._autoStop = false;
             fastStreamMode = true;
@@ -1213,6 +1234,7 @@ namespace HV9104_GUI
             if ((controlForm.dashboardView.trafSpeedTextBox.Value <= controlForm.dashboardView.trafSpeedTextBox.Max) && (controlForm.dashboardView.trafSpeedTextBox.Value >= controlForm.dashboardView.trafSpeedTextBox.Min))
             {
                 trafSpeed = (int)controlForm.dashboardView.trafSpeedTextBox.Value * 10;
+                //controlForm.dashboardView.trafSpeedTrackBar.AutoScrollPosition = trafSpeed;
             }
         }
 
@@ -2187,7 +2209,7 @@ namespace HV9104_GUI
             {
                 controlForm.runView.resultTestVoltageLabel.Text = "TEST VOLTAGE";
                 controlForm.runView.elapsedTimeTitleLabel.Text = "ELAPSED TIME";
-                controlForm.runView.hvUnitLabel.Text = "kVDC"; // + selectedVoltage + selectedMeasType;
+                controlForm.runView.hvUnitLabel.Text = "kV" + selectedVoltage + selectedMeasType;
                 controlForm.runView.secondsUnitLabel.Text = "SECONDS";
 
             }
@@ -2195,7 +2217,7 @@ namespace HV9104_GUI
             {
                 controlForm.runView.resultTestVoltageLabel.Text = "INCEPTION";
                 controlForm.runView.elapsedTimeTitleLabel.Text = "SAMPLE TIME";
-                controlForm.runView.hvUnitLabel.Text = "kVDC"; //+ selectedVoltage + selectedMeasType;
+                controlForm.runView.hvUnitLabel.Text = "kV" + selectedVoltage + selectedMeasType;
                 controlForm.runView.secondsUnitLabel.Text = "SECONDS";
             }
             else if (controlForm.runView.voltageComboBox.SetSelected == "Imp")

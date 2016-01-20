@@ -44,10 +44,7 @@ namespace HV9104_GUI
 
         //}
 
-        //private void trafSpeedTrackBar_valueChangeHandler(object sender, ValueChangeEventArgs e)
-        //{
-
-        //}
+       
 
 
     }

@@ -82,11 +82,12 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label1.Location = new System.Drawing.Point(85, 13);
+            this.label1.Location = new System.Drawing.Point(1437, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(176, 57);
+            this.label1.Size = new System.Drawing.Size(338, 57);
             this.label1.TabIndex = 7;
-            this.label1.Text = "TERCO HV9104\r\nHIGH VOLTAGE CONTROL\r\nAND DATA ACQUISITION\r\n";
+            this.label1.Text = "TERCO HV9104\r\nHIGH VOLTAGE CONTROL\r\nAND DATA ACQUISITION                         " +
+    "v1.01 2016\r\n";
             // 
             // messageLabel
             // 

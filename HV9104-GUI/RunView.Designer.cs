@@ -815,10 +815,10 @@
             this.testControlPanel.BackColor = System.Drawing.Color.Transparent;
             this.testControlPanel.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.testControlPanel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.testControlPanel.Controls.Add(this.onOffAutoButton);
             this.testControlPanel.Controls.Add(this.tableLayoutPanel1);
             this.testControlPanel.Controls.Add(this.dynamicLogoPictureBox);
             this.testControlPanel.Controls.Add(this.label15);
-            this.testControlPanel.Controls.Add(this.onOffAutoButton);
             this.testControlPanel.Controls.Add(this.abortAutoTestButton);
             this.testControlPanel.Controls.Add(this.label5);
             this.testControlPanel.Controls.Add(this.autoTestChart);
