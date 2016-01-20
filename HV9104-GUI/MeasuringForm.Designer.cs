@@ -65,6 +65,7 @@
             this.dcEnableCheckBox = new HV9104_GUI.CustomCheckBox();
             this.dcVoltageRangeComboBox = new HV9104_GUI.CustomComboBox();
             this.impulseChannelPanel = new HV9104_GUI.CustomPanel();
+            this.label25 = new System.Windows.Forms.Label();
             this.impulsePreTriggerTextBox = new HV9104_GUI.CustomTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.impulseVoltageRangeComboBox = new HV9104_GUI.CustomComboBox();
@@ -83,7 +84,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.acTitleLabel = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
             this.titleBarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -349,6 +349,17 @@
             this.impulseChannelPanel.TabIndex = 20;
             this.impulseChannelPanel.Visible = false;
             // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label25.Location = new System.Drawing.Point(70, 128);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(161, 15);
+            this.label25.TabIndex = 21;
+            this.label25.Text = "PRE-TRIGGER TIME DELAY (%)";
+            // 
             // impulsePreTriggerTextBox
             // 
             this.impulsePreTriggerTextBox.AllowDecimals = false;
@@ -563,6 +574,7 @@
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Color = System.Drawing.Color.Goldenrod;
             series1.IsVisibleInLegend = false;
+            series1.MarkerColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             series1.Name = "acSeries";
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
@@ -670,17 +682,6 @@
             this.acTitleLabel.Size = new System.Drawing.Size(57, 18);
             this.acTitleLabel.TabIndex = 17;
             this.acTitleLabel.Text = "INPUT";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label25.Location = new System.Drawing.Point(70, 128);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(161, 15);
-            this.label25.TabIndex = 21;
-            this.label25.Text = "PRE-TRIGGER TIME DELAY (%)";
             // 
             // MeasuringForm
             // 

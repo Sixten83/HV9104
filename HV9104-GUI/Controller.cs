@@ -17,7 +17,7 @@ namespace HV9104_GUI
         PicoScope picoScope;
         Channel acChannel, dcChannel, impulseChannel;
         System.Windows.Forms.Timer loopTimer, triggerTimer;
-        bool fastStreamMode,streamMode;
+        bool fastStreamMode, streamMode;
         bool blockCaptureMode;
         //Voltage Dividers
         decimal[] acHighDividerValues = { 101.27M, 106.7M };
@@ -92,7 +92,7 @@ namespace HV9104_GUI
 
             // Create one form for control and one for presentation and start them
             measuringForm = new MeasuringForm();
-            controlForm = new ControlForm();            
+            controlForm = new ControlForm();
             controlForm.startMeasuringForm(measuringForm);
 
             // Set up the primary measuring device
@@ -113,7 +113,7 @@ namespace HV9104_GUI
             // If all devices are initialized have communication, start own loop for PLC, stepper motors and aux equipment.
             t = new Thread(CyclicRead);
             t.Start();
-            
+
             // Start timed loop for Picoscope routines
             loopTimer.Start();
 
@@ -123,10 +123,10 @@ namespace HV9104_GUI
 
             // Obligatory application command 
             Application.Run(controlForm); // Måste vara sist!!!
-            
+
         }
 
-       
+
 
         //***********************************************************************************************************
         //***                                    PROGRAM LOOPS                                                   *****
@@ -135,11 +135,11 @@ namespace HV9104_GUI
         {
 
             if (fastStreamMode)
-                fastStream();   
-            
-            if(streamMode)            
+                fastStream();
+
+            if (streamMode)
                 stream();
-            
+
             if (blockCaptureMode)
                 blockCapure();
 
@@ -266,7 +266,7 @@ namespace HV9104_GUI
                 {
                     acChannel.processFastStreamData();
                     this.controlForm.dashboardView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
-  
+
                 }
                 else
                     autoSetVoltageRange(acChannel);
@@ -299,10 +299,10 @@ namespace HV9104_GUI
             else if (!picoScope._autoStop && picoScope.streamStarted)
             {
                 picoScope.getFastStreamValues();
-            } 
+            }
         }
-         
-         public void stream()
+
+        public void stream()
         {
             if (picoScope._autoStop)
             {
@@ -356,8 +356,8 @@ namespace HV9104_GUI
                 {
                     autoSetVoltageRange(dcChannel);
                 }
-               
-                
+
+
                 this.measuringForm.chart.Series.ResumeUpdates();
                 this.measuringForm.chart.Series.Invalidate();
 
@@ -371,7 +371,7 @@ namespace HV9104_GUI
             else if (!picoScope._autoStop && picoScope.streamStarted)
             {
                 picoScope.getStreamValues();
-            } 
+            }
         }
         public void blockCapure()
         {
@@ -387,7 +387,7 @@ namespace HV9104_GUI
                     autoTest.impulseData = data;
                     this.measuringForm.chart.Series["impulseSeries"].Points.DataBindXY(data.x, data.y);
                     this.controlForm.dashboardView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
-                 
+
                 }
                 else
                 {
@@ -396,23 +396,23 @@ namespace HV9104_GUI
                 }
             }
         }
-         
-         private void triggerTimer_Tick(object sender, EventArgs e)
+
+        private void triggerTimer_Tick(object sender, EventArgs e)
         {
             triggerTimer.Stop();
             rebootStreaming();
         }
 
 
-         public void rebootStreaming()
-         {
+        public void rebootStreaming()
+        {
             //Stop streaming
             picoScope.stopStreaming();
             blockCaptureMode = false;
             picoScope.enableChannel(0);
             picoScope.enableChannel(1);
             picoScope.disableChannel(2);
-            picoScope.setTriggerChannel(Imports.Channel.ChannelA);                       
+            picoScope.setTriggerChannel(Imports.Channel.ChannelA);
             picoScope.setTriggerLevel(1000);
             picoScope.setTriggerType(Imports.ThresholdDirection.Rising);
             if (this.measuringForm.acEnableCheckBox.isChecked || this.measuringForm.dcEnableCheckBox.isChecked)
@@ -430,32 +430,32 @@ namespace HV9104_GUI
         }
 
         public void pauseStream()
-        {            
+        {
             picoScope.stopStreaming();
         }
 
         public void rebootStream()
         {
             picoScope.streamStarted = false;
-            picoScope._autoStop = false;           
+            picoScope._autoStop = false;
         }
 
         public void autoSetVoltageRange(Channel channel)
         {
             pauseStream();
-            if(picoScope._overflow != 0)
-            { 
-               
-                if ((int)channel.VoltageRange < 10)                   
+            if (picoScope._overflow != 0)
+            {
+
+                if ((int)channel.VoltageRange < 10)
                 {
                     channel.VoltageRange++;
-                    picoScope.setChannelVoltageRange((int)channel.ChannelName, channel.VoltageRange);                   
+                    picoScope.setChannelVoltageRange((int)channel.ChannelName, channel.VoltageRange);
                 }
             }
             else
             {
-                
-                if ((int)channel.VoltageRange > 4)    
+
+                if ((int)channel.VoltageRange > 4)
                 {
                     channel.VoltageRange--;
                     picoScope.setChannelVoltageRange((int)channel.ChannelName, channel.VoltageRange);
@@ -468,13 +468,13 @@ namespace HV9104_GUI
                 this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
                 this.measuringForm.chart.updateCursorMenu();
             }
-            else if (this.measuringForm.chart.cursorMenu.dcChannelRadioButton.isChecked && !this.measuringForm.impulseRadioButton.isChecked)           
+            else if (this.measuringForm.chart.cursorMenu.dcChannelRadioButton.isChecked && !this.measuringForm.impulseRadioButton.isChecked)
             {
-                    this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);
-                    this.measuringForm.chart.updateCursorMenu();
+                this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);
+                this.measuringForm.chart.updateCursorMenu();
             }
 
-            rebootStream();            
+            rebootStream();
         }
 
         //***********************************************************************************************************
@@ -512,7 +512,7 @@ namespace HV9104_GUI
             //***                                     DASHBOARD VIEW EVENT LISTENERS                                       ****
             //***********************************************************************************************************
             // 
-           
+
             //Output Representation Listeners
             this.controlForm.dashboardView.acOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(acOutputComboBox_valueChange);
             this.controlForm.dashboardView.dcOutputComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(dcOutputComboBox_valueChange);
@@ -593,9 +593,9 @@ namespace HV9104_GUI
 
             this.autoTest.PropertyChanged += triggerRequest_PropertyChanged;
 
-            
 
-  
+
+
             //this.controlForm.runView.measurementTypeComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(autoTestMeasTypeComboBox_valueChange);
 
             //***********************************************************************************************************
@@ -638,7 +638,7 @@ namespace HV9104_GUI
             // If triggerrequest = true, trigger an impulse. else ignore, we are just resetting
             if (autoTest.TriggerRequest)
             {
-                
+
                 measuringForm.chart.Series["impulseSeries"].Points.Clear();
 
                 // Make sure we can see the whole puls
@@ -680,7 +680,7 @@ namespace HV9104_GUI
         //***********************************************************************************************************
         //***                                  RUNVIEW EVENT HANDLERS                                          *****
         //***********************************************************************************************************
-        
+
 
         // Withstand test type selected
         private void testWithstandRadioButton_Click(object sender, EventArgs e)
@@ -701,7 +701,7 @@ namespace HV9104_GUI
             GetTestType();
             UpdateResultLabels();
         }
-       
+
         // Voltage type has been changed in auto test page
         private void autoTestVoltageComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
@@ -743,7 +743,7 @@ namespace HV9104_GUI
             GetTestType();
             UpdateResultLabels();
         }
-        
+
         // Experiment Start button
         private void onOffAutoButton_Click(object sender, EventArgs e)
         {
@@ -759,7 +759,7 @@ namespace HV9104_GUI
                         Thread.Sleep(500);
                         SetACVoltageRange(0);
                     }
-                   
+
 
                     // Initialize test parameters and connect power
                     autoTest.StartTest();
@@ -776,7 +776,7 @@ namespace HV9104_GUI
                         autoTest.GoToVoltageAuto();
                     }
                 }
-                
+
             }
             else
             {
@@ -793,30 +793,30 @@ namespace HV9104_GUI
         private void abortAutoTestButton_Click(object sender, EventArgs e)
         {
             autoTest.AbortTest();
-            
+
         }
 
         // Voltage to test at
         private void testVoltageTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-   
+
         }
 
         // length of time at test voltage
         private void testDurationTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            
+
         }
 
         // Ammoint of impulse levels to run
         private void voltageLevelsTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-    
+
         }
         // Impulses to run at each level
         private void impPerLevelTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
- 
+
         }
 
         // Get relevant values and create a report 
@@ -833,7 +833,7 @@ namespace HV9104_GUI
                 // Set a few special variables
                 autoTest.PrepareImpulseReport();
             }
-            ReportGen latestreport = new ReportGen(controlForm.runView,  measuringForm, controlForm.modeLabel.Text);
+            ReportGen latestreport = new ReportGen(controlForm.runView, measuringForm, controlForm.modeLabel.Text);
             latestreport.GenerateReportNow();
         }
 
@@ -854,14 +854,14 @@ namespace HV9104_GUI
         private void dashboardTab_Click(object sender, EventArgs e)
         {
             InitializeDbView();
-            
+
         }
 
         // RunView selected
         private void runExperimentTab_Click(object sender, EventArgs e)
         {
             InitializeRnView();
-           
+
         }
 
         // SetupView selected
@@ -885,13 +885,13 @@ namespace HV9104_GUI
 
         private void impulseRadioButton_Click(object sender, EventArgs e)
         {
-            
+
             if (this.measuringForm.impulseRadioButton.isChecked)
             {
                 // Set the parameters
                 ImpulseDisplaySelected();
             }
-           
+
         }
 
         // AC/DC selected to display in chart
@@ -908,7 +908,7 @@ namespace HV9104_GUI
             dcChannel.IncrementIndex = 1;
             this.measuringForm.acChannelPanel.Visible = true;
             this.measuringForm.dcChannelPanel.Visible = true;
-            this.measuringForm.impulseChannelPanel.Visible = false;            
+            this.measuringForm.impulseChannelPanel.Visible = false;
             this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
             this.measuringForm.chart.cursorMenu.acChannelRadioButton.isChecked = true;
             this.measuringForm.chart.cursorMenu.dcChannelRadioButton.isChecked = false;
@@ -925,7 +925,7 @@ namespace HV9104_GUI
         // Impulse selected to display in chart
         public void ImpulseDisplaySelected()
         {
-            
+
             // We dont always select impulse by clicking the radiobutton, show it as selected.
             this.measuringForm.acdcRadioButton.isChecked = false;
             this.measuringForm.impulseRadioButton.isChecked = true;
@@ -940,12 +940,12 @@ namespace HV9104_GUI
             picoScope.TimePerDivision = 0.5;
             this.measuringForm.chart.setVoltsPerDiv(6502.4);
             this.measuringForm.chart.setTimePerDiv(0.5);
-            impulseChannel.IncrementIndex = 4;  
+            impulseChannel.IncrementIndex = 4;
             this.measuringForm.acEnableCheckBox.isChecked = false;
             this.measuringForm.dcEnableCheckBox.isChecked = false;
-            this.measuringForm.chart.Series ["acSeries"].Points.Clear();
-            this.measuringForm.chart.Series ["dcSeries"].Points.Clear();
-                                   
+            this.measuringForm.chart.Series["acSeries"].Points.Clear();
+            this.measuringForm.chart.Series["dcSeries"].Points.Clear();
+
             this.measuringForm.chart.cursorMenu.setScaleFactor(impulseChannel.getScaleFactor(), impulseChannel.DCOffset * impulseChannel.DividerRatio);
             this.measuringForm.chart.cursorMenu.resizeDown();
             this.measuringForm.chart.updateCursorMenu();
@@ -961,7 +961,7 @@ namespace HV9104_GUI
             picoScope.streamStarted = false;
             picoScope._autoStop = false;
             fastStreamMode = true;
-            
+
         }
 
         private void acVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
@@ -989,11 +989,11 @@ namespace HV9104_GUI
 
         private void acEnableCheckBox_Click(object sender, EventArgs e)
         {
-            
+
             if (this.measuringForm.acEnableCheckBox.isChecked)
-            {             
+            {
                 fastStreamMode = false;
-                if(!streamMode)
+                if (!streamMode)
                     picoScope.setStreamDataBuffers();
                 streamMode = true;
             }
@@ -1004,7 +1004,7 @@ namespace HV9104_GUI
 
         }
 
-         private void dcVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
+        private void dcVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             pauseStream();
             if (e.Value == 0)
@@ -1020,13 +1020,13 @@ namespace HV9104_GUI
                 this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);
                 this.measuringForm.chart.updateCursorMenu();
             }
-            
+
         }
 
 
         private void dcEnableCheckBox_Click(object sender, EventArgs e)
         {
-            
+
             if (this.measuringForm.dcEnableCheckBox.isChecked)
             {
 
@@ -1041,8 +1041,8 @@ namespace HV9104_GUI
             }
         }
 
-         
-          
+
+
         private void impulseVoltageRangeComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
 
@@ -1064,13 +1064,13 @@ namespace HV9104_GUI
 
         private void impulseEnableCheckBox_Click(object sender, EventArgs e)
         {
-            
+
         }
 
 
-         private void impulsePreTriggerTextBox_valueChange(object sender, ValueChangeEventArgs e)
+        private void impulsePreTriggerTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            picoScope.BlockPreTrigger = (double)(e.Value / 100); 
+            picoScope.BlockPreTrigger = (double)(e.Value / 100);
         }
 
         private void resolutionComboBox_valueChange(object sender, ValueChangeEventArgs e)
@@ -1082,7 +1082,7 @@ namespace HV9104_GUI
 
         private void timeBaseComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
- 
+
 
             SetChartTimeBase(e.Text);
         }
@@ -1186,7 +1186,7 @@ namespace HV9104_GUI
         //***********************************************************************************************************
         //***                                     DASHBOARD VIEW EVENT HANDLERS                                 *****
         //***********************************************************************************************************
-        
+
         private void acOutputComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             acTypeIndex = (int)e.Value;
@@ -1205,13 +1205,13 @@ namespace HV9104_GUI
         {
             impTypeIndex = (int)e.Value;
             SetImpOutputType(impTypeIndex);
-        }       
+        }
 
         // Update the transformer motor speed parameter
         private void trafSpeedTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-            if((controlForm.dashboardView.trafSpeedTextBox.Value <= controlForm.dashboardView.trafSpeedTextBox.Max) && (controlForm.dashboardView.trafSpeedTextBox.Value >= controlForm.dashboardView.trafSpeedTextBox.Min))
-            { 
+            if ((controlForm.dashboardView.trafSpeedTextBox.Value <= controlForm.dashboardView.trafSpeedTextBox.Max) && (controlForm.dashboardView.trafSpeedTextBox.Value >= controlForm.dashboardView.trafSpeedTextBox.Min))
+            {
                 trafSpeed = (int)controlForm.dashboardView.trafSpeedTextBox.Value * 10;
             }
         }
@@ -1224,7 +1224,7 @@ namespace HV9104_GUI
         private void onOffButton_Click(object sender, EventArgs e)
         {
             // Connect K1
-            if(this.controlForm.dashboardView.onOffButton.isChecked)
+            if (this.controlForm.dashboardView.onOffButton.isChecked)
             {
                 ClosePrimaryRequest();
             }
@@ -1267,7 +1267,7 @@ namespace HV9104_GUI
         // Used to clean up after park
         private void ParkTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if(PIO1.minUPos)
+            if (PIO1.minUPos)
             {
                 this.controlForm.dashboardView.onOffButton.isChecked = false;
                 this.controlForm.dashboardView.onOffButton.Invalidate();
@@ -1384,7 +1384,7 @@ namespace HV9104_GUI
             targetVoltage = controlForm.dashboardView.regulatedVoltageTextBox.Value;
             double toleranceHi = 0.18;
             double toleranceLo = -0.18;
-            
+
             // Variable to hold our selectable measured voltage value           
             double uActual = 0;
 
@@ -1412,7 +1412,7 @@ namespace HV9104_GUI
                 {
                     uActual = Convert.ToDouble(controlForm.dashboardView.acValueLabel.Text);
                     //uActual = acChannel.getRepresentation();
-                    
+
                     toleranceHi = 0.2;
                     toleranceLo = -0.2;
                 }
@@ -1431,7 +1431,7 @@ namespace HV9104_GUI
                     return;
                 }
 
-                error =  uActual - targetVoltage;
+                error = uActual - targetVoltage;
 
                 if (error == previousError)
                 {
@@ -1495,7 +1495,7 @@ namespace HV9104_GUI
         {
             // *Not needed since we regulate against the already converted UI presentation value 
         }
- 
+
         // Create a signal to trigger an impulse voltage
         private void triggerButton_Click(object sender, EventArgs e)
         {
@@ -1574,7 +1574,7 @@ namespace HV9104_GUI
             if (controlForm.dashboardView.choppingTimeTextBox.Value > controlForm.dashboardView.choppingTimeTextBox.Min)
             {
                 // Increase the delay time by one
-                controlForm.dashboardView.choppingTimeTextBox.Value -= 0.1F; 
+                controlForm.dashboardView.choppingTimeTextBox.Value -= 0.1F;
             }
 
         }
@@ -1690,7 +1690,7 @@ namespace HV9104_GUI
         // HV9133 Measuring Sphere Gap selected
         private void measuringSelectedRadioButton_Click(object sender, EventArgs e)
         {
-  
+
             activeMotor = HV9133;
 
         }
@@ -1756,7 +1756,7 @@ namespace HV9104_GUI
         //***********************************************************************************************************
         private void acCheckBox_Click(object sender, EventArgs e)
         {
-            if(this.controlForm.setupView.acCheckBox.isChecked)
+            if (this.controlForm.setupView.acCheckBox.isChecked)
             {
                 fastStreamMode = true;
             }
@@ -1827,7 +1827,7 @@ namespace HV9104_GUI
 
         private void impulseCheckBox_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void impulseStage1RadioButton_Click(object sender, EventArgs e)
@@ -1861,7 +1861,7 @@ namespace HV9104_GUI
             this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
             this.measuringForm.chart.updateCursorMenu();
         }
-         
+
         private void dcChannelRadioButton_Click(object sender, EventArgs e)
         {
             this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);
@@ -1871,7 +1871,7 @@ namespace HV9104_GUI
         //User want's to save the trigger setup information
         private void triggerMenuOkButton_Click(object sender, EventArgs e)
         {
-            this.measuringForm.triggerWindow.Hide();            
+            this.measuringForm.triggerWindow.Hide();
         }
 
         private void formsCloseButton_Click(object sender, EventArgs e)
@@ -1880,40 +1880,36 @@ namespace HV9104_GUI
             loopTimer.Stop();
             loopTimer.Dispose();
             picoScope.closeDevice();
-           
-            autoTest.sampleTimer.Stop();
-            autoTest.sampleTimer.Dispose();
-            autoTest.triggerTimeoutTimer.Stop();
-            autoTest.triggerTimeoutTimer.Dispose();
-            autoTest.impulseRoutineTimer.Stop();
-            autoTest.impulseRoutineTimer.Dispose();
-            autoTest.updateVoltageOutputValuesTimer.Stop();
-            autoTest.updateVoltageOutputValuesTimer.Dispose();
-            autoTest.logoGrowEffectTimer.Stop();
-            autoTest.logoGrowEffectTimer.Dispose();
-            autoTest.logoShrinkEffectTimer.Stop();
-            autoTest.logoShrinkEffectTimer.Dispose();
-
             try
             {
-                // Code that is executing when the thread is aborted.
-                autoTest.regUAutoImpThread.Abort();
-            }
-            catch (ThreadAbortException ex)
-            {
-                // Clean-up code can go here.
-                // If there is no Finally clause, ThreadAbortException is
-                // re-thrown by the system at the end of the Catch clause. 
-            }
+                autoTest.sampleTimer.Stop();
+                autoTest.sampleTimer.Dispose();
+                autoTest.triggerTimeoutTimer.Stop();
+                autoTest.triggerTimeoutTimer.Dispose();
+                autoTest.impulseRoutineTimer.Stop();
+                autoTest.impulseRoutineTimer.Dispose();
+                autoTest.updateVoltageOutputValuesTimer.Stop();
+                autoTest.updateVoltageOutputValuesTimer.Dispose();
+                autoTest.logoGrowEffectTimer.Stop();
+                autoTest.logoGrowEffectTimer.Dispose();
+                autoTest.logoShrinkEffectTimer.Stop();
+                autoTest.logoShrinkEffectTimer.Dispose();
 
+            }
+            catch (System.NullReferenceException ex)
+            {
+               // MessageBox.Show(ex.Message);
+
+            }
 
             this.measuringForm.Close();
             this.controlForm.Close();
-
+           
             if (System.Windows.Forms.Application.MessageLoop)
             {
                 // WinForms app
                 System.Windows.Forms.Application.Exit();
+                Environment.Exit(0);
             }
             else
             {
