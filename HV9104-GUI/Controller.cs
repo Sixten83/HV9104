@@ -638,16 +638,18 @@ namespace HV9104_GUI
             // If triggerrequest = true, trigger an impulse. else ignore, we are just resetting
             if (autoTest.TriggerRequest)
             {
-
+                
                 measuringForm.chart.Series["impulseSeries"].Points.Clear();
+
+                // Make sure we can see the whole puls
+                SetChartTimeBase("20 us/Div");
 
                 //Set up the measuringForm chart INTERIM VALUES - TO BE SET DYNAMICALLY!!!!!!!
                 if (PIO1.regulatedVoltageValue < 25) SetImpulseChartVoltageRange(2);
-                else if ((PIO1.regulatedVoltageValue >= 25) && (PIO1.regulatedVoltageValue < 70)) SetImpulseChartVoltageRange(3);
-                else if ((PIO1.regulatedVoltageValue >= 70) && (PIO1.regulatedVoltageValue < 180)) SetImpulseChartVoltageRange(4);
+                else if ((PIO1.regulatedVoltageValue >= 25) && (PIO1.regulatedVoltageValue < 60)) SetImpulseChartVoltageRange(3);
+                else if ((PIO1.regulatedVoltageValue >= 60) && (PIO1.regulatedVoltageValue < 180)) SetImpulseChartVoltageRange(4);
                 else if ((PIO1.regulatedVoltageValue >= 25) && (PIO1.regulatedVoltageValue < 80)) SetImpulseChartVoltageRange(5);
 
-                
 
                 // Shoot
                 TriggerImpulse();
@@ -826,14 +828,19 @@ namespace HV9104_GUI
         // Export report to pdf
         public void GenerateReport()
         {
-            ReportGen latestreport = new ReportGen(controlForm.runView, controlForm.modeLabel.Text);
+            if (controlForm.runView.voltageComboBox.SetSelected == "Imp")
+            {
+                // Set a few special variables
+                autoTest.PrepareImpulseReport();
+            }
+            ReportGen latestreport = new ReportGen(controlForm.runView,  measuringForm, controlForm.modeLabel.Text);
             latestreport.GenerateReportNow();
         }
 
         // Export to CSV
         private void exportValuesButton_Click(object sender, EventArgs e)
         {
-            ReportGen latestreport = new ReportGen(controlForm.runView, controlForm.modeLabel.Text);
+            ReportGen latestreport = new ReportGen(controlForm.runView, measuringForm, controlForm.modeLabel.Text);
             // Check for null list !!!!!!!!!!!!!!!!!!
             latestreport.ExportValues(autoTest.xList.ToArray(), autoTest.yList.ToArray());
         }
@@ -1873,15 +1880,47 @@ namespace HV9104_GUI
             loopTimer.Stop();
             loopTimer.Dispose();
             picoScope.closeDevice();
-            autoTest.impulseRoutineTimer.Stop();
+           
             autoTest.sampleTimer.Stop();
-            autoTest.triggerTimeoutTimer.Stop();
-            autoTest.impulseRoutineTimer.Dispose();
             autoTest.sampleTimer.Dispose();
+            autoTest.triggerTimeoutTimer.Stop();
             autoTest.triggerTimeoutTimer.Dispose();
+            autoTest.impulseRoutineTimer.Stop();
+            autoTest.impulseRoutineTimer.Dispose();
+            autoTest.updateVoltageOutputValuesTimer.Stop();
+            autoTest.updateVoltageOutputValuesTimer.Dispose();
+            autoTest.logoGrowEffectTimer.Stop();
+            autoTest.logoGrowEffectTimer.Dispose();
+            autoTest.logoShrinkEffectTimer.Stop();
+            autoTest.logoShrinkEffectTimer.Dispose();
+
+            try
+            {
+                // Code that is executing when the thread is aborted.
+                autoTest.regUAutoImpThread.Abort();
+            }
+            catch (ThreadAbortException ex)
+            {
+                // Clean-up code can go here.
+                // If there is no Finally clause, ThreadAbortException is
+                // re-thrown by the system at the end of the Catch clause. 
+            }
+
+
             this.measuringForm.Close();
             this.controlForm.Close();
-      
+
+            if (System.Windows.Forms.Application.MessageLoop)
+            {
+                // WinForms app
+                System.Windows.Forms.Application.Exit();
+            }
+            else
+            {
+                // Console app
+                System.Environment.Exit(1);
+            }
+
         }
 
 
@@ -1894,7 +1933,7 @@ namespace HV9104_GUI
             HV9133 = new PD1161Device(4, serialPort1);
             activeMotor = HV9126;
 
-            report = new ReportGen(controlForm.runView, controlForm.modeLabel.Text);
+            report = new ReportGen(controlForm.runView, measuringForm, controlForm.modeLabel.Text);
 
             //// Check communication - see who is connected (Not Implemented)
             //FindDevices();
@@ -2007,8 +2046,8 @@ namespace HV9104_GUI
                 else
                 {
                     controlForm.runView.testVoltageTextBox.Value = 67;
-                    controlForm.runView.impulseVoltageLevelsTextBox.Value = 1;
-                    controlForm.runView.impPerLevelTextBox.Value = 5;
+                    controlForm.runView.impulseVoltageLevelsTextBox.Value = 5;
+                    controlForm.runView.impPerLevelTextBox.Value = 3;
                 }
                 controlForm.runView.testVoltageTextBox.Invalidate();
                 controlForm.runView.impulseStepSizeTextBox.Invalidate();
@@ -2152,7 +2191,7 @@ namespace HV9104_GUI
             {
                 controlForm.runView.resultTestVoltageLabel.Text = "TEST VOLTAGE";
                 controlForm.runView.elapsedTimeTitleLabel.Text = "ELAPSED TIME";
-                controlForm.runView.hvUnitLabel.Text = "kV" + selectedVoltage + selectedMeasType;
+                controlForm.runView.hvUnitLabel.Text = "kVDC"; // + selectedVoltage + selectedMeasType;
                 controlForm.runView.secondsUnitLabel.Text = "SECONDS";
 
             }
@@ -2160,14 +2199,14 @@ namespace HV9104_GUI
             {
                 controlForm.runView.resultTestVoltageLabel.Text = "INCEPTION";
                 controlForm.runView.elapsedTimeTitleLabel.Text = "SAMPLE TIME";
-                controlForm.runView.hvUnitLabel.Text = "kV" + selectedVoltage + selectedMeasType;
+                controlForm.runView.hvUnitLabel.Text = "kVDC"; //+ selectedVoltage + selectedMeasType;
                 controlForm.runView.secondsUnitLabel.Text = "SECONDS";
             }
             else if (controlForm.runView.voltageComboBox.SetSelected == "Imp")
             {
                 controlForm.runView.resultTestVoltageLabel.Text = "NEXT TARGET";
                 controlForm.runView.elapsedTimeTitleLabel.Text = "REMAINING";
-                controlForm.runView.hvUnitLabel.Text = "kV" + selectedVoltage + selectedMeasType;
+                controlForm.runView.hvUnitLabel.Text = "kVDC"; //+ selectedVoltage + selectedMeasType;
                 controlForm.runView.secondsUnitLabel.Text = "THIS LEVEL";
             }
 

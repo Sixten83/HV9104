@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlForm));
             this.titleBarPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.messageLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.minimizeButton = new HV9104_GUI.CustomButton();
@@ -48,7 +49,6 @@
             this.dashboardTab = new HV9104_GUI.CustomTab();
             this.runExperimentTab = new HV9104_GUI.CustomTab();
             this.setupTab = new HV9104_GUI.CustomTab();
-            this.label1 = new System.Windows.Forms.Label();
             this.titleBarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.controlFormTabController.SuspendLayout();
@@ -76,6 +76,17 @@
             this.titleBarPanel.Name = "titleBarPanel";
             this.titleBarPanel.Size = new System.Drawing.Size(1918, 100);
             this.titleBarPanel.TabIndex = 12;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label1.Location = new System.Drawing.Point(85, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(176, 57);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "TERCO HV9104\r\nHIGH VOLTAGE CONTROL\r\nAND DATA ACQUISITION\r\n";
             // 
             // messageLabel
             // 
@@ -273,17 +284,6 @@
             this.setupTab.Text = "Setup";
             this.setupTab.UnselectedIcon = global::HV9104_GUI.Properties.Resources.setupIcon;
             this.setupTab.Click += new System.EventHandler(this.customTab21_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label1.Location = new System.Drawing.Point(85, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(177, 57);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "TERCO HV9104\r\nHIGH VOLTAGE CONTROL\r\nAND DATA ACQUISITION\r\n";
             // 
             // ControlForm
             // 

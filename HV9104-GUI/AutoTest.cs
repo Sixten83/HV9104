@@ -26,11 +26,17 @@ namespace HV9104_GUI
         PD1161Device HV9133;
         Chart autoTestChart;
         MeasuringForm measuringForm;
+        
         // Timer
         public Timer sampleTimer;
         public Timer impulseRoutineTimer;
         public Timer triggerTimeoutTimer;
-        
+        public Timer updateVoltageOutputValuesTimer;
+        public Timer logoGrowEffectTimer;
+        public Timer logoShrinkEffectTimer;
+
+        public Thread regUAutoImpThread;
+
         // 
         public DateTime startTime;
         public DateTime currentTime;
@@ -55,7 +61,7 @@ namespace HV9104_GUI
         public double toleranceLow;
 
         ArrayList list = new ArrayList();
-        private Timer updateVoltageOutputValuesTimer;
+        
 
         public bool testIsWithstand = true;
         public int impulseLevels;
@@ -92,8 +98,7 @@ namespace HV9104_GUI
         public List<double> breakdownListX = new List<double>();
         public List<double> breakdownListY = new List<double>();
         private double simElapsedTime;
-        private Timer logoGrowEffectTimer;
-        private Timer logoShrinkEffectTimer;
+
 
         // Delta Voltage
         private double actualACVoltage;
@@ -1085,6 +1090,34 @@ namespace HV9104_GUI
             autoTestChart.Invalidate();
         }
 
+        internal void PrepareImpulseReport()
+        {
+            double minPositive = 10000;
+            int totBreakdowns = CalculateValues(true);
+            int totImpulses = breakdownListResult.Count;
+
+            runView.elapsedTimeTitleLabel.Text = "FAILURE";
+            runView.elapsedTimeLabel.Text = totBreakdowns + "/" + totImpulses;
+            runView.secondsUnitLabel.Text = "RATE";
+            runView.resultTestVoltageLabel.Text = "INCEPTION";
+            for (int incr = 0; incr < yBreakdownArray.Length; incr++)
+            {
+                if ((breakdownListResult[incr] == true) && (yBreakdownArray[incr] < minPositive))
+                {
+                    minPositive = yBreakdownArray[incr];
+                }
+            }
+            if(minPositive == 10000) runView.resultTestVoltageValueLabel.Text = "N/A";
+            else runView.resultTestVoltageValueLabel.Text = minPositive.ToString("0.0");
+            runView.hvUnitLabel.Text = "kVImp";
+        }
+
+        private int CalculateValues(bool val)
+        {
+            return breakdownListResult.Count(c => c == val);
+        }
+
+
         private void CleanUpAfterImpTest()
         {
             impulseRoutineTimer.Stop();
@@ -1171,7 +1204,7 @@ namespace HV9104_GUI
         public void GoToImpulseVoltageAuto()
         {
             // Create a new thread so as not to disturb the other routines
-            Thread regUAutoImpThread = new Thread(RegulateImpulseVoltage);
+            regUAutoImpThread = new Thread(RegulateImpulseVoltage);
             regUAutoImpThread.Start();
         }
 
@@ -1179,7 +1212,7 @@ namespace HV9104_GUI
 
 
         // Voltage regulation for impulse test only
-        private void RegulateImpulseVoltage()
+        public void RegulateImpulseVoltage()
         {
             // Set some tolerances (we aren't perfect)
             double targetVoltage;

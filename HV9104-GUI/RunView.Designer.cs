@@ -1158,7 +1158,7 @@
             this.impulseStepSizeTextBox.Size = new System.Drawing.Size(170, 50);
             this.impulseStepSizeTextBox.TabIndex = 15;
             this.impulseStepSizeTextBox.TextBoxHint = "";
-            this.impulseStepSizeTextBox.Value = 10F;
+            this.impulseStepSizeTextBox.Value = 5F;
             // 
             // startingImpulseVoltageLabel
             // 
