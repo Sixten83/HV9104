@@ -1867,6 +1867,7 @@ namespace HV9104_GUI
 
             loopTimer.Stop();
             loopTimer.Dispose();
+            picoScope.stopStreaming();
             picoScope.closeDevice();
             autoTest.impulseRoutineTimer.Stop();
             autoTest.sampleTimer.Stop();
