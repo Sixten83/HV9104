@@ -54,6 +54,15 @@ namespace HV9104_GUI
             this.pictureBox.BackgroundImage = backgroundImage[0];
         }
 
+        public void setPosition(float procent)
+        {
+            if (procent >= 0 && procent <= 1)
+            {
+                pictureBox.Location = new Point(x * (int)(procent * (end - start) + start - buttonRadius), y * (int)(procent * (end - start) + start - buttonRadius));
+                this.Invalidate();
+            }
+        }
+
         public enum Orientation
         {
             VERTICAL,

@@ -633,7 +633,7 @@ namespace HV9104_GUI
         // 
         private void trafSpeedTrackBar_valueChange(object sender, ValueChangeEventArgs e)
         {
-            controlForm.dashboardView.trafSpeedTextBox.Value = (float)e.Value;
+            controlForm.dashboardView.trafSpeedTextBox.Value = (float)e.Value;            
             controlForm.dashboardView.trafSpeedTextBox.Invalidate();
         }
 
@@ -1234,6 +1234,7 @@ namespace HV9104_GUI
             if ((controlForm.dashboardView.trafSpeedTextBox.Value <= controlForm.dashboardView.trafSpeedTextBox.Max) && (controlForm.dashboardView.trafSpeedTextBox.Value >= controlForm.dashboardView.trafSpeedTextBox.Min))
             {
                 trafSpeed = (int)controlForm.dashboardView.trafSpeedTextBox.Value * 10;
+                controlForm.dashboardView.trafSpeedTrackBar.setPosition((float)e.Value / 100);
                 //controlForm.dashboardView.trafSpeedTrackBar.AutoScrollPosition = trafSpeed;
             }
         }
