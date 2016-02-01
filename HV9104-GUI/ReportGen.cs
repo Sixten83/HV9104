@@ -10,13 +10,15 @@ namespace HV9104_GUI
     class ReportGen
     {
         RunView runView;
+        MeasuringForm measuringForm;
         public string DatePerformed, Operator, TestObject, OtherInfo, Duration, TestVoltage, PassFailStatus, SubTitle, elapsedTimeTitleLabel, resultTestVoltageLabel, passStatusLabel, secondsUnitLabel, hvUnitLabel, passFailUnitlabel;
 
 
         //Constructor
-        public ReportGen(RunView runViewIn, String modeLabelIn)
+        public ReportGen(RunView runViewIn, MeasuringForm measuringFormIn, String modeLabelIn)
         {
             runView = runViewIn;
+            measuringForm = measuringFormIn;
             DatePerformed = runView.dateTextBox.Text;
             Operator = runView.operatorTextBox.Text;
             TestObject = runView.testObjectTextBox.Text;
@@ -46,10 +48,16 @@ namespace HV9104_GUI
             saveFileDialog1.ShowDialog();
             string pdfpath = saveFileDialog1.FileName;
 
+            if (pdfpath == "")
+            {
+                return;
+            }
+
             //string imagepath = @"C:\Users\Terco\Desktop\"; //HEADER LOGO PATH.
             Document doc = new Document(PageSize.A4 , 36f , 36f,36f, 10f);
             try
             {
+                
                 PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(pdfpath, FileMode.Create));
                 int totalfonts = FontFactory.RegisterDirectory("C:\\WINDOWS\\Fonts");
                 var FontColour = new BaseColor(127, 127, 127);
@@ -69,8 +77,8 @@ namespace HV9104_GUI
 
                 //HEADER IMAGE
                 //C:\Users\Terco\Source\Repos\HV9104\HV9104-GUI\bin\Debug\Resources\tercoLogo.png
-                iTextSharp.text.Image gif = iTextSharp.text.Image.GetInstance(@"C:\Users\Terco\Source\Repos\HV9104\HV9104-GUI\Resources\tercologoTransp.JPG");   //HEADER LOGO imagepath + "/tercoLogo.png"
-                gif.ScalePercent(7.5f);
+                iTextSharp.text.Image gif = iTextSharp.text.Image.GetInstance(@"C:\Users\Terco\Source\Repos\HV9104\HV9104-GUI\Resources\tercologoTransp.png");   //HEADER LOGO imagepath + "/tercoLogo.png"
+                gif.ScalePercent(5.5f);
                 gif.SetAbsolutePosition(36f, doc.PageSize.Height - 46f);
                 doc.Add(gif);
                 
@@ -240,7 +248,7 @@ namespace HV9104_GUI
 
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
             }
 
             finally
@@ -262,14 +270,22 @@ namespace HV9104_GUI
 
         }
 
+        private void GenerateMeasuringChartImage()
+        {
+            measuringForm.chart.SaveImage(@".\chartMeas.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            // runView.autoTestChart.SaveImage(@"C:\Users\Terco\Desktop\PDFgeneration\chart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            //Application.
+
+        }
 
         public void ExportValues(double[] xIn, double[] yIn)
         {
 
-            double[] x = new double[xIn.Length];
-            double[] y = new double[yIn.Length];
+            double[] x = new double[xIn.Length + 1];
+            double[] y = new double[yIn.Length + 1];
 
-            for(int i = 0; i<xIn.Length;i++)
+            for(int i = 0; i < xIn.Length; i++)
             {
                 x[i] = xIn[i];
                 y[i] = yIn[i];

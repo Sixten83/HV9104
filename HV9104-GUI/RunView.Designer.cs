@@ -815,10 +815,10 @@
             this.testControlPanel.BackColor = System.Drawing.Color.Transparent;
             this.testControlPanel.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.testControlPanel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.testControlPanel.Controls.Add(this.onOffAutoButton);
             this.testControlPanel.Controls.Add(this.tableLayoutPanel1);
             this.testControlPanel.Controls.Add(this.dynamicLogoPictureBox);
             this.testControlPanel.Controls.Add(this.label15);
-            this.testControlPanel.Controls.Add(this.onOffAutoButton);
             this.testControlPanel.Controls.Add(this.abortAutoTestButton);
             this.testControlPanel.Controls.Add(this.label5);
             this.testControlPanel.Controls.Add(this.autoTestChart);
@@ -1147,18 +1147,18 @@
             this.impulseStepSizeTextBox.BackgroundColor = System.Drawing.Color.White;
             this.impulseStepSizeTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(159)))), ((int)(((byte)(171)))));
             this.impulseStepSizeTextBox.CornerRadius = 25;
-            this.impulseStepSizeTextBox.Decimals = 0;
+            this.impulseStepSizeTextBox.Decimals = 1;
             this.impulseStepSizeTextBox.IsPopUp = false;
             this.impulseStepSizeTextBox.Location = new System.Drawing.Point(271, 43);
             this.impulseStepSizeTextBox.Max = 140D;
             this.impulseStepSizeTextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impulseStepSizeTextBox.Min = 5D;
+            this.impulseStepSizeTextBox.Min = 0.5D;
             this.impulseStepSizeTextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseStepSizeTextBox.Name = "impulseStepSizeTextBox";
             this.impulseStepSizeTextBox.Size = new System.Drawing.Size(170, 50);
             this.impulseStepSizeTextBox.TabIndex = 15;
             this.impulseStepSizeTextBox.TextBoxHint = "";
-            this.impulseStepSizeTextBox.Value = 10F;
+            this.impulseStepSizeTextBox.Value = 5F;
             // 
             // startingImpulseVoltageLabel
             // 

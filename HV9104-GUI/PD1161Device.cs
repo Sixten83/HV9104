@@ -20,7 +20,7 @@ namespace HV9104_GUI
         // Range variables        
         int maxDistance = 0;
         int maxHV9126Distance = 4654950;
-        int maxHV9133Distance = 4687222;
+        int maxHV9133Distance = 4714650;
 
         //Message arrays
         public Byte[] xmtBuf = new Byte[9];
@@ -70,7 +70,7 @@ namespace HV9104_GUI
             // Send the message
             bool crcOK = WriteToDevice();
 
-            // Check the reply (if any??)
+            //Check the reply(if any ??)
             if (crcOK != true)
             {
                 // No answer, let's bail
@@ -81,7 +81,7 @@ namespace HV9104_GUI
             if (rcvBuf[7] == 1)
             {
                 initComplete = true;
-                return true;
+                return initComplete;
             }
             else
             {

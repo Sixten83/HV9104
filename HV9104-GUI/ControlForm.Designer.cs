@@ -30,13 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlForm));
             this.titleBarPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.messageLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.minimizeButton = new HV9104_GUI.CustomButton();
             this.maximizeButton = new HV9104_GUI.CustomButton();
             this.restoreDownButton = new HV9104_GUI.CustomButton();
             this.closeButton = new HV9104_GUI.CustomButton();
-            this.userTitleLabel = new System.Windows.Forms.Label();
             this.modeLabel = new System.Windows.Forms.Label();
             this.modeTitleLabel = new System.Windows.Forms.Label();
             this.messageTitleLabel = new System.Windows.Forms.Label();
@@ -57,13 +57,13 @@
             // titleBarPanel
             // 
             this.titleBarPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.titleBarPanel.Controls.Add(this.label1);
             this.titleBarPanel.Controls.Add(this.messageLabel);
             this.titleBarPanel.Controls.Add(this.pictureBox1);
             this.titleBarPanel.Controls.Add(this.minimizeButton);
             this.titleBarPanel.Controls.Add(this.maximizeButton);
             this.titleBarPanel.Controls.Add(this.restoreDownButton);
             this.titleBarPanel.Controls.Add(this.closeButton);
-            this.titleBarPanel.Controls.Add(this.userTitleLabel);
             this.titleBarPanel.Controls.Add(this.modeLabel);
             this.titleBarPanel.Controls.Add(this.modeTitleLabel);
             this.titleBarPanel.Controls.Add(this.messageTitleLabel);
@@ -77,6 +77,18 @@
             this.titleBarPanel.Size = new System.Drawing.Size(1918, 100);
             this.titleBarPanel.TabIndex = 12;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label1.Location = new System.Drawing.Point(1437, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(338, 57);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "TERCO HV9104\r\nHIGH VOLTAGE CONTROL\r\nAND DATA ACQUISITION                         " +
+    "v1.01 2016\r\n";
+            // 
             // messageLabel
             // 
             this.messageLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -89,7 +101,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::HV9104_GUI.Properties.Resources.tercoLogo;
-            this.pictureBox1.Location = new System.Drawing.Point(1840, 34);
+            this.pictureBox1.Location = new System.Drawing.Point(11, 13);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(68, 56);
             this.pictureBox1.TabIndex = 5;
@@ -146,17 +158,6 @@
             this.closeButton.PressedImage = global::HV9104_GUI.Properties.Resources.closeButtonPressed;
             this.closeButton.Size = new System.Drawing.Size(13, 13);
             this.closeButton.TabIndex = 4;
-            // 
-            // userTitleLabel
-            // 
-            this.userTitleLabel.AutoSize = true;
-            this.userTitleLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userTitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.userTitleLabel.Location = new System.Drawing.Point(1445, 13);
-            this.userTitleLabel.Name = "userTitleLabel";
-            this.userTitleLabel.Size = new System.Drawing.Size(51, 23);
-            this.userTitleLabel.TabIndex = 3;
-            this.userTitleLabel.Text = "USER";
             // 
             // modeLabel
             // 
@@ -320,7 +321,6 @@
         public System.Windows.Forms.Panel panel6;
         public System.Windows.Forms.Label messageTitleLabel;
         public System.Windows.Forms.Label modeTitleLabel;
-        public System.Windows.Forms.Label userTitleLabel;
         public CustomButton closeButton;
         public CustomButton minimizeButton;
         public CustomButton restoreDownButton;
@@ -329,5 +329,6 @@
         public System.Windows.Forms.Label modeLabel;
         public System.Windows.Forms.Label messageLabel;
         public CustomTab runExperimentTab;
+        public System.Windows.Forms.Label label1;
     }
 }
