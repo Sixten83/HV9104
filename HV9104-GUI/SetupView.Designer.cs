@@ -156,14 +156,14 @@
             this.impulseLowDivderTextBox.Decimals = 2;
             this.impulseLowDivderTextBox.IsPopUp = false;
             this.impulseLowDivderTextBox.Location = new System.Drawing.Point(3, 3);
-            this.impulseLowDivderTextBox.Max = 230D;
+            this.impulseLowDivderTextBox.Max = 600D;
             this.impulseLowDivderTextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impulseLowDivderTextBox.Min = 0D;
+            this.impulseLowDivderTextBox.Min = 400D;
             this.impulseLowDivderTextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseLowDivderTextBox.Name = "impulseLowDivderTextBox";
             this.impulseLowDivderTextBox.Size = new System.Drawing.Size(170, 50);
             this.impulseLowDivderTextBox.TabIndex = 5;
-            this.impulseLowDivderTextBox.TextBoxHint = "hej";
+            this.impulseLowDivderTextBox.TextBoxHint = "Low Voltage Arm";
             this.impulseLowDivderTextBox.Value = 519.498F;
             // 
             // impulseDivder1TextBox
@@ -177,9 +177,9 @@
             this.impulseDivder1TextBox.Decimals = 4;
             this.impulseDivder1TextBox.IsPopUp = false;
             this.impulseDivder1TextBox.Location = new System.Drawing.Point(3, 59);
-            this.impulseDivder1TextBox.Max = 230D;
+            this.impulseDivder1TextBox.Max = 1400D;
             this.impulseDivder1TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impulseDivder1TextBox.Min = 0D;
+            this.impulseDivder1TextBox.Min = 1000D;
             this.impulseDivder1TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseDivder1TextBox.Name = "impulseDivder1TextBox";
             this.impulseDivder1TextBox.Size = new System.Drawing.Size(170, 50);
@@ -198,9 +198,9 @@
             this.impulseDivder2TextBox.Decimals = 4;
             this.impulseDivder2TextBox.IsPopUp = false;
             this.impulseDivder2TextBox.Location = new System.Drawing.Point(3, 115);
-            this.impulseDivder2TextBox.Max = 230D;
+            this.impulseDivder2TextBox.Max = 1400D;
             this.impulseDivder2TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impulseDivder2TextBox.Min = 0D;
+            this.impulseDivder2TextBox.Min = 1200D;
             this.impulseDivder2TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseDivder2TextBox.Name = "impulseDivder2TextBox";
             this.impulseDivder2TextBox.Size = new System.Drawing.Size(170, 50);
@@ -220,9 +220,9 @@
             this.impulseDivder3TextBox.Decimals = 4;
             this.impulseDivder3TextBox.IsPopUp = false;
             this.impulseDivder3TextBox.Location = new System.Drawing.Point(3, 171);
-            this.impulseDivder3TextBox.Max = 1100D;
+            this.impulseDivder3TextBox.Max = 1400D;
             this.impulseDivder3TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impulseDivder3TextBox.Min = 800D;
+            this.impulseDivder3TextBox.Min = 1200D;
             this.impulseDivder3TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseDivder3TextBox.Name = "impulseDivder3TextBox";
             this.impulseDivder3TextBox.Size = new System.Drawing.Size(170, 50);
@@ -299,9 +299,9 @@
             this.dcDivder1TextBox.Decimals = 2;
             this.dcDivder1TextBox.IsPopUp = false;
             this.dcDivder1TextBox.Location = new System.Drawing.Point(3, 3);
-            this.dcDivder1TextBox.Max = 230D;
+            this.dcDivder1TextBox.Max = 290D;
             this.dcDivder1TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.dcDivder1TextBox.Min = 0D;
+            this.dcDivder1TextBox.Min = 270D;
             this.dcDivder1TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.dcDivder1TextBox.Name = "dcDivder1TextBox";
             this.dcDivder1TextBox.Size = new System.Drawing.Size(170, 50);
@@ -320,9 +320,9 @@
             this.dcDivder2TextBox.Decimals = 2;
             this.dcDivder2TextBox.IsPopUp = false;
             this.dcDivder2TextBox.Location = new System.Drawing.Point(3, 59);
-            this.dcDivder2TextBox.Max = 230D;
+            this.dcDivder2TextBox.Max = 290D;
             this.dcDivder2TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.dcDivder2TextBox.Min = 0D;
+            this.dcDivder2TextBox.Min = 270D;
             this.dcDivder2TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.dcDivder2TextBox.Name = "dcDivder2TextBox";
             this.dcDivder2TextBox.Size = new System.Drawing.Size(170, 50);
@@ -342,9 +342,9 @@
             this.dcDivder3TextBox.Decimals = 2;
             this.dcDivder3TextBox.IsPopUp = false;
             this.dcDivder3TextBox.Location = new System.Drawing.Point(3, 115);
-            this.dcDivder3TextBox.Max = 230D;
+            this.dcDivder3TextBox.Max = 290D;
             this.dcDivder3TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.dcDivder3TextBox.Min = 0D;
+            this.dcDivder3TextBox.Min = 270D;
             this.dcDivder3TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.dcDivder3TextBox.Name = "dcDivder3TextBox";
             this.dcDivder3TextBox.Size = new System.Drawing.Size(170, 50);
@@ -420,9 +420,9 @@
             this.acDivder1TextBox.Decimals = 2;
             this.acDivder1TextBox.IsPopUp = false;
             this.acDivder1TextBox.Location = new System.Drawing.Point(3, 3);
-            this.acDivder1TextBox.Max = 230D;
+            this.acDivder1TextBox.Max = 110D;
             this.acDivder1TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.acDivder1TextBox.Min = 0D;
+            this.acDivder1TextBox.Min = 90D;
             this.acDivder1TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.acDivder1TextBox.Name = "acDivder1TextBox";
             this.acDivder1TextBox.Size = new System.Drawing.Size(170, 50);
