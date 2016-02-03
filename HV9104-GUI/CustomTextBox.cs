@@ -247,7 +247,7 @@ namespace HV9104_GUI
                         {
                             value = textValue;
                             reportValueChange(inputBox.Text, (double)value);
-                            inputBox.Text = inputBox.Text.Replace(',', '.');
+                            inputBox.Text = this.value.ToString(decimalString).Replace(',', '.');
 
                             this.FindForm().ActiveControl = null;
                         }
