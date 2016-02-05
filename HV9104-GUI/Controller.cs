@@ -384,7 +384,7 @@ namespace HV9104_GUI
                 if (this.measuringForm.impulseRadioButton.isChecked)
                 {
                     this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
-                    data = impulseChannel.processData((int)picoScope.BlockSamples, 0, 2500);
+                    data = impulseChannel.processData((int)picoScope.BlockSamples, 0, 500);
                     autoTest.impulseData = data;
                     this.measuringForm.chart.Series["impulseSeries"].Points.DataBindXY(data.x, data.y);
                     this.controlForm.dashboardView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
@@ -958,10 +958,11 @@ namespace HV9104_GUI
             streamMode = false;
             picoScope.stopStreaming();
             picoScope.setFastStreamDataBuffer();
-            picoScope.TimePerDivision = 0.5;
+            picoScope.TimePerDivision = 2;
             this.measuringForm.chart.setVoltsPerDiv(6502.4);
-            this.measuringForm.chart.setTimePerDiv(0.5);
-            impulseChannel.IncrementIndex = 4;
+            this.measuringForm.chart.setTimePerDiv(2);
+            picoScope.BlockSamples = 10000;
+            impulseChannel.IncrementIndex = 6;
             this.measuringForm.acEnableCheckBox.isChecked = false;
             this.measuringForm.dcEnableCheckBox.isChecked = false;
             this.measuringForm.chart.Series["acSeries"].Points.Clear();

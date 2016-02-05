@@ -265,11 +265,16 @@ namespace HV9104_GUI
                     return true;
                 }
             }
+            catch (IndexOutOfRangeException outRange)
+            {
+
+            }
             catch (Exception ex)
             {
                 // MessageBox.Show("No answer on bus at address " & Integer.Parse(xmtBuf(0)) & ".", "Read error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 return false;
             }
+            
             return true;
         }
 
