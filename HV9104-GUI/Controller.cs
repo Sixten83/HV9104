@@ -923,6 +923,7 @@ namespace HV9104_GUI
             measuringForm.impulseRadioButton.Invalidate();
             measuringForm.acdcRadioButton.Invalidate();
             picoScope.TimePerDivision = 5;
+            picoScope.StreamingInterval = 31250;
             this.measuringForm.chart.setVoltsPerDiv(6502.4);
             this.measuringForm.chart.setTimePerDiv(5);
             acChannel.IncrementIndex = 1;

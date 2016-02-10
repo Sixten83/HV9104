@@ -248,7 +248,7 @@
             // 
             this.dashboardTab.BackColor = System.Drawing.Color.White;
             this.dashboardTab.BackgroundImage = global::HV9104_GUI.Properties.Resources.tabBorder;
-            this.dashboardTab.isSelected = true;
+            this.dashboardTab.isSelected = false;
             this.dashboardTab.Location = new System.Drawing.Point(400, 35);
             this.dashboardTab.Name = "dashboardTab";
             this.dashboardTab.SelectedIcon = global::HV9104_GUI.Properties.Resources.InstrumentSelectedIcon;
@@ -276,7 +276,7 @@
             // 
             this.setupTab.BackColor = System.Drawing.Color.White;
             this.setupTab.BackgroundImage = global::HV9104_GUI.Properties.Resources.tabBorder;
-            this.setupTab.isSelected = false;
+            this.setupTab.isSelected = true;
             this.setupTab.Location = new System.Drawing.Point(0, 35);
             this.setupTab.Name = "setupTab";
             this.setupTab.SelectedIcon = global::HV9104_GUI.Properties.Resources.setupSelectedIcon;
