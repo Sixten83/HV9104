@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
 using System.ComponentModel;
+using System.Windows.Forms;
+using System.Windows.Forms.Integration;
 
 namespace HV9104_GUI
 {
@@ -28,6 +30,11 @@ namespace HV9104_GUI
         decimal[] impulseHighDividerValues = { 1.302M, 1.2714M, 1.2638M };
         decimal[] impulseLowDividerValues = { 519.498M, 513.963M, 512.21M };
         decimal impulseAttenuatorRatio = 25.1448M;
+
+        //Composer PLayer
+        public ComposerPLayer.UserControl1 player;
+        public ElementHost ctrlHost;
+        System.Windows.Forms.Timer composerTimer;
 
         // Class objects
         public DashBoardView activeForm;
@@ -98,6 +105,9 @@ namespace HV9104_GUI
 
             // Set up the primary measuring device
             SetupPicoscope();
+
+            //Composer PLayer
+            SetupComposerPlayer();
 
             // Find a suitable COM port and connect to it. Then add a Handler to catch any replies. 
             AutoConnect();
@@ -217,6 +227,32 @@ namespace HV9104_GUI
             }
         }
 
+        //***********************************************************************************************************
+        //***                                     Composer Player Setup                                          ****
+        //***********************************************************************************************************
+
+        public void SetupComposerPlayer()
+        {
+            player = new ComposerPLayer.UserControl1();
+            ctrlHost = new ElementHost();
+            ctrlHost.Dock = DockStyle.Fill;
+            ctrlHost.Child = player;
+            this.controlForm.setupView.ComposerPlayerPanel.Controls.Add(ctrlHost);
+            composerTimer = new System.Windows.Forms.Timer();
+            this.composerTimer.Tick += new System.EventHandler(this.composerTimer_Tick);
+            composerTimer.Interval = 50;
+            player.modelLoaded = false;
+            player.sumLoad = 0;
+            composerTimer.Start();
+        }
+
+        private void composerTimer_Tick(object sender, EventArgs e)
+        {
+            if (player.modelLoaded)
+                player.hideMenus();
+                
+            composerTimer.Stop();
+        }
 
 
         //***********************************************************************************************************

@@ -83,6 +83,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.ComposerPlayerPanel = new System.Windows.Forms.Panel();
             this.impulseDividerPanel.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.dcDividerPanel.SuspendLayout();
@@ -918,10 +919,18 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "AC SETUP";
             // 
+            // ComposerPlayerPanel
+            // 
+            this.ComposerPlayerPanel.Location = new System.Drawing.Point(1100, 37);
+            this.ComposerPlayerPanel.Name = "ComposerPlayerPanel";
+            this.ComposerPlayerPanel.Size = new System.Drawing.Size(750, 750);
+            this.ComposerPlayerPanel.TabIndex = 1;
+            // 
             // SetupView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ComposerPlayerPanel);
             this.Controls.Add(this.impulseDividerPanel);
             this.Controls.Add(this.dcDividerPanel);
             this.Controls.Add(this.acDividerPanel);
@@ -1012,5 +1021,6 @@
         public CustomTextBox impulseDivder2TextBox;
         public CustomButton impulseDivderDefaultButton;
         public CustomTextBox impulseDivder3TextBox;
+        public System.Windows.Forms.Panel ComposerPlayerPanel;
     }
 }
