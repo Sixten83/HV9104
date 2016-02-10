@@ -595,8 +595,7 @@ namespace HV9104_GUI
         public uint openDevice() 
         {
             
-            uint status = Imports.OpenUnit(out handle, null, Imports.DeviceResolution.PS5000A_DR_8BIT);
-            
+            uint status = Imports.OpenUnit(out handle, null, Imports.DeviceResolution.PS5000A_DR_8BIT);            
         
             if (status != Imports.PICO_OK && handle != 0)
             {
