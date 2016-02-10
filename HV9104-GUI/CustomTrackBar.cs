@@ -56,9 +56,9 @@ namespace HV9104_GUI
 
         public void setPosition(float procent)
         {
-            if (procent <= 1 && procent >= 0)
+            if (procent >= 0 && procent <= 1)
             {
-                pictureBox.Location = new Point(x * (int)((1 - procent) * (start - end) + end - buttonRadius), y * (int)(procent * (start - end) + end - buttonRadius));
+                pictureBox.Location = new Point(x * (int)(procent * (end - start) + start - buttonRadius), y * (int)(procent * (end - start) + start - buttonRadius));
                 this.Invalidate();
             }
         }

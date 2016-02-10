@@ -384,7 +384,7 @@ namespace HV9104_GUI
                 if (this.measuringForm.impulseRadioButton.isChecked)
                 {
                     this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
-                    data = impulseChannel.processData((int)picoScope.BlockSamples, 0, 2500);
+                    data = impulseChannel.processData((int)picoScope.BlockSamples, 0, 500);
                     autoTest.impulseData = data;
                     this.measuringForm.chart.Series["impulseSeries"].Points.DataBindXY(data.x, data.y);
                     this.controlForm.dashboardView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
@@ -633,7 +633,7 @@ namespace HV9104_GUI
         // 
         private void trafSpeedTrackBar_valueChange(object sender, ValueChangeEventArgs e)
         {
-            controlForm.dashboardView.trafSpeedTextBox.Value = (float)e.Value;
+            controlForm.dashboardView.trafSpeedTextBox.Value = (float)e.Value;            
             controlForm.dashboardView.trafSpeedTextBox.Invalidate();
         }
 
@@ -923,6 +923,7 @@ namespace HV9104_GUI
             measuringForm.impulseRadioButton.Invalidate();
             measuringForm.acdcRadioButton.Invalidate();
             picoScope.TimePerDivision = 5;
+            picoScope.StreamingInterval = 31250;
             this.measuringForm.chart.setVoltsPerDiv(6502.4);
             this.measuringForm.chart.setTimePerDiv(5);
             acChannel.IncrementIndex = 1;
@@ -958,10 +959,11 @@ namespace HV9104_GUI
             streamMode = false;
             picoScope.stopStreaming();
             picoScope.setFastStreamDataBuffer();
-            picoScope.TimePerDivision = 0.5;
+            picoScope.TimePerDivision = 2;
             this.measuringForm.chart.setVoltsPerDiv(6502.4);
-            this.measuringForm.chart.setTimePerDiv(0.5);
-            impulseChannel.IncrementIndex = 4;
+            this.measuringForm.chart.setTimePerDiv(2);
+            picoScope.BlockSamples = 10000;
+            impulseChannel.IncrementIndex = 6;
             this.measuringForm.acEnableCheckBox.isChecked = false;
             this.measuringForm.dcEnableCheckBox.isChecked = false;
             this.measuringForm.chart.Series["acSeries"].Points.Clear();
@@ -1234,6 +1236,7 @@ namespace HV9104_GUI
             if ((controlForm.dashboardView.trafSpeedTextBox.Value <= controlForm.dashboardView.trafSpeedTextBox.Max) && (controlForm.dashboardView.trafSpeedTextBox.Value >= controlForm.dashboardView.trafSpeedTextBox.Min))
             {
                 trafSpeed = (int)controlForm.dashboardView.trafSpeedTextBox.Value * 10;
+                controlForm.dashboardView.trafSpeedTrackBar.setPosition(((float)e.Value - 10 )/ 80);
                 //controlForm.dashboardView.trafSpeedTrackBar.AutoScrollPosition = trafSpeed;
             }
         }
@@ -1901,6 +1904,7 @@ namespace HV9104_GUI
 
             loopTimer.Stop();
             loopTimer.Dispose();
+            picoScope.stopStreaming();
             picoScope.closeDevice();
             try
             {
