@@ -252,6 +252,7 @@ namespace HV9104_GUI
             if (player.modelLoaded)
             { 
                 player.hideMenus();
+                this.controlForm.setupView.ComposerPlayerPanel.Visible = true;
                 composerTimer.Stop();
             } 
                
@@ -2403,6 +2404,7 @@ namespace HV9104_GUI
                     player.sumLoad = 0;
                     int i = player.sumLoad;
                     player.changeModel("AC-1-Stage.smg");
+                    this.controlForm.setupView.ComposerPlayerPanel.Visible = false;
                     composerTimer.Start();
                 }
 
@@ -2420,6 +2422,7 @@ namespace HV9104_GUI
                     player.sumLoad = 0;
                     int i = player.sumLoad;
                     player.changeModel("AC-2-Stage.smg");
+                    this.controlForm.setupView.ComposerPlayerPanel.Visible = false;
                     composerTimer.Start();
                 }
             }
@@ -2436,6 +2439,7 @@ namespace HV9104_GUI
                     player.sumLoad = 0;
                     int i = player.sumLoad;
                     player.changeModel("AC-3-Stage.smg");
+                    this.controlForm.setupView.ComposerPlayerPanel.Visible = false;
                     composerTimer.Start();
                 }
             }
@@ -2452,6 +2456,7 @@ namespace HV9104_GUI
                     player.sumLoad = 0;
                     int i = player.sumLoad;
                     player.changeModel("DC-1-Stage.smg");
+                    this.controlForm.setupView.ComposerPlayerPanel.Visible = false;
                     composerTimer.Start();
                 }
             }
@@ -2468,6 +2473,7 @@ namespace HV9104_GUI
                     player.sumLoad = 0;
                     int i = player.sumLoad;
                     player.changeModel("DC-2-Stage.smg");
+                    this.controlForm.setupView.ComposerPlayerPanel.Visible = false;
                     composerTimer.Start();
                 }
             }
@@ -2484,6 +2490,7 @@ namespace HV9104_GUI
                     player.sumLoad = 0;
                     int i = player.sumLoad;
                     player.changeModel("DC-3-Stage.smg");
+                    this.controlForm.setupView.ComposerPlayerPanel.Visible = false;
                     composerTimer.Start();
                 }
             }
@@ -2500,6 +2507,7 @@ namespace HV9104_GUI
                     player.sumLoad = 0;
                     int i = player.sumLoad;
                     player.changeModel("Impulse-1-Stage.smg");
+                    this.controlForm.setupView.ComposerPlayerPanel.Visible = false;
                     composerTimer.Start();
                 }
             }
@@ -2516,6 +2524,7 @@ namespace HV9104_GUI
                     player.sumLoad = 0;
                     int i = player.sumLoad;
                     player.changeModel("Impulse-2-Stage.smg");
+                    this.controlForm.setupView.ComposerPlayerPanel.Visible = false;
                     composerTimer.Start();
                 }
             }
@@ -2532,6 +2541,7 @@ namespace HV9104_GUI
                     player.sumLoad = 0;
                     int i = player.sumLoad;
                     player.changeModel("Impulse-3-Stage.smg");
+                    this.controlForm.setupView.ComposerPlayerPanel.Visible = false;
                     composerTimer.Start();
                 }
             }
