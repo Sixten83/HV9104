@@ -674,7 +674,7 @@ namespace HV9104_GUI
         private void trafSpeedTrackBar_valueChange(object sender, ValueChangeEventArgs e)
         {
             controlForm.dashboardView.trafSpeedTextBox.Value = (float)e.Value;            
-            controlForm.dashboardView.trafSpeedTextBox.Invalidate();
+            
         }
 
         private void dynamicLogoPictureBox_Click(object sender, EventArgs e)
@@ -1719,7 +1719,7 @@ namespace HV9104_GUI
 
         private void decreaseImpulseGap_Down(object sender, MouseEventArgs e)
         {
-
+          
             DecreaseGapRequest();
 
         }

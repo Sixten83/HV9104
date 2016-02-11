@@ -245,6 +245,10 @@ namespace HV9104_GUI
                     pictureBox.Location = new Point(x * (this.Width - buttonRadius * 2), y * (this.Height - buttonRadius * 2));
                     this.Invalidate();
                 }
+                position = (double)((max - min) * (x * (pictureBox.Location.X + buttonRadius - start) + y * (end - pictureBox.Location.Y - buttonRadius)) / (end - start));
+                position += min;
+                //Send info to subscriber
+                reportValueChange(position.ToString(), position);
             }
 
         }

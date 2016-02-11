@@ -58,7 +58,7 @@ namespace HV9104_GUI
                 vCurs1Label.Text = "" + (vCurs1 * scaleFactor - offset).ToString("0.0").Replace(',', '.');
                 vCurs2Label.Text = "" + (vCurs2 * scaleFactor - offset).ToString("0.0").Replace(',', '.');
                 hDiffLabel.Text = "" + (hCurs2 - hCurs1).ToString("0.0").Replace(',', '.');
-                vDiffLabel.Text = "" + ((vCurs2 - vCurs1) * scaleFactor - offset).ToString("0.0").Replace(',', '.');
+                vDiffLabel.Text = "" + ((vCurs2 * scaleFactor - offset) - (vCurs1 * scaleFactor - offset)).ToString("0.0").Replace(',', '.');
                 
                 //Point startPoint = this.Owner.PointToScreen(new Point());
              if (this.Owner != null)
