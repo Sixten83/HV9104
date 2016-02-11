@@ -65,6 +65,7 @@ namespace HV9104_GUI
         private double targetVoltage;
         private string cnt;
         int setupNr = 0;
+        int setupNrLast = 100;
         System.Timers.Timer parkTimer = new System.Timers.Timer(300);
         private bool initializeMotor;
         private string motorState = "NOT INITIALIZED";
@@ -249,9 +250,11 @@ namespace HV9104_GUI
         private void composerTimer_Tick(object sender, EventArgs e)
         {
             if (player.modelLoaded)
+            { 
                 player.hideMenus();
-                
-            composerTimer.Stop();
+                composerTimer.Stop();
+            } 
+               
         }
 
 
@@ -2391,6 +2394,17 @@ namespace HV9104_GUI
                 controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._1_stageAC;
                 controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 controlForm.dashboardView.activeSetupPictureBox.Refresh(); 
+                
+                //Setup composer model
+                if(setupNr != setupNrLast)
+                {
+                    setupNrLast = setupNr;
+                    player.modelLoaded = false;
+                    player.sumLoad = 0;
+                    int i = player.sumLoad;
+                    player.changeModel("AC-1-Stage.smg");
+                    composerTimer.Start();
+                }
 
             }
             else if (setupNr == 200)
@@ -2398,49 +2412,128 @@ namespace HV9104_GUI
                 controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._2_stageAC;
                 controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 controlForm.dashboardView.activeSetupPictureBox.Refresh();
-
+                //Setup composer model
+                if (setupNr != setupNrLast)
+                {
+                    setupNrLast = setupNr;
+                    player.modelLoaded = false;
+                    player.sumLoad = 0;
+                    int i = player.sumLoad;
+                    player.changeModel("AC-2-Stage.smg");
+                    composerTimer.Start();
+                }
             }
             else if (setupNr == 300)
             {
                 controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._3_stageAC;
                 controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                //Setup composer model
+                if (setupNr != setupNrLast)
+                {
+                    setupNrLast = setupNr;
+                    player.modelLoaded = false;
+                    player.sumLoad = 0;
+                    int i = player.sumLoad;
+                    player.changeModel("AC-3-Stage.smg");
+                    composerTimer.Start();
+                }
             }
             else if (setupNr == 110)
             {
                 controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._1_stageDC;
                 controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                //Setup composer model
+                if (setupNr != setupNrLast)
+                {
+                    setupNrLast = setupNr;
+                    player.modelLoaded = false;
+                    player.sumLoad = 0;
+                    int i = player.sumLoad;
+                    player.changeModel("DC-1-Stage.smg");
+                    composerTimer.Start();
+                }
             }
             else if (setupNr == 120)
             {
                 controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._2_stageDC;
                 controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                //Setup composer model
+                if (setupNr != setupNrLast)
+                {
+                    setupNrLast = setupNr;
+                    player.modelLoaded = false;
+                    player.sumLoad = 0;
+                    int i = player.sumLoad;
+                    player.changeModel("DC-2-Stage.smg");
+                    composerTimer.Start();
+                }
             }
             else if (setupNr == 130)
             {
                 controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._3_stageDC;
                 controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                //Setup composer model
+                if (setupNr != setupNrLast)
+                {
+                    setupNrLast = setupNr;
+                    player.modelLoaded = false;
+                    player.sumLoad = 0;
+                    int i = player.sumLoad;
+                    player.changeModel("DC-3-Stage.smg");
+                    composerTimer.Start();
+                }
             }
             else if (setupNr == 111)
             {
                 controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._1_stageImp;
                 controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                //Setup composer model
+                if (setupNr != setupNrLast)
+                {
+                    setupNrLast = setupNr;
+                    player.modelLoaded = false;
+                    player.sumLoad = 0;
+                    int i = player.sumLoad;
+                    player.changeModel("Impulse-1-Stage.smg");
+                    composerTimer.Start();
+                }
             }
             else if (setupNr == 112)
             {
                 controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._2_stageImp;
                 controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                //Setup composer model
+                if (setupNr != setupNrLast)
+                {
+                    setupNrLast = setupNr;
+                    player.modelLoaded = false;
+                    player.sumLoad = 0;
+                    int i = player.sumLoad;
+                    player.changeModel("Impulse-2-Stage.smg");
+                    composerTimer.Start();
+                }
             }
             else if (setupNr == 113)
             {
                 controlForm.dashboardView.activeSetupPictureBox.Image = Properties.Resources._3_stageImp;
                 controlForm.dashboardView.activeSetupPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 controlForm.dashboardView.activeSetupPictureBox.Refresh();
+                //Setup composer model
+                if (setupNr != setupNrLast)
+                {
+                    setupNrLast = setupNr;
+                    player.modelLoaded = false;
+                    player.sumLoad = 0;
+                    int i = player.sumLoad;
+                    player.changeModel("Impulse-3-Stage.smg");
+                    composerTimer.Start();
+                }
             }
             else
             {
