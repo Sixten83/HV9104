@@ -23,8 +23,8 @@ namespace HV9104_GUI
         public ControlForm()
         {
             InitializeComponent();
-            if(Screen.AllScreens.Length <= 2)
-                this.Location = Screen.AllScreens[0].WorkingArea.Location;
+            if(Screen.AllScreens.Length >= 2)
+                this.Location = Screen.AllScreens[1].WorkingArea.Location;
            
             titleBarPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDown);
             titleBarPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseUp);
