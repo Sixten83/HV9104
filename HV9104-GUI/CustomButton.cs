@@ -97,6 +97,14 @@ namespace HV9104_GUI
             }
         }
 
+        public bool IsPressed
+        {
+            get
+            {
+                return this.pressed;
+            }           
+        }
+
      
         // When the mouse button is pressed, set the "pressed" flag to true  
         // and invalidate the form to cause a repaint.  The .NET Compact Framework  

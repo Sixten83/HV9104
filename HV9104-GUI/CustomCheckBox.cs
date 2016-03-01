@@ -42,6 +42,7 @@ namespace HV9104_GUI
             }
             set
             {
+
                 this.checkedImage = value;
             }
         }
@@ -74,7 +75,14 @@ namespace HV9104_GUI
         {
             set
             {
-                check = value;
+                if(check != value)
+                { 
+                    check = value;
+                    this.Invalidate();
+                }
+                else
+                    check = value;
+
             }
             get
             {

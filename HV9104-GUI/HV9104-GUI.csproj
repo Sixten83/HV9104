@@ -147,6 +147,10 @@
       <SubType>Component</SubType>
       <DependentUpon>CustomControls.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomStatusIndicator.cs">
+      <SubType>Component</SubType>
+      <DependentUpon>CustomControls.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomTrackBar.cs">
       <SubType>Component</SubType>
       <DependentUpon>CustomControls.cs</DependentUpon>
@@ -471,6 +475,8 @@
     <Content Include="Resources\3-stageAC.png" />
     <Content Include="Resources\3-stageDC.png" />
     <Content Include="Resources\3-stageImp.png" />
+    <None Include="Resources\redLight.png" />
+    <None Include="Resources\greenLight.png" />
     <Content Include="tercoIcon.ico" />
     <None Include="Resources\tercologoTransp.png" />
     <None Include="Resources\panelArrowHover1.png" />

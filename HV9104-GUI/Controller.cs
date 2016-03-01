@@ -356,7 +356,7 @@ namespace HV9104_GUI
                     {
                         // Console
                         this.measuringForm.chart.Series["acSeries"].Points.Clear();
-                        Channel.ScaledData data = acChannel.processData(1600, trigAt, 400);
+                        Channel.ScaledData data = acChannel.processData(1600, trigAt, 0);
 
                         this.measuringForm.chart.Series["acSeries"].Points.DataBindXY(data.x, data.y);
                         this.controlForm.dashboardView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
@@ -380,7 +380,7 @@ namespace HV9104_GUI
                     if (this.measuringForm.dcEnableCheckBox.isChecked)
                     {
                         this.measuringForm.chart.Series["dcSeries"].Points.Clear();
-                        Channel.ScaledData data = dcChannel.processData(1600, trigAt, 400);
+                        Channel.ScaledData data = dcChannel.processData(1600, trigAt, 0);
                         this.measuringForm.chart.Series["dcSeries"].Points.DataBindXY(data.x, data.y);
                         this.controlForm.dashboardView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                     }
@@ -424,7 +424,7 @@ namespace HV9104_GUI
                 if (this.measuringForm.impulseRadioButton.isChecked)
                 {
                     this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
-                    data = impulseChannel.processData((int)picoScope.BlockSamples, 0, 500);
+                    data = impulseChannel.processData((int)picoScope.BlockSamples, 0, 2500);
                     autoTest.impulseData = data;
                     this.measuringForm.chart.Series["impulseSeries"].Points.DataBindXY(data.x, data.y);
                     this.controlForm.dashboardView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
@@ -1347,6 +1347,7 @@ namespace HV9104_GUI
             if (this.controlForm.dashboardView.onOffSecButton.isChecked)
             {
                 CloseSecondaryRequest(this.controlForm.dashboardView.overrideCheckBox.isChecked);
+                this.controlForm.dashboardView.overrideCheckBox.isChecked = false;                
             }
             // Disconnect K2
             else
@@ -1564,7 +1565,7 @@ namespace HV9104_GUI
         // Create a signal to trigger an impulse voltage
         private void triggerButton_Click(object sender, EventArgs e)
         {
-
+          
             TriggerImpulse();
         }
 
@@ -2300,16 +2301,13 @@ namespace HV9104_GUI
 
             // Status flags
             //guiUpdater.transferLabel36(PIO1.fault.ToString());
-            controlForm.dashboardView.statusLabelUmin.Text = PIO1.minUPos.ToString();
-            controlForm.dashboardView.statusLabelUmin.Invalidate();
-            controlForm.dashboardView.statusLabelEarthingengaged.Text = PIO1.earthingEngaged.ToString();
-            controlForm.dashboardView.statusLabelEarthingengaged.Invalidate();
-            controlForm.dashboardView.statusLabelDischargeRodParked.Text = PIO1.dischargeRodParked.ToString();
-            controlForm.dashboardView.statusLabelDischargeRodParked.Invalidate();
-            controlForm.dashboardView.statuslabelEmStopKeySwClosed.Text = PIO1.emergStpKeySwClosed.ToString();
-            controlForm.dashboardView.statusLabelDoorClosed.Text = PIO1.dorrSwitchClosed.ToString();
-            controlForm.dashboardView.statusLabelK1F2Closed.Text = PIO1.K1Closed.ToString();
-            controlForm.dashboardView.statusLabelK2F1Closed.Text = PIO1.K2Closed.ToString();
+            controlForm.dashboardView.statusIndicatorUmin.IsTrue = PIO1.minUPos;           
+            controlForm.dashboardView.statusIndicatorEarthingengaged.IsTrue = PIO1.earthingEngaged;          
+            controlForm.dashboardView.statusIndicatorDischargeRodParked.IsTrue = PIO1.dischargeRodParked;           
+            controlForm.dashboardView.statusIndicatorEmStopKeySwClosed.IsTrue = PIO1.emergStpKeySwClosed;
+            controlForm.dashboardView.statusIndicatorDoorClosed.IsTrue = PIO1.dorrSwitchClosed;
+            controlForm.dashboardView.statusIndicatorK1F2Closed.IsTrue = PIO1.K1Closed;
+            controlForm.dashboardView.statusIndicatorK2F1Closed.IsTrue = PIO1.K2Closed;
 
             // Auto voltage regulation status
             controlForm.dashboardView.statusLabelAutoRegVoltage.Visible = !abortRegulation;
@@ -2329,6 +2327,7 @@ namespace HV9104_GUI
             // Active motor info
             controlForm.dashboardView.impulseGapLabel.Text = activeMotor.actualPosition.ToString();
             controlForm.dashboardView.statusLabelActiveMotorInitialized.Text = GetMotorStatus();
+            
 
             // Active setup presentation
             GetActiveSetup();
