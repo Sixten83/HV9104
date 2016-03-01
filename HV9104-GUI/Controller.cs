@@ -538,14 +538,17 @@ namespace HV9104_GUI
 
             //Stage setup listeners
             this.controlForm.setupView.acCheckBox.Click += new System.EventHandler(acCheckBox_Click);
+            this.controlForm.setupView.acDivderDefaultButton.Click += new System.EventHandler(acDivderDefaultButton_Click);
             this.controlForm.setupView.acStage1RadioButton.Click += new System.EventHandler(acStage1RadioButton_Click);
             this.controlForm.setupView.acStage2RadioButton.Click += new System.EventHandler(acStage2RadioButton_Click);
             this.controlForm.setupView.acStage3RadioButton.Click += new System.EventHandler(acStage3RadioButton_Click);
             this.controlForm.setupView.dcCheckBox.Click += new System.EventHandler(dcCheckBox_Click);
+            this.controlForm.setupView.dcDivderDefaultButton.Click += new System.EventHandler(dcDivderDefaultButton_Click);
             this.controlForm.setupView.dcStage1RadioButton.Click += new System.EventHandler(dcStage1RadioButton_Click);
             this.controlForm.setupView.dcStage2RadioButton.Click += new System.EventHandler(dcStage2RadioButton_Click);
             this.controlForm.setupView.dcStage3RadioButton.Click += new System.EventHandler(dcStage3RadioButton_Click);
             this.controlForm.setupView.impulseCheckBox.Click += new System.EventHandler(impulseCheckBox_Click);
+            this.controlForm.setupView.impulseDivderDefaultButton.Click += new System.EventHandler(impulseDivderDefaultButton_Click);
             this.controlForm.setupView.impulseStage1RadioButton.Click += new System.EventHandler(impulseStage1RadioButton_Click);
             this.controlForm.setupView.impulseStage2RadioButton.Click += new System.EventHandler(impulseStage2RadioButton_Click);
             this.controlForm.setupView.impulseStage3RadioButton.Click += new System.EventHandler(impulseStage3RadioButton_Click);
@@ -1829,6 +1832,21 @@ namespace HV9104_GUI
 
         }
 
+        private void acDivderDefaultButton_Click(object sender, EventArgs e)
+        {
+            if (this.controlForm.setupView.acStage1RadioButton.isChecked)
+            { 
+                this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[0];
+                acChannel.DividerRatio = (double)((acHighDividerValues[0] + acLowDividerValue) / acHighDividerValues[0]) / 1000;
+            }
+            else
+            {
+                this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[1];
+                acChannel.DividerRatio = (double)((acHighDividerValues[1] + acLowDividerValue) / acHighDividerValues[1]) / 1000;
+            }
+        
+        }
+
         private void acStage1RadioButton_Click(object sender, EventArgs e)
         {
             this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[0];
@@ -1836,7 +1854,7 @@ namespace HV9104_GUI
 
             controlForm.setupView.dcCheckBox.Enabled = true;
             controlForm.setupView.impulseCheckBox.Enabled = true;
-        }
+        }        
 
         private void acStage2RadioButton_Click(object sender, EventArgs e)
         {
@@ -1864,6 +1882,23 @@ namespace HV9104_GUI
         {
 
 
+        }
+
+        private void dcDivderDefaultButton_Click(object sender, EventArgs e)
+        {
+            if (this.controlForm.setupView.dcStage1RadioButton.isChecked)
+            {
+                dcChannel.DividerRatio = (double)((dcHighDividerValues[0] + dcLowDividerValue) / dcLowDividerValue) / 1000;
+                controlForm.setupView.impulseCheckBox.Enabled = true;
+            }
+            else if (this.controlForm.setupView.dcStage2RadioButton.isChecked)
+            {
+                dcChannel.DividerRatio = (double)((dcHighDividerValues[0] + dcHighDividerValues[1] + dcLowDividerValue) / dcLowDividerValue) / 1000;
+            }
+            else
+            {
+                dcChannel.DividerRatio = (double)((dcHighDividerValues.Sum() + dcLowDividerValue) / dcLowDividerValue) / 1000;
+            }
         }
 
         private void dcStage1RadioButton_Click(object sender, EventArgs e)
@@ -1894,6 +1929,27 @@ namespace HV9104_GUI
         private void impulseCheckBox_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void impulseDivderDefaultButton_Click(object sender, EventArgs e)
+        {
+            if (this.controlForm.setupView.impulseStage1RadioButton.isChecked)
+            {
+                this.controlForm.setupView.impulseLowDivderTextBox.Value = (float)impulseLowDividerValues[0];
+                impulseChannel.DividerRatio = (double)(impulseAttenuatorRatio * (impulseHighDividerValues[0] + impulseLowDividerValues[0]) / impulseHighDividerValues[0]) / 1000;
+            }
+            else if (this.controlForm.setupView.impulseStage2RadioButton.isChecked)
+            {
+                decimal highDivider = 1 / (1 / impulseHighDividerValues[0] + 1 / impulseHighDividerValues[1]);
+                this.controlForm.setupView.impulseLowDivderTextBox.Value = (float)impulseLowDividerValues[1];
+                impulseChannel.DividerRatio = (double)(impulseAttenuatorRatio * (highDivider + impulseLowDividerValues[1]) / highDivider) / 1000;
+            }
+            else
+            {
+                decimal highDivider = 1 / (1 / impulseHighDividerValues[0] + 1 / impulseHighDividerValues[1] + 1 / impulseHighDividerValues[2]);
+                this.controlForm.setupView.impulseLowDivderTextBox.Value = (float)impulseLowDividerValues[2];
+                impulseChannel.DividerRatio = (double)(impulseAttenuatorRatio * (highDivider + impulseLowDividerValues[2]) / highDivider) / 1000;
+            }
         }
 
         private void impulseStage1RadioButton_Click(object sender, EventArgs e)
