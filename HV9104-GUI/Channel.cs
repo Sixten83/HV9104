@@ -26,12 +26,13 @@ namespace HV9104_GUI
         public int                  index;
         short                       adMaxValue;
         ushort[]                    inputRanges = { 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000};
-        double[][]                  incrementValues;
+        double[]                    incrementValues;
         int                         incrementIndex;
         float                       dcOffset = 0;
         int                         polarity = 1;
         bool                        voltageAutoRange;
-        
+        int                         maxSamples = 100000;
+
         public struct ScaledData
         {
             public double[] x;
@@ -177,84 +178,94 @@ namespace HV9104_GUI
 
         private void setIncrementValues()
         {
-            incrementValues = new double[10][];
 
-            //if (e.Text.Equals("2 ms/Div"))0,0001
-                
-                int r = 0;
-                decimal increment;
+            incrementValues = new double[maxSamples];
+            int r = 0;
 
-                incrementValues[0] = new double[1600];
-                //X values for 2 ms/Div
+
+            for (; r < maxSamples; r++)
+            {
+                incrementValues[r] = r;
+            }
+
+            //incrementValues = new double[10][];
+
+            ////if (e.Text.Equals("2 ms/Div"))0,0001
                 
-                for(increment = -10; increment < 10 ; increment += 0.0125m )
-                {
-                    incrementValues[0][r++] = (double)increment;
-                }
+            //    int r = 0;
+            //    decimal increment;
+
+            //    incrementValues[0] = new double[1600];
+            //    //X values for 2 ms/Div
+                
+            //    for(increment = -10; increment < 10 ; increment += 0.0125m )
+            //    {
+            //        incrementValues[0][r++] = (double)increment;
+            //    }
                 
                
-                incrementValues[1] = new double[1600];
-                //X values for 5 ms/Div
-                for (increment = -25, r = 0; increment < 25; increment += 0.03125m)
-                {
-                    incrementValues[1][r++] = (double)increment;
-                }
+            //    incrementValues[1] = new double[1600];
+            //    //X values for 5 ms/Div
+            //    for (increment = -25, r = 0; increment < 25; increment += 0.03125m)
+            //    {
+            //        incrementValues[1][r++] = (double)increment;
+            //    }
                 
-                incrementValues[2] = new double[1600];
-                //X values for 10 ms/Div
-                for (increment = -50, r = 0; increment < 50; increment += 0.0625m)
-                {
-                    incrementValues[2][r++] = (double)increment;
-                }
+            //    incrementValues[2] = new double[1600];
+            //    //X values for 10 ms/Div
+            //    for (increment = -50, r = 0; increment < 50; increment += 0.0625m)
+            //    {
+            //        incrementValues[2][r++] = (double)increment;
+            //    }
 
-                incrementValues[3] = new double[1000];
-                //X values for 200 ns/Div
-                for (increment = -1, r = 0; increment < 1; increment += 0.002m)
-                {
-                    incrementValues[3][r++] = (double)increment;
-                }
+            //    incrementValues[3] = new double[1000];
+            //    //X values for 200 ns/Div
+            //    for (increment = -1, r = 0; increment < 1; increment += 0.002m)
+            //    {
+            //        incrementValues[3][r++] = (double)increment;
+            //    }
 
-                incrementValues[4] = new double[2500];
-                //X values for 500 ns/Div
-                for (increment = -2.5m, r = 0; increment < 2.5m; increment += 0.002m)
-                {
-                    incrementValues[4][r++] = (double)increment;
-                }
+            //    incrementValues[4] = new double[2500];
+            //    //X values for 500 ns/Div
+            //    for (increment = -2.5m, r = 0; increment < 2.5m; increment += 0.002m)
+            //    {
+            //        incrementValues[4][r++] = (double)increment;
+            //    }
 
-                incrementValues[5] = new double[5000];
-                //X values for 1 us/Div
-                for (increment = -5, r = 0; increment < 5; increment += 0.002m)
-                {
-                    incrementValues[5][r++] = (double)increment;
-                }
+            //    incrementValues[5] = new double[5000];
+            //    //X values for 1 us/Div
+            //    for (increment = -5, r = 0; increment < 5; increment += 0.002m)
+            //    {
+            //        incrementValues[5][r++] = (double)increment;
+            //    }
 
-                incrementValues[6] = new double[10000];
-                //X values for 2 us/Div
-                for (increment = -10, r = 0; increment < 10; increment += 0.002m)
-                {
-                    incrementValues[6][r++] = (double)increment;
-                }
+            //    incrementValues[6] = new double[10000];
+            //    //X values for 2 us/Div
+            //    for (increment = -10, r = 0; increment < 10; increment += 0.002m)
+            //    {
+            //        incrementValues[6][r++] = (double)increment;
+            //    }
 
-                incrementValues[7] = new double[25000];
-                //X values for 5 us/Div
-                for (increment = -25, r = 0; increment < 25; increment += 0.002m)
-                {
-                    incrementValues[7][r++] = (double)increment;
-                }
+            //    incrementValues[7] = new double[25000];
+            //    //X values for 5 us/Div
+            //    for (increment = -25, r = 0; increment < 25; increment += 0.002m)
+            //    {
+            //        incrementValues[7][r++] = (double)increment;
+            //    }
 
-                incrementValues[8] = new double[50000];
-                //X values for 10 us/Div
-                for (increment = -50, r = 0; increment < 50; increment += 0.002m)
-                {
-                    incrementValues[8][r++] = (double)increment;
-                }
+            //    incrementValues[8] = new double[50000];
+            //    //X values for 10 us/Div
+            //    for (increment = -50, r = 0; increment < 50; increment += 0.002m)
+            //    {
+            //        incrementValues[8][r++] = (double)increment;
+            //    }
 
-                incrementValues[9] = new double[100000];
-                //X values for 20 us/Div
-                for (increment = -100, r = 0; increment < 100; increment += 0.002m)
-                {
-                    incrementValues[9][r++] = (double)increment;
-                }
+            //    incrementValues[9] = new double[100000];
+            //    //X values for 20 us/Div
+            //    for (increment = -100, r = 0; increment < 100; increment += 0.002m)
+            //    {
+            //        incrementValues[9][r++] = (double)increment;
+            //    }
          
         }       
 
@@ -315,36 +326,36 @@ namespace HV9104_GUI
             updateRepresentation();
         }       
 
-        public ScaledData processData(int samples, int startIndex, int downSampelCount)
+        public ScaledData processData(int samples, int startIndex)
         {
 
             scaledData = new ScaledData[2];
             
             
             double factor = (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;
-            if (downSampelCount == 0 || samples < downSampelCount)
-            {
+            //if (downSampelCount == 0 || samples < downSampelCount)
+            //{
                 scaledData[0].y = new double[samples];
                 scaledData[0].x = new double[samples];
                 Array.Copy(channelBuffers[0], startIndex, scaledData[0].y, 0, samples);
-                Array.Copy(incrementValues[incrementIndex], 0, scaledData[0].x, 0, samples);
+                Array.Copy(incrementValues, 0, scaledData[0].x, 0, samples);
                 average = factor * scaledData[0].y.Sum() / samples;
-            }
-            else
-            {
-                int downSampleRatio = (samples) / downSampelCount;
-                scaledData[0].y = new double[downSampelCount];
-                scaledData[0].x = new double[downSampelCount];
-                int i = 0;
-                int r = startIndex;
-                for (; r < startIndex + samples; r += downSampleRatio)
-                {                                      
-                    Array.Copy(channelBuffers[0], r, scaledData[0].y, i, 1);
-                    Array.Copy(incrementValues[incrementIndex], r - startIndex, scaledData[0].x, i, 1);
-                    i++;
-                }
-                average = factor * scaledData[0].y.Sum() / downSampelCount;
-            }
+            //}
+            //else
+            //{
+            //    int downSampleRatio = (samples) / downSampelCount;
+            //    scaledData[0].y = new double[downSampelCount];
+            //    scaledData[0].x = new double[downSampelCount];
+            //    int i = 0;
+            //    int r = startIndex;
+            //    for (; r < startIndex + samples; r += downSampleRatio)
+            //    {                                      
+            //        Array.Copy(channelBuffers[0], r, scaledData[0].y, i, 1);
+            //        Array.Copy(incrementValues[incrementIndex], r - startIndex, scaledData[0].x, i, 1);
+            //        i++;
+            //    }
+            //    average = factor * scaledData[0].y.Sum() / downSampelCount;
+            //}
 
             max = factor * scaledData[0].y.Max() - 1 * dcOffset * (float)dividerRatio;
             min = factor * scaledData[0].y.Min() - 1 * dcOffset * (float)dividerRatio;

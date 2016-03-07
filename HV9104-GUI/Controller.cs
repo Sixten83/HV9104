@@ -295,6 +295,7 @@ namespace HV9104_GUI
             triggerTimer.Enabled = true;
 
             this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
+            this.measuringForm.chart.setTimePerDiv(50000);
         }
 
 
@@ -348,22 +349,20 @@ namespace HV9104_GUI
             if (picoScope._autoStop)
             {
                 int trigAt = (int)picoScope._trigAt;
-                this.measuringForm.chart.Series.SuspendUpdates();
-
+                
                 if ((int)(picoScope._overflow & 1) == 0 || !acChannel.VoltageAutoRange)
                 {
                     if (this.measuringForm.acEnableCheckBox.isChecked)
                     {
                         // Console
-                        this.measuringForm.chart.Series["acSeries"].Points.Clear();
-                        Channel.ScaledData data = acChannel.processData(1600, trigAt, 0);
-
-                        this.measuringForm.chart.Series["acSeries"].Points.DataBindXY(data.x, data.y);
+                       
+                        Channel.ScaledData data = acChannel.processData(50000, trigAt);
+                        this.measuringForm.chart.updateChart("acSeries", data, 50000);                      
                         this.controlForm.dashboardView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                     }
                     else
                     {
-                        acChannel.processMaxMinData(1600, trigAt);
+                        acChannel.processMaxMinData(50000, trigAt);
                         this.controlForm.dashboardView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                     }
                 }
@@ -379,14 +378,14 @@ namespace HV9104_GUI
                 {
                     if (this.measuringForm.dcEnableCheckBox.isChecked)
                     {
-                        this.measuringForm.chart.Series["dcSeries"].Points.Clear();
-                        Channel.ScaledData data = dcChannel.processData(1600, trigAt, 0);
-                        this.measuringForm.chart.Series["dcSeries"].Points.DataBindXY(data.x, data.y);
+
+                        Channel.ScaledData data = dcChannel.processData(50000, trigAt);
+                        this.measuringForm.chart.updateChart("dcSeries", data, 50000);
                         this.controlForm.dashboardView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                     }
                     else
                     {
-                        dcChannel.processMaxMinData(1600, trigAt);
+                        dcChannel.processMaxMinData(50000, trigAt);
                         this.controlForm.dashboardView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
                     }
                 }
@@ -399,9 +398,7 @@ namespace HV9104_GUI
                 }
 
 
-                this.measuringForm.chart.Series.ResumeUpdates();
-                this.measuringForm.chart.Series.Invalidate();
-
+               
                 picoScope.streamStarted = false;
                 picoScope._autoStop = false;
             }
@@ -423,10 +420,10 @@ namespace HV9104_GUI
 
                 if (this.measuringForm.impulseRadioButton.isChecked)
                 {
-                    this.measuringForm.chart.Series["impulseSeries"].Points.Clear();
-                    data = impulseChannel.processData((int)picoScope.BlockSamples, 0, 2500);
+                   
+                    data = impulseChannel.processData((int)picoScope.BlockSamples, 0);
                     autoTest.impulseData = data;
-                    this.measuringForm.chart.Series["impulseSeries"].Points.DataBindXY(data.x, data.y);
+                    this.measuringForm.chart.updateChart("impulseSeries", data, (int)picoScope.BlockSamples);
                     this.controlForm.dashboardView.impulseValueLabel.Text = "" + impulseChannel.getRepresentation().ToString("0.0").Replace(',', '.');
 
                 }
@@ -456,6 +453,7 @@ namespace HV9104_GUI
             picoScope.setTriggerChannel(Imports.Channel.ChannelA);
             picoScope.setTriggerLevel(1000);
             picoScope.setTriggerType(Imports.ThresholdDirection.Rising);
+
             if (this.measuringForm.acEnableCheckBox.isChecked || this.measuringForm.dcEnableCheckBox.isChecked)
             {
                 picoScope.setStreamDataBuffers();
@@ -966,9 +964,9 @@ namespace HV9104_GUI
             measuringForm.impulseRadioButton.Invalidate();
             measuringForm.acdcRadioButton.Invalidate();
             picoScope.TimePerDivision = 5;
-            picoScope.StreamingInterval = 31250;
+            picoScope.StreamingInterval = 1000;
             this.measuringForm.chart.setVoltsPerDiv(6502.4);
-            this.measuringForm.chart.setTimePerDiv(5);
+            this.measuringForm.chart.setTimePerDiv(50000);
             acChannel.IncrementIndex = 1;
             dcChannel.IncrementIndex = 1;
             this.measuringForm.acChannelPanel.Visible = true;
@@ -981,9 +979,9 @@ namespace HV9104_GUI
             this.measuringForm.chart.cursorMenu.resizeUp();
             this.measuringForm.chart.updateCursorMenu();
             this.measuringForm.timeBaseComboBox.setCollection = new string[] {
-        "2 ms/Div",
-        "5 ms/Div",
-        "10 ms/Div"};
+                                                                                "2 ms/Div",
+                                                                                "5 ms/Div",
+                                                                                "10 ms/Div"};
             this.measuringForm.timeBaseComboBox.SetSelected = "5 ms/Div";
         }
 
@@ -1004,7 +1002,7 @@ namespace HV9104_GUI
             picoScope.setFastStreamDataBuffer();
             picoScope.TimePerDivision = 2;
             this.measuringForm.chart.setVoltsPerDiv(6502.4);
-            this.measuringForm.chart.setTimePerDiv(2);
+            this.measuringForm.chart.setTimePerDiv(10000);
             picoScope.BlockSamples = 10000;
             impulseChannel.IncrementIndex = 6;
             this.measuringForm.acEnableCheckBox.isChecked = false;
@@ -1016,13 +1014,13 @@ namespace HV9104_GUI
             this.measuringForm.chart.cursorMenu.resizeDown();
             this.measuringForm.chart.updateCursorMenu();
             this.measuringForm.timeBaseComboBox.setCollection = new string[] {
-        "200 ns/Div",
-        "500 ns/Div",
-        "1 us/Div",
-        "2 us/Div",
-        "5 us/Div",
-        "10 us/Div",
-        "20 us/Div"};
+                                                                                "200 ns/Div",
+                                                                                "500 ns/Div",
+                                                                                "1 us/Div",
+                                                                                "2 us/Div",
+                                                                                "5 us/Div",
+                                                                                "10 us/Div",
+                                                                                "20 us/Div"};
             this.measuringForm.timeBaseComboBox.SetSelected = "2 us/Div";
             picoScope.streamStarted = false;
             picoScope._autoStop = false;
@@ -1161,30 +1159,22 @@ namespace HV9104_GUI
                 this.measuringForm.chart.Series["dcSeries"].Points.Clear();
                 if (timeBaseValueIn.Equals("2 ms/Div"))
                 {
-                    picoScope.StreamingInterval = 12500;
+                    picoScope.StreamingInterval = 400;
                     picoScope.TimePerDivision = 2;
-                    acChannel.IncrementIndex = 0;
-                    dcChannel.IncrementIndex = 0;
-                    this.measuringForm.chart.setTimePerDiv(2);
 
                 }
                 else if (timeBaseValueIn.Equals("5 ms/Div"))
                 {
-                    picoScope.StreamingInterval = 31250;
+                    picoScope.StreamingInterval = 1000;
                     picoScope.TimePerDivision = 5;
-                    acChannel.IncrementIndex = 1;
-                    dcChannel.IncrementIndex = 1;
-                    this.measuringForm.chart.setTimePerDiv(5);
                 }
                 else
                 {
-                    picoScope.StreamingInterval = 62500;
+                    picoScope.StreamingInterval = 2000;
                     picoScope.TimePerDivision = 10;
-                    acChannel.IncrementIndex = 2;
-                    dcChannel.IncrementIndex = 2;
-                    this.measuringForm.chart.setTimePerDiv(10);
+                    
                 }
-
+                this.measuringForm.chart.setTimePerDiv(50000);
             }
             else
             {
@@ -1192,52 +1182,39 @@ namespace HV9104_GUI
                 {
                     picoScope.BlockSamples = 1000;
                     picoScope.TimePerDivision = 0.2;
-                    impulseChannel.IncrementIndex = 3;
-                    this.measuringForm.chart.setTimePerDiv(0.2);
 
                 }
                 else if (timeBaseValueIn.Equals("500 ns/Div"))
                 {
                     picoScope.BlockSamples = 2500;
                     picoScope.TimePerDivision = 0.5;
-                    impulseChannel.IncrementIndex = 4;
-                    this.measuringForm.chart.setTimePerDiv(0.5);
                 }
                 else if (timeBaseValueIn.Equals("1 us/Div"))
                 {
                     picoScope.BlockSamples = 5000;
                     picoScope.TimePerDivision = 1;
-                    impulseChannel.IncrementIndex = 5;
-                    this.measuringForm.chart.setTimePerDiv(1);
                 }
                 else if (timeBaseValueIn.Equals("2 us/Div"))
                 {
                     picoScope.BlockSamples = 10000;
                     picoScope.TimePerDivision = 2;
-                    impulseChannel.IncrementIndex = 6;
-                    this.measuringForm.chart.setTimePerDiv(2);
                 }
                 else if (timeBaseValueIn.Equals("5 us/Div"))
                 {
                     picoScope.BlockSamples = 25000;
                     picoScope.TimePerDivision = 5;
-                    impulseChannel.IncrementIndex = 7;
-                    this.measuringForm.chart.setTimePerDiv(5);
                 }
                 else if (timeBaseValueIn.Equals("10 us/Div"))
                 {
                     picoScope.BlockSamples = 50000;
                     picoScope.TimePerDivision = 10;
-                    impulseChannel.IncrementIndex = 8;
-                    this.measuringForm.chart.setTimePerDiv(10);
                 }
                 else if (timeBaseValueIn.Equals("20 us/Div"))
                 {
                     picoScope.BlockSamples = 100000;
                     picoScope.TimePerDivision = 20;
-                    impulseChannel.IncrementIndex = 9;
-                    this.measuringForm.chart.setTimePerDiv(20);
                 }
+                this.measuringForm.chart.setTimePerDiv(picoScope.BlockSamples);
             }
             this.measuringForm.chart.updateCursorMenu();
         }

@@ -31,8 +31,8 @@ namespace HV9104_GUI
         public short _overflow = 0;
         public bool streamStarted = false;
         private int bufferSize = 1024 * 100;//1024 * 100; /*  *100 is to make sure buffer large enough */
-        uint streamingSamples = 10000;
-        uint streamingInterval = 31250;
+        uint streamingSamples = 60000;
+        uint streamingInterval = 1000;
         private Imports.ReportedTimeUnits streamingIntervalUnits = Imports.ReportedTimeUnits.NanoSeconds;
         double blockPreTriggerSamples = 0.1;
         uint blockSamples = 2500;
