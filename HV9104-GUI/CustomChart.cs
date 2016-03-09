@@ -245,6 +245,13 @@ namespace HV9104_GUI
                 pressed = true;
                 this.Focus();
             }
+
+            if (!pressed)
+            { 
+                mouseLeftpressed = true;
+                mouseDown = e.Location;
+            }
+
             if (pressed && !cursorMenuDisplayed)
             {
                 Point startPoint = this.PointToScreen(new Point());
@@ -252,9 +259,7 @@ namespace HV9104_GUI
                 cursorMenu.Location = new Point(startPoint.X + this.Width - cursorMenu.Width, startPoint.Y + this.Height - cursorMenu.Height);
                 cursorMenu.updateCursorPos(this.Series["xCursor1"].Points[0].XValue, this.Series["xCursor2"].Points[0].XValue, this.Series["yCursor1"].Points[0].YValues[0], this.Series["yCursor2"].Points[0].YValues[0]);                 
                 cursorMenu.Show();
-                cursorMenuDisplayed = true;
-           
-
+                cursorMenuDisplayed = true;      
             }
            
         }
@@ -342,8 +347,8 @@ namespace HV9104_GUI
         
         private void chart_MouseLeave(object sender, System.EventArgs e)
         {
-           
-            pressed = x1InPos = x2InPos = y1InPos = y2InPos = false;
+
+            mouseLeftpressed = pressed = x1InPos = x2InPos = y1InPos = y2InPos = false;
             
         }
 
@@ -537,28 +542,26 @@ namespace HV9104_GUI
 
                     
                         System.Windows.Forms.MouseEventArgs mouse = e;
-                        if (mouse.Button == MouseButtons.Left)
+                        Point mousePosNow = mouse.Location;
+                        if (mouseLeftpressed)
                         {
-                            Point mousePosNow = mouse.Location;
-                            this.Cursor = System.Windows.Forms.Cursors.SizeAll;
-                            if (!mouseLeftpressed)
+                            
+                            this.Cursor = System.Windows.Forms.Cursors.SizeNWSE;
+                            
+                            try
                             {
-                                mouseLeftpressed = true;
-                                mouseDown = mouse.Location;
-                                try
-                                {
-                                    startX = this.ChartAreas[0].AxisX.PixelPositionToValue(mouseDown.X);
-                                    startY = this.ChartAreas[0].AxisY.PixelPositionToValue(mouseDown.Y);
-                                }
-                                catch (ArgumentException)
-                                {
-
-                                }
-                                catch (InvalidOperationException)
-                                {
-
-                                }
+                                startX = this.ChartAreas[0].AxisX.PixelPositionToValue(mouseDown.X);
+                                startY = this.ChartAreas[0].AxisY.PixelPositionToValue(mouseDown.Y);
                             }
+                            catch (ArgumentException)
+                            {
+
+                            }
+                            catch (InvalidOperationException)
+                            {
+
+                            }
+                            
                             // the distance the mouse has been moved since mouse was pressed
                             int deltaX = mousePosNow.X - mouseDown.X;
                             int deltaY = mousePosNow.Y - mouseDown.Y;
@@ -576,8 +579,7 @@ namespace HV9104_GUI
                             {
 
                             }
-                            // calculate new offset of image based on the current zoom factor
-
+                            
                             this.Series["MouseZoom"].Points.Clear();
                             this.Series["MouseZoom"].Points.AddXY(startX, startY);
                             this.Series["MouseZoom"].Points.AddXY(endX, startY);
@@ -587,8 +589,8 @@ namespace HV9104_GUI
                         }
                         else if (mouse.Button == MouseButtons.Middle)
                         {
-                            Point mousePosNow = mouse.Location;
-                            this.Cursor = System.Windows.Forms.Cursors.Hand;
+                            
+                            this.Cursor = System.Windows.Forms.Cursors.SizeAll;
                             if (!mouseWheelPressed)
                             {
                                 mouseWheelPressed = true;

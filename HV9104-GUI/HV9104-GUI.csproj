@@ -241,7 +241,7 @@
       <DependentUpon>MeasuringForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -477,6 +477,7 @@
     <Content Include="Resources\3-stageImp.png" />
     <None Include="Resources\redLight.png" />
     <None Include="Resources\greenLight.png" />
+    <None Include="Resources\magnify.cur" />
     <Content Include="tercoIcon.ico" />
     <None Include="Resources\tercologoTransp.png" />
     <None Include="Resources\panelArrowHover1.png" />

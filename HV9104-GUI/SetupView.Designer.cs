@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.acStage1RadioButton = new HV9104_GUI.CustomRadioButton();
             this.ComposerPlayerPanel = new System.Windows.Forms.Panel();
             this.impulseDividerPanel = new HV9104_GUI.CustomPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
@@ -79,6 +78,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.acCheckBox = new HV9104_GUI.CustomCheckBox();
             this.acStage3RadioButton = new HV9104_GUI.CustomRadioButton();
+            this.acStage1RadioButton = new HV9104_GUI.CustomRadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.acStage2RadioButton = new HV9104_GUI.CustomRadioButton();
             this.label3 = new System.Windows.Forms.Label();
@@ -97,22 +97,6 @@
             this.customPanel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // acStage1RadioButton
-            // 
-            this.acStage1RadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.acStage1RadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.acStage1RadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
-            this.acStage1RadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
-            this.acStage1RadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
-            this.acStage1RadioButton.isChecked = true;
-            this.acStage1RadioButton.Location = new System.Drawing.Point(190, 66);
-            this.acStage1RadioButton.Name = "acStage1RadioButton";
-            this.acStage1RadioButton.Size = new System.Drawing.Size(47, 47);
-            this.acStage1RadioButton.TabIndex = 1;
-            this.acStage1RadioButton.Text = "customRadioButton1";
-            this.toolTip1.SetToolTip(this.acStage1RadioButton, "Continuous current input");
-            this.acStage1RadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
             // ComposerPlayerPanel
             // 
@@ -185,9 +169,9 @@
             this.impulseDivder1TextBox.Decimals = 4;
             this.impulseDivder1TextBox.IsPopUp = false;
             this.impulseDivder1TextBox.Location = new System.Drawing.Point(3, 59);
-            this.impulseDivder1TextBox.Max = 1400D;
+            this.impulseDivder1TextBox.Max = 1.4D;
             this.impulseDivder1TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impulseDivder1TextBox.Min = 1000D;
+            this.impulseDivder1TextBox.Min = 1D;
             this.impulseDivder1TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseDivder1TextBox.Name = "impulseDivder1TextBox";
             this.impulseDivder1TextBox.Size = new System.Drawing.Size(170, 50);
@@ -206,9 +190,9 @@
             this.impulseDivder2TextBox.Decimals = 4;
             this.impulseDivder2TextBox.IsPopUp = false;
             this.impulseDivder2TextBox.Location = new System.Drawing.Point(3, 115);
-            this.impulseDivder2TextBox.Max = 1400D;
+            this.impulseDivder2TextBox.Max = 1.4D;
             this.impulseDivder2TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impulseDivder2TextBox.Min = 1200D;
+            this.impulseDivder2TextBox.Min = 1D;
             this.impulseDivder2TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseDivder2TextBox.Name = "impulseDivder2TextBox";
             this.impulseDivder2TextBox.Size = new System.Drawing.Size(170, 50);
@@ -228,9 +212,9 @@
             this.impulseDivder3TextBox.Decimals = 4;
             this.impulseDivder3TextBox.IsPopUp = false;
             this.impulseDivder3TextBox.Location = new System.Drawing.Point(3, 171);
-            this.impulseDivder3TextBox.Max = 1400D;
+            this.impulseDivder3TextBox.Max = 1.4D;
             this.impulseDivder3TextBox.MaximumSize = new System.Drawing.Size(400, 50);
-            this.impulseDivder3TextBox.Min = 1200D;
+            this.impulseDivder3TextBox.Min = 1D;
             this.impulseDivder3TextBox.MinimumSize = new System.Drawing.Size(170, 50);
             this.impulseDivder3TextBox.Name = "impulseDivder3TextBox";
             this.impulseDivder3TextBox.Size = new System.Drawing.Size(170, 50);
@@ -862,6 +846,22 @@
             this.acStage3RadioButton.TabIndex = 1;
             this.acStage3RadioButton.Text = "customRadioButton1";
             this.acStage3RadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
+            // 
+            // acStage1RadioButton
+            // 
+            this.acStage1RadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.acStage1RadioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.acStage1RadioButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.radioButton;
+            this.acStage1RadioButton.CheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonCheckedHover;
+            this.acStage1RadioButton.CheckedImage = global::HV9104_GUI.Properties.Resources.radioButtonChecked;
+            this.acStage1RadioButton.isChecked = true;
+            this.acStage1RadioButton.Location = new System.Drawing.Point(190, 66);
+            this.acStage1RadioButton.Name = "acStage1RadioButton";
+            this.acStage1RadioButton.Size = new System.Drawing.Size(47, 47);
+            this.acStage1RadioButton.TabIndex = 1;
+            this.acStage1RadioButton.Text = "customRadioButton1";
+            this.toolTip1.SetToolTip(this.acStage1RadioButton, "Continuous current input");
+            this.acStage1RadioButton.UncheckedHoverImage = global::HV9104_GUI.Properties.Resources.radioButtonHover;
             // 
             // label2
             // 
