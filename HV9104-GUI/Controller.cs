@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-//using Excel = Microsoft.Office.Interop.Excel; 
 using System.IO.Ports;
 using System.Threading;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using System.IO;
+using System.Net.NetworkInformation;
 
 namespace HV9104_GUI
 {
@@ -19,9 +20,14 @@ namespace HV9104_GUI
         PicoScope picoScope;
         Channel acChannel, dcChannel, impulseChannel;
         Channel.ScaledData data;
+        
+        //Timers
         System.Windows.Forms.Timer loopTimer, triggerTimer;
+        
+        //PicoScope mode flags
         bool fastStreamMode, streamMode;
         bool blockCaptureMode;
+
         //Voltage Dividers
         decimal[]   acDefaultHighDividerValues = { 101.27M, 106.7M };        
         decimal[]   acHighDividerValues = { 101.27M, 106.7M };
@@ -30,7 +36,6 @@ namespace HV9104_GUI
         decimal     dcDefaultLowDividerValue = 0.027997M;
         decimal[]   dcHighDividerValues = { 280.49M, 280.21M, 280.79M };
         decimal     dcLowDividerValue = 0.027997M;
-        //decimal[] dcDividerRatios = { 10.02M, 20.028M, 30.057M};
         decimal[]   impulseDefaultHighDividerValues = { 1.302M, 1.2714M, 1.2638M };
         decimal[]   impulseDefaultLowDividerValues = { 519.498M, 513.963M, 512.21M };
         decimal[]   impulseHighDividerValues = { 1.302M, 1.2714M, 1.2638M };
@@ -41,6 +46,12 @@ namespace HV9104_GUI
         public ComposerPLayer.UserControl1 player;
         public ElementHost ctrlHost;
         System.Windows.Forms.Timer composerTimer;
+
+        //Check thin client communication
+        private string adress;
+        private System.Windows.Forms.Timer thinClientTimer;
+        private System.Windows.Forms.Timer thinClientWatchDogTimer;
+        private bool thinClientConnected = true; 
 
         // Class objects
         public DashBoardView activeForm;
@@ -58,6 +69,7 @@ namespace HV9104_GUI
         public bool PIO1Connected = false;
         public bool HV9126Connected = false;
         public bool HV9133Connected = false;
+        
 
         // Run control variables 
         public Thread t;
@@ -138,6 +150,10 @@ namespace HV9104_GUI
             // Get and present initial status info from PLC and motors
             Thread.Sleep(200);
             InitializeDbView();
+
+            //Setup for Thin Client Communication test
+            initCommunicationTest();
+
 
             // Obligatory application command 
             Application.Run(controlForm); // Måste vara sist!!!
@@ -264,6 +280,73 @@ namespace HV9104_GUI
                
         }
 
+        //***********************************************************************************************************
+        //***                                     Thin Client Communication Test                                 ****
+        //***********************************************************************************************************
+
+        private void initCommunicationTest()
+        {
+            thinClientTimer = new System.Windows.Forms.Timer();
+            thinClientTimer.Interval = 1000;
+            thinClientTimer.Tick += new System.EventHandler(this.thinClientTimer_Tick);
+            
+            thinClientWatchDogTimer = new System.Windows.Forms.Timer();
+            thinClientWatchDogTimer.Interval = 3000;
+            thinClientWatchDogTimer.Tick += new System.EventHandler(thinClientWatchDog_Tick);
+
+            try
+            {
+
+                StreamReader sr = new StreamReader("Resources/IP.txt", System.Text.Encoding.Default);
+                using (sr)
+                {   
+                    adress = sr.ReadToEnd();                   
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:");
+                adress = "192.168.17.18";
+                System.IO.File.WriteAllText("Resources/IP.txt", adress);                
+            }
+
+            thinClientTimer.Start();
+        }
+
+        //Loop timer for thin client timer
+        public void thinClientTimer_Tick(object sender, EventArgs e)
+        {
+            if(thinClientConnected)
+            {
+                thinClientConnected = false;
+                Thread pingThread = new Thread(new ThreadStart(pingThinClient));
+                pingThread.Start();
+                thinClientWatchDogTimer.Start();
+            }
+        }
+        
+        //Watchdog timer for thin client
+        public void thinClientWatchDog_Tick(Object sender, EventArgs e)
+        {
+            closeApplication();
+        }
+
+        //Ping the thin client to make sure the communications is ok!
+        public void pingThinClient()
+        {            
+            Ping pingSender = new Ping();
+            PingReply reply = pingSender.Send(adress);
+
+            if (reply.Status == IPStatus.Success)
+            {
+                thinClientWatchDogTimer.Stop();
+                thinClientConnected = true;                
+            }
+            else
+            {
+                Console.WriteLine(reply.Status);
+            }
+        }
 
         //***********************************************************************************************************
         //***                                     PICOSCOPE AND CHANNELS SETUP                                   ****
@@ -2106,7 +2189,11 @@ namespace HV9104_GUI
 
         private void formsCloseButton_Click(object sender, EventArgs e)
         {
+            closeApplication();            
+        }
 
+        public void closeApplication()
+        {
             loopTimer.Stop();
             loopTimer.Dispose();
             picoScope.stopStreaming();
@@ -2129,13 +2216,13 @@ namespace HV9104_GUI
             }
             catch (System.NullReferenceException ex)
             {
-               // MessageBox.Show(ex.Message);
+                // MessageBox.Show(ex.Message);
 
             }
 
             this.measuringForm.Close();
             this.controlForm.Close();
-           
+
             if (System.Windows.Forms.Application.MessageLoop)
             {
                 // WinForms app
@@ -2147,7 +2234,6 @@ namespace HV9104_GUI
                 // Console app
                 System.Environment.Exit(1);
             }
-
         }
 
 
