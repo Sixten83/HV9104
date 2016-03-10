@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.IO;
 using System.Net.NetworkInformation;
@@ -41,7 +40,7 @@ namespace HV9104_GUI
         decimal[]   impulseHighDividerValues = { 1.302M, 1.2714M, 1.2638M };
         decimal[]   impulseLowDividerValues = { 519.498M, 513.963M, 512.21M };
         decimal     impulseAttenuatorRatio = 25.1448M;
-        
+       
         //Composer PLayer
         public ComposerPLayer.UserControl1 player;
         public ElementHost ctrlHost;
@@ -363,7 +362,7 @@ namespace HV9104_GUI
                 this.controlForm.messageLabel.Text = "Measuring device opened successfully";
             picoScope.setACChannel(acChannel = new Channel());
             picoScope.setDCChannel(dcChannel = new Channel());
-            picoScope.setImpulseChannel(impulseChannel = new Channel());
+            picoScope.setImpulseChannel(impulseChannel = new Channel());            
             acChannel.DividerRatio = (double)((acDefaultHighDividerValues[0] + acLowDividerValue) / acDefaultHighDividerValues[0]) / 1000;
             dcChannel.DividerRatio = (double)((dcDefaultHighDividerValues[0] + dcDefaultLowDividerValue) / dcDefaultLowDividerValue) / 1000;
             impulseChannel.DividerRatio = (double)(impulseAttenuatorRatio * (impulseDefaultHighDividerValues[0] + impulseDefaultLowDividerValues[0]) / impulseDefaultHighDividerValues[0]) / 1000;
@@ -448,11 +447,13 @@ namespace HV9104_GUI
                         Channel.ScaledData data = acChannel.processData(50000, trigAt);
                         this.measuringForm.chart.updateChart("acSeries", data, 50000);                      
                         this.controlForm.dashboardView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                        this.measuringForm.acStatusLabel.Text = "Enabled";
                     }
                     else
                     {
                         acChannel.processMaxMinData(50000, trigAt);
                         this.controlForm.dashboardView.acValueLabel.Text = "" + acChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                        this.measuringForm.acStatusLabel.Text = "Disabeld";
                     }
                 }
                 else
@@ -471,11 +472,13 @@ namespace HV9104_GUI
                         Channel.ScaledData data = dcChannel.processData(50000, trigAt);
                         this.measuringForm.chart.updateChart("dcSeries", data, 50000);
                         this.controlForm.dashboardView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                        this.measuringForm.dcStatusLabel.Text = "Enabled";
                     }
                     else
                     {
                         dcChannel.processMaxMinData(50000, trigAt);
                         this.controlForm.dashboardView.dcValueLabel.Text = "" + dcChannel.getRepresentation().ToString("0.0").Replace(',', '.');
+                        this.measuringForm.dcStatusLabel.Text = "Disabeld";
                     }
                 }
                 else
@@ -595,13 +598,20 @@ namespace HV9104_GUI
             {
                 this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
                 this.measuringForm.chart.updateCursorMenu();
+                
             }
             else if (this.measuringForm.chart.cursorMenu.dcChannelRadioButton.isChecked && !this.measuringForm.impulseRadioButton.isChecked)
             {
                 this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);
                 this.measuringForm.chart.updateCursorMenu();
+               
             }
 
+            if(channel == acChannel)
+                this.measuringForm.acScaleLabel.Text = channel.rangeToVolt() + " kV/Div";
+            else
+                this.measuringForm.dcScaleLabel.Text = channel.rangeToVolt() + " kV/Div";
+           
             rebootStream();
         }
 
@@ -1048,7 +1058,7 @@ namespace HV9104_GUI
             if (this.measuringForm.impulseRadioButton.isChecked)
             {
                 // Set the parameters
-                ImpulseDisplaySelected();
+                ImpulseDisplaySelected();                
             }
 
         }
@@ -1056,6 +1066,7 @@ namespace HV9104_GUI
         // AC/DC selected to display in chart
         public void acdcDisplaySelected()
         {
+            this.measuringForm.impulseStatusLabel.Text = "Disabled";
             this.measuringForm.acdcRadioButton.isChecked = true;
             this.measuringForm.impulseRadioButton.isChecked = false;
             measuringForm.impulseRadioButton.Invalidate();
@@ -1080,6 +1091,7 @@ namespace HV9104_GUI
                                                                                 "5 ms/Div",
                                                                                 "10 ms/Div"};
             this.measuringForm.timeBaseComboBox.SetSelected = "5 ms/Div";
+            this.measuringForm.timeBaseLabel.Text = "5 ms/Div";
         }
 
         // Impulse selected to display in chart
@@ -1087,6 +1099,9 @@ namespace HV9104_GUI
         {
 
             // We dont always select impulse by clicking the radiobutton, show it as selected.
+            this.measuringForm.impulseStatusLabel.Text = "Enabled";
+            this.measuringForm.acStatusLabel.Text = "Disabled";
+            this.measuringForm.dcStatusLabel.Text = "Disabled";
             this.measuringForm.acdcRadioButton.isChecked = false;
             this.measuringForm.impulseRadioButton.isChecked = true;
             measuringForm.impulseRadioButton.Invalidate();
@@ -1119,6 +1134,7 @@ namespace HV9104_GUI
                                                                                 "10 us/Div",
                                                                                 "20 us/Div"};
             this.measuringForm.timeBaseComboBox.SetSelected = "2 us/Div";
+            this.measuringForm.timeBaseLabel.Text = "2 us/Div";
             picoScope.streamStarted = false;
             picoScope._autoStop = false;
             fastStreamMode = true;
@@ -1146,6 +1162,7 @@ namespace HV9104_GUI
                 this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
                 this.measuringForm.chart.updateCursorMenu();
             }
+            this.measuringForm.acScaleLabel.Text = acChannel.rangeToVolt() + "kV/Div";
         }
 
         private void acEnableCheckBox_Click(object sender, EventArgs e)
@@ -1181,6 +1198,7 @@ namespace HV9104_GUI
                 this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);
                 this.measuringForm.chart.updateCursorMenu();
             }
+            this.measuringForm.dcScaleLabel.Text = dcChannel.rangeToVolt() + "kV/Div";
 
         }
 
@@ -1220,6 +1238,7 @@ namespace HV9104_GUI
             rebootStream();
             this.measuringForm.chart.cursorMenu.setScaleFactor(impulseChannel.getScaleFactor(), impulseChannel.DCOffset * impulseChannel.DividerRatio);
             this.measuringForm.chart.updateCursorMenu();
+            this.measuringForm.impulseScaleLabel.Text = impulseChannel.rangeToVolt() + "kV/Div";
         }
 
 
@@ -1232,28 +1251,29 @@ namespace HV9104_GUI
         private void impulsePreTriggerTextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             picoScope.BlockPreTrigger = (double)(e.Value / 100);
+            this.measuringForm.preTriggerLabel.Text = e.Value + " %";
         }
 
         private void resolutionComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             pauseStream();
             picoScope.Resolution = (Imports.DeviceResolution)e.Value;
+            this.measuringForm.resolutionLabel.Text = e.Text;
             rebootStream();
         }
 
         private void timeBaseComboBox_valueChange(object sender, ValueChangeEventArgs e)
         {
-
-
             SetChartTimeBase(e.Text);
         }
 
         private void SetChartTimeBase(string timeBaseValueIn)
         {
+            this.measuringForm.timeBaseLabel.Text = timeBaseValueIn;
             if (this.measuringForm.acdcRadioButton.isChecked)
             {
                 this.measuringForm.chart.Series["acSeries"].Points.Clear();
-                this.measuringForm.chart.Series["dcSeries"].Points.Clear();
+                this.measuringForm.chart.Series["dcSeries"].Points.Clear();                
                 if (timeBaseValueIn.Equals("2 ms/Div"))
                 {
                     picoScope.StreamingInterval = 400;
@@ -1304,7 +1324,7 @@ namespace HV9104_GUI
                 else if (timeBaseValueIn.Equals("10 us/Div"))
                 {
                     picoScope.BlockSamples = 50000;
-                    picoScope.TimePerDivision = 10;
+                    picoScope.TimePerDivision = 10;                    
                 }
                 else if (timeBaseValueIn.Equals("20 us/Div"))
                 {
@@ -1660,6 +1680,7 @@ namespace HV9104_GUI
             picoScope.disableChannel(1);
             picoScope.enableChannel(2);
             picoScope.setDCoffset(2, -1 * (float)(impulseChannel.Polarity * impulseChannel.rangeToVolt()) * 0.8f);
+            this.measuringForm.impulseOffsetLabel.Text = this.impulseChannel.DCOffset + "kV";
             //Set databuffer
             picoScope.setBlockDataBuffer();
             //Set trigger Channel/Level/Type
@@ -1901,7 +1922,7 @@ namespace HV9104_GUI
         {
             if (this.controlForm.setupView.acCheckBox.isChecked)
             {
-                fastStreamMode = true;
+                fastStreamMode = true;               
             }
 
         }

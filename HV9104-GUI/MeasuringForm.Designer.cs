@@ -50,6 +50,51 @@
             System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MeasuringForm));
             this.titleBarPanel = new System.Windows.Forms.Panel();
+            this.timeBaseLabel = new System.Windows.Forms.Label();
+            this.triggerLevelLabel = new System.Windows.Forms.Label();
+            this.impulseOffsetLabel = new System.Windows.Forms.Label();
+            this.dcOffsetLabel = new System.Windows.Forms.Label();
+            this.acOffsetLabel = new System.Windows.Forms.Label();
+            this.preTriggerLabel = new System.Windows.Forms.Label();
+            this.impulseScaleLabel = new System.Windows.Forms.Label();
+            this.dcScaleLabel = new System.Windows.Forms.Label();
+            this.acScaleLabel = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.triggerTypeLabel = new System.Windows.Forms.Label();
+            this.impulseCouplingLabel = new System.Windows.Forms.Label();
+            this.dcCouplingLabel = new System.Windows.Forms.Label();
+            this.acCouplingLabel = new System.Windows.Forms.Label();
+            this.label47 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.resolutionLabel = new System.Windows.Forms.Label();
+            this.triggerChannelLabel = new System.Windows.Forms.Label();
+            this.impulseStatusLabel = new System.Windows.Forms.Label();
+            this.dcStatusLabel = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
+            this.acStatusLabel = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
+            this.modeLabel = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.modeTitleLabel = new System.Windows.Forms.Label();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.minimizeButton = new HV9104_GUI.CustomButton();
             this.maximizeButton = new HV9104_GUI.CustomButton();
@@ -81,6 +126,17 @@
             this.impulseRadioButton = new HV9104_GUI.CustomRadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.customPanel1 = new HV9104_GUI.CustomPanel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.chart = new HV9104_GUI.CustomChart();
             this.customPanel2 = new HV9104_GUI.CustomPanel();
             this.label3 = new System.Windows.Forms.Label();
@@ -102,6 +158,51 @@
             // titleBarPanel
             // 
             this.titleBarPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.titleBarPanel.Controls.Add(this.timeBaseLabel);
+            this.titleBarPanel.Controls.Add(this.triggerLevelLabel);
+            this.titleBarPanel.Controls.Add(this.impulseOffsetLabel);
+            this.titleBarPanel.Controls.Add(this.dcOffsetLabel);
+            this.titleBarPanel.Controls.Add(this.acOffsetLabel);
+            this.titleBarPanel.Controls.Add(this.preTriggerLabel);
+            this.titleBarPanel.Controls.Add(this.impulseScaleLabel);
+            this.titleBarPanel.Controls.Add(this.dcScaleLabel);
+            this.titleBarPanel.Controls.Add(this.acScaleLabel);
+            this.titleBarPanel.Controls.Add(this.label50);
+            this.titleBarPanel.Controls.Add(this.label41);
+            this.titleBarPanel.Controls.Add(this.label32);
+            this.titleBarPanel.Controls.Add(this.label23);
+            this.titleBarPanel.Controls.Add(this.label56);
+            this.titleBarPanel.Controls.Add(this.label49);
+            this.titleBarPanel.Controls.Add(this.label40);
+            this.titleBarPanel.Controls.Add(this.label31);
+            this.titleBarPanel.Controls.Add(this.label18);
+            this.titleBarPanel.Controls.Add(this.triggerTypeLabel);
+            this.titleBarPanel.Controls.Add(this.impulseCouplingLabel);
+            this.titleBarPanel.Controls.Add(this.dcCouplingLabel);
+            this.titleBarPanel.Controls.Add(this.acCouplingLabel);
+            this.titleBarPanel.Controls.Add(this.label47);
+            this.titleBarPanel.Controls.Add(this.label38);
+            this.titleBarPanel.Controls.Add(this.label29);
+            this.titleBarPanel.Controls.Add(this.label21);
+            this.titleBarPanel.Controls.Add(this.resolutionLabel);
+            this.titleBarPanel.Controls.Add(this.triggerChannelLabel);
+            this.titleBarPanel.Controls.Add(this.impulseStatusLabel);
+            this.titleBarPanel.Controls.Add(this.dcStatusLabel);
+            this.titleBarPanel.Controls.Add(this.label54);
+            this.titleBarPanel.Controls.Add(this.acStatusLabel);
+            this.titleBarPanel.Controls.Add(this.label45);
+            this.titleBarPanel.Controls.Add(this.label36);
+            this.titleBarPanel.Controls.Add(this.label27);
+            this.titleBarPanel.Controls.Add(this.label53);
+            this.titleBarPanel.Controls.Add(this.modeLabel);
+            this.titleBarPanel.Controls.Add(this.label44);
+            this.titleBarPanel.Controls.Add(this.label35);
+            this.titleBarPanel.Controls.Add(this.label26);
+            this.titleBarPanel.Controls.Add(this.modeTitleLabel);
+            this.titleBarPanel.Controls.Add(this.panel7);
+            this.titleBarPanel.Controls.Add(this.panel5);
+            this.titleBarPanel.Controls.Add(this.panel3);
+            this.titleBarPanel.Controls.Add(this.panel4);
             this.titleBarPanel.Controls.Add(this.pictureBox1);
             this.titleBarPanel.Controls.Add(this.minimizeButton);
             this.titleBarPanel.Controls.Add(this.maximizeButton);
@@ -113,6 +214,498 @@
             this.titleBarPanel.Name = "titleBarPanel";
             this.titleBarPanel.Size = new System.Drawing.Size(1918, 100);
             this.titleBarPanel.TabIndex = 13;
+            // 
+            // timeBaseLabel
+            // 
+            this.timeBaseLabel.AutoSize = true;
+            this.timeBaseLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeBaseLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.timeBaseLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.timeBaseLabel.Location = new System.Drawing.Point(1599, 64);
+            this.timeBaseLabel.Name = "timeBaseLabel";
+            this.timeBaseLabel.Size = new System.Drawing.Size(81, 23);
+            this.timeBaseLabel.TabIndex = 7;
+            this.timeBaseLabel.Text = "5 ms/Div";
+            // 
+            // triggerLevelLabel
+            // 
+            this.triggerLevelLabel.AutoSize = true;
+            this.triggerLevelLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.triggerLevelLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.triggerLevelLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.triggerLevelLabel.Location = new System.Drawing.Point(1155, 64);
+            this.triggerLevelLabel.Name = "triggerLevelLabel";
+            this.triggerLevelLabel.Size = new System.Drawing.Size(70, 23);
+            this.triggerLevelLabel.TabIndex = 7;
+            this.triggerLevelLabel.Text = "-200 kV";
+            // 
+            // impulseOffsetLabel
+            // 
+            this.impulseOffsetLabel.AutoSize = true;
+            this.impulseOffsetLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.impulseOffsetLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.impulseOffsetLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.impulseOffsetLabel.Location = new System.Drawing.Point(986, 64);
+            this.impulseOffsetLabel.Name = "impulseOffsetLabel";
+            this.impulseOffsetLabel.Size = new System.Drawing.Size(60, 23);
+            this.impulseOffsetLabel.TabIndex = 7;
+            this.impulseOffsetLabel.Text = "-16 kV";
+            // 
+            // dcOffsetLabel
+            // 
+            this.dcOffsetLabel.AutoSize = true;
+            this.dcOffsetLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dcOffsetLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.dcOffsetLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.dcOffsetLabel.Location = new System.Drawing.Point(624, 64);
+            this.dcOffsetLabel.Name = "dcOffsetLabel";
+            this.dcOffsetLabel.Size = new System.Drawing.Size(44, 23);
+            this.dcOffsetLabel.TabIndex = 7;
+            this.dcOffsetLabel.Text = "0 kV";
+            // 
+            // acOffsetLabel
+            // 
+            this.acOffsetLabel.AutoSize = true;
+            this.acOffsetLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.acOffsetLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.acOffsetLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.acOffsetLabel.Location = new System.Drawing.Point(264, 64);
+            this.acOffsetLabel.Name = "acOffsetLabel";
+            this.acOffsetLabel.Size = new System.Drawing.Size(44, 23);
+            this.acOffsetLabel.TabIndex = 7;
+            this.acOffsetLabel.Text = "0 kV";
+            // 
+            // preTriggerLabel
+            // 
+            this.preTriggerLabel.AutoSize = true;
+            this.preTriggerLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.preTriggerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.preTriggerLabel.Location = new System.Drawing.Point(1422, 64);
+            this.preTriggerLabel.Name = "preTriggerLabel";
+            this.preTriggerLabel.Size = new System.Drawing.Size(48, 23);
+            this.preTriggerLabel.TabIndex = 7;
+            this.preTriggerLabel.Text = "10 %";
+            // 
+            // impulseScaleLabel
+            // 
+            this.impulseScaleLabel.AutoSize = true;
+            this.impulseScaleLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.impulseScaleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.impulseScaleLabel.Location = new System.Drawing.Point(790, 64);
+            this.impulseScaleLabel.Name = "impulseScaleLabel";
+            this.impulseScaleLabel.Size = new System.Drawing.Size(87, 23);
+            this.impulseScaleLabel.TabIndex = 7;
+            this.impulseScaleLabel.Text = "20 kV/Div";
+            // 
+            // dcScaleLabel
+            // 
+            this.dcScaleLabel.AutoSize = true;
+            this.dcScaleLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dcScaleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.dcScaleLabel.Location = new System.Drawing.Point(428, 64);
+            this.dcScaleLabel.Name = "dcScaleLabel";
+            this.dcScaleLabel.Size = new System.Drawing.Size(77, 23);
+            this.dcScaleLabel.TabIndex = 7;
+            this.dcScaleLabel.Text = "5 kV/Div";
+            // 
+            // acScaleLabel
+            // 
+            this.acScaleLabel.AutoSize = true;
+            this.acScaleLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.acScaleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.acScaleLabel.Location = new System.Drawing.Point(67, 64);
+            this.acScaleLabel.Name = "acScaleLabel";
+            this.acScaleLabel.Size = new System.Drawing.Size(77, 23);
+            this.acScaleLabel.TabIndex = 7;
+            this.acScaleLabel.Text = "5 kV/Div";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label50.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label50.Location = new System.Drawing.Point(1330, 64);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(97, 23);
+            this.label50.TabIndex = 7;
+            this.label50.Text = "PreTrigger:";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label41.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label41.Location = new System.Drawing.Point(900, 64);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(92, 23);
+            this.label41.TabIndex = 7;
+            this.label41.Text = "DC-Offset:";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label32.Location = new System.Drawing.Point(538, 64);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(92, 23);
+            this.label32.TabIndex = 7;
+            this.label32.Text = "DC-Offset:";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label23.Location = new System.Drawing.Point(178, 64);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(92, 23);
+            this.label23.TabIndex = 7;
+            this.label23.Text = "DC-Offset:";
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label56.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label56.Location = new System.Drawing.Point(1509, 64);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(96, 23);
+            this.label56.TabIndex = 7;
+            this.label56.Text = "Time Base:";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label49.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label49.Location = new System.Drawing.Point(1104, 64);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(57, 23);
+            this.label49.TabIndex = 7;
+            this.label49.Text = "Level:";
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label40.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label40.Location = new System.Drawing.Point(739, 64);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(56, 23);
+            this.label40.TabIndex = 7;
+            this.label40.Text = "Scale:";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label31.Location = new System.Drawing.Point(377, 64);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(56, 23);
+            this.label31.TabIndex = 7;
+            this.label31.Text = "Scale:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label18.Location = new System.Drawing.Point(17, 64);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(56, 23);
+            this.label18.TabIndex = 7;
+            this.label18.Text = "Scale:";
+            // 
+            // triggerTypeLabel
+            // 
+            this.triggerTypeLabel.AutoSize = true;
+            this.triggerTypeLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.triggerTypeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.triggerTypeLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.triggerTypeLabel.Location = new System.Drawing.Point(1377, 41);
+            this.triggerTypeLabel.Name = "triggerTypeLabel";
+            this.triggerTypeLabel.Size = new System.Drawing.Size(58, 23);
+            this.triggerTypeLabel.TabIndex = 7;
+            this.triggerTypeLabel.Text = "Rising";
+            // 
+            // impulseCouplingLabel
+            // 
+            this.impulseCouplingLabel.AutoSize = true;
+            this.impulseCouplingLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.impulseCouplingLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.impulseCouplingLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.impulseCouplingLabel.Location = new System.Drawing.Point(979, 41);
+            this.impulseCouplingLabel.Name = "impulseCouplingLabel";
+            this.impulseCouplingLabel.Size = new System.Drawing.Size(32, 23);
+            this.impulseCouplingLabel.TabIndex = 7;
+            this.impulseCouplingLabel.Text = "DC";
+            // 
+            // dcCouplingLabel
+            // 
+            this.dcCouplingLabel.AutoSize = true;
+            this.dcCouplingLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dcCouplingLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.dcCouplingLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.dcCouplingLabel.Location = new System.Drawing.Point(617, 41);
+            this.dcCouplingLabel.Name = "dcCouplingLabel";
+            this.dcCouplingLabel.Size = new System.Drawing.Size(32, 23);
+            this.dcCouplingLabel.TabIndex = 7;
+            this.dcCouplingLabel.Text = "DC";
+            // 
+            // acCouplingLabel
+            // 
+            this.acCouplingLabel.AutoSize = true;
+            this.acCouplingLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.acCouplingLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.acCouplingLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.acCouplingLabel.Location = new System.Drawing.Point(256, 41);
+            this.acCouplingLabel.Name = "acCouplingLabel";
+            this.acCouplingLabel.Size = new System.Drawing.Size(32, 23);
+            this.acCouplingLabel.TabIndex = 7;
+            this.acCouplingLabel.Text = "AC";
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label47.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label47.Location = new System.Drawing.Point(1330, 41);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(52, 23);
+            this.label47.TabIndex = 7;
+            this.label47.Text = "Type:";
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label38.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label38.Location = new System.Drawing.Point(900, 41);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(84, 23);
+            this.label38.TabIndex = 7;
+            this.label38.Text = "Coupling:";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label29.Location = new System.Drawing.Point(538, 41);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(84, 23);
+            this.label29.TabIndex = 7;
+            this.label29.Text = "Coupling:";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label21.Location = new System.Drawing.Point(178, 41);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(84, 23);
+            this.label21.TabIndex = 7;
+            this.label21.Text = "Coupling:";
+            // 
+            // resolutionLabel
+            // 
+            this.resolutionLabel.AutoSize = true;
+            this.resolutionLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resolutionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.resolutionLabel.Location = new System.Drawing.Point(1603, 41);
+            this.resolutionLabel.Name = "resolutionLabel";
+            this.resolutionLabel.Size = new System.Drawing.Size(57, 23);
+            this.resolutionLabel.TabIndex = 7;
+            this.resolutionLabel.Text = "12 Bit";
+            // 
+            // triggerChannelLabel
+            // 
+            this.triggerChannelLabel.AutoSize = true;
+            this.triggerChannelLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.triggerChannelLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.triggerChannelLabel.Location = new System.Drawing.Point(1177, 41);
+            this.triggerChannelLabel.Name = "triggerChannelLabel";
+            this.triggerChannelLabel.Size = new System.Drawing.Size(100, 23);
+            this.triggerChannelLabel.TabIndex = 7;
+            this.triggerChannelLabel.Text = "AC Channel";
+            // 
+            // impulseStatusLabel
+            // 
+            this.impulseStatusLabel.AutoSize = true;
+            this.impulseStatusLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.impulseStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.impulseStatusLabel.Location = new System.Drawing.Point(798, 41);
+            this.impulseStatusLabel.Name = "impulseStatusLabel";
+            this.impulseStatusLabel.Size = new System.Drawing.Size(79, 23);
+            this.impulseStatusLabel.TabIndex = 7;
+            this.impulseStatusLabel.Text = "Disabled";
+            // 
+            // dcStatusLabel
+            // 
+            this.dcStatusLabel.AutoSize = true;
+            this.dcStatusLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dcStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.dcStatusLabel.Location = new System.Drawing.Point(436, 41);
+            this.dcStatusLabel.Name = "dcStatusLabel";
+            this.dcStatusLabel.Size = new System.Drawing.Size(79, 23);
+            this.dcStatusLabel.TabIndex = 7;
+            this.dcStatusLabel.Text = "Disabled";
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label54.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label54.Location = new System.Drawing.Point(1509, 41);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(100, 23);
+            this.label54.TabIndex = 7;
+            this.label54.Text = "Resolution:";
+            // 
+            // acStatusLabel
+            // 
+            this.acStatusLabel.AutoSize = true;
+            this.acStatusLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.acStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.acStatusLabel.Location = new System.Drawing.Point(76, 41);
+            this.acStatusLabel.Name = "acStatusLabel";
+            this.acStatusLabel.Size = new System.Drawing.Size(79, 23);
+            this.acStatusLabel.TabIndex = 7;
+            this.acStatusLabel.Text = "Disabled";
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label45.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label45.Location = new System.Drawing.Point(1104, 41);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(79, 23);
+            this.label45.TabIndex = 7;
+            this.label45.Text = "Channel:";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label36.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label36.Location = new System.Drawing.Point(739, 41);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(65, 23);
+            this.label36.TabIndex = 7;
+            this.label36.Text = "Status:";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label27.Location = new System.Drawing.Point(377, 41);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(65, 23);
+            this.label27.TabIndex = 7;
+            this.label27.Text = "Status:";
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label53.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label53.Location = new System.Drawing.Point(1509, 11);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(172, 23);
+            this.label53.TabIndex = 8;
+            this.label53.Text = "COMMON SETTINGS";
+            // 
+            // modeLabel
+            // 
+            this.modeLabel.AutoSize = true;
+            this.modeLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.modeLabel.Location = new System.Drawing.Point(17, 41);
+            this.modeLabel.Name = "modeLabel";
+            this.modeLabel.Size = new System.Drawing.Size(65, 23);
+            this.modeLabel.TabIndex = 7;
+            this.modeLabel.Text = "Status:";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label44.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label44.Location = new System.Drawing.Point(1104, 11);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(158, 23);
+            this.label44.TabIndex = 8;
+            this.label44.Text = "TRIGGER SETTINGS";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label35.Location = new System.Drawing.Point(739, 11);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(161, 23);
+            this.label35.TabIndex = 8;
+            this.label35.Text = "IMPULSE CHANNEL";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label26.Location = new System.Drawing.Point(377, 11);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(113, 23);
+            this.label26.TabIndex = 8;
+            this.label26.Text = "DC CHANNEL";
+            // 
+            // modeTitleLabel
+            // 
+            this.modeTitleLabel.AutoSize = true;
+            this.modeTitleLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modeTitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.modeTitleLabel.Location = new System.Drawing.Point(17, 11);
+            this.modeTitleLabel.Name = "modeTitleLabel";
+            this.modeTitleLabel.Size = new System.Drawing.Size(113, 23);
+            this.modeTitleLabel.TabIndex = 8;
+            this.modeTitleLabel.Text = "AC CHANNEL";
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.panel7.Location = new System.Drawing.Point(1485, 10);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(2, 80);
+            this.panel7.TabIndex = 2;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.panel5.Location = new System.Drawing.Point(1083, 10);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(2, 80);
+            this.panel5.TabIndex = 2;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.panel3.Location = new System.Drawing.Point(713, 10);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(2, 80);
+            this.panel3.TabIndex = 2;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.panel4.Location = new System.Drawing.Point(353, 10);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(2, 80);
+            this.panel4.TabIndex = 2;
             // 
             // pictureBox1
             // 
@@ -538,6 +1131,17 @@
             this.customPanel1.BackColor = System.Drawing.Color.Transparent;
             this.customPanel1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.customPanel1.Controls.Add(this.label17);
+            this.customPanel1.Controls.Add(this.label16);
+            this.customPanel1.Controls.Add(this.label15);
+            this.customPanel1.Controls.Add(this.label14);
+            this.customPanel1.Controls.Add(this.label13);
+            this.customPanel1.Controls.Add(this.label12);
+            this.customPanel1.Controls.Add(this.label11);
+            this.customPanel1.Controls.Add(this.label9);
+            this.customPanel1.Controls.Add(this.label8);
+            this.customPanel1.Controls.Add(this.label5);
+            this.customPanel1.Controls.Add(this.label4);
             this.customPanel1.Controls.Add(this.chart);
             this.customPanel1.CornerRadius = 40;
             this.customPanel1.IsPopUp = false;
@@ -545,6 +1149,116 @@
             this.customPanel1.Name = "customPanel1";
             this.customPanel1.Size = new System.Drawing.Size(1555, 940);
             this.customPanel1.TabIndex = 14;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label17.Location = new System.Drawing.Point(1479, 889);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(13, 13);
+            this.label17.TabIndex = 1;
+            this.label17.Text = "1";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label16.Location = new System.Drawing.Point(1339, 889);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(13, 13);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "1";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label15.Location = new System.Drawing.Point(1199, 889);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(13, 13);
+            this.label15.TabIndex = 1;
+            this.label15.Text = "1";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label14.Location = new System.Drawing.Point(1059, 889);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(13, 13);
+            this.label14.TabIndex = 1;
+            this.label14.Text = "1";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label13.Location = new System.Drawing.Point(919, 889);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(13, 13);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "1";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label12.Location = new System.Drawing.Point(779, 889);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(13, 13);
+            this.label12.TabIndex = 1;
+            this.label12.Text = "1";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label11.Location = new System.Drawing.Point(639, 889);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(13, 13);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "1";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label9.Location = new System.Drawing.Point(499, 889);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(13, 13);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "1";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label8.Location = new System.Drawing.Point(359, 889);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(13, 13);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "1";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label5.Location = new System.Drawing.Point(219, 889);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(13, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "1";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.label4.Location = new System.Drawing.Point(79, 889);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(13, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "1";
             // 
             // chart
             // 
@@ -708,6 +1422,7 @@
             this.Text = "MeasuringForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.titleBarPanel.ResumeLayout(false);
+            this.titleBarPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.acChannelPanel.ResumeLayout(false);
@@ -767,5 +1482,61 @@
         private System.Windows.Forms.Panel panel1;
         public CustomTextBox impulsePreTriggerTextBox;
         public System.Windows.Forms.Label label25;
+        public System.Windows.Forms.Panel panel4;
+        public System.Windows.Forms.Label label18;
+        public System.Windows.Forms.Label acStatusLabel;
+        public System.Windows.Forms.Label modeLabel;
+        public System.Windows.Forms.Label modeTitleLabel;
+        public System.Windows.Forms.Label acScaleLabel;
+        public System.Windows.Forms.Label acOffsetLabel;
+        public System.Windows.Forms.Label label23;
+        public System.Windows.Forms.Label acCouplingLabel;
+        public System.Windows.Forms.Label label21;
+        public System.Windows.Forms.Label dcOffsetLabel;
+        public System.Windows.Forms.Label dcScaleLabel;
+        public System.Windows.Forms.Label label32;
+        public System.Windows.Forms.Label label31;
+        public System.Windows.Forms.Label dcCouplingLabel;
+        public System.Windows.Forms.Label label29;
+        public System.Windows.Forms.Label dcStatusLabel;
+        public System.Windows.Forms.Label label27;
+        public System.Windows.Forms.Label label26;
+        public System.Windows.Forms.Panel panel3;
+        public System.Windows.Forms.Label triggerLevelLabel;
+        public System.Windows.Forms.Label impulseOffsetLabel;
+        public System.Windows.Forms.Label preTriggerLabel;
+        public System.Windows.Forms.Label impulseScaleLabel;
+        public System.Windows.Forms.Label label50;
+        public System.Windows.Forms.Label label41;
+        public System.Windows.Forms.Label label49;
+        public System.Windows.Forms.Label label40;
+        public System.Windows.Forms.Label triggerTypeLabel;
+        public System.Windows.Forms.Label impulseCouplingLabel;
+        public System.Windows.Forms.Label label47;
+        public System.Windows.Forms.Label label38;
+        public System.Windows.Forms.Label triggerChannelLabel;
+        public System.Windows.Forms.Label impulseStatusLabel;
+        public System.Windows.Forms.Label label45;
+        public System.Windows.Forms.Label label36;
+        public System.Windows.Forms.Label label44;
+        public System.Windows.Forms.Label label35;
+        public System.Windows.Forms.Panel panel7;
+        public System.Windows.Forms.Panel panel5;
+        public System.Windows.Forms.Label timeBaseLabel;
+        public System.Windows.Forms.Label label56;
+        public System.Windows.Forms.Label resolutionLabel;
+        public System.Windows.Forms.Label label54;
+        public System.Windows.Forms.Label label53;
+        public System.Windows.Forms.Label label17;
+        public System.Windows.Forms.Label label16;
+        public System.Windows.Forms.Label label15;
+        public System.Windows.Forms.Label label14;
+        public System.Windows.Forms.Label label13;
+        public System.Windows.Forms.Label label12;
+        public System.Windows.Forms.Label label11;
+        public System.Windows.Forms.Label label9;
+        public System.Windows.Forms.Label label8;
+        public System.Windows.Forms.Label label5;
+        public System.Windows.Forms.Label label4;
     }
 }

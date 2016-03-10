@@ -33,6 +33,8 @@ namespace HV9104_GUI
         int samples = 50000;
         String selectedSeries;
         Channel.ScaledData scaledData;
+        public Label timeLabels;
+
 
         public CustomChart()
         {
@@ -145,9 +147,11 @@ namespace HV9104_GUI
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.chart_MouseUp);
             this.MouseLeave += new System.EventHandler(this.chart_MouseLeave);
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(zoom_MouseWheel);
-            
+
             
         }
+        
+        
 
         public void updateChart(String serie, Channel.ScaledData scaledData, int samples)
         {
@@ -232,6 +236,7 @@ namespace HV9104_GUI
             this.Series["yCursor1"].Points[1].XValue = this.ChartAreas[0].AxisX.Maximum;
             this.Series["yCursor2"].Points[0].XValue = this.ChartAreas[0].AxisX.Minimum;
             this.Series["yCursor2"].Points[1].XValue = this.ChartAreas[0].AxisX.Maximum;
+            this.samples = (int)samples;
         }
 
         
@@ -361,6 +366,7 @@ namespace HV9104_GUI
             try
             {
                 mousePos = this.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
+                
             }
             catch (ArgumentException)
             {
@@ -412,7 +418,20 @@ namespace HV9104_GUI
                 }
 
                 deltaPre = this.ChartAreas[0].AxisY.Maximum - this.ChartAreas[0].AxisY.Minimum;
-                mousePos = this.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+                
+                try
+                {
+                    mousePos = this.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+                }
+                catch (ArgumentException)
+                {
+
+                }
+                catch (InvalidOperationException)
+                {
+
+                }
+                
                 max = this.ChartAreas[0].AxisY.Maximum;
                 min = this.ChartAreas[0].AxisY.Minimum;
                 delta = (max - min) * zoomFactor;
@@ -543,7 +562,7 @@ namespace HV9104_GUI
                     
                         System.Windows.Forms.MouseEventArgs mouse = e;
                         Point mousePosNow = mouse.Location;
-                        if (mouseLeftpressed)
+                        if (mouseLeftpressed && (mouse.Button == MouseButtons.Left))
                         {
                             
                             this.Cursor = System.Windows.Forms.Cursors.SizeNWSE;

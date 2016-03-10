@@ -93,6 +93,13 @@ namespace HV9104_GUI
             {
                 return this.triggerLevel;
             }
+        }        
+
+        public double triggerLevelkV()
+        {
+            double factor = (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;
+            double kVTriggerLevel = triggerLevel * factor - 1 * dcOffset * (float)dividerRatio;
+            return kVTriggerLevel;
         }
 
         public int Polarity
@@ -182,90 +189,10 @@ namespace HV9104_GUI
             incrementValues = new double[maxSamples];
             int r = 0;
 
-
             for (; r < maxSamples; r++)
             {
                 incrementValues[r] = r;
             }
-
-            //incrementValues = new double[10][];
-
-            ////if (e.Text.Equals("2 ms/Div"))0,0001
-                
-            //    int r = 0;
-            //    decimal increment;
-
-            //    incrementValues[0] = new double[1600];
-            //    //X values for 2 ms/Div
-                
-            //    for(increment = -10; increment < 10 ; increment += 0.0125m )
-            //    {
-            //        incrementValues[0][r++] = (double)increment;
-            //    }
-                
-               
-            //    incrementValues[1] = new double[1600];
-            //    //X values for 5 ms/Div
-            //    for (increment = -25, r = 0; increment < 25; increment += 0.03125m)
-            //    {
-            //        incrementValues[1][r++] = (double)increment;
-            //    }
-                
-            //    incrementValues[2] = new double[1600];
-            //    //X values for 10 ms/Div
-            //    for (increment = -50, r = 0; increment < 50; increment += 0.0625m)
-            //    {
-            //        incrementValues[2][r++] = (double)increment;
-            //    }
-
-            //    incrementValues[3] = new double[1000];
-            //    //X values for 200 ns/Div
-            //    for (increment = -1, r = 0; increment < 1; increment += 0.002m)
-            //    {
-            //        incrementValues[3][r++] = (double)increment;
-            //    }
-
-            //    incrementValues[4] = new double[2500];
-            //    //X values for 500 ns/Div
-            //    for (increment = -2.5m, r = 0; increment < 2.5m; increment += 0.002m)
-            //    {
-            //        incrementValues[4][r++] = (double)increment;
-            //    }
-
-            //    incrementValues[5] = new double[5000];
-            //    //X values for 1 us/Div
-            //    for (increment = -5, r = 0; increment < 5; increment += 0.002m)
-            //    {
-            //        incrementValues[5][r++] = (double)increment;
-            //    }
-
-            //    incrementValues[6] = new double[10000];
-            //    //X values for 2 us/Div
-            //    for (increment = -10, r = 0; increment < 10; increment += 0.002m)
-            //    {
-            //        incrementValues[6][r++] = (double)increment;
-            //    }
-
-            //    incrementValues[7] = new double[25000];
-            //    //X values for 5 us/Div
-            //    for (increment = -25, r = 0; increment < 25; increment += 0.002m)
-            //    {
-            //        incrementValues[7][r++] = (double)increment;
-            //    }
-
-            //    incrementValues[8] = new double[50000];
-            //    //X values for 10 us/Div
-            //    for (increment = -50, r = 0; increment < 50; increment += 0.002m)
-            //    {
-            //        incrementValues[8][r++] = (double)increment;
-            //    }
-
-            //    incrementValues[9] = new double[100000];
-            //    //X values for 20 us/Div
-            //    for (increment = -100, r = 0; increment < 100; increment += 0.002m)
-            //    {
-            //        incrementValues[9][r++] = (double)increment;
-            //    }
          
         }       
 
