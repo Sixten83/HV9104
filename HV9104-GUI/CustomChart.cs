@@ -565,8 +565,9 @@ namespace HV9104_GUI
                         if (mouseLeftpressed && (mouse.Button == MouseButtons.Left))
                         {
                             
-                            this.Cursor = System.Windows.Forms.Cursors.SizeNWSE;
-                            
+                           
+                            this.Cursor = new System.Windows.Forms.Cursor(GetType(), "zoom.cur");
+
                             try
                             {
                                 startX = this.ChartAreas[0].AxisX.PixelPositionToValue(mouseDown.X);

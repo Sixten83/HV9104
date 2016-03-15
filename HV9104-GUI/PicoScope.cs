@@ -197,7 +197,7 @@ namespace HV9104_GUI
             uint status;
             Channel channel = findChannel(channelName);
             this.triggerChannel = channel.ChannelName;
-            status = Imports.SetSimpleTrigger(handle, 1, channel.ChannelName, channel.TriggerLevel, channel.TriggerType, 0, 0);
+            status = Imports.SetSimpleTrigger(handle, 1, channel.ChannelName, channel.TriggerLevel, channel.TriggerType, 0, 0);            
             Console.WriteLine("TriggerChannel Status : {0} ", status);
         }
 
@@ -207,6 +207,8 @@ namespace HV9104_GUI
             Channel channel = findChannel(triggerChannel);
             channel.TriggerLevel = triggerLevel;
             status = Imports.SetSimpleTrigger(handle, 1, channel.ChannelName, channel.TriggerLevel, channel.TriggerType, 0, 0);
+            
+
             Console.WriteLine("TriggerLevel Status : {0} ", status);
         }
 
@@ -215,7 +217,7 @@ namespace HV9104_GUI
             uint status;
             Channel channel = findChannel(triggerChannel);
             channel.TriggerType = triggerType;
-            status = Imports.SetSimpleTrigger(handle, 1, channel.ChannelName, channel.TriggerLevel, channel.TriggerType, 0, 0);
+            status = Imports.SetSimpleTrigger(handle, 1, channel.ChannelName, channel.TriggerLevel, channel.TriggerType, 0, 0);            
             Console.WriteLine("TriggerType Status : {0} ", status);
         }
 

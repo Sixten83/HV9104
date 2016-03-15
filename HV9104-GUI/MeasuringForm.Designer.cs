@@ -118,7 +118,7 @@
             this.impulseVoltageRangeComboBox = new HV9104_GUI.CustomComboBox();
             this.customPanel5 = new HV9104_GUI.CustomPanel();
             this.label6 = new System.Windows.Forms.Label();
-            this.triggerSetupButton = new HV9104_GUI.CustomButton();
+            this.exportChartButton = new HV9104_GUI.CustomButton();
             this.timeBaseComboBox = new HV9104_GUI.CustomComboBox();
             this.resolutionComboBox = new HV9104_GUI.CustomComboBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -1014,7 +1014,7 @@
             this.customPanel5.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
             this.customPanel5.Controls.Add(this.label6);
-            this.customPanel5.Controls.Add(this.triggerSetupButton);
+            this.customPanel5.Controls.Add(this.exportChartButton);
             this.customPanel5.Controls.Add(this.timeBaseComboBox);
             this.customPanel5.Controls.Add(this.resolutionComboBox);
             this.customPanel5.CornerRadius = 20;
@@ -1035,22 +1035,22 @@
             this.label6.TabIndex = 17;
             this.label6.Text = "COMMON CONTROLS";
             // 
-            // triggerSetupButton
+            // exportChartButton
             // 
-            this.triggerSetupButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
-            this.triggerSetupButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
-            this.triggerSetupButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.triggerSetupButton.ForeColor = System.Drawing.Color.White;
-            this.triggerSetupButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
-            this.triggerSetupButton.Location = new System.Drawing.Point(71, 227);
-            this.triggerSetupButton.Name = "triggerSetupButton";
-            this.triggerSetupButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
-            this.triggerSetupButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.triggerSetupButton.Size = new System.Drawing.Size(158, 57);
-            this.triggerSetupButton.TabIndex = 17;
-            this.triggerSetupButton.Text = "SETUP";
-            this.toolTip1.SetToolTip(this.triggerSetupButton, "Configure triggering setup");
-            this.triggerSetupButton.Click += new System.EventHandler(this.triggerSetupButton_Click);
+            this.exportChartButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
+            this.exportChartButton.BackgroundImage = global::HV9104_GUI.Properties.Resources.button;
+            this.exportChartButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exportChartButton.ForeColor = System.Drawing.Color.White;
+            this.exportChartButton.HoverImage = global::HV9104_GUI.Properties.Resources.buttonHover;
+            this.exportChartButton.Location = new System.Drawing.Point(71, 227);
+            this.exportChartButton.Name = "exportChartButton";
+            this.exportChartButton.PressedImage = global::HV9104_GUI.Properties.Resources.buttonPressed;
+            this.exportChartButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.exportChartButton.Size = new System.Drawing.Size(158, 57);
+            this.exportChartButton.TabIndex = 17;
+            this.exportChartButton.Text = "EXPORT CHART";
+            this.toolTip1.SetToolTip(this.exportChartButton, "Configure triggering setup");
+            this.exportChartButton.Click += new System.EventHandler(this.triggerSetupButton_Click);
             // 
             // timeBaseComboBox
             // 
@@ -1456,7 +1456,7 @@
         public CustomPanel customPanel1;
         public CustomRadioButton acdcRadioButton;
         public CustomRadioButton impulseRadioButton;
-        public CustomButton triggerSetupButton;
+        public CustomButton exportChartButton;
         public CustomPanel customPanel2;
         public System.Windows.Forms.Label acTitleLabel;
         public System.Windows.Forms.Label label7;

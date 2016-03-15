@@ -15,15 +15,12 @@ namespace HV9104_GUI
 
         private int formX, formY;
         private bool moveForm;
-        public TriggerWindow triggerWindow;
 
         public MeasuringForm()
         {
             InitializeComponent();
             this.Location = Screen.AllScreens[0].WorkingArea.Location;
 
-
-            triggerWindow = new TriggerWindow();
 
             titleBarPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDown);
             titleBarPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseUp);
@@ -129,9 +126,7 @@ namespace HV9104_GUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            TriggerWindow popUp = new TriggerWindow();
-            popUp.Owner = this;
-            popUp.Show();
+
         }
 
         private void acdcRadioButton_Click(object sender, EventArgs e)
@@ -146,7 +141,7 @@ namespace HV9104_GUI
 
         private void triggerSetupButton_Click(object sender, EventArgs e)
         {
-            this.triggerWindow.Show();
+            
         }
 
         

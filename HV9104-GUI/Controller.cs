@@ -8,6 +8,11 @@ using System.ComponentModel;
 using System.Windows.Forms.Integration;
 using System.IO;
 using System.Net.NetworkInformation;
+using Jitbit.Utils;
+using System.Reflection;
+using Microsoft.Office.Interop.Excel;
+using System.Text;
+
 
 namespace HV9104_GUI
 {
@@ -113,8 +118,8 @@ namespace HV9104_GUI
 
         public Controller()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            System.Windows.Forms.Application.EnableVisualStyles();
+            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
             // Create one form for control and one for presentation and start them
             measuringForm = new MeasuringForm();
@@ -155,7 +160,7 @@ namespace HV9104_GUI
 
 
             // Obligatory application command 
-            Application.Run(controlForm); // Måste vara sist!!!
+            System.Windows.Forms.Application.Run(controlForm); // Måste vara sist!!!
 
         }
 
@@ -621,7 +626,6 @@ namespace HV9104_GUI
         public void ConnectEventHandlers()
         {
             /////////////////
-            this.measuringForm.triggerWindow.okButton.Click += new System.EventHandler(this.triggerMenuOkButton_Click);
             this.measuringForm.closeButton.Click += new System.EventHandler(this.formsCloseButton_Click);
             this.controlForm.closeButton.Click += new System.EventHandler(this.formsCloseButton_Click);
 
@@ -767,7 +771,7 @@ namespace HV9104_GUI
             //Common Controls Listeners
             this.measuringForm.resolutionComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(resolutionComboBox_valueChange);
             this.measuringForm.timeBaseComboBox.valueChangeHandler += new EventHandler<ValueChangeEventArgs>(timeBaseComboBox_valueChange);
-            this.measuringForm.triggerSetupButton.Click += new System.EventHandler(triggerSetupButton_Click);
+            this.measuringForm.exportChartButton.Click += new System.EventHandler(exportChartButton_Click);
 
             //***********************************************************************************************************
             //***                                  CURSOR MENU EVENT LISTENERS                                      *****
@@ -1336,12 +1340,106 @@ namespace HV9104_GUI
             this.measuringForm.chart.updateCursorMenu();
         }
 
-        private void triggerSetupButton_Click(object sender, EventArgs e)
+        private void exportChartButton_Click(object sender, EventArgs e)
+        {            
+            ExportValues();
+        }       
+
+        private void ExportValues()
         {
 
+            pauseStream();
+            string Operator = this.controlForm.runView.operatorTextBox.Text;
+            string[] channelNames;
+            bool impulseSelected = this.measuringForm.impulseRadioButton.isChecked;
+            bool acSelected = this.measuringForm.acEnableCheckBox.isChecked;
+            bool dcSelected = this.measuringForm.dcEnableCheckBox.isChecked;
+            int noChannels = 0;
+            double[] x;
+            double[][] y;            
 
+            if (impulseSelected && (impulseChannel.scaledData[0].y != null))
+            {
+                channelNames = new string[1];
+                channelNames[0] = "Impulse Channel";
+                noChannels = 1;
+                x = impulseChannel.scaledData[0].x;
+                y = new double[noChannels][];
+                y[0] = impulseChannel.scaledData[0].y;
+               
+            }
+            else if (acSelected && dcSelected)
+            {
+                channelNames = new string[2];
+                channelNames[0] = "AC Channel";
+                channelNames[1] = "DC Channel";
+                noChannels = 2;
+                x = acChannel.scaledData[0].x;
+                y = new double[noChannels][];
+                y[0] = acChannel.scaledData[0].y;
+                y[1] = dcChannel.scaledData[0].y;
+            }
+            else if (acSelected)
+            {
+                channelNames = new string[1];
+                channelNames[0] = "AC Channel";
+                noChannels = 1;
+                x = acChannel.scaledData[0].x;
+                y = new double[noChannels][];
+                y[0] = acChannel.scaledData[0].y;
+            }
+            else if (dcSelected)
+            {
+                channelNames = new string[1];
+                channelNames[0] = "DC Channel";
+                noChannels = 1;
+                x = dcChannel.scaledData[0].x;
+                y = new double[noChannels][];                
+                y[0] = dcChannel.scaledData[0].y;
+            }
+            else
+                return;
+
+            
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Comma-Separated Value (.csv) | *.csv ";
+            saveFileDialog1.Title = "Save file";
+            saveFileDialog1.ShowDialog();
+            var finalPath = saveFileDialog1.FileName;
+
+            if (finalPath != "")
+            {
+                var myExport = new CsvExport();
+                DateTime todaysDateRaw = DateTime.Now;
+                string todaysDate = todaysDateRaw.ToString(" d MMMM yyyy, HH:mm");
+                myExport.AddRow();
+                myExport["Time"] = "";
+
+                for (int r = 0; r < noChannels; r++)
+                {
+                    myExport[channelNames[r]] = "Volts(kV)";
+                }
+                myExport["OPERATOR"] = Operator;
+                myExport["DATE"] = todaysDate;
+                
+
+                //for (int i = 1; i < 100; i++)
+                //{
+                //    myExport.AddRow();
+                //    myExport["X"] = x[i].ToString();
+                //    myExport["Y"] = y[i].ToString();
+                //}
+
+
+                //var desiredPath =  @"C:\Users\Terco\Desktop\test.csv"; //ChooseFolder();
+                //var finalPath = UniqueFileName(desiredPath);
+
+                myExport.ExportToFile(finalPath);
+            }
+
+            rebootStream();
         }
-
 
         //***********************************************************************************************************
         //***                                     DASHBOARD VIEW EVENT HANDLERS                                 *****
@@ -2205,7 +2303,7 @@ namespace HV9104_GUI
         //User want's to save the trigger setup information
         private void triggerMenuOkButton_Click(object sender, EventArgs e)
         {
-            this.measuringForm.triggerWindow.Hide();
+            
         }
 
         private void formsCloseButton_Click(object sender, EventArgs e)

@@ -178,9 +178,6 @@
     <Compile Include="SetupView.Designer.cs">
       <DependentUpon>SetupView.cs</DependentUpon>
     </Compile>
-    <Compile Include="TriggerWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="CustomRadioButton.cs">
       <SubType>Component</SubType>
       <DependentUpon>CustomControls.cs</DependentUpon>
@@ -253,9 +250,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SetupView.resx">
       <DependentUpon>SetupView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TriggerWindow.resx">
-      <DependentUpon>TriggerWindow.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
     <None Include="HV9104-GUI_TemporaryKey.pfx" />
@@ -475,9 +469,9 @@
     <Content Include="Resources\3-stageAC.png" />
     <Content Include="Resources\3-stageDC.png" />
     <Content Include="Resources\3-stageImp.png" />
+    <EmbeddedResource Include="zoom.cur" />
     <None Include="Resources\redLight.png" />
     <None Include="Resources\greenLight.png" />
-    <None Include="Resources\magnify.cur" />
     <Content Include="tercoIcon.ico" />
     <None Include="Resources\tercologoTransp.png" />
     <None Include="Resources\panelArrowHover1.png" />
