@@ -244,14 +244,14 @@ namespace HV9104_GUI
         private void chart_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             this.Focus();
-            
+            System.Windows.Forms.MouseEventArgs mouse = e;
             if (x1InPos || x2InPos || y1InPos || y2InPos)
             {
                 pressed = true;
                 this.Focus();
             }
 
-            if (!pressed)
+            if (!pressed && (mouse.Button == MouseButtons.Left))
             { 
                 mouseLeftpressed = true;
                 mouseDown = e.Location;
@@ -609,7 +609,7 @@ namespace HV9104_GUI
                         }
                         else if (mouse.Button == MouseButtons.Middle)
                         {
-                            
+                            mouseLeftpressed = false;
                             this.Cursor = System.Windows.Forms.Cursors.SizeAll;
                             if (!mouseWheelPressed)
                             {

@@ -1049,7 +1049,7 @@
             this.exportChartButton.Size = new System.Drawing.Size(158, 57);
             this.exportChartButton.TabIndex = 17;
             this.exportChartButton.Text = "EXPORT CHART";
-            this.toolTip1.SetToolTip(this.exportChartButton, "Configure triggering setup");
+            this.toolTip1.SetToolTip(this.exportChartButton, "Export Chart Values to CSV-file");
             this.exportChartButton.Click += new System.EventHandler(this.triggerSetupButton_Click);
             // 
             // timeBaseComboBox
