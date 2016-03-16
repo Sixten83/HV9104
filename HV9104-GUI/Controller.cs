@@ -1088,6 +1088,7 @@ namespace HV9104_GUI
             this.measuringForm.chart.cursorMenu.acChannelRadioButton.isChecked = true;
             this.measuringForm.chart.cursorMenu.dcChannelRadioButton.isChecked = false;
             this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
+            this.measuringForm.chart.cursorMenu.setTimeScaleFactor(50000, picoScope.TimePerDivision);
             this.measuringForm.chart.cursorMenu.resizeUp();
             this.measuringForm.chart.updateCursorMenu();
             this.measuringForm.timeBaseComboBox.setCollection = new string[] {
@@ -1096,6 +1097,8 @@ namespace HV9104_GUI
                                                                                 "10 ms/Div"};
             this.measuringForm.timeBaseComboBox.SetSelected = "5 ms/Div";
             this.measuringForm.timeBaseLabel.Text = "5 ms/Div";
+            picoScope.TimeBaseUnit = "ms";
+            
         }
 
         // Impulse selected to display in chart
@@ -1127,6 +1130,7 @@ namespace HV9104_GUI
             this.measuringForm.chart.Series["dcSeries"].Points.Clear();
 
             this.measuringForm.chart.cursorMenu.setScaleFactor(impulseChannel.getScaleFactor(), impulseChannel.DCOffset * impulseChannel.DividerRatio);
+            this.measuringForm.chart.cursorMenu.setTimeScaleFactor(10000, picoScope.TimePerDivision);
             this.measuringForm.chart.cursorMenu.resizeDown();
             this.measuringForm.chart.updateCursorMenu();
             this.measuringForm.timeBaseComboBox.setCollection = new string[] {
@@ -1142,6 +1146,7 @@ namespace HV9104_GUI
             picoScope.streamStarted = false;
             picoScope._autoStop = false;
             fastStreamMode = true;
+            picoScope.TimeBaseUnit = "us";
 
         }
 
@@ -1277,7 +1282,8 @@ namespace HV9104_GUI
             if (this.measuringForm.acdcRadioButton.isChecked)
             {
                 this.measuringForm.chart.Series["acSeries"].Points.Clear();
-                this.measuringForm.chart.Series["dcSeries"].Points.Clear();                
+                this.measuringForm.chart.Series["dcSeries"].Points.Clear();
+                picoScope.TimeBaseUnit = "ms";
                 if (timeBaseValueIn.Equals("2 ms/Div"))
                 {
                     picoScope.StreamingInterval = 400;
@@ -1296,46 +1302,56 @@ namespace HV9104_GUI
                     
                 }
                 this.measuringForm.chart.setTimePerDiv(50000);
+                this.measuringForm.chart.cursorMenu.setTimeScaleFactor(50000, picoScope.TimePerDivision);
+
             }
             else
             {
                 if (timeBaseValueIn.Equals("200 ns/Div"))
                 {
                     picoScope.BlockSamples = 1000;
-                    picoScope.TimePerDivision = 0.2;
+                    picoScope.TimePerDivision = 200;
+                    picoScope.TimeBaseUnit = "ns";
 
                 }
                 else if (timeBaseValueIn.Equals("500 ns/Div"))
                 {
                     picoScope.BlockSamples = 2500;
-                    picoScope.TimePerDivision = 0.5;
+                    picoScope.TimePerDivision = 500;
+                    picoScope.TimeBaseUnit = "ns";
                 }
                 else if (timeBaseValueIn.Equals("1 us/Div"))
                 {
                     picoScope.BlockSamples = 5000;
                     picoScope.TimePerDivision = 1;
+                    picoScope.TimeBaseUnit = "us";
                 }
                 else if (timeBaseValueIn.Equals("2 us/Div"))
                 {
                     picoScope.BlockSamples = 10000;
                     picoScope.TimePerDivision = 2;
+                    picoScope.TimeBaseUnit = "us";
                 }
                 else if (timeBaseValueIn.Equals("5 us/Div"))
                 {
                     picoScope.BlockSamples = 25000;
                     picoScope.TimePerDivision = 5;
+                    picoScope.TimeBaseUnit = "us";
                 }
                 else if (timeBaseValueIn.Equals("10 us/Div"))
                 {
                     picoScope.BlockSamples = 50000;
-                    picoScope.TimePerDivision = 10;                    
+                    picoScope.TimePerDivision = 10;
+                    picoScope.TimeBaseUnit = "us";
                 }
                 else if (timeBaseValueIn.Equals("20 us/Div"))
                 {
                     picoScope.BlockSamples = 100000;
                     picoScope.TimePerDivision = 20;
+                    picoScope.TimeBaseUnit = "us";
                 }
                 this.measuringForm.chart.setTimePerDiv(picoScope.BlockSamples);
+                this.measuringForm.chart.cursorMenu.setTimeScaleFactor(picoScope.BlockSamples, picoScope.TimePerDivision);
             }
             this.measuringForm.chart.updateCursorMenu();
         }
@@ -1345,30 +1361,38 @@ namespace HV9104_GUI
             ExportValues();
         }       
 
+        private bool isDataInitilized(Channel channel)
+        {
+           
+            if (channel.scaledData != null)
+                return true;
+            else
+                return false;
+        }
+
         private void ExportValues()
         {
 
             pauseStream();
             string Operator = this.controlForm.runView.operatorTextBox.Text;
             string[] channelNames;
-            bool impulseSelected = this.measuringForm.impulseRadioButton.isChecked;
-            bool acSelected = this.measuringForm.acEnableCheckBox.isChecked;
-            bool dcSelected = this.measuringForm.dcEnableCheckBox.isChecked;
+            bool collectImpulseData = this.measuringForm.impulseRadioButton.isChecked & isDataInitilized(impulseChannel);
+            bool collectACData = this.measuringForm.acEnableCheckBox.isChecked & isDataInitilized(acChannel);
+            bool collectDCData = this.measuringForm.dcEnableCheckBox.isChecked & isDataInitilized(dcChannel);
             int noChannels = 0;
             double[] x;
-            double[][] y;            
+            double[][] y;
 
-            if (impulseSelected && (impulseChannel.scaledData[0].y != null))
+            if (collectImpulseData)
             {
                 channelNames = new string[1];
                 channelNames[0] = "Impulse Channel";
                 noChannels = 1;
                 x = impulseChannel.scaledData[0].x;
                 y = new double[noChannels][];
-                y[0] = impulseChannel.scaledData[0].y;
-               
+                y[0] = impulseChannel.scaledData[0].y;               
             }
-            else if (acSelected && dcSelected)
+            else if (collectACData && collectDCData)
             {
                 channelNames = new string[2];
                 channelNames[0] = "AC Channel";
@@ -1379,7 +1403,7 @@ namespace HV9104_GUI
                 y[0] = acChannel.scaledData[0].y;
                 y[1] = dcChannel.scaledData[0].y;
             }
-            else if (acSelected)
+            else if (collectACData)
             {
                 channelNames = new string[1];
                 channelNames[0] = "AC Channel";
@@ -1387,8 +1411,9 @@ namespace HV9104_GUI
                 x = acChannel.scaledData[0].x;
                 y = new double[noChannels][];
                 y[0] = acChannel.scaledData[0].y;
+                Console.WriteLine("ACLENGHT" + acChannel.scaledData[0].y.Length);
             }
-            else if (dcSelected)
+            else if (collectDCData)
             {
                 channelNames = new string[1];
                 channelNames[0] = "DC Channel";
@@ -1398,8 +1423,13 @@ namespace HV9104_GUI
                 y[0] = dcChannel.scaledData[0].y;
             }
             else
+            {
+                CustomPopUp popUp = new CustomPopUp();
+                popUp.Owner = this.measuringForm;
+                popUp.ShowDialog();
+                rebootStream();
                 return;
-
+            }
             
 
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -1414,7 +1444,7 @@ namespace HV9104_GUI
                 DateTime todaysDateRaw = DateTime.Now;
                 string todaysDate = todaysDateRaw.ToString(" d MMMM yyyy, HH:mm");
                 myExport.AddRow();
-                myExport["Time"] = "";
+                myExport["Time"] = picoScope.TimeBaseUnit;
 
                 for (int r = 0; r < noChannels; r++)
                 {
@@ -1424,17 +1454,16 @@ namespace HV9104_GUI
                 myExport["DATE"] = todaysDate;
                 
 
-                //for (int i = 1; i < 100; i++)
-                //{
-                //    myExport.AddRow();
-                //    myExport["X"] = x[i].ToString();
-                //    myExport["Y"] = y[i].ToString();
-                //}
-
-
-                //var desiredPath =  @"C:\Users\Terco\Desktop\test.csv"; //ChooseFolder();
-                //var finalPath = UniqueFileName(desiredPath);
-
+                for (int i = 0; i < x.Length; i++)
+                {
+                    myExport.AddRow();
+                    myExport["Time"] = (((double)i / (double)x.Length) * (picoScope.TimePerDivision * 10));
+                    for (int r = 0; r < noChannels; r++)
+                    {
+                        myExport[channelNames[r]] = y[r][i].ToString();
+                    }
+                }
+               
                 myExport.ExportToFile(finalPath);
             }
 

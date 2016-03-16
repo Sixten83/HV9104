@@ -147,6 +147,10 @@
       <SubType>Component</SubType>
       <DependentUpon>CustomControls.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomPopUp.cs">
+      <SubType>Form</SubType>
+      <DependentUpon>CustomControls.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomStatusIndicator.cs">
       <SubType>Component</SubType>
       <DependentUpon>CustomControls.cs</DependentUpon>
@@ -230,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomCursorMenu.resx">
       <DependentUpon>CustomCursorMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomPopUp.resx">
+      <DependentUpon>CustomPopUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="incrementWindow.resx">
       <DependentUpon>IncrementWindow.cs</DependentUpon>

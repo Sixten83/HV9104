@@ -40,6 +40,7 @@ namespace HV9104_GUI
         short maxADValue = 32512;
         double timePerDivision = 5;
         int[] frequencys;
+        string timeBaseUnit = "ms";
        
 
         public PicoScope()
@@ -56,6 +57,19 @@ namespace HV9104_GUI
         //***********************************************************************************************************
         //***                                     SETERS/GETERS FOR CLASS MEMBERS                                ****
         //***********************************************************************************************************
+
+        public string TimeBaseUnit
+        {
+            set
+            {
+                this.timeBaseUnit = value;
+            }
+            get
+            {
+                return this.timeBaseUnit;
+            }
+
+        }
 
         public uint BlockSamples
         {

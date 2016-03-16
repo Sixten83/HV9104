@@ -41,6 +41,7 @@ namespace HV9104_GUI
         public Label hDiffLabel;
         public double scaleFactor = 1;
         public double offset = 0;
+        private double timeScaleFactor = 0.001;
 
         public CustomCursorMenu()
         {             
@@ -53,11 +54,11 @@ namespace HV9104_GUI
 
         public void updateCursorPos(double hCurs1, double hCurs2, double vCurs1, double vCurs2)
         {
-                hCurs1Label.Text = "" + hCurs1.ToString("0.0").Replace(',', '.');
-                hCurs2Label.Text = "" + hCurs2.ToString("0.0").Replace(',', '.');
+                hCurs1Label.Text = "" + (timeScaleFactor * hCurs1).ToString("0.0").Replace(',', '.');
+                hCurs2Label.Text = "" + (timeScaleFactor * hCurs2).ToString("0.0").Replace(',', '.');
                 vCurs1Label.Text = "" + (vCurs1 * scaleFactor - offset).ToString("0.0").Replace(',', '.');
                 vCurs2Label.Text = "" + (vCurs2 * scaleFactor - offset).ToString("0.0").Replace(',', '.');
-                hDiffLabel.Text = "" + (hCurs2 - hCurs1).ToString("0.0").Replace(',', '.');
+                hDiffLabel.Text = "" + (timeScaleFactor * (hCurs2 - hCurs1)).ToString("0.0").Replace(',', '.');
                 vDiffLabel.Text = "" + ((vCurs2 * scaleFactor - offset) - (vCurs1 * scaleFactor - offset)).ToString("0.0").Replace(',', '.');
                 
                 //Point startPoint = this.Owner.PointToScreen(new Point());
@@ -67,6 +68,12 @@ namespace HV9104_GUI
                     Point startPoint = test.PointToScreen(new Point());
                     
              }
+        }
+
+        public void setTimeScaleFactor(double samples, double timeBase)
+        {
+            this.timeScaleFactor = timeBase * 10 / samples;
+            
         }
 
         public void setScaleFactor(double scaleFactor, double offset)
@@ -102,20 +109,6 @@ namespace HV9104_GUI
         }
         private void topBorderPanel_MouseMove(object sender, MouseEventArgs e)
         {
-            //Constrain in form??
-            /*if (this.Owner != null)
-            {
-                Form owner = this.Owner;
-                Point ownerLocation = owner.PointToScreen(new Point());
-                int x = this.PointToScreen(new Point()).X;
-                int y = this.PointToScreen(new Point()).Y;
-                Console.WriteLine(" X:" + x + " ownerLocation.X" + ownerLocation.X);
-
-                if (moveForm == 1 && (x > ownerLocation.X))
-                {
-                    this.SetDesktopLocation(MousePosition.X - formX, MousePosition.Y - formY); 
-                }
-            }*/
 
             if (moveForm == 1)
                  this.SetDesktopLocation(MousePosition.X - formX, MousePosition.Y - formY); 
