@@ -30,7 +30,7 @@ namespace HV9104_GUI
         private short _trig = 0;
         public short _overflow = 0;
         public bool streamStarted = false;
-        private int bufferSize = 1024 * 100;//1024 * 100; /*  *100 is to make sure buffer large enough */
+        private int bufferSize = 1024 * 200;//1024 * 100; /*  *100 is to make sure buffer large enough */
         uint streamingSamples = 60000;
         uint streamingInterval = 1000;
         private Imports.ReportedTimeUnits streamingIntervalUnits = Imports.ReportedTimeUnits.NanoSeconds;
@@ -167,6 +167,7 @@ namespace HV9104_GUI
             channels[0].TriggerType = Imports.ThresholdDirection.Rising;
             channels[0].TriggerLevel = 1000;
             channels[0].VoltageAutoRange = true;
+            channels[0].Name = "AC Channel";
             Imports.SetChannel(handle, channels[0].ChannelName, channels[0].Enabled, channels[0].Coupling, channels[0].VoltageRange, 0);
         }
 
@@ -183,6 +184,7 @@ namespace HV9104_GUI
             channels[1].TriggerType = Imports.ThresholdDirection.Above;
             channels[1].TriggerLevel = 1000;
             channels[1].VoltageAutoRange = true;
+            channels[1].Name = "DC Channel";
             Imports.SetChannel(handle, channels[1].ChannelName, channels[1].Enabled, channels[1].Coupling, channels[1].VoltageRange, 0);
         }
 
@@ -198,7 +200,8 @@ namespace HV9104_GUI
             channels[2].DCOffset = -16;
             channels[2].VoltageRange = Imports.Range.Range_20V;
             channels[2].TriggerType = Imports.ThresholdDirection.Rising;
-            channels[2].TriggerLevel = (short)(-1 * channels[2].Polarity * maxADValue * 4 / 5 + 1000);  
+            channels[2].TriggerLevel = (short)(-1 * channels[2].Polarity * maxADValue * 4 / 5 + 1000);
+            channels[2].Name = "Impulse Channel";
             Imports.SetChannel(handle, channels[2].ChannelName, 0, channels[2].Coupling, channels[2].VoltageRange, 0);
         }       
 

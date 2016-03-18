@@ -325,7 +325,7 @@ namespace HV9104_GUI
 
             mouseWheelPressed = false;
 
-            if ((mouseLeftpressed && Math.Abs(endX - startX) >= 0.01 * samples) && (Math.Abs(endY - startY) >= 0.01 * samples))
+            if ((mouseLeftpressed && Math.Abs(endX - startX) >= 0.01 * samples) && (Math.Abs(endY - startY) >= 0.01 * amplitude))
             {
 
                 this.ChartAreas[0].AxisX.Maximum = Math.Max(startX, endX);
@@ -671,10 +671,6 @@ namespace HV9104_GUI
                 this.Cursor = System.Windows.Forms.Cursors.Default;
                 x1InPos = x2InPos = y1InPos = y2InPos = false;
             }
-
-            
-            
-            
         }
     }
 }

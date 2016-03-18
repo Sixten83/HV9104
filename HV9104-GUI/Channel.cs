@@ -32,6 +32,9 @@ namespace HV9104_GUI
         int                         polarity = 1;
         bool                        voltageAutoRange;
         int                         maxSamples = 100000;
+        int                         chartAmplitud = 200;
+        int                         stage = 1;
+        string                      name;
 
         public struct ScaledData
         {
@@ -46,6 +49,30 @@ namespace HV9104_GUI
             this.voltageRange = Imports.Range.Range_1V;
             representation = new double[5];
             setIncrementValues();
+        }
+
+        public string Name
+        {
+            set
+            {
+                this.name = value;
+            }
+            get
+            {
+                return this.name;
+            }
+        }
+
+        public int Stage
+        {
+            set
+            {
+                this.stage = value;
+            }
+            get
+            {
+                return this.stage;
+            }
         }
 
         public bool VoltageAutoRange
@@ -198,7 +225,8 @@ namespace HV9104_GUI
 
         public double getScaleFactor()
         {
-            return (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;
+            double chartScaler = dividerRatio / (10 * (double)stage);
+            return (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / (1000 * chartScaler);
         }
 
         public void setChannelBuffers(int bufferSize)
@@ -257,35 +285,27 @@ namespace HV9104_GUI
         {
 
             scaledData = new ScaledData[2];
-            
+            scaledData[0].y = new double[samples];
+            scaledData[0].x = new double[samples];
             
             double factor = (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;
-            //if (downSampelCount == 0 || samples < downSampelCount)
-            //{
-                scaledData[0].y = new double[samples];
-                scaledData[0].x = new double[samples];
-                Array.Copy(channelBuffers[0], startIndex, scaledData[0].y, 0, samples);
-                Array.Copy(incrementValues, 0, scaledData[0].x, 0, samples);
-                average = factor * scaledData[0].y.Sum() / samples;
-            //}
-            //else
-            //{
-            //    int downSampleRatio = (samples) / downSampelCount;
-            //    scaledData[0].y = new double[downSampelCount];
-            //    scaledData[0].x = new double[downSampelCount];
-            //    int i = 0;
-            //    int r = startIndex;
-            //    for (; r < startIndex + samples; r += downSampleRatio)
-            //    {                                      
-            //        Array.Copy(channelBuffers[0], r, scaledData[0].y, i, 1);
-            //        Array.Copy(incrementValues[incrementIndex], r - startIndex, scaledData[0].x, i, 1);
-            //        i++;
-            //    }
-            //    average = factor * scaledData[0].y.Sum() / downSampelCount;
-            //}
+            double chartScaler = dividerRatio / (10 * (double)stage);
+            
+            int r = startIndex;
+            int i = 0;
 
-            max = factor * scaledData[0].y.Max() - 1 * dcOffset * (float)dividerRatio;
-            min = factor * scaledData[0].y.Min() - 1 * dcOffset * (float)dividerRatio;
+            for (; r < startIndex + samples; r++)
+            {
+                scaledData[0].y[i++] = (double)channelBuffers[0][r] * chartScaler;     
+            }
+            
+            Array.Copy(incrementValues, 0, scaledData[0].x, 0, samples);
+
+            average = factor * scaledData[0].y.Sum() / (samples * chartScaler);
+            max = factor * scaledData[0].y.Max() / chartScaler - 1 * dcOffset * (float)dividerRatio;
+            min = factor * scaledData[0].y.Min() / chartScaler - 1 * dcOffset * (float)dividerRatio;    
+                
+            
             rms = max / Math.Sqrt(2);
             amplitud = max - min;          
             

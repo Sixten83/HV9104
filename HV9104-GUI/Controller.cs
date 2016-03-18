@@ -1077,6 +1077,7 @@ namespace HV9104_GUI
             measuringForm.acdcRadioButton.Invalidate();
             picoScope.TimePerDivision = 5;
             picoScope.StreamingInterval = 1000;
+            //this.measuringForm.chart.setVoltsPerDiv(40);
             this.measuringForm.chart.setVoltsPerDiv(6502.4);
             this.measuringForm.chart.setTimePerDiv(50000);
             acChannel.IncrementIndex = 1;
@@ -1120,6 +1121,7 @@ namespace HV9104_GUI
             picoScope.stopStreaming();
             picoScope.setFastStreamDataBuffer();
             picoScope.TimePerDivision = 2;
+            //this.measuringForm.chart.setVoltsPerDiv(40);
             this.measuringForm.chart.setVoltsPerDiv(6502.4);
             this.measuringForm.chart.setTimePerDiv(10000);
             picoScope.BlockSamples = 10000;
@@ -1375,52 +1377,36 @@ namespace HV9104_GUI
 
             pauseStream();
             string Operator = this.controlForm.runView.operatorTextBox.Text;
-            string[] channelNames;
             bool collectImpulseData = this.measuringForm.impulseRadioButton.isChecked & isDataInitilized(impulseChannel);
             bool collectACData = this.measuringForm.acEnableCheckBox.isChecked & isDataInitilized(acChannel);
             bool collectDCData = this.measuringForm.dcEnableCheckBox.isChecked & isDataInitilized(dcChannel);
             int noChannels = 0;
-            double[] x;
-            double[][] y;
+            Channel[] channels;
 
             if (collectImpulseData)
             {
-                channelNames = new string[1];
-                channelNames[0] = "Impulse Channel";
-                noChannels = 1;
-                x = impulseChannel.scaledData[0].x;
-                y = new double[noChannels][];
-                y[0] = impulseChannel.scaledData[0].y;               
+                channels = new Channel[1];
+                channels[0] = impulseChannel;
+                noChannels = 1;                
             }
             else if (collectACData && collectDCData)
             {
-                channelNames = new string[2];
-                channelNames[0] = "AC Channel";
-                channelNames[1] = "DC Channel";
-                noChannels = 2;
-                x = acChannel.scaledData[0].x;
-                y = new double[noChannels][];
-                y[0] = acChannel.scaledData[0].y;
-                y[1] = dcChannel.scaledData[0].y;
+                channels = new Channel[2];
+                channels[0] = acChannel;
+                channels[1] = dcChannel;
+                noChannels = 2;                
             }
             else if (collectACData)
             {
-                channelNames = new string[1];
-                channelNames[0] = "AC Channel";
-                noChannels = 1;
-                x = acChannel.scaledData[0].x;
-                y = new double[noChannels][];
-                y[0] = acChannel.scaledData[0].y;
-                Console.WriteLine("ACLENGHT" + acChannel.scaledData[0].y.Length);
+                channels = new Channel[1];
+                channels[0] = acChannel;
+                noChannels = 1;                
             }
             else if (collectDCData)
             {
-                channelNames = new string[1];
-                channelNames[0] = "DC Channel";
-                noChannels = 1;
-                x = dcChannel.scaledData[0].x;
-                y = new double[noChannels][];                
-                y[0] = dcChannel.scaledData[0].y;
+                channels = new Channel[1];
+                channels[0] = dcChannel; 
+                noChannels = 1;                
             }
             else
             {
@@ -1448,19 +1434,20 @@ namespace HV9104_GUI
 
                 for (int r = 0; r < noChannels; r++)
                 {
-                    myExport[channelNames[r]] = "Volts(kV)";
+                    myExport[channels[r].Name] = "Volts(kV)";
                 }
                 myExport["OPERATOR"] = Operator;
                 myExport["DATE"] = todaysDate;
-                
 
-                for (int i = 0; i < x.Length; i++)
+                int lenght = channels[0].scaledData[0].x.Length;
+
+                for (int i = 0; i < lenght; i++)
                 {
                     myExport.AddRow();
-                    myExport["Time"] = (((double)i / (double)x.Length) * (picoScope.TimePerDivision * 10));
+                    myExport["Time"] = (((double)i / (double)lenght) * (picoScope.TimePerDivision * 10));
                     for (int r = 0; r < noChannels; r++)
                     {
-                        myExport[channelNames[r]] = y[r][i].ToString();
+                        myExport[channels[r].Name] = channels[r].scaledData[0].y[i] * channels[r].getScaleFactor() - 1 * channels[r].DCOffset * (float)channels[r].DividerRatio;
                     }
                 }
                
@@ -2058,6 +2045,7 @@ namespace HV9104_GUI
         {
             acHighDividerValues[0] = acDefaultHighDividerValues[0];
             acHighDividerValues[1] = acDefaultHighDividerValues[1];
+            
 
             if (this.controlForm.setupView.acStage1RadioButton.isChecked)
             { 
@@ -2090,7 +2078,7 @@ namespace HV9104_GUI
         {
             this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[0];
             acChannel.DividerRatio = (double)((acHighDividerValues[0] + acLowDividerValue) / acHighDividerValues[0]) / 1000;
-
+            acChannel.Stage = 1;
             controlForm.setupView.dcCheckBox.Enabled = true;
             controlForm.setupView.impulseCheckBox.Enabled = true;
         }        
@@ -2099,7 +2087,7 @@ namespace HV9104_GUI
         {
             this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[1];
             acChannel.DividerRatio = (double)((acHighDividerValues[1] + acLowDividerValue) / acHighDividerValues[1]) / 1000;
-
+            acChannel.Stage = 2;
             controlForm.setupView.dcCheckBox.isChecked = false;
             controlForm.setupView.dcCheckBox.Enabled = false;
             controlForm.setupView.impulseCheckBox.isChecked = false;
@@ -2111,7 +2099,7 @@ namespace HV9104_GUI
         {
             this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[1];
             acChannel.DividerRatio = (double)((acHighDividerValues[1] + acLowDividerValue) / acHighDividerValues[1]) / 1000;
-
+            acChannel.Stage = 3;
             controlForm.setupView.dcCheckBox.isChecked = false;
             controlForm.setupView.dcCheckBox.Enabled = false;
             controlForm.setupView.impulseCheckBox.isChecked = false;
@@ -2182,6 +2170,7 @@ namespace HV9104_GUI
         {
             dcChannel.DividerRatio = (double)((dcHighDividerValues[0] + dcLowDividerValue) / dcLowDividerValue) / 1000;
             controlForm.setupView.impulseCheckBox.Enabled = true;
+            dcChannel.Stage = 1;
         }
         
 
@@ -2190,6 +2179,7 @@ namespace HV9104_GUI
             dcChannel.DividerRatio = (double)((dcHighDividerValues[0] + dcHighDividerValues[1] + dcLowDividerValue) / dcLowDividerValue) / 1000;
             controlForm.setupView.impulseCheckBox.isChecked = false;
             controlForm.setupView.impulseCheckBox.Enabled = false;
+            dcChannel.Stage = 2;
         }
 
         private void dcStage3RadioButton_Click(object sender, EventArgs e)
@@ -2198,6 +2188,7 @@ namespace HV9104_GUI
             dcChannel.DividerRatio = (double)((dcHighDividerValues.Sum() + dcLowDividerValue) / dcLowDividerValue) / 1000;
             controlForm.setupView.impulseCheckBox.isChecked = false;
             controlForm.setupView.impulseCheckBox.Enabled = false;
+            dcChannel.Stage = 3;
         }
 
 
@@ -2276,18 +2267,21 @@ namespace HV9104_GUI
         private void impulseDivder1TextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             impulseHighDividerValues[0] = (decimal)e.Value;
+            impulseChannel.Stage = 1;
             calcImpulseDividerRatio();
         }
 
         private void impulseDivder2TextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             impulseHighDividerValues[1] = (decimal)e.Value;
+            impulseChannel.Stage = 2;
             calcImpulseDividerRatio();
         }
 
         private void impulseDivder3TextBox_valueChange(object sender, ValueChangeEventArgs e)
         {
             impulseHighDividerValues[2] = (decimal)e.Value;
+            impulseChannel.Stage = 3;
             calcImpulseDividerRatio();
         }
 
