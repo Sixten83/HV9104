@@ -124,17 +124,6 @@
             this.timeBaseComboBox = new HV9104_GUI.CustomComboBox();
             this.resolutionComboBox = new HV9104_GUI.CustomComboBox();
             this.customPanel1 = new HV9104_GUI.CustomPanel();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.chart = new HV9104_GUI.CustomChart();
             this.customPanel2 = new HV9104_GUI.CustomPanel();
             this.label3 = new System.Windows.Forms.Label();
@@ -1101,17 +1090,6 @@
             this.customPanel1.BackColor = System.Drawing.Color.Transparent;
             this.customPanel1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(236)))));
             this.customPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.customPanel1.Controls.Add(this.label17);
-            this.customPanel1.Controls.Add(this.label16);
-            this.customPanel1.Controls.Add(this.label15);
-            this.customPanel1.Controls.Add(this.label14);
-            this.customPanel1.Controls.Add(this.label13);
-            this.customPanel1.Controls.Add(this.label12);
-            this.customPanel1.Controls.Add(this.label11);
-            this.customPanel1.Controls.Add(this.label9);
-            this.customPanel1.Controls.Add(this.label8);
-            this.customPanel1.Controls.Add(this.label5);
-            this.customPanel1.Controls.Add(this.label4);
             this.customPanel1.Controls.Add(this.chart);
             this.customPanel1.CornerRadius = 40;
             this.customPanel1.IsPopUp = false;
@@ -1119,116 +1097,6 @@
             this.customPanel1.Name = "customPanel1";
             this.customPanel1.Size = new System.Drawing.Size(1555, 940);
             this.customPanel1.TabIndex = 14;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label17.Location = new System.Drawing.Point(1479, 889);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(13, 13);
-            this.label17.TabIndex = 1;
-            this.label17.Text = "1";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label16.Location = new System.Drawing.Point(1339, 889);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(13, 13);
-            this.label16.TabIndex = 1;
-            this.label16.Text = "1";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label15.Location = new System.Drawing.Point(1199, 889);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(13, 13);
-            this.label15.TabIndex = 1;
-            this.label15.Text = "1";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label14.Location = new System.Drawing.Point(1059, 889);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(13, 13);
-            this.label14.TabIndex = 1;
-            this.label14.Text = "1";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label13.Location = new System.Drawing.Point(919, 889);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(13, 13);
-            this.label13.TabIndex = 1;
-            this.label13.Text = "1";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label12.Location = new System.Drawing.Point(779, 889);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(13, 13);
-            this.label12.TabIndex = 1;
-            this.label12.Text = "1";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label11.Location = new System.Drawing.Point(639, 889);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(13, 13);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "1";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label9.Location = new System.Drawing.Point(499, 889);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(13, 13);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "1";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label8.Location = new System.Drawing.Point(359, 889);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(13, 13);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "1";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label5.Location = new System.Drawing.Point(219, 889);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(13, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "1";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.label4.Location = new System.Drawing.Point(79, 889);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(13, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "1";
             // 
             // chart
             // 
@@ -1527,16 +1395,5 @@
         public System.Windows.Forms.Label resolutionLabel;
         public System.Windows.Forms.Label label54;
         public System.Windows.Forms.Label label53;
-        public System.Windows.Forms.Label label17;
-        public System.Windows.Forms.Label label16;
-        public System.Windows.Forms.Label label15;
-        public System.Windows.Forms.Label label14;
-        public System.Windows.Forms.Label label13;
-        public System.Windows.Forms.Label label12;
-        public System.Windows.Forms.Label label11;
-        public System.Windows.Forms.Label label9;
-        public System.Windows.Forms.Label label8;
-        public System.Windows.Forms.Label label5;
-        public System.Windows.Forms.Label label4;
     }
 }

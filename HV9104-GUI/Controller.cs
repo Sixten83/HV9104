@@ -442,7 +442,10 @@ namespace HV9104_GUI
             if (picoScope._autoStop)
             {
                 int trigAt = (int)picoScope._trigAt;
-                
+
+                if (acChannel.isSWOverFlow())
+                    picoScope._overflow |= 1;
+
                 if ((int)(picoScope._overflow & 1) == 0 || !acChannel.VoltageAutoRange)
                 {
                     if (this.measuringForm.acEnableCheckBox.isChecked)
@@ -468,6 +471,9 @@ namespace HV9104_GUI
                 {
                     autoSetVoltageRange(acChannel);
                 }
+
+                if (dcChannel.isSWOverFlow())
+                    picoScope._overflow |= 2;
 
                 if ((int)(picoScope._overflow & 2) == 0 || !dcChannel.VoltageAutoRange)
                 {
@@ -1077,7 +1083,6 @@ namespace HV9104_GUI
             measuringForm.acdcRadioButton.Invalidate();
             picoScope.TimePerDivision = 5;
             picoScope.StreamingInterval = 1000;
-            //this.measuringForm.chart.setVoltsPerDiv(40);
             this.measuringForm.chart.setVoltsPerDiv(6502.4);
             this.measuringForm.chart.setTimePerDiv(50000);
             acChannel.IncrementIndex = 1;
@@ -1092,11 +1097,11 @@ namespace HV9104_GUI
             this.measuringForm.chart.cursorMenu.setTimeScaleFactor(50000, picoScope.TimePerDivision);
             this.measuringForm.chart.cursorMenu.resizeUp();
             this.measuringForm.chart.updateCursorMenu();
+            this.measuringForm.timeBaseComboBox.setSelectionIndex(1);
             this.measuringForm.timeBaseComboBox.setCollection = new string[] {
                                                                                 "2 ms/Div",
                                                                                 "5 ms/Div",
-                                                                                "10 ms/Div"};
-            this.measuringForm.timeBaseComboBox.SetSelected = "5 ms/Div";
+                                                                                "10 ms/Div"};            
             this.measuringForm.timeBaseLabel.Text = "5 ms/Div";
             picoScope.TimeBaseUnit = "ms";
             
@@ -1121,7 +1126,6 @@ namespace HV9104_GUI
             picoScope.stopStreaming();
             picoScope.setFastStreamDataBuffer();
             picoScope.TimePerDivision = 2;
-            //this.measuringForm.chart.setVoltsPerDiv(40);
             this.measuringForm.chart.setVoltsPerDiv(6502.4);
             this.measuringForm.chart.setTimePerDiv(10000);
             picoScope.BlockSamples = 10000;
@@ -1135,6 +1139,7 @@ namespace HV9104_GUI
             this.measuringForm.chart.cursorMenu.setTimeScaleFactor(10000, picoScope.TimePerDivision);
             this.measuringForm.chart.cursorMenu.resizeDown();
             this.measuringForm.chart.updateCursorMenu();
+            this.measuringForm.timeBaseComboBox.setSelectionIndex(3);
             this.measuringForm.timeBaseComboBox.setCollection = new string[] {
                                                                                 "200 ns/Div",
                                                                                 "500 ns/Div",
@@ -1142,8 +1147,7 @@ namespace HV9104_GUI
                                                                                 "2 us/Div",
                                                                                 "5 us/Div",
                                                                                 "10 us/Div",
-                                                                                "20 us/Div"};
-            this.measuringForm.timeBaseComboBox.SetSelected = "2 us/Div";
+                                                                                "20 us/Div"};            
             this.measuringForm.timeBaseLabel.Text = "2 us/Div";
             picoScope.streamStarted = false;
             picoScope._autoStop = false;
@@ -1209,7 +1213,7 @@ namespace HV9104_GUI
                 this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);
                 this.measuringForm.chart.updateCursorMenu();
             }
-            this.measuringForm.dcScaleLabel.Text = dcChannel.rangeToVolt() + "kV/Div";
+            this.measuringForm.dcScaleLabel.Text = dcChannel.rangeToVolt() + "kV/div";
 
         }
 
@@ -2079,8 +2083,10 @@ namespace HV9104_GUI
             this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[0];
             acChannel.DividerRatio = (double)((acHighDividerValues[0] + acLowDividerValue) / acHighDividerValues[0]) / 1000;
             acChannel.Stage = 1;
+            this.measuringForm.acVoltageRangeComboBox.setCollection = acChannel.getSelectibleVoltageList();
             controlForm.setupView.dcCheckBox.Enabled = true;
-            controlForm.setupView.impulseCheckBox.Enabled = true;
+            controlForm.setupView.impulseCheckBox.Enabled = true;           
+            
         }        
 
         private void acStage2RadioButton_Click(object sender, EventArgs e)
@@ -2088,6 +2094,7 @@ namespace HV9104_GUI
             this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[1];
             acChannel.DividerRatio = (double)((acHighDividerValues[1] + acLowDividerValue) / acHighDividerValues[1]) / 1000;
             acChannel.Stage = 2;
+            this.measuringForm.acVoltageRangeComboBox.setCollection = acChannel.getSelectibleVoltageList();
             controlForm.setupView.dcCheckBox.isChecked = false;
             controlForm.setupView.dcCheckBox.Enabled = false;
             controlForm.setupView.impulseCheckBox.isChecked = false;
@@ -2100,10 +2107,12 @@ namespace HV9104_GUI
             this.controlForm.setupView.acDivder1TextBox.Value = (float)acHighDividerValues[1];
             acChannel.DividerRatio = (double)((acHighDividerValues[1] + acLowDividerValue) / acHighDividerValues[1]) / 1000;
             acChannel.Stage = 3;
+            this.measuringForm.acVoltageRangeComboBox.setCollection = acChannel.getSelectibleVoltageList();
             controlForm.setupView.dcCheckBox.isChecked = false;
             controlForm.setupView.dcCheckBox.Enabled = false;
             controlForm.setupView.impulseCheckBox.isChecked = false;
             controlForm.setupView.impulseCheckBox.Enabled = false;
+            
         }
 
         private void dcCheckBox_Click(object sender, EventArgs e)
@@ -2171,6 +2180,7 @@ namespace HV9104_GUI
             dcChannel.DividerRatio = (double)((dcHighDividerValues[0] + dcLowDividerValue) / dcLowDividerValue) / 1000;
             controlForm.setupView.impulseCheckBox.Enabled = true;
             dcChannel.Stage = 1;
+            this.measuringForm.dcVoltageRangeComboBox.setCollection = dcChannel.getSelectibleVoltageList();
         }
         
 
@@ -2180,6 +2190,7 @@ namespace HV9104_GUI
             controlForm.setupView.impulseCheckBox.isChecked = false;
             controlForm.setupView.impulseCheckBox.Enabled = false;
             dcChannel.Stage = 2;
+            this.measuringForm.dcVoltageRangeComboBox.setCollection = dcChannel.getSelectibleVoltageList();
         }
 
         private void dcStage3RadioButton_Click(object sender, EventArgs e)
@@ -2189,6 +2200,7 @@ namespace HV9104_GUI
             controlForm.setupView.impulseCheckBox.isChecked = false;
             controlForm.setupView.impulseCheckBox.Enabled = false;
             dcChannel.Stage = 3;
+            this.measuringForm.dcVoltageRangeComboBox.setCollection = dcChannel.getSelectibleVoltageList();
         }
 
 
@@ -2268,6 +2280,7 @@ namespace HV9104_GUI
         {
             impulseHighDividerValues[0] = (decimal)e.Value;
             impulseChannel.Stage = 1;
+            this.measuringForm.impulseVoltageRangeComboBox.setCollection = impulseChannel.getSelectibleVoltageList();
             calcImpulseDividerRatio();
         }
 
@@ -2275,6 +2288,7 @@ namespace HV9104_GUI
         {
             impulseHighDividerValues[1] = (decimal)e.Value;
             impulseChannel.Stage = 2;
+            this.measuringForm.impulseVoltageRangeComboBox.setCollection = impulseChannel.getSelectibleVoltageList();
             calcImpulseDividerRatio();
         }
 
@@ -2282,6 +2296,7 @@ namespace HV9104_GUI
         {
             impulseHighDividerValues[2] = (decimal)e.Value;
             impulseChannel.Stage = 3;
+            this.measuringForm.impulseVoltageRangeComboBox.setCollection = impulseChannel.getSelectibleVoltageList();
             calcImpulseDividerRatio();
         }
 

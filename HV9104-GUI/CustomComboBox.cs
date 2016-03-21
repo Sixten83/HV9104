@@ -23,6 +23,7 @@ namespace HV9104_GUI
         String[] test;
         ToolTip toolTip;
         public event EventHandler<ValueChangeEventArgs> valueChangeHandler;
+        int index = 0;
        
 
         public CustomComboBox()
@@ -60,8 +61,14 @@ namespace HV9104_GUI
             selectedMember.Location = new System.Drawing.Point((int)(this.Width * 0.05F), 0);
         }
 
+        public void setSelectionIndex(int index)
+        {
+            this.index = index;
+        }
+
         public void setSelected(int index)
         {
+            this.index = index;
             selectedMember.Text = listMembers[index];
         }
 
@@ -75,6 +82,7 @@ namespace HV9104_GUI
             set
             {
                 selectedMember.Text = value;
+                index = listMembers.IndexOf(value);
             }
             get
             {
@@ -112,7 +120,7 @@ namespace HV9104_GUI
                 {
                     addListMembers(s);
                 }
-                selectedMember.Text = listMembers[0];
+                selectedMember.Text = listMembers[index];
             }
         }
 
@@ -132,8 +140,6 @@ namespace HV9104_GUI
             showDropDownlist();
             base.OnMouseDown(e);
         }
-
-        
 
         private void _OnMouseDown(object sender, MouseEventArgs e)
         {
@@ -191,16 +197,9 @@ namespace HV9104_GUI
 
         private void frm2_AdviseParent(object sender, AdviseParentEventArgs e)
         {
-            selectedMember.Text = e.AdviseText;
-            double index = 0;
-            foreach (String s in listMembers)
-            {
-                
-                if (s.Equals(selectedMember.Text))
-                    break;
-                index++;
-            }
-            reportValueChange(selectedMember.Text,index);
+           
+            SetSelected = e.AdviseText;            
+            reportValueChange(selectedMember.Text, listMembers.IndexOf(selectedMember.Text));
         }
 
         protected virtual void reportValueChange(string text, double value)

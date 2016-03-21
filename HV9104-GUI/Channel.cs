@@ -32,9 +32,10 @@ namespace HV9104_GUI
         int                         polarity = 1;
         bool                        voltageAutoRange;
         int                         maxSamples = 100000;
-        int                         chartAmplitud = 200;
         int                         stage = 1;
         string                      name;
+        bool                        isAutoRangeable = true;        
+        double[]                    voltsPerDiv = { 0.4, 1, 2, 4, 10, 20, 40};
 
         public struct ScaledData
         {
@@ -49,6 +50,55 @@ namespace HV9104_GUI
             this.voltageRange = Imports.Range.Range_1V;
             representation = new double[5];
             setIncrementValues();
+            
+        }
+
+        public bool isSWOverFlow()
+        {
+            double factor = (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;
+            double rawMax = ((max + 1 * dcOffset) / factor);
+            rawMax *= dividerRatio / (10 * (double)stage);
+
+            if (rawMax > adMaxValue)
+                return true;
+            else
+                return false;
+        }
+        
+        public string[] getSelectibleVoltageList()
+        {
+            int i = 0 ,r = 0;
+            string[] selectibleVoltageList;
+
+            if (isAutoRangeable)
+            {
+                selectibleVoltageList = new string[8];
+                selectibleVoltageList[i++] = "Auto";
+            }
+            else
+                selectibleVoltageList = new string[7];
+
+            selectibleVoltageList[i++] = (voltsPerDiv[r++] * stage).ToString("0.0").Replace(',', '.') + " kV/Div";
+
+            for (; i < selectibleVoltageList.Length; i++)
+            {
+                selectibleVoltageList[i] = (voltsPerDiv[r] * stage).ToString("0.").Replace(',', '.') + " kV/Div";
+                r++;
+            }
+               
+            return selectibleVoltageList;
+        }
+
+        public bool IsAutoRangeable
+        {
+            set
+            {
+                this.isAutoRangeable = value;
+            }
+            get
+            {
+                return this.isAutoRangeable;
+            }
         }
 
         public string Name
@@ -90,7 +140,8 @@ namespace HV9104_GUI
         public double getRawMaxRatio()
         {
             double factor = (((double)inputRanges[(int)voltageRange] * dividerRatio) / adMaxValue) / 1000;
-            return ((max + 1 * dcOffset) / factor) / adMaxValue;
+            double chartScaler = dividerRatio / (10 * (double)stage);
+            return (chartScaler * (max + 1 * dcOffset) / factor) / adMaxValue;
         }
 
         public Imports.ThresholdDirection TriggerType

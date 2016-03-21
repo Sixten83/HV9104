@@ -202,6 +202,7 @@ namespace HV9104_GUI
             channels[2].TriggerType = Imports.ThresholdDirection.Rising;
             channels[2].TriggerLevel = (short)(-1 * channels[2].Polarity * maxADValue * 4 / 5 + 1000);
             channels[2].Name = "Impulse Channel";
+            channels[2].IsAutoRangeable = false;
             Imports.SetChannel(handle, channels[2].ChannelName, 0, channels[2].Coupling, channels[2].VoltageRange, 0);
         }       
 
@@ -279,8 +280,9 @@ namespace HV9104_GUI
             _trigAt = 0;
             _autoStop = false;
             _overflow = 0;
+           
             status = Imports.RunStreaming(handle, ref streamingInterval, streamingIntervalUnits, preTrigger, streamingSamples - preTrigger, 1, streamingSamples, Imports.RatioMode.Aggregate, (uint)bufferSize);
-               // Console.WriteLine("RunFastStreaming Status : {0} ", status);
+               
           if (_autoStop)
                 Imports.Stop(handle);
         }
