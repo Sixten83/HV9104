@@ -619,9 +619,9 @@ namespace HV9104_GUI
             }
 
             if(channel == acChannel)
-                this.measuringForm.acScaleLabel.Text = channel.rangeToVolt() + " kV/Div";
+                this.measuringForm.acScaleLabel.Text = channel.getSelectibleVoltageList()[(int)channel.VoltageRange - 3];
             else
-                this.measuringForm.dcScaleLabel.Text = channel.rangeToVolt() + " kV/Div";
+                this.measuringForm.dcScaleLabel.Text = channel.getSelectibleVoltageList()[(int)channel.VoltageRange - 3];
            
             rebootStream();
         }
@@ -1177,7 +1177,7 @@ namespace HV9104_GUI
                 this.measuringForm.chart.cursorMenu.setScaleFactor(acChannel.getScaleFactor(), acChannel.DCOffset);
                 this.measuringForm.chart.updateCursorMenu();
             }
-            this.measuringForm.acScaleLabel.Text = acChannel.rangeToVolt() + "kV/Div";
+            this.measuringForm.acScaleLabel.Text = acChannel.getSelectibleVoltageList()[(int)acChannel.VoltageRange - 3];
         }
 
         private void acEnableCheckBox_Click(object sender, EventArgs e)
@@ -1213,7 +1213,7 @@ namespace HV9104_GUI
                 this.measuringForm.chart.cursorMenu.setScaleFactor(dcChannel.getScaleFactor(), dcChannel.DCOffset);
                 this.measuringForm.chart.updateCursorMenu();
             }
-            this.measuringForm.dcScaleLabel.Text = dcChannel.rangeToVolt() + "kV/div";
+            this.measuringForm.dcScaleLabel.Text = dcChannel.getSelectibleVoltageList()[(int)dcChannel.VoltageRange - 3];
 
         }
 
@@ -1253,7 +1253,7 @@ namespace HV9104_GUI
             rebootStream();
             this.measuringForm.chart.cursorMenu.setScaleFactor(impulseChannel.getScaleFactor(), impulseChannel.DCOffset * impulseChannel.DividerRatio);
             this.measuringForm.chart.updateCursorMenu();
-            this.measuringForm.impulseScaleLabel.Text = impulseChannel.rangeToVolt() + "kV/Div";
+            this.measuringForm.impulseScaleLabel.Text = impulseChannel.getSelectibleVoltageList()[(int)impulseChannel.VoltageRange - 3];
         }
 
 

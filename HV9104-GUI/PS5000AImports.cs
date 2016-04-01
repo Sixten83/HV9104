@@ -546,6 +546,16 @@ namespace HV9104_GUI
                                                             out float maximumVoltage,
                                                             out float minimumVoltage);
 
+       [DllImport(_DRIVER_FILENAME, EntryPoint = "ps5000aQueryOutputEdgeDetect")]
+       public static extern uint QueryOutputEdgeDetect(
+                                                           short handle,
+                                                           short[] state);
+
+       [DllImport(_DRIVER_FILENAME, EntryPoint = "ps5000aSetOutputEdgeDetect")]
+       public static extern uint SetOutputEdgeDetect(
+                                                           short handle,
+                                                           short state);
+
         #endregion
     }
 }

@@ -295,7 +295,7 @@
             this.dcScaleLabel.Name = "dcScaleLabel";
             this.dcScaleLabel.Size = new System.Drawing.Size(77, 23);
             this.dcScaleLabel.TabIndex = 7;
-            this.dcScaleLabel.Text = "5 kV/Div";
+            this.dcScaleLabel.Text = "2 kV/Div";
             // 
             // acScaleLabel
             // 
@@ -306,7 +306,7 @@
             this.acScaleLabel.Name = "acScaleLabel";
             this.acScaleLabel.Size = new System.Drawing.Size(77, 23);
             this.acScaleLabel.TabIndex = 7;
-            this.acScaleLabel.Text = "5 kV/Div";
+            this.acScaleLabel.Text = "2 kV/Div";
             // 
             // label50
             // 

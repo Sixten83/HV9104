@@ -36,6 +36,8 @@ namespace HV9104_GUI
         string                      name;
         bool                        isAutoRangeable = true;        
         double[]                    voltsPerDiv = { 0.4, 1, 2, 4, 10, 20, 40};
+        string[]                    selectibleVoltageList;
+
 
         public struct ScaledData
         {
@@ -68,7 +70,6 @@ namespace HV9104_GUI
         public string[] getSelectibleVoltageList()
         {
             int i = 0 ,r = 0;
-            string[] selectibleVoltageList;
 
             if (isAutoRangeable)
             {
