@@ -372,6 +372,7 @@ namespace HV9104_GUI
             dcChannel.DividerRatio = (double)((dcDefaultHighDividerValues[0] + dcDefaultLowDividerValue) / dcDefaultLowDividerValue) / 1000;
             impulseChannel.DividerRatio = (double)(impulseAttenuatorRatio * (impulseDefaultHighDividerValues[0] + impulseDefaultLowDividerValues[0]) / impulseDefaultHighDividerValues[0]) / 1000;
             Console.WriteLine("impulseChannel.DividerRatio" + impulseChannel.DividerRatio);
+            //Imports.SetOutputEdgeDetect(picoScope.Handle, 0);
             picoScope.setTriggerChannel(Imports.Channel.ChannelA);
             picoScope.Resolution = Imports.DeviceResolution.PS5000A_DR_12BIT;
             picoScope.setFastStreamDataBuffer();
